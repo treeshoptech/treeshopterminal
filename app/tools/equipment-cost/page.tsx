@@ -2,8 +2,7 @@
 
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
-import { ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
 
 export default function EquipmentCostCalculator() {
   const [formData, setFormData] = useState({
@@ -54,16 +53,10 @@ export default function EquipmentCostCalculator() {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="mb-6">
-          <Link href="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900">
-            <ArrowLeft className="w-4 h-4" />
-            Back to Tools
-          </Link>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-lg p-8">
+    <DashboardLayout>
+      <div className="p-8">
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl p-8">
           <h1 className="text-4xl font-bold text-green-800 border-b-4 border-green-800 pb-4 mb-2">
             Equipment Cost Calculator
           </h1>
@@ -198,6 +191,7 @@ export default function EquipmentCostCalculator() {
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </DashboardLayout>
   );
 }

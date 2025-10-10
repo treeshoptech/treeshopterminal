@@ -12,23 +12,24 @@ export const list = query({
     status: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    let query = ctx.db
+    const equipment = await ctx.db
       .query('equipment')
       .withIndex('by_organizationId', (q) =>
         q.eq('organizationId', args.organizationId)
-      );
+      )
+      .collect();
 
-    let equipment = await query.collect();
+    let filtered = equipment;
 
     if (args.category) {
-      equipment = equipment.filter(e => e.category === args.category);
+      filtered = filtered.filter(e => e.category === args.category);
     }
 
     if (args.status) {
-      equipment = equipment.filter(e => e.status === args.status);
+      filtered = filtered.filter(e => e.status === args.status);
     }
 
-    return equipment.sort((a, b) => b.createdAt - a.createdAt);
+    return filtered.sort((a, b) => b.createdAt - a.createdAt);
   },
 });
 

@@ -14,16 +14,14 @@ export const list = query({
     search: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    let query = ctx.db.query('customers');
-
-    // Filter by organization
-    if (args.organizationId) {
-      query = query.withIndex('by_organizationId', (q) =>
-        q.eq('organizationId', args.organizationId)
-      );
-    }
-
-    const customers = await query.collect();
+    const customers = args.organizationId
+      ? await ctx.db
+          .query('customers')
+          .withIndex('by_organizationId', (q) =>
+            q.eq('organizationId', args.organizationId!)
+          )
+          .collect()
+      : await ctx.db.query('customers').collect();
 
     // Apply filters
     let filtered = customers;

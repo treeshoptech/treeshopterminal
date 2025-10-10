@@ -69,12 +69,19 @@ export default function HomePage() {
           })}
         </div>
 
-        {/* Auth Link */}
-        <div className="text-center mt-8">
-          <Link href="/signup" className="text-sm" style={{ color: 'rgba(255,255,255,0.5)' }}>
-            Sign up to save your data
+        {/* Auth Links */}
+        <div className="flex justify-center gap-6 mt-8">
+          <Link href="/login" className="text-sm font-semibold" style={{ color: '#22C55E' }}>
+            Sign In
+          </Link>
+          <span style={{ color: 'rgba(255,255,255,0.3)' }}>•</span>
+          <Link href="/signup" className="text-sm font-semibold" style={{ color: '#22C55E' }}>
+            Create Account
           </Link>
         </div>
+        <p className="text-center mt-4 text-xs" style={{ color: 'rgba(255,255,255,0.4)' }}>
+          Sign in required to save equipment, employees, and loadouts
+        </p>
       </div>
     </div>
   );

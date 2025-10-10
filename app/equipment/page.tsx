@@ -31,6 +31,8 @@ import '@/styles/design-system.css';
 
 import { useAuth } from '@/hooks/useAuth';
 
+import { AuthGuard } from '@/components/auth/AuthGuard';
+
 export default function EquipmentLibraryPage() {
   const { orgId } = useAuth();
   const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
@@ -135,6 +137,7 @@ export default function EquipmentLibraryPage() {
   };
 
   return (
+    <AuthGuard>
     <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
@@ -827,5 +830,6 @@ export default function EquipmentLibraryPage() {
           )}
         </div>
     </div>
+    </AuthGuard>
   );
 }

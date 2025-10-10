@@ -26,6 +26,7 @@ import Link from 'next/link';
 import '@/styles/design-system.css';
 
 import { useAuth } from '@/hooks/useAuth';
+import { AuthGuard } from '@/components/auth/AuthGuard';
 
 export default function ProjectsPage() {
   const { orgId } = useAuth();
@@ -57,6 +58,7 @@ export default function ProjectsPage() {
   };
 
   return (
+    <AuthGuard>
     <>
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
@@ -557,5 +559,6 @@ export default function ProjectsPage() {
         </div>
       </div>
     </>
+    </AuthGuard>
   );
 }

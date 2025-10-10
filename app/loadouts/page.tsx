@@ -28,6 +28,7 @@ import Link from 'next/link';
 import '@/styles/design-system.css';
 
 import { useAuth } from '@/hooks/useAuth';
+import { AuthGuard } from '@/components/auth/AuthGuard';
 
 export default function LoadoutsPage() {
   const { orgId } = useAuth();
@@ -134,6 +135,7 @@ export default function LoadoutsPage() {
   };
 
   return (
+    <AuthGuard>
     <>
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
@@ -748,6 +750,7 @@ export default function LoadoutsPage() {
                 const serviceGradient = getServiceTypeGradient(loadout.serviceType);
 
                 return (
+    <AuthGuard>
                   <div key={loadout._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hardware-accelerated"
                        style={{
                          background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
@@ -868,5 +871,6 @@ export default function LoadoutsPage() {
         </div>
       </div>
     </>
+    </AuthGuard>
   );
 }

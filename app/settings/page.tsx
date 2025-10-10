@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { AuthGuard } from '@/components/auth/AuthGuard';
 import { Settings, User, Bell, Palette, Shield, LogOut, Smartphone, Download } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -26,6 +27,7 @@ export default function SettingsPage() {
   };
 
   return (
+    <AuthGuard>
     <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
       <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
         {/* Header */}
@@ -182,5 +184,6 @@ export default function SettingsPage() {
         </div>
       </div>
     </div>
+    </AuthGuard>
   );
 }

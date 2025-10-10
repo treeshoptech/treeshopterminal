@@ -1,138 +1,80 @@
 import Link from 'next/link';
-import { Calculator, DollarSign, Users, Truck, TrendingUp, FileText, Wrench, ArrowRight } from 'lucide-react';
+import { Truck, Wrench, FileText, ArrowRight } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
-  const tools = [
+  const steps = [
     {
-      title: 'Equipment Cost Calculator',
-      description: 'Calculate true hourly equipment costs with ownership and operating expenses',
-      href: '/tools/equipment-cost',
+      step: 'Step 1',
+      title: 'Equipment Library',
+      description: 'Add your equipment and auto-calculate hourly costs',
+      href: '/equipment',
       icon: Truck,
       color: 'bg-green-600',
-      step: 'Step 1',
     },
     {
-      title: 'Employee Cost Calculator',
-      description: 'Determine actual labor costs with burden multipliers',
-      href: '/tools/employee-cost',
-      icon: Users,
-      color: 'bg-blue-600',
       step: 'Step 2',
+      title: 'Loadouts',
+      description: 'Build crew loadouts from your saved equipment',
+      href: '/loadouts',
+      icon: Wrench,
+      color: 'bg-blue-600',
     },
     {
-      title: 'Loadout Cost Calculator',
-      description: 'Combine equipment and labor for total loadout operating cost',
-      href: '/tools/loadout-cost',
-      icon: Calculator,
-      color: 'bg-yellow-600',
       step: 'Step 3',
-    },
-    {
-      title: 'Profit Margin Converter',
-      description: 'Convert target profit margins to hourly billing rates',
-      href: '/tools/profit-margin',
-      icon: DollarSign,
-      color: 'bg-purple-600',
-      step: 'Step 4',
-    },
-    {
-      title: 'Project Pricing Calculator',
-      description: 'Calculate complete project pricing with inch-acres and production rates',
-      href: '/tools/project-pricing',
-      icon: FileText,
-      color: 'bg-indigo-600',
-      step: 'Steps 5 & 6',
-    },
-    {
-      title: 'Complete Pricing System',
-      description: 'All 6 steps in one interface - from equipment to final project price',
+      title: 'Price Projects',
+      description: 'Calculate project pricing using your saved loadouts',
       href: '/pricing',
-      icon: TrendingUp,
-      color: 'bg-green-800',
-      step: 'All Steps',
+      icon: FileText,
+      color: 'bg-purple-600',
     },
-  ];
-
-  const quickActions = [
-    { name: 'Equipment Library', href: '/equipment', icon: Truck, description: 'Manage your equipment inventory' },
-    { name: 'Loadouts', href: '/loadouts', icon: Wrench, description: 'Configure crew loadouts' },
-    { name: 'Projects', href: '/projects', icon: FileText, description: 'Create and price projects' },
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="p-8">
-        {/* Hero Section */}
-        <div className="mb-12">
-          <div className="inline-block px-3 py-1 bg-green-600 text-white text-xs font-semibold rounded-full mb-3">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 flex items-center justify-center p-8">
+      <div className="max-w-5xl w-full">
+        <div className="text-center mb-16">
+          <div className="inline-block px-4 py-1 bg-green-600 text-white text-sm font-semibold rounded-full mb-4">
             PRODUCTION READY
           </div>
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-2">
-            TreeShop Pricing System
-          </h1>
-          <p className="text-lg text-gray-600 dark:text-gray-400">
+          <h1 className="text-6xl font-bold text-white mb-4">TreeShop Pricing System</h1>
+          <p className="text-xl text-gray-400">
             Formula-driven cost calculations for tree service operations
           </p>
         </div>
 
-        {/* Quick Actions */}
-        <div className="mb-12">
-          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
-            Quick Actions
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {quickActions.map((action) => {
-              const Icon = action.icon;
-              return (
-                <Link
-                  key={action.href}
-                  href={action.href}
-                  className="group bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-green-500 dark:hover:border-green-500 transition-all"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="w-10 h-10 bg-green-100 dark:bg-green-900/20 rounded-lg flex items-center justify-center">
-                      <Icon className="w-5 h-5 text-green-600 dark:text-green-400" />
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-gray-400 group-hover:text-green-500 group-hover:translate-x-1 transition-all" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {steps.map((item) => {
+            const Icon = item.icon;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group bg-gray-800 border border-gray-700 rounded-xl p-8 hover:border-green-500 transition-all hover:shadow-2xl"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <div className={`${item.color} w-14 h-14 rounded-xl flex items-center justify-center`}>
+                    <Icon className="w-7 h-7 text-white" />
                   </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{action.name}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{action.description}</p>
-                </Link>
-              );
-            })}
-          </div>
+                  <span className="text-sm font-bold text-gray-500">{item.step}</span>
+                </div>
+                <h2 className="text-2xl font-bold text-white mb-2">{item.title}</h2>
+                <p className="text-gray-400 mb-4">{item.description}</p>
+                <div className="flex items-center gap-2 text-green-500 font-medium">
+                  <span>Get Started</span>
+                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </div>
+              </Link>
+            );
+          })}
         </div>
 
-        {/* Pricing Tools */}
-        <div>
-          <h2 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4">
-            Pricing Calculators
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {tools.map((tool) => {
-              const Icon = tool.icon;
-              return (
-                <Link
-                  key={tool.href}
-                  href={tool.href}
-                  className="group bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-all"
-                >
-                  <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-3">
-                      <div className={`${tool.color} w-10 h-10 rounded-lg flex items-center justify-center`}>
-                        <Icon className="w-5 h-5 text-white" />
-                      </div>
-                      <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">{tool.step}</span>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-gray-300 dark:text-gray-700 group-hover:text-gray-400 group-hover:translate-x-1 transition-all" />
-                  </div>
-                  <h3 className="font-semibold text-gray-900 dark:text-white mb-1">{tool.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{tool.description}</p>
-                </Link>
-              );
-            })}
+        <div className="mt-16 text-center">
+          <div className="inline-block bg-gray-800 border border-gray-700 rounded-xl p-8">
+            <p className="text-gray-400">
+              Complete 3-Step System | Equipment → Loadouts → Projects
+            </p>
           </div>
         </div>
       </div>

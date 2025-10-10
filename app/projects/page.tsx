@@ -95,9 +95,11 @@ export default function ProjectsPage() {
                         value={projectData.dbhPackage}
                         onChange={(e) => setProjectData({ ...projectData, dbhPackage: Number(e.target.value) })}
                       >
-                        <option value={4}>Small (4" DBH)</option>
-                        <option value={6}>Medium (6" DBH)</option>
-                        <option value={8}>Large (8" DBH)</option>
+                        <option value={4}>Small (4")</option>
+                        <option value={6}>Medium (6")</option>
+                        <option value={8}>Large (8")</option>
+                        <option value={10}>XLarge (10")</option>
+                        <option value={12}>Max (12")</option>
                       </select>
                     </div>
                   </div>

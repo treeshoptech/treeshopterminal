@@ -308,7 +308,7 @@ export default function ProjectsPage() {
                      pointerEvents: 'none'
                    }} />
 
-              <div className="relative p-8 space-y-8">
+              <div className="relative p-6 md:p-8 space-y-8 md:space-y-10">
                 {/* Project Details Section */}
                 <div>
                   <div className="flex items-center gap-2 mb-6">
@@ -325,7 +325,7 @@ export default function ProjectsPage() {
                       Project Details
                     </h3>
                   </div>
-                  <div className="space-y-5">
+                  <div className="space-y-6">
                     <div className="input-group">
                       <label className="input-label">Project Name</label>
                       <input
@@ -372,7 +372,7 @@ export default function ProjectsPage() {
                           Project Parameters
                         </h3>
                       </div>
-                      <div className="grid grid-cols-2 gap-5">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div className="input-group">
                           <label className="input-label">Project Acreage</label>
                           <input
@@ -469,14 +469,14 @@ export default function ProjectsPage() {
                     </div>
 
                     {/* Calculation Breakdown */}
-                    <div className="p-6 rounded-2xl"
+                    <div className="p-5 md:p-6 rounded-2xl"
                          style={{
                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%)',
                            border: '1px solid rgba(34, 197, 94, 0.3)',
                            backdropFilter: 'blur(30px)',
                            WebkitBackdropFilter: 'blur(30px)'
                          }}>
-                      <div className="flex items-center gap-2 mb-5">
+                      <div className="flex items-center gap-2 mb-4">
                         <Calculator className="w-5 h-5" style={{ color: '#22C55E' }} />
                         <h3 className="text-sm font-semibold uppercase tracking-wider"
                             style={{ color: '#22C55E', letterSpacing: '0.1em' }}>
@@ -528,7 +528,7 @@ export default function ProjectsPage() {
                     </div>
 
                     {/* BOLD Final Price Display */}
-                    <div className="relative overflow-hidden rounded-3xl p-10 text-center"
+                    <div className="relative overflow-hidden rounded-3xl p-8 md:p-10 text-center"
                          style={{
                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.4) 0%, rgba(34, 197, 94, 0.4) 50%, rgba(34, 197, 94, 0.3) 100%)',
                            border: '2px solid rgba(34, 197, 94, 0.6)',

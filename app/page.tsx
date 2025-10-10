@@ -87,86 +87,102 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-      {/* Premium Hero Section */}
+      {/* Ultra-Premium Hero Section with BOLD Gradients */}
       <div className="relative overflow-hidden">
-        {/* Sophisticated Background Pattern */}
+        {/* BOLD Background Pattern - Much More Visible */}
         <div className="absolute inset-0">
           <div className="absolute inset-0"
                style={{
                  backgroundImage: `
-                   radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
-                   radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.08) 0%, transparent 50%),
-                   radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%)
+                   radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.25) 0%, transparent 50%),
+                   radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.25) 0%, transparent 50%),
+                   radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 50%)
                  `
                }} />
 
-          {/* Animated Gradient Orbs with Better Performance */}
-          <div className="absolute top-1/4 -left-48 w-96 h-96 rounded-full animate-pulse"
+          {/* BOLD Animated Gradient Orbs - Much More Prominent */}
+          <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%)',
-                 filter: 'blur(60px)',
+                 background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 70%)',
+                 filter: 'blur(80px)',
                  transform: 'translate3d(0, 0, 0)'
                }} />
-          <div className="absolute -bottom-32 -right-32 w-[500px] h-[500px] rounded-full animate-pulse"
+          <div className="absolute -bottom-32 -right-32 w-[700px] h-[700px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%)',
-                 filter: 'blur(60px)',
+                 background: 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) 40%, transparent 70%)',
+                 filter: 'blur(80px)',
                  animationDelay: '1s',
                  transform: 'translate3d(0, 0, 0)'
                }} />
-          <div className="absolute top-1/2 left-1/2 w-[600px] h-[600px] rounded-full animate-pulse"
+          <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 70%)',
-                 filter: 'blur(80px)',
+                 background: 'radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.15) 40%, transparent 70%)',
+                 filter: 'blur(100px)',
                  animationDelay: '2s',
                  transform: 'translate3d(-50%, -50%, 0)'
+               }} />
+
+          {/* Additional BOLD Accent Orbs */}
+          <div className="absolute top-10 right-1/4 w-[400px] h-[400px] rounded-full animate-pulse"
+               style={{
+                 background: 'radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, transparent 70%)',
+                 filter: 'blur(70px)',
+                 animationDelay: '3s',
+                 transform: 'translate3d(0, 0, 0)'
                }} />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-32">
-          {/* Premium Status Badge */}
+          {/* ULTRA-Premium Status Badge with VISIBLE Glass */}
           <div className="flex justify-center mb-10 animate-fadeInUp"
                style={{ animationDelay: '100ms' }}>
-            <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full glass"
+            <div className="inline-flex items-center gap-2 px-5 py-3 rounded-full glass"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0.05) 100%)',
-                   border: '1px solid rgba(16, 185, 129, 0.2)',
-                   backdropFilter: 'blur(20px)',
-                   WebkitBackdropFilter: 'blur(20px)'
+                   background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
+                   border: '2px solid rgba(16, 185, 129, 0.4)',
+                   backdropFilter: 'blur(30px)',
+                   WebkitBackdropFilter: 'blur(30px)',
+                   boxShadow: '0 8px 32px rgba(16, 185, 129, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
                  }}>
-              <span className="relative flex h-2.5 w-2.5">
+              <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
                       style={{ background: 'var(--brand-400)' }}></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5"
-                      style={{ background: 'var(--brand-400)' }}></span>
+                <span className="relative inline-flex rounded-full h-3 w-3"
+                      style={{ background: 'var(--brand-400)', boxShadow: '0 0 10px rgba(16, 185, 129, 0.8)' }}></span>
               </span>
-              <span className="text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: 'var(--brand-400)', letterSpacing: '0.1em' }}>
+              <span className="text-sm font-bold uppercase tracking-wider"
+                    style={{
+                      color: 'var(--brand-400)',
+                      letterSpacing: '0.1em',
+                      textShadow: '0 0 20px rgba(16, 185, 129, 0.5)'
+                    }}>
                 Enterprise Ready
               </span>
-              <Sparkles className="w-3.5 h-3.5" style={{ color: 'var(--brand-400)' }} />
+              <Sparkles className="w-4 h-4" style={{ color: 'var(--brand-400)', filter: 'drop-shadow(0 0 8px rgba(16, 185, 129, 0.8))' }} />
             </div>
           </div>
 
-          {/* Premium Heading with Animation */}
+          {/* IMPACTFUL Heading with BOLD Gradients */}
           <div className="text-center mb-8 space-y-6">
             <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight animate-fadeInUp"
                 style={{
                   animationDelay: '200ms',
-                  background: 'linear-gradient(180deg, var(--text-primary) 0%, rgba(255,255,255,0.7) 100%)',
+                  background: 'linear-gradient(180deg, #FFFFFF 0%, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.8) 100%)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
                   letterSpacing: '-0.02em',
-                  lineHeight: '0.95'
+                  lineHeight: '0.95',
+                  textShadow: '0 0 80px rgba(255, 255, 255, 0.1)'
                 }}>
               TreeShop
-              <span className="block text-5xl sm:text-6xl lg:text-7xl mt-2"
+              <span className="block text-5xl sm:text-6xl lg:text-7xl mt-4"
                     style={{
-                      background: 'var(--gradient-brand)',
+                      background: 'linear-gradient(135deg, #10B981 0%, #34D399 30%, #10B981 60%, #059669 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
-                      backgroundClip: 'text'
+                      backgroundClip: 'text',
+                      filter: 'drop-shadow(0 0 40px rgba(16, 185, 129, 0.5))'
                     }}>
                 Pricing System
               </span>
@@ -184,62 +200,68 @@ export default function HomePage() {
             </p>
           </div>
 
-          {/* Premium CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12 animate-fadeInUp"
+          {/* BOLD CTA Buttons with Enhanced Glass */}
+          <div className="flex flex-col sm:flex-row gap-5 justify-center mt-12 animate-fadeInUp"
                style={{ animationDelay: '400ms' }}>
             <Link href="/equipment"
-                  className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-2xl transition-all duration-300 hardware-accelerated"
+                  className="group inline-flex items-center justify-center px-10 py-5 text-lg font-bold rounded-2xl transition-all duration-300 hardware-accelerated"
                   style={{
-                    background: 'var(--gradient-brand)',
+                    background: 'linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%)',
                     color: 'white',
                     boxShadow: `
-                      0 4px 14px 0 rgba(16, 185, 129, 0.35),
-                      inset 0 1px 2px rgba(255, 255, 255, 0.1)
+                      0 8px 24px 0 rgba(16, 185, 129, 0.5),
+                      0 0 40px rgba(16, 185, 129, 0.3),
+                      inset 0 2px 4px rgba(255, 255, 255, 0.2),
+                      inset 0 -2px 4px rgba(0, 0, 0, 0.2)
                     `,
-                    transform: 'translateZ(0)'
+                    transform: 'translateZ(0)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)'
                   }}>
               <span>Get Started</span>
               <ArrowRight className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
-            <button className="group inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-2xl transition-all duration-300 glass hardware-accelerated"
+            <button className="group inline-flex items-center justify-center px-10 py-5 text-lg font-bold rounded-2xl transition-all duration-300 glass hardware-accelerated"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)',
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.08) 100%)',
                       color: 'var(--text-primary)',
-                      border: '1px solid var(--border-default)',
-                      backdropFilter: 'blur(20px)',
-                      WebkitBackdropFilter: 'blur(20px)'
+                      border: '2px solid rgba(255,255,255,0.15)',
+                      backdropFilter: 'blur(30px)',
+                      WebkitBackdropFilter: 'blur(30px)',
+                      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.1)'
                     }}>
               <Activity className="mr-2 w-5 h-5" />
               View Demo
             </button>
           </div>
 
-          {/* Premium Feature Pills */}
-          <div className="flex flex-wrap gap-3 justify-center mt-16 animate-fadeInUp"
+          {/* BOLD Feature Pills with Enhanced Glass */}
+          <div className="flex flex-wrap gap-4 justify-center mt-16 animate-fadeInUp"
                style={{ animationDelay: '500ms' }}>
             {features.map((feature, index) => {
               const Icon = feature.icon;
               return (
                 <div key={index}
-                     className="group inline-flex items-center gap-3 px-5 py-3 rounded-2xl transition-all duration-300 glass"
+                     className="group inline-flex items-center gap-3 px-6 py-4 rounded-2xl transition-all duration-300 glass hover:scale-105"
                      style={{
-                       background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
-                       border: '1px solid var(--border-default)',
-                       backdropFilter: 'blur(10px)',
-                       WebkitBackdropFilter: 'blur(10px)',
-                       cursor: 'default'
+                       background: 'linear-gradient(135deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.06) 100%)',
+                       border: '2px solid rgba(255,255,255,0.12)',
+                       backdropFilter: 'blur(30px)',
+                       WebkitBackdropFilter: 'blur(30px)',
+                       cursor: 'default',
+                       boxShadow: '0 8px 32px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.1)'
                      }}>
-                  <div className="p-2 rounded-lg"
+                  <div className="p-2.5 rounded-xl"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%)'
+                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0.2) 100%)',
+                         boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.2)'
                        }}>
-                    <Icon className="w-4 h-4" style={{ color: 'var(--brand-400)' }} />
+                    <Icon className="w-5 h-5" style={{ color: 'var(--brand-400)', filter: 'drop-shadow(0 0 8px rgba(16, 185, 129, 0.8))' }} />
                   </div>
                   <div>
-                    <div className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>
+                    <div className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
                       {feature.title}
                     </div>
-                    <div className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                    <div className="text-xs font-medium" style={{ color: 'var(--text-secondary)' }}>
                       {feature.description}
                     </div>
                   </div>
@@ -302,44 +324,56 @@ export default function HomePage() {
                     opacity: 0
                   }}
                 >
-                  <div className="relative h-full p-6 rounded-3xl transition-all duration-500 hardware-accelerated"
+                  <div className="relative h-full p-7 rounded-3xl transition-all duration-500 hardware-accelerated"
                        style={{
-                         background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.98) 100%)',
-                         border: '1px solid var(--border-default)',
-                         backdropFilter: 'blur(40px)',
-                         WebkitBackdropFilter: 'blur(40px)',
-                         boxShadow: 'var(--shadow-lg)',
+                         background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.8) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                         border: '2px solid rgba(255, 255, 255, 0.1)',
+                         backdropFilter: 'blur(60px)',
+                         WebkitBackdropFilter: 'blur(60px)',
+                         boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.08)',
                          transform: 'translateZ(0)'
                        }}>
-                    {/* Background Gradient for Each Card */}
+                    {/* BOLD Background Gradient for Each Card */}
                     <div className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                         style={{ background: item.bgGradient }} />
-
-                    {/* Step Number Badge */}
-                    <div className="absolute -top-2 -right-2 w-12 h-12 rounded-2xl flex items-center justify-center"
                          style={{
-                           background: 'linear-gradient(135deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%)',
-                           backdropFilter: 'blur(10px)',
-                           WebkitBackdropFilter: 'blur(10px)',
-                           border: '1px solid var(--border-default)'
+                           background: item.bgGradient,
+                           boxShadow: `inset 0 0 80px ${item.color}40`
+                         }} />
+
+                    {/* BOLD Step Number Badge */}
+                    <div className="absolute -top-3 -right-3 w-14 h-14 rounded-2xl flex items-center justify-center"
+                         style={{
+                           background: 'linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.6) 100%)',
+                           backdropFilter: 'blur(20px)',
+                           WebkitBackdropFilter: 'blur(20px)',
+                           border: '2px solid rgba(255,255,255,0.15)',
+                           boxShadow: '0 8px 24px rgba(0, 0, 0, 0.5), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
                          }}>
-                      <span className="text-xs font-bold" style={{ color: item.color }}>
+                      <span className="text-sm font-black" style={{
+                        color: item.color,
+                        textShadow: `0 0 20px ${item.color}80`
+                      }}>
                         {item.step}
                       </span>
                     </div>
 
-                    {/* Premium Icon Container */}
-                    <div className="mb-5">
-                      <div className="w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110"
+                    {/* BOLD Icon Container with Glow */}
+                    <div className="mb-6">
+                      <div className="w-20 h-20 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3"
                            style={{
                              background: item.gradient,
                              boxShadow: `
-                               0 8px 16px ${item.color}33,
-                               inset 0 1px 1px rgba(255, 255, 255, 0.2)
+                               0 12px 32px ${item.color}60,
+                               0 0 40px ${item.color}40,
+                               inset 0 2px 4px rgba(255, 255, 255, 0.3),
+                               inset 0 -2px 4px rgba(0, 0, 0, 0.2)
                              `,
-                             transform: 'translateZ(0)'
+                             transform: 'translateZ(0)',
+                             border: '2px solid rgba(255, 255, 255, 0.15)'
                            }}>
-                        <Icon className="w-8 h-8 text-white" />
+                        <Icon className="w-10 h-10 text-white" style={{
+                          filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
+                        }} />
                       </div>
                     </div>
 

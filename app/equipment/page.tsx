@@ -195,19 +195,20 @@ export default function EquipmentLibraryPage() {
             </div>
           </div>
 
-          {/* Premium Stats Cards with Glassmorphism */}
+          {/* ULTRA-Premium Stats Cards with BOLD Glassmorphism */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
-                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(40px)',
-                   WebkitBackdropFilter: 'blur(40px)',
-                   boxShadow: 'var(--shadow-lg)'
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(16, 185, 129, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.1), transparent 70%)'
+                     background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
@@ -230,15 +231,16 @@ export default function EquipmentLibraryPage() {
 
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
-                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(40px)',
-                   WebkitBackdropFilter: 'blur(40px)',
-                   boxShadow: 'var(--shadow-lg)'
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(59, 130, 246, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(59, 130, 246, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 70%)'
+                     background: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(59, 130, 246, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
@@ -262,15 +264,16 @@ export default function EquipmentLibraryPage() {
 
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
-                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(40px)',
-                   WebkitBackdropFilter: 'blur(40px)',
-                   boxShadow: 'var(--shadow-lg)'
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(245, 158, 11, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(245, 158, 11, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.1), transparent 70%)'
+                     background: 'radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(245, 158, 11, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
@@ -292,15 +295,16 @@ export default function EquipmentLibraryPage() {
 
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
-                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(40px)',
-                   WebkitBackdropFilter: 'blur(40px)',
-                   boxShadow: 'var(--shadow-lg)'
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(139, 92, 246, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.1), transparent 70%)'
+                     background: 'radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(139, 92, 246, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">

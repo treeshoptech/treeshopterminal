@@ -22,6 +22,7 @@ import type * as loadouts from "../loadouts.js";
 import type * as projects from "../projects.js";
 import type * as seedData from "../seedData.js";
 import type * as timeTracker from "../timeTracker.js";
+import type * as workAreas from "../workAreas.js";
 import type * as workOrders from "../workOrders.js";
 
 /**
@@ -42,6 +43,7 @@ declare const fullApi: ApiFromModules<{
   projects: typeof projects;
   seedData: typeof seedData;
   timeTracker: typeof timeTracker;
+  workAreas: typeof workAreas;
   workOrders: typeof workOrders;
 }>;
 export declare const api: FilterApi<

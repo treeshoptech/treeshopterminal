@@ -473,4 +473,34 @@ export default defineSchema({
     .index("by_organizationId", ["organizationId"])
     .index("by_userId", ["userId"])
     .index("by_read", ["read", "organizationId"]),
+
+  workAreas: defineTable({
+    organizationId: v.string(),
+    jobSiteId: v.id('jobSites'),
+    name: v.string(),
+    polygon: v.array(v.object({
+      lat: v.number(),
+      lng: v.number(),
+    })),
+    area: v.number(),
+    perimeter: v.number(),
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_organizationId", ["organizationId"])
+    .index("by_jobSiteId", ["jobSiteId"]),
+
+  quotes: defineTable({
+    organizationId: v.string(),
+    serviceType: v.string(),
+    workAreaIds: v.array(v.id('workAreas')),
+    lowPrice: v.number(),
+    highPrice: v.number(),
+    estimatedHours: v.number(),
+    scopeOfWork: v.array(v.string()),
+    whatsIncluded: v.array(v.string()),
+    calculationDetails: v.any(),
+    createdAt: v.number(),
+  })
+    .index("by_organizationId", ["organizationId"]),
 });

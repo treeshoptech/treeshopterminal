@@ -1,20 +1,13 @@
 /**
- * Auth Module - Abstraction Layer
- *
- * Client components: import from '@/lib/auth/client'
- * Server components: import from '@/lib/auth/server'
+ * Auth Module - REAL Clerk Authentication
  */
 
-// Client exports (use in 'use client' components)
-export { MockAuthProvider as AuthProvider } from './MockAuthProvider';
-export { useAuth } from './MockAuthProvider';
+// Client exports
+export { ClerkProvider as AuthProvider } from '@clerk/nextjs';
+export { useAuth, useOrganization, useUser } from '@clerk/nextjs';
 
-// Server exports (use in server components)
-export { getAuth, getUser, getOrganization } from './server';
+// Server exports
+export { auth as getAuth, currentUser as getUser } from '@clerk/nextjs/server';
 
 // Types
 export type { AuthContext, User, Organization } from './types';
-
-// When ready for Clerk:
-// Client: export { ClerkProvider as AuthProvider, useAuth } from '@clerk/nextjs';
-// Server: export { auth as getAuth, currentUser as getUser } from '@clerk/nextjs/server';

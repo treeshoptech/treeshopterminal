@@ -1,20 +1,25 @@
 'use client';
 
-import { useAuth } from '@/lib/auth';
-import { Bell, User } from 'lucide-react';
+import { UserButton, OrganizationSwitcher } from '@clerk/nextjs';
+import { Bell } from 'lucide-react';
 import styles from './Header.module.css';
 
 export function Header() {
-  const { user, organization } = useAuth();
-
   return (
     <header className={styles.header}>
       <div className={styles.content}>
         <div className={styles.left}>
-          <div className={styles.orgInfo}>
-            <div className={styles.orgName}>{organization?.name || 'No Organization'}</div>
-            <div className={styles.orgRole}>{organization?.role || 'member'}</div>
-          </div>
+          <OrganizationSwitcher
+            appearance={{
+              elements: {
+                rootBox: {
+                  padding: '8px 12px',
+                  background: 'var(--bg-tertiary)',
+                  borderRadius: 'var(--radius-md)',
+                },
+              },
+            }}
+          />
         </div>
 
         <div className={styles.right}>
@@ -23,10 +28,16 @@ export function Header() {
             <span className={styles.badge}>3</span>
           </button>
 
-          <div className={styles.userInfo}>
-            <div className={styles.userName}>{user?.fullName || 'User'}</div>
-            <User className={styles.userIcon} />
-          </div>
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: {
+                  width: '40px',
+                  height: '40px',
+                },
+              },
+            }}
+          />
         </div>
       </div>
     </header>

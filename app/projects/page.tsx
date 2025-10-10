@@ -63,21 +63,21 @@ export default function ProjectsPage() {
           <div className="absolute inset-0"
                style={{
                  backgroundImage: `
-                   radial-gradient(circle at 30% 20%, rgba(139, 92, 246, 0.3) 0%, transparent 50%),
-                   radial-gradient(circle at 70% 80%, rgba(99, 102, 241, 0.25) 0%, transparent 50%)
+                   radial-gradient(circle at 30% 20%, rgba(16, 185, 129, 0.3) 0%, transparent 50%),
+                   radial-gradient(circle at 70% 80%, rgba(16, 185, 129, 0.25) 0%, transparent 50%)
                  `
                }} />
           {/* BOLD Animated Gradient Orbs */}
           <div className="absolute top-1/4 -left-32 w-[550px] h-[550px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, rgba(139, 92, 246, 0.2) 40%, transparent 70%)',
+                 background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 70%)',
                  filter: 'blur(80px)',
                  transform: 'translate3d(0, 0, 0)',
                  animationDelay: '0.5s'
                }} />
           <div className="absolute -bottom-32 -right-32 w-[700px] h-[700px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(99, 102, 241, 0.35) 0%, rgba(99, 102, 241, 0.15) 40%, transparent 70%)',
+                 background: 'radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.15) 40%, transparent 70%)',
                  filter: 'blur(80px)',
                  animationDelay: '1.5s',
                  transform: 'translate3d(0, 0, 0)'
@@ -115,15 +115,15 @@ export default function ProjectsPage() {
                   </h1>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.2) 100%)',
-                         border: '2px solid rgba(139, 92, 246, 0.5)',
+                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0.2) 100%)',
+                         border: '2px solid rgba(16, 185, 129, 0.5)',
                          backdropFilter: 'blur(30px)',
                          WebkitBackdropFilter: 'blur(30px)',
-                         boxShadow: '0 8px 32px rgba(139, 92, 246, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
+                         boxShadow: '0 8px 32px rgba(16, 185, 129, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#8B5CF6', filter: 'drop-shadow(0 0 8px rgba(139, 92, 246, 0.8))' }} />
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#10B981', filter: 'drop-shadow(0 0 8px rgba(16, 185, 129, 0.8))' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: '#8B5CF6', letterSpacing: '0.1em', textShadow: '0 0 20px rgba(139, 92, 246, 0.5)' }}>
+                          style={{ color: '#10B981', letterSpacing: '0.1em', textShadow: '0 0 20px rgba(16, 185, 129, 0.5)' }}>
                       Step 04
                     </span>
                   </div>
@@ -140,19 +140,19 @@ export default function ProjectsPage() {
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
                    background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(139, 92, 246, 0.2)',
+                   border: '2px solid rgba(16, 185, 129, 0.2)',
                    backdropFilter: 'blur(60px)',
                    WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top left, rgba(139, 92, 246, 0.3), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(139, 92, 246, 0.2)'
+                     background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.3), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
-                  <Package className="w-5 h-5" style={{ color: '#8B5CF6' }} />
+                  <Package className="w-5 h-5" style={{ color: '#10B981' }} />
                   <span className="text-xs font-semibold uppercase tracking-wider"
                         style={{ color: 'var(--text-quaternary)' }}>
                     Loadouts
@@ -163,8 +163,8 @@ export default function ProjectsPage() {
                   {loadouts.length}
                 </div>
                 <div className="flex items-center gap-1.5 text-sm">
-                  <TrendingUp className="w-4 h-4" style={{ color: '#8B5CF6' }} />
-                  <span style={{ color: '#8B5CF6' }}>Available configs</span>
+                  <TrendingUp className="w-4 h-4" style={{ color: '#10B981' }} />
+                  <span style={{ color: '#10B981' }}>Available configs</span>
                 </div>
               </div>
             </div>
@@ -172,19 +172,19 @@ export default function ProjectsPage() {
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
                    background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(99, 102, 241, 0.2)',
+                   border: '2px solid rgba(16, 185, 129, 0.2)',
                    backdropFilter: 'blur(60px)',
                    WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(99, 102, 241, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top right, rgba(99, 102, 241, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(99, 102, 241, 0.2)'
+                     background: 'radial-gradient(circle at top right, rgba(16, 185, 129, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
-                  <Calculator className="w-5 h-5" style={{ color: '#6366F1' }} />
+                  <Calculator className="w-5 h-5" style={{ color: '#10B981' }} />
                   <span className="text-xs font-semibold uppercase tracking-wider"
                         style={{ color: 'var(--text-quaternary)' }}>
                     Margin
@@ -203,19 +203,19 @@ export default function ProjectsPage() {
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
                    background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(124, 58, 237, 0.2)',
+                   border: '2px solid rgba(16, 185, 129, 0.2)',
                    backdropFilter: 'blur(60px)',
                    WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(124, 58, 237, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at bottom left, rgba(124, 58, 237, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(124, 58, 237, 0.2)'
+                     background: 'radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
-                  <Activity className="w-5 h-5" style={{ color: '#7C3AED' }} />
+                  <Activity className="w-5 h-5" style={{ color: '#059669' }} />
                   <span className="text-xs font-semibold uppercase tracking-wider"
                         style={{ color: 'var(--text-quaternary)' }}>
                     Acres
@@ -281,9 +281,9 @@ export default function ProjectsPage() {
                 <button
                   className="btn btn-lg mt-4"
                   style={{
-                    background: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+                    background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
                     color: 'white',
-                    boxShadow: '0 4px 14px 0 rgba(139, 92, 246, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                    boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
                   }}
                 >
                   <Plus className="w-5 h-5" />
@@ -295,15 +295,15 @@ export default function ProjectsPage() {
             <div className="relative rounded-3xl overflow-hidden"
                  style={{
                    background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(139, 92, 246, 0.2)',
+                   border: '2px solid rgba(16, 185, 129, 0.2)',
                    backdropFilter: 'blur(60px)',
                    WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(139, 92, 246, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(16, 185, 129, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               {/* Premium Glow Effect */}
               <div className="absolute inset-0"
                    style={{
-                     background: 'radial-gradient(circle at top center, rgba(139, 92, 246, 0.15), transparent 60%)',
+                     background: 'radial-gradient(circle at top center, rgba(16, 185, 129, 0.15), transparent 60%)',
                      pointerEvents: 'none'
                    }} />
 
@@ -313,11 +313,11 @@ export default function ProjectsPage() {
                   <div className="flex items-center gap-2 mb-6">
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center"
                          style={{
-                           background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.2) 100%)',
-                           border: '2px solid rgba(139, 92, 246, 0.5)',
-                           boxShadow: '0 8px 24px rgba(139, 92, 246, 0.3)'
+                           background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0.2) 100%)',
+                           border: '2px solid rgba(16, 185, 129, 0.5)',
+                           boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3)'
                          }}>
-                      <Settings className="w-5 h-5" style={{ color: '#8B5CF6' }} />
+                      <Settings className="w-5 h-5" style={{ color: '#10B981' }} />
                     </div>
                     <h3 className="text-lg font-semibold uppercase tracking-wider"
                         style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
@@ -360,11 +360,11 @@ export default function ProjectsPage() {
                       <div className="flex items-center gap-2 mb-6">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center"
                              style={{
-                               background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.25) 0%, rgba(99, 102, 241, 0.15) 100%)',
-                               border: '2px solid rgba(99, 102, 241, 0.4)',
-                               boxShadow: '0 8px 24px rgba(99, 102, 241, 0.3)'
+                               background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
+                               border: '2px solid rgba(16, 185, 129, 0.4)',
+                               boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3)'
                              }}>
-                          <Target className="w-5 h-5" style={{ color: '#6366F1' }} />
+                          <Target className="w-5 h-5" style={{ color: '#10B981' }} />
                         </div>
                         <h3 className="text-lg font-semibold uppercase tracking-wider"
                             style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
@@ -405,11 +405,11 @@ export default function ProjectsPage() {
                       <div className="flex items-center gap-2 mb-6">
                         <div className="w-10 h-10 rounded-xl flex items-center justify-center"
                              style={{
-                               background: 'linear-gradient(135deg, rgba(124, 58, 237, 0.25) 0%, rgba(124, 58, 237, 0.15) 100%)',
-                               border: '2px solid rgba(124, 58, 237, 0.4)',
-                               boxShadow: '0 8px 24px rgba(124, 58, 237, 0.3)'
+                               background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
+                               border: '2px solid rgba(16, 185, 129, 0.4)',
+                               boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3)'
                              }}>
-                          <BarChart3 className="w-5 h-5" style={{ color: '#7C3AED' }} />
+                          <BarChart3 className="w-5 h-5" style={{ color: '#059669' }} />
                         </div>
                         <h3 className="text-lg font-semibold uppercase tracking-wider"
                             style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
@@ -422,14 +422,14 @@ export default function ProjectsPage() {
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.max(0, projectData.profitMargin - 5) })}
                           className="group p-4 rounded-xl transition-all duration-300 hover:scale-110 hardware-accelerated"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(139, 92, 246, 0.15) 100%)',
-                            border: '2px solid rgba(139, 92, 246, 0.4)',
+                            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
+                            border: '2px solid rgba(16, 185, 129, 0.4)',
                             backdropFilter: 'blur(30px)',
                             WebkitBackdropFilter: 'blur(30px)',
-                            boxShadow: '0 8px 24px rgba(139, 92, 246, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                            boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
                           }}
                         >
-                          <Minus className="w-6 h-6" style={{ color: '#8B5CF6' }} />
+                          <Minus className="w-6 h-6" style={{ color: '#10B981' }} />
                         </button>
                         <div className="flex-1">
                           <input
@@ -437,8 +437,8 @@ export default function ProjectsPage() {
                             className="w-full text-center px-6 py-5 rounded-xl font-mono text-3xl font-bold transition-all duration-300"
                             style={{
                               background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
-                              border: '2px solid rgba(139, 92, 246, 0.3)',
-                              color: '#8B5CF6',
+                              border: '2px solid rgba(16, 185, 129, 0.3)',
+                              color: '#10B981',
                               backdropFilter: 'blur(20px)',
                               WebkitBackdropFilter: 'blur(20px)',
                               boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.3)'
@@ -455,14 +455,14 @@ export default function ProjectsPage() {
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.min(100, projectData.profitMargin + 5) })}
                           className="group p-4 rounded-xl transition-all duration-300 hover:scale-110 hardware-accelerated"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.25) 0%, rgba(139, 92, 246, 0.15) 100%)',
-                            border: '2px solid rgba(139, 92, 246, 0.4)',
+                            background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
+                            border: '2px solid rgba(16, 185, 129, 0.4)',
                             backdropFilter: 'blur(30px)',
                             WebkitBackdropFilter: 'blur(30px)',
-                            boxShadow: '0 8px 24px rgba(139, 92, 246, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                            boxShadow: '0 8px 24px rgba(16, 185, 129, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
                           }}
                         >
-                          <Plus className="w-6 h-6" style={{ color: '#8B5CF6' }} />
+                          <Plus className="w-6 h-6" style={{ color: '#10B981' }} />
                         </button>
                       </div>
                     </div>
@@ -470,15 +470,15 @@ export default function ProjectsPage() {
                     {/* Calculation Breakdown */}
                     <div className="p-6 rounded-2xl"
                          style={{
-                           background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.08) 100%)',
-                           border: '1px solid rgba(99, 102, 241, 0.3)',
+                           background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.08) 100%)',
+                           border: '1px solid rgba(16, 185, 129, 0.3)',
                            backdropFilter: 'blur(30px)',
                            WebkitBackdropFilter: 'blur(30px)'
                          }}>
                       <div className="flex items-center gap-2 mb-5">
-                        <Calculator className="w-5 h-5" style={{ color: '#6366F1' }} />
+                        <Calculator className="w-5 h-5" style={{ color: '#10B981' }} />
                         <h3 className="text-sm font-semibold uppercase tracking-wider"
-                            style={{ color: '#6366F1', letterSpacing: '0.1em' }}>
+                            style={{ color: '#10B981', letterSpacing: '0.1em' }}>
                           Calculation Breakdown
                         </h3>
                       </div>
@@ -529,13 +529,13 @@ export default function ProjectsPage() {
                     {/* BOLD Final Price Display */}
                     <div className="relative overflow-hidden rounded-3xl p-10 text-center"
                          style={{
-                           background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.4) 0%, rgba(124, 58, 237, 0.4) 50%, rgba(99, 102, 241, 0.3) 100%)',
-                           border: '2px solid rgba(139, 92, 246, 0.6)',
+                           background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.4) 0%, rgba(16, 185, 129, 0.4) 50%, rgba(16, 185, 129, 0.3) 100%)',
+                           border: '2px solid rgba(16, 185, 129, 0.6)',
                            backdropFilter: 'blur(60px)',
                            WebkitBackdropFilter: 'blur(60px)',
                            boxShadow: `
-                             0 24px 64px rgba(139, 92, 246, 0.4),
-                             0 0 80px rgba(139, 92, 246, 0.3),
+                             0 24px 64px rgba(16, 185, 129, 0.4),
+                             0 0 80px rgba(16, 185, 129, 0.3),
                              inset 0 2px 4px rgba(255, 255, 255, 0.2),
                              inset 0 -2px 4px rgba(0, 0, 0, 0.2)
                            `
@@ -543,7 +543,7 @@ export default function ProjectsPage() {
                       {/* Animated Background Glow */}
                       <div className="absolute inset-0 animate-pulse"
                            style={{
-                             background: 'radial-gradient(circle at center, rgba(139, 92, 246, 0.2), transparent 70%)',
+                             background: 'radial-gradient(circle at center, rgba(16, 185, 129, 0.2), transparent 70%)',
                              animationDuration: '3s'
                            }} />
 
@@ -564,7 +564,7 @@ export default function ProjectsPage() {
                              style={{
                                color: 'white',
                                letterSpacing: '-0.02em',
-                               textShadow: '0 0 40px rgba(255, 255, 255, 0.5), 0 0 80px rgba(139, 92, 246, 0.8)',
+                               textShadow: '0 0 40px rgba(255, 255, 255, 0.5), 0 0 80px rgba(16, 185, 129, 0.8)',
                                filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))'
                              }}>
                           {formatCurrency(totalPrice)}

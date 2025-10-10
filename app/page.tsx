@@ -38,10 +38,10 @@ export default function HomePage() {
       description: 'Calculate true labor burden',
       href: '/employees',
       icon: Users,
-      color: '#3B82F6',
-      gradient: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
+      color: 'var(--brand-500)',
+      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
       metrics: 'Burden multipliers',
-      bgGradient: 'radial-gradient(circle at top right, rgba(59, 130, 246, 0.1), transparent 70%)'
+      bgGradient: 'radial-gradient(circle at top right, rgba(16, 185, 129, 0.1), transparent 70%)'
     },
     {
       step: '03',
@@ -49,10 +49,10 @@ export default function HomePage() {
       description: 'Build profitable crew configs',
       href: '/loadouts',
       icon: Wrench,
-      color: '#F59E0B',
-      gradient: 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)',
+      color: 'var(--brand-500)',
+      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
       metrics: 'Equipment + labor',
-      bgGradient: 'radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.1), transparent 70%)'
+      bgGradient: 'radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent 70%)'
     },
     {
       step: '04',
@@ -60,10 +60,10 @@ export default function HomePage() {
       description: 'Price with confidence',
       href: '/projects',
       icon: FileText,
-      color: '#8B5CF6',
-      gradient: 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)',
+      color: 'var(--brand-500)',
+      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
       metrics: 'Margin calculator',
-      bgGradient: 'radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.1), transparent 70%)'
+      bgGradient: 'radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.1), transparent 70%)'
     },
   ];
 
@@ -95,8 +95,8 @@ export default function HomePage() {
                style={{
                  backgroundImage: `
                    radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.25) 0%, transparent 50%),
-                   radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.25) 0%, transparent 50%),
-                   radial-gradient(circle at 40% 20%, rgba(139, 92, 246, 0.25) 0%, transparent 50%)
+                   radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
+                   radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)
                  `
                }} />
 
@@ -109,26 +109,17 @@ export default function HomePage() {
                }} />
           <div className="absolute -bottom-32 -right-32 w-[700px] h-[700px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, rgba(59, 130, 246, 0.2) 40%, transparent 70%)',
+                 background: 'radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.15) 40%, transparent 70%)',
                  filter: 'blur(80px)',
                  animationDelay: '1s',
                  transform: 'translate3d(0, 0, 0)'
                }} />
           <div className="absolute top-1/2 left-1/2 w-[800px] h-[800px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.15) 40%, transparent 70%)',
+                 background: 'radial-gradient(circle, rgba(5, 150, 105, 0.25) 0%, rgba(5, 150, 105, 0.1) 40%, transparent 70%)',
                  filter: 'blur(100px)',
                  animationDelay: '2s',
                  transform: 'translate3d(-50%, -50%, 0)'
-               }} />
-
-          {/* Additional BOLD Accent Orbs */}
-          <div className="absolute top-10 right-1/4 w-[400px] h-[400px] rounded-full animate-pulse"
-               style={{
-                 background: 'radial-gradient(circle, rgba(245, 158, 11, 0.3) 0%, transparent 70%)',
-                 filter: 'blur(70px)',
-                 animationDelay: '3s',
-                 transform: 'translate3d(0, 0, 0)'
                }} />
         </div>
 

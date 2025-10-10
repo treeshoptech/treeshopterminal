@@ -34,8 +34,8 @@ export default function ProjectsPage() {
   const [selectedLoadout, setSelectedLoadout] = useState('');
   const [projectData, setProjectData] = useState({
     projectName: '',
-    acres: 10,
-    dbhPackage: 6,
+    acres: 0,
+    dbhPackage: 8,
     profitMargin: 40,
   });
 

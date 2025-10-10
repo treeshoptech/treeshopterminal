@@ -1,0 +1,245 @@
+/**
+ * TreeShopTerminal Design System
+ * 100% Custom CSS - Neumorphism Design
+ *
+ * Dark Mode: Primary (Bright Text)
+ * Light Mode: Secondary (Dark Text)
+ */
+
+:root {
+  /* ============================================
+     NEUMORPHISM DARK MODE (Primary)
+     ============================================ */
+
+  /* Base Colors - Dark Mode */
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #222222;
+  --bg-tertiary: #2a2a2a;
+  --bg-elevated: #323232;
+
+  /* Neumorphism Shadows - Dark Mode */
+  --neu-shadow-light: rgba(255, 255, 255, 0.05);
+  --neu-shadow-dark: rgba(0, 0, 0, 0.5);
+
+  /* Pressed/Inset Effect */
+  --neu-inset-light: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
+  --neu-inset-dark: inset -2px -2px 5px rgba(255, 255, 255, 0.05);
+
+  /* Raised/Elevated Effect */
+  --neu-raised-light: 6px 6px 12px var(--neu-shadow-dark);
+  --neu-raised-dark: -6px -6px 12px var(--neu-shadow-light);
+
+  /* Soft Shadow */
+  --neu-soft-light: 4px 4px 8px rgba(0, 0, 0, 0.4);
+  --neu-soft-dark: -4px -4px 8px rgba(255, 255, 255, 0.03);
+
+  /* Text Colors - Dark Mode (Bright) */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8B8B8;
+  --text-tertiary: #7A7A7A;
+  --text-disabled: #4A4A4A;
+
+  /* ============================================
+     BRAND COLORS
+     ============================================ */
+
+  /* Primary Brand */
+  --brand-primary: #3B82F6;
+  --brand-primary-hover: #2563EB;
+  --brand-primary-active: #1D4ED8;
+
+  /* Secondary Brand */
+  --brand-secondary: #10B981;
+  --brand-secondary-hover: #059669;
+  --brand-secondary-active: #047857;
+
+  /* ============================================
+     SEMANTIC COLORS
+     ============================================ */
+
+  --success: #10B981;
+  --success-bg: rgba(16, 185, 129, 0.1);
+  --success-border: rgba(16, 185, 129, 0.3);
+
+  --warning: #F59E0B;
+  --warning-bg: rgba(245, 158, 11, 0.1);
+  --warning-border: rgba(245, 158, 11, 0.3);
+
+  --error: #EF4444;
+  --error-bg: rgba(239, 68, 68, 0.1);
+  --error-border: rgba(239, 68, 68, 0.3);
+
+  --info: #3B82F6;
+  --info-bg: rgba(59, 130, 246, 0.1);
+  --info-border: rgba(59, 130, 246, 0.3);
+
+  /* ============================================
+     BORDERS & DIVIDERS
+     ============================================ */
+
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.12);
+  --divider: rgba(255, 255, 255, 0.06);
+
+  /* ============================================
+     SPACING SYSTEM (4px base)
+     ============================================ */
+
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.25rem;   /* 20px */
+  --space-6: 1.5rem;    /* 24px */
+  --space-8: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-12: 3rem;     /* 48px */
+  --space-16: 4rem;     /* 64px */
+  --space-20: 5rem;     /* 80px */
+  --space-24: 6rem;     /* 96px */
+
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-2xl: 28px;
+  --radius-full: 9999px;
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+
+  /* Font Families */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-lg: 1.125rem;     /* 18px */
+  --text-xl: 1.25rem;      /* 20px */
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-3xl: 1.875rem;    /* 30px */
+  --text-4xl: 2.25rem;     /* 36px */
+  --text-5xl: 3rem;        /* 48px */
+
+  /* Font Weights */
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+
+  /* ============================================
+     TRANSITIONS
+     ============================================ */
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ============================================
+     Z-INDEX LAYERS
+     ============================================ */
+
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-overlay: 1200;
+  --z-modal: 1300;
+  --z-popover: 1400;
+  --z-tooltip: 1500;
+}
+
+/* ============================================
+   LIGHT MODE (Secondary)
+   ============================================ */
+
+[data-theme="light"] {
+  /* Base Colors - Light Mode */
+  --bg-primary: #E8E8E8;
+  --bg-secondary: #F0F0F0;
+  --bg-tertiary: #F8F8F8;
+  --bg-elevated: #FFFFFF;
+
+  /* Neumorphism Shadows - Light Mode */
+  --neu-shadow-light: rgba(255, 255, 255, 0.8);
+  --neu-shadow-dark: rgba(0, 0, 0, 0.15);
+
+  /* Pressed/Inset Effect */
+  --neu-inset-light: inset 2px 2px 5px rgba(0, 0, 0, 0.15);
+  --neu-inset-dark: inset -2px -2px 5px rgba(255, 255, 255, 0.8);
+
+  /* Raised/Elevated Effect */
+  --neu-raised-light: 6px 6px 12px var(--neu-shadow-dark);
+  --neu-raised-dark: -6px -6px 12px var(--neu-shadow-light);
+
+  /* Soft Shadow */
+  --neu-soft-light: 4px 4px 8px rgba(0, 0, 0, 0.1);
+  --neu-soft-dark: -4px -4px 8px rgba(255, 255, 255, 0.7);
+
+  /* Text Colors - Light Mode (Dark) */
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #7A7A7A;
+  --text-disabled: #B8B8B8;
+
+  /* Borders & Dividers - Light Mode */
+  --border-color: rgba(0, 0, 0, 0.08);
+  --border-hover: rgba(0, 0, 0, 0.12);
+  --divider: rgba(0, 0, 0, 0.06);
+}
+
+/* ============================================
+   NEUMORPHISM UTILITIES
+   ============================================ */
+
+.neu-flat {
+  background: var(--bg-secondary);
+  box-shadow: var(--neu-raised-light), var(--neu-raised-dark);
+}
+
+.neu-pressed {
+  background: var(--bg-secondary);
+  box-shadow: var(--neu-inset-light), var(--neu-inset-dark);
+}
+
+.neu-soft {
+  background: var(--bg-secondary);
+  box-shadow: var(--neu-soft-light), var(--neu-soft-dark);
+}
+
+.neu-concave {
+  background: linear-gradient(145deg, var(--bg-primary), var(--bg-tertiary));
+  box-shadow: var(--neu-raised-light), var(--neu-raised-dark);
+}
+
+.neu-convex {
+  background: linear-gradient(145deg, var(--bg-tertiary), var(--bg-primary));
+  box-shadow: var(--neu-raised-light), var(--neu-raised-dark);
+}
+
+.neu-hover {
+  transition: all var(--transition-base);
+}
+
+.neu-hover:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    8px 8px 16px var(--neu-shadow-dark),
+    -8px -8px 16px var(--neu-shadow-light);
+}
+
+.neu-active:active {
+  transform: translateY(1px);
+  box-shadow: var(--neu-inset-light), var(--neu-inset-dark);
+}

@@ -20,6 +20,7 @@ import type * as equipment from "../equipment.js";
 import type * as jobSites from "../jobSites.js";
 import type * as loadouts from "../loadouts.js";
 import type * as projects from "../projects.js";
+import type * as seedData from "../seedData.js";
 import type * as timeTracker from "../timeTracker.js";
 import type * as workOrders from "../workOrders.js";
 
@@ -39,6 +40,7 @@ declare const fullApi: ApiFromModules<{
   jobSites: typeof jobSites;
   loadouts: typeof loadouts;
   projects: typeof projects;
+  seedData: typeof seedData;
   timeTracker: typeof timeTracker;
   workOrders: typeof workOrders;
 }>;

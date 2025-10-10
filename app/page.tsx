@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 import {
   Truck,
@@ -16,8 +18,6 @@ import {
   ChevronRight
 } from 'lucide-react';
 import '@/styles/design-system.css';
-
-export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
   const steps = [

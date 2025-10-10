@@ -15,6 +15,7 @@ import type {
 } from "convex/server";
 import type * as customers from "../customers.js";
 import type * as equipment from "../equipment.js";
+import type * as projects from "../projects.js";
 import type * as timeTracker from "../timeTracker.js";
 
 /**
@@ -28,6 +29,7 @@ import type * as timeTracker from "../timeTracker.js";
 declare const fullApi: ApiFromModules<{
   customers: typeof customers;
   equipment: typeof equipment;
+  projects: typeof projects;
   timeTracker: typeof timeTracker;
 }>;
 export declare const api: FilterApi<

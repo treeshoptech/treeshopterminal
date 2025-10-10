@@ -136,9 +136,9 @@ export default function EquipmentLibraryPage() {
                   <Input
                     label="Purchase Price ($)"
                     type="number"
-                    value={formData.purchasePrice || ''}
-                    onChange={(e) => setFormData({ ...formData, purchasePrice: Number(e.target.value) || 0 })}
-                    onFocus={(e) => e.target.select()}
+                    value={formData.purchasePrice}
+                    onChange={(e) => setFormData({ ...formData, purchasePrice: Number(e.target.value) })}
+                    onFocus={(e: any) => e.target.select()}
                   />
                   <Input
                     label="Useful Life (years)"
@@ -157,23 +157,23 @@ export default function EquipmentLibraryPage() {
                   <Input
                     label="Annual Finance ($)"
                     type="number"
-                    value={formData.annualFinanceCost || ''}
-                    onChange={(e) => setFormData({ ...formData, annualFinanceCost: Number(e.target.value) || 0 })}
+                    value={formData.annualFinanceCost}
+                    onChange={(e) => setFormData({ ...formData, annualFinanceCost: Number(e.target.value) })}
                     onFocus={(e) => e.target.select()}
                   />
                   <Input
                     label="Annual Insurance ($)"
                     type="number"
-                    value={formData.annualInsurance || ''}
-                    onChange={(e) => setFormData({ ...formData, annualInsurance: Number(e.target.value) || 0 })}
+                    value={formData.annualInsurance}
+                    onChange={(e) => setFormData({ ...formData, annualInsurance: Number(e.target.value) })}
                     onFocus={(e) => e.target.select()}
                   />
                   <Input
                     label="Fuel (gal/hr)"
                     type="number"
                     step="0.1"
-                    value={formData.fuelGallonsPerHour || ''}
-                    onChange={(e) => setFormData({ ...formData, fuelGallonsPerHour: Number(e.target.value) || 0 })}
+                    value={formData.fuelGallonsPerHour}
+                    onChange={(e) => setFormData({ ...formData, fuelGallonsPerHour: Number(e.target.value) })}
                     onFocus={(e) => e.target.select()}
                   />
                   <Input
@@ -187,15 +187,15 @@ export default function EquipmentLibraryPage() {
                   <Input
                     label="Maintenance ($)"
                     type="number"
-                    value={formData.annualMaintenance || ''}
-                    onChange={(e) => setFormData({ ...formData, annualMaintenance: Number(e.target.value) || 0 })}
+                    value={formData.annualMaintenance}
+                    onChange={(e) => setFormData({ ...formData, annualMaintenance: Number(e.target.value) })}
                     onFocus={(e) => e.target.select()}
                   />
                   <Input
                     label="Repairs ($)"
                     type="number"
-                    value={formData.annualRepairs || ''}
-                    onChange={(e) => setFormData({ ...formData, annualRepairs: Number(e.target.value) || 0 })}
+                    value={formData.annualRepairs}
+                    onChange={(e) => setFormData({ ...formData, annualRepairs: Number(e.target.value) })}
                     onFocus={(e) => e.target.select()}
                   />
                 </div>

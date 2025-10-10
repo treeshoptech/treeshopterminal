@@ -4,7 +4,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Save } from 'lucide-react';
+import { Save, Check } from 'lucide-react';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
@@ -13,6 +15,7 @@ import type { EquipmentCostParams } from '@/lib/formulas/pricing';
 import styles from './page.module.css';
 
 const schema = z.object({
+  equipmentName: z.string().min(1, 'Equipment name is required'),
   purchasePrice: z.number().positive(),
   usefulLifeYears: z.number().positive(),
   annualFinanceCost: z.number().min(0),
@@ -29,10 +32,13 @@ type FormData = z.infer<typeof schema>;
 
 export default function EquipmentCostCalculatorPage() {
   const [result, setResult] = useState<ReturnType<typeof calculateEquipmentCost> | null>(null);
+  const [saved, setSaved] = useState(false);
+  const createEquipment = useMutation(api.equipment.create);
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, getValues, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      equipmentName: 'Ford F450',
       purchasePrice: 65000,
       usefulLifeYears: 5,
       annualFinanceCost: 3250,
@@ -47,8 +53,31 @@ export default function EquipmentCostCalculatorPage() {
   });
 
   const onSubmit = (data: FormData) => {
-    const calculated = calculateEquipmentCost(data as EquipmentCostParams);
+    const { equipmentName, ...costParams } = data;
+    const calculated = calculateEquipmentCost(costParams as EquipmentCostParams);
     setResult(calculated);
+    setSaved(false);
+  };
+
+  const handleSave = async () => {
+    if (!result) {
+      alert('Please calculate equipment cost first');
+      return;
+    }
+
+    const data = getValues();
+    const { equipmentName, ...costParams } = data;
+
+    await createEquipment({
+      organizationId: 'org_mock123',
+      equipmentName,
+      ...costParams,
+      ...result,
+      status: 'active',
+    });
+
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
   };
 
   return (
@@ -61,6 +90,22 @@ export default function EquipmentCostCalculatorPage() {
       <div className={styles.layout}>
         <div className={styles.form}>
           <form onSubmit={handleSubmit(onSubmit)}>
+            <Card>
+              <CardHeader>
+                <CardTitle>Equipment Information</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className={styles.fields}>
+                  <Input
+                    label="Equipment Name"
+                    placeholder="e.g., Ford F450, Cat 265"
+                    {...register('equipmentName')}
+                    error={errors.equipmentName?.message}
+                  />
+                </div>
+              </CardContent>
+            </Card>
+
             <Card>
               <CardHeader>
                 <CardTitle>Ownership Costs</CardTitle>
@@ -153,9 +198,27 @@ export default function EquipmentCostCalculatorPage() {
               <Button type="submit" size="lg">
                 Calculate
               </Button>
-              <Button type="button" variant="secondary" size="lg" icon={<Save className="w-4 h-4" />}>
-                Save to Library
-              </Button>
+              {result && (
+                <Button
+                  type="button"
+                  variant={saved ? 'default' : 'secondary'}
+                  size="lg"
+                  onClick={handleSave}
+                  disabled={saved}
+                >
+                  {saved ? (
+                    <>
+                      <Check className="w-4 h-4" style={{ marginRight: '8px' }} />
+                      Saved to Equipment Library
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4" style={{ marginRight: '8px' }} />
+                      Save to Equipment Library
+                    </>
+                  )}
+                </Button>
+              )}
             </div>
           </form>
         </div>

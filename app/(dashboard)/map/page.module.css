@@ -148,3 +148,15 @@
   transform: translateY(-2px);
   box-shadow: var(--neu-raised-light), var(--neu-raised-dark);
 }
+
+.drawingTools {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  width: 280px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--neu-raised-light), var(--neu-raised-dark);
+  padding: var(--space-4);
+  border: 1px solid var(--border-color);
+}

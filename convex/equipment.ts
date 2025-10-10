@@ -44,7 +44,7 @@ export const create = mutation({
   args: {
     organizationId: v.string(),
     equipmentName: v.string(),
-    category: v.string(),
+    category: v.optional(v.string()),
     purchasePrice: v.number(),
     usefulLifeYears: v.number(),
     annualFinanceCost: v.number(),
@@ -66,6 +66,7 @@ export const create = mutation({
     const equipmentId = await ctx.db.insert('equipment', {
       ...args,
       status: args.status || 'active',
+      category: args.category || 'general',
       createdAt: now,
       updatedAt: now,
     });

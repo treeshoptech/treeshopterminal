@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { Save, Check } from 'lucide-react';
+import { useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
 import { Button } from '@/components/ui/Button';
@@ -11,6 +14,10 @@ import { calculateEmployeeCost, BURDEN_MULTIPLIERS } from '@/lib/formulas/pricin
 import styles from '../equipment-cost/page.module.css';
 
 const schema = z.object({
+  firstName: z.string().min(1, 'First name is required'),
+  lastName: z.string().min(1, 'Last name is required'),
+  email: z.string().email('Valid email required'),
+  position: z.string().min(1, 'Position is required'),
   baseHourlyRate: z.number().positive(),
   annualHours: z.number().positive(),
   burdenMultiplier: z.number().min(1),
@@ -20,10 +27,16 @@ type FormData = z.infer<typeof schema>;
 
 export default function EmployeeCostCalculatorPage() {
   const [result, setResult] = useState<ReturnType<typeof calculateEmployeeCost> | null>(null);
+  const [saved, setSaved] = useState(false);
+  const createEmployee = useMutation(api.employees.create);
 
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormData>({
+  const { register, handleSubmit, setValue, getValues, formState: { errors } } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
+      firstName: '',
+      lastName: '',
+      email: '',
+      position: 'Crew Member',
       baseHourlyRate: 35,
       annualHours: 2080,
       burdenMultiplier: 1.7,
@@ -31,8 +44,37 @@ export default function EmployeeCostCalculatorPage() {
   });
 
   const onSubmit = (data: FormData) => {
-    const calculated = calculateEmployeeCost(data);
+    const calculated = calculateEmployeeCost({
+      baseHourlyRate: data.baseHourlyRate,
+      annualHours: data.annualHours,
+      burdenMultiplier: data.burdenMultiplier,
+    });
     setResult(calculated);
+    setSaved(false);
+  };
+
+  const handleSave = async () => {
+    if (!result) {
+      alert('Please calculate employee cost first');
+      return;
+    }
+
+    const data = getValues();
+
+    await createEmployee({
+      organizationId: 'org_mock123',
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      position: data.position,
+      baseHourlyRate: data.baseHourlyRate,
+      burdenMultiplier: data.burdenMultiplier,
+      trueCostPerHour: result.trueCostPerHour,
+      status: 'active',
+    });
+
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
   };
 
   return (
@@ -51,6 +93,31 @@ export default function EmployeeCostCalculatorPage() {
               </CardHeader>
               <CardContent>
                 <div className={styles.fields}>
+                  <Input
+                    label="First Name"
+                    placeholder="e.g., John"
+                    {...register('firstName')}
+                    error={errors.firstName?.message}
+                  />
+                  <Input
+                    label="Last Name"
+                    placeholder="e.g., Smith"
+                    {...register('lastName')}
+                    error={errors.lastName?.message}
+                  />
+                  <Input
+                    label="Email"
+                    type="email"
+                    placeholder="e.g., john.smith@example.com"
+                    {...register('email')}
+                    error={errors.email?.message}
+                  />
+                  <Input
+                    label="Position"
+                    placeholder="e.g., Crew Leader"
+                    {...register('position')}
+                    error={errors.position?.message}
+                  />
                   <Input
                     label="Base Hourly Rate ($)"
                     type="number"
@@ -124,6 +191,27 @@ export default function EmployeeCostCalculatorPage() {
 
             <div className={styles.actions}>
               <Button type="submit" size="lg">Calculate</Button>
+              {result && (
+                <Button
+                  type="button"
+                  variant={saved ? 'default' : 'secondary'}
+                  size="lg"
+                  onClick={handleSave}
+                  disabled={saved}
+                >
+                  {saved ? (
+                    <>
+                      <Check className="w-4 h-4" style={{ marginRight: '8px' }} />
+                      Saved to Team
+                    </>
+                  ) : (
+                    <>
+                      <Save className="w-4 h-4" style={{ marginRight: '8px' }} />
+                      Save to Team
+                    </>
+                  )}
+                </Button>
+              )}
             </div>
           </form>
         </div>

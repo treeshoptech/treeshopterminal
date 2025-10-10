@@ -41,16 +41,18 @@ export const create = mutation({
     position: v.string(),
     baseHourlyRate: v.number(),
     burdenMultiplier: v.number(),
+    trueCostPerHour: v.optional(v.number()),
+    status: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
     const now = Date.now();
 
-    const trueCostPerHour = args.baseHourlyRate * args.burdenMultiplier;
+    const trueCost = args.trueCostPerHour || (args.baseHourlyRate * args.burdenMultiplier);
 
     const employeeId = await ctx.db.insert('employees', {
       ...args,
-      trueCostPerHour,
-      status: 'active',
+      trueCostPerHour: trueCost,
+      status: args.status || 'active',
       createdAt: now,
       updatedAt: now,
     });

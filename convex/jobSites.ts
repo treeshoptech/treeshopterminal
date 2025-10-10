@@ -67,6 +67,11 @@ export const update = mutation({
     address: v.optional(v.string()),
     status: v.optional(v.string()),
     acreage: v.optional(v.number()),
+    polygon: v.optional(v.array(v.object({
+      lat: v.number(),
+      lng: v.number(),
+    }))),
+    polygonArea: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
     const { id, ...updates } = args;

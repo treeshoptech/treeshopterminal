@@ -871,5 +871,4 @@ export default function LoadoutsPage() {
       </div>
     </>
     </AuthGuard>
-  );
 }

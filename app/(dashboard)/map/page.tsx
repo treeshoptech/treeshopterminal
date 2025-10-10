@@ -72,6 +72,10 @@ export default function MapPage() {
             {jobSites?.length || 0} active job sites
           </p>
         </div>
+        <Button onClick={() => window.location.href = '/map/create-site'}>
+          <MapPin className="w-4 h-4" style={{ marginRight: '8px' }} />
+          Add Job Site
+        </Button>
       </div>
 
       <div className={styles.mapContainer}>

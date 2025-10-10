@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
-import { DashboardLayout } from '@/components/layout/DashboardLayout';
 
 export default function EquipmentCostCalculator() {
   const [formData, setFormData] = useState({
@@ -53,9 +52,8 @@ export default function EquipmentCostCalculator() {
 
 
   return (
-    <DashboardLayout>
-      <div className="p-8">
-        <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
+      <div className="max-w-4xl mx-auto">
           <div className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl p-8">
           <h1 className="text-4xl font-bold text-green-800 border-b-4 border-green-800 pb-4 mb-2">
             Equipment Cost Calculator
@@ -191,7 +189,6 @@ export default function EquipmentCostCalculator() {
           </div>
         </div>
       </div>
-      </div>
-    </DashboardLayout>
+    </div>
   );
 }

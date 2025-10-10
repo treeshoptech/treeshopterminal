@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Calculator, DollarSign, Users, Truck, TrendingUp, FileText, Wrench, ArrowRight } from 'lucide-react';
-import { DashboardLayout } from '@/components/layout/DashboardLayout';
 
 export const dynamic = 'force-dynamic';
 
@@ -57,7 +56,7 @@ export default function HomePage() {
   ];
 
   return (
-    <DashboardLayout>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="p-8">
         {/* Hero Section */}
         <div className="mb-12">
@@ -128,6 +127,6 @@ export default function HomePage() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   );
 }

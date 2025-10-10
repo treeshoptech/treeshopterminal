@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
-import { DashboardLayout } from '@/components/layout/DashboardLayout';
+
 
 export default function EmployeeCostCalculator() {
   const [formData, setFormData] = useState({
@@ -14,7 +14,7 @@ export default function EmployeeCostCalculator() {
   const trueCost = formData.baseWage * formData.burdenMultiplier;
 
   return (
-    <DashboardLayout>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
       <div className="p-8">
         <div className="max-w-4xl mx-auto">
           <div className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl p-8">
@@ -65,6 +65,6 @@ export default function EmployeeCostCalculator() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   );
 }

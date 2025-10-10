@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Input } from '@/components/ui/Input';
-import { DashboardLayout } from '@/components/layout/DashboardLayout';
+
 
 export default function ProjectPricingCalculator() {
   const [projectName, setProjectName] = useState('');
@@ -18,7 +18,7 @@ export default function ProjectPricingCalculator() {
   const projectPrice = jobHours * billingRate;
 
   return (
-    <DashboardLayout>
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 p-8">
       <div className="p-8">
         <div className="max-w-6xl mx-auto">
           <div className="bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-xl p-8">
@@ -131,6 +131,6 @@ export default function ProjectPricingCalculator() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   );
 }

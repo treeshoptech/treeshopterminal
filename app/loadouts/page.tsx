@@ -748,7 +748,6 @@ export default function LoadoutsPage() {
               {loadouts.map((loadout) => {
                 const serviceColor = getServiceTypeColor(loadout.serviceType);
                 const serviceGradient = getServiceTypeGradient(loadout.serviceType);
-
                 return (
     <AuthGuard>
                   <div key={loadout._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hardware-accelerated"

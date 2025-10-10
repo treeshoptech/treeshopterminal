@@ -27,8 +27,10 @@ import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 import '@/styles/design-system.css';
 
+import { useAuth } from '@/hooks/useAuth';
+
 export default function LoadoutsPage() {
-  const orgId = 'org_demo';
+  const { orgId } = useAuth();
 
   const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
   const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];

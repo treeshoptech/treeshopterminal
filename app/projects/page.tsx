@@ -25,8 +25,10 @@ import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 import '@/styles/design-system.css';
 
+import { useAuth } from '@/hooks/useAuth';
+
 export default function ProjectsPage() {
-  const orgId = 'org_demo';
+  const { orgId } = useAuth();
 
   const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
   const [selectedLoadout, setSelectedLoadout] = useState('');

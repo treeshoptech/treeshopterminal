@@ -48,7 +48,17 @@ export function NavBar() {
             })}
           </div>
 
-          <div className="w-8" />
+          <Link
+            href="/login"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-300"
+            style={{
+              background: 'var(--gradient-brand)',
+              color: 'white',
+              boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)'
+            }}
+          >
+            Sign In
+          </Link>
         </div>
       </div>
     </nav>

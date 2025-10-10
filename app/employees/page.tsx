@@ -31,8 +31,10 @@ import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 import '@/styles/design-system.css';
 
+import { useAuth } from '@/hooks/useAuth';
+
 export default function EmployeesPage() {
-  const orgId = 'org_demo';
+  const { orgId } = useAuth();
 
   const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];
   const createEmployee = useMutation(api.employees.create);

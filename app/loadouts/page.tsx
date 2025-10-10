@@ -28,7 +28,6 @@ import Link from 'next/link';
 import '@/styles/design-system.css';
 
 import { useAuth } from '@/hooks/useAuth';
-import { AuthGuard } from '@/components/auth/AuthGuard';
 
 export default function LoadoutsPage() {
   const { orgId } = useAuth();
@@ -135,7 +134,6 @@ export default function LoadoutsPage() {
   };
 
   return (
-    <AuthGuard>
     <>
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
@@ -201,9 +199,9 @@ export default function LoadoutsPage() {
                          WebkitBackdropFilter: 'blur(30px)',
                          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: '' }} />
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: 'none' }}>
+                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: '0 0 20px rgba(34, 197, 94, 0.5)' }}>
                       Step 03
                     </span>
                   </div>
@@ -748,8 +746,8 @@ export default function LoadoutsPage() {
               {loadouts.map((loadout) => {
                 const serviceColor = getServiceTypeColor(loadout.serviceType);
                 const serviceGradient = getServiceTypeGradient(loadout.serviceType);
+
                 return (
-    <AuthGuard>
                   <div key={loadout._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hardware-accelerated"
                        style={{
                          background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
@@ -870,5 +868,5 @@ export default function LoadoutsPage() {
         </div>
       </div>
     </>
-    </AuthGuard>
+  );
 }

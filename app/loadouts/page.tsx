@@ -172,54 +172,59 @@ export default function LoadoutsPage() {
 
                 {/* Employees */}
                 <div>
-                  <h3 className="font-semibold mb-3">Crew Members</h3>
-                  {formData.employees.map((emp, idx) => (
-                    <div key={idx} className="grid grid-cols-4 gap-3 mb-3">
-                      <Input
-                        label="Position"
-                        value={emp.position}
-                        onChange={(e) => {
-                          const updated = [...formData.employees];
-                          updated[idx].position = e.target.value;
-                          setFormData({ ...formData, employees: updated });
-                        }}
-                      />
-                      <Input
-                        label="Base Wage ($)"
-                        type="number"
-                        value={emp.baseWage}
-                        onChange={(e) => {
-                          const updated = [...formData.employees];
-                          updated[idx].baseWage = Number(e.target.value);
-                          setFormData({ ...formData, employees: updated });
-                        }}
-                      />
-                      <div>
-                        <label className="block text-sm font-medium mb-2">Multiplier</label>
-                        <select
-                          className="w-full px-3 py-2 border rounded-lg"
-                          value={emp.multiplier}
-                          onChange={(e) => {
-                            const updated = [...formData.employees];
-                            updated[idx].multiplier = Number(e.target.value);
-                            setFormData({ ...formData, employees: updated });
-                          }}
-                        >
-                          <option value={1.6}>1.6x</option>
-                          <option value={1.7}>1.7x</option>
-                          <option value={1.8}>1.8x</option>
-                          <option value={1.9}>1.9x</option>
-                          <option value={2.0}>2.0x</option>
-                        </select>
-                      </div>
-                      <div className="flex items-end">
-                        <div className="text-sm font-mono">
-                          ${(emp.baseWage * emp.multiplier).toFixed(2)}/hr
-                        </div>
-                      </div>
+                  <h3 className="font-semibold mb-3">Select Crew ({employees.length} available)</h3>
+                  {employees.length === 0 ? (
+                    <div className="text-center py-8 border-2 border-dashed rounded-lg">
+                      <p className="text-gray-500">
+                        No employees available. <Link href="/employees" className="text-blue-600">Add employees first</Link>
+                      </p>
                     </div>
-                  ))}
+                  ) : (
+                    <div className="grid grid-cols-3 gap-3">
+                      {employees.map((emp) => (
+                        <button
+                          key={emp._id}
+                          type="button"
+                          onClick={() => {
+                            if (formData.selectedEmployees.includes(emp._id)) {
+                              setFormData({
+                                ...formData,
+                                selectedEmployees: formData.selectedEmployees.filter((id) => id !== emp._id),
+                              });
+                            } else {
+                              setFormData({
+                                ...formData,
+                                selectedEmployees: [...formData.selectedEmployees, emp._id],
+                              });
+                            }
+                          }}
+                          className={`p-4 rounded-lg border-2 text-left transition-all ${
+                            formData.selectedEmployees.includes(emp._id)
+                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20'
+                              : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                          }`}
+                        >
+                          <div className="font-semibold text-sm">{emp.firstName} {emp.lastName}</div>
+                          <div className="text-xs text-gray-500">{emp.position}</div>
+                          <div className="text-sm text-gray-600 dark:text-gray-400 font-mono mt-1">
+                            ${emp.trueCostPerHour?.toFixed(2) || '0.00'}/hr
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
+
+                {/* Production Rate */}
+                <Input
+                  label="Production Rate (IA/hr)"
+                  type="number"
+                  step="0.1"
+                  value={formData.productionRate}
+                  onChange={(e) => setFormData({ ...formData, productionRate: Number(e.target.value) })}
+                  onFocus={(e: any) => e.target.select()}
+                  helpText="e.g., 1.3 for Cat 265, 5.0 for SK200TR"
+                />
 
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                   <div className="grid grid-cols-3 gap-4 text-center">
@@ -280,7 +285,7 @@ export default function LoadoutsPage() {
                     <span className="text-gray-600">${loadout.totalEquipmentCostPerHour.toFixed(2)}/hr</span>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                    <Users className="w-4 h-4 text-gray-400" />
+                    <UsersIcon className="w-4 h-4 text-gray-400" />
                     <span className="text-gray-600">${loadout.totalLaborCostPerHour.toFixed(2)}/hr</span>
                   </div>
                 </div>

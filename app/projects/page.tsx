@@ -80,6 +80,7 @@ export default function ProjectsPage() {
                       step="0.1"
                       value={projectData.acres}
                       onChange={(e) => setProjectData({ ...projectData, acres: Number(e.target.value) })}
+                      onFocus={(e) => e.target.select()}
                     />
                     <div>
                       <label className="block text-sm font-medium mb-2">DBH Package</label>

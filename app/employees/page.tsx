@@ -119,6 +119,7 @@ export default function EmployeesPage() {
                     type="number"
                     value={formData.baseHourlyRate}
                     onChange={(e) => setFormData({ ...formData, baseHourlyRate: Number(e.target.value) })}
+                    onFocus={(e) => e.target.select()}
                   />
                 </div>
 

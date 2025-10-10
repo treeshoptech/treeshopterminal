@@ -95,12 +95,32 @@ export default function ProjectsPage() {
                     </div>
                   </div>
 
-                  <Input
-                    label="Profit Margin (%)"
-                    type="number"
-                    value={projectData.profitMargin}
-                    onChange={(e) => setProjectData({ ...projectData, profitMargin: Number(e.target.value) })}
-                  />
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Profit Margin (%)</label>
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => setProjectData({ ...projectData, profitMargin: Math.max(0, projectData.profitMargin - 5) })}
+                        className="px-4 py-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg font-bold"
+                      >
+                        −
+                      </button>
+                      <input
+                        type="number"
+                        className="flex-1 text-center px-3 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 font-mono text-lg font-bold"
+                        value={projectData.profitMargin}
+                        onChange={(e) => setProjectData({ ...projectData, profitMargin: Number(e.target.value) })}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setProjectData({ ...projectData, profitMargin: Math.min(100, projectData.profitMargin + 5) })}
+                        className="px-4 py-2 bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 rounded-lg font-bold"
+                      >
+                        +
+                      </button>
+                    </div>
+                    <div className="text-xs text-gray-500 mt-1">Click +/− to adjust by 5%</div>
+                  </div>
 
                   <div className="space-y-3 bg-gray-50 dark:bg-gray-900/50 p-6 rounded-lg">
                     <div className="flex justify-between text-sm">

@@ -15,7 +15,16 @@ import {
   Briefcase,
   Mail,
   Phone,
-  User
+  User,
+  ChevronLeft,
+  Activity,
+  BarChart3,
+  Shield,
+  Sparkles,
+  UserCheck,
+  Coins,
+  Building,
+  Clock
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -98,110 +107,247 @@ export default function EmployeesPage() {
     return 'badge-info';
   };
 
+  const getPositionGradient = (position: string) => {
+    const lowerPos = position?.toLowerCase() || '';
+    if (lowerPos.includes('operator')) return 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)';
+    if (lowerPos.includes('lead') || lowerPos.includes('leader')) return 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)';
+    if (lowerPos.includes('arborist')) return 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+    return 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)';
+  };
+
   return (
     <>
       <NavBar />
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          {/* Header Section */}
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-2">
+        {/* Premium Background Pattern */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0"
+               style={{
+                 backgroundImage: `
+                   radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.04) 0%, transparent 40%),
+                   radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 40%)
+                 `
+               }} />
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Premium Header Section */}
+          <div className="mb-10">
+            <div className="flex items-start gap-4 mb-8">
               <Link
                 href="/"
-                className="icon-btn icon-btn-sm"
-                style={{ color: 'var(--text-tertiary)' }}
+                className="group mt-1 p-2.5 rounded-xl transition-all duration-300 hover:scale-110"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
+                  border: '1px solid var(--border-default)',
+                  backdropFilter: 'blur(10px)',
+                  WebkitBackdropFilter: 'blur(10px)'
+                }}
               >
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M12.5 5L7.5 10L12.5 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+                <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                             style={{ color: 'var(--text-secondary)' }} />
               </Link>
-              <div>
-                <h1 className="text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
-                  Team Management
-                </h1>
-                <p className="text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
-                  Manage your employees and calculate labor costs
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-2">
+                  <h1 className="text-4xl sm:text-5xl font-black"
+                      style={{
+                        background: 'linear-gradient(180deg, var(--text-primary) 0%, rgba(255,255,255,0.8) 100%)',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent',
+                        backgroundClip: 'text',
+                        letterSpacing: '-0.02em'
+                      }}>
+                    Team Management
+                  </h1>
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                       style={{
+                         background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%)',
+                         border: '1px solid rgba(59, 130, 246, 0.2)'
+                       }}>
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#3B82F6' }} />
+                    <span className="text-xs font-semibold uppercase tracking-wider"
+                          style={{ color: '#3B82F6' }}>
+                      Step 02
+                    </span>
+                  </div>
+                </div>
+                <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
+                  Manage your employees and calculate true labor costs with burden multipliers
                 </p>
               </div>
             </div>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-            <div className="stat-card">
-              <div className="stat-label">Total Employees</div>
-              <div className="stat-value">{employees.length}</div>
-              <div className="stat-change stat-change-positive">
-                <TrendingUp className="w-4 h-4" />
-                Active team
+          {/* Premium Stats Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
+                   border: '1px solid var(--border-default)',
+                   backdropFilter: 'blur(40px)',
+                   WebkitBackdropFilter: 'blur(40px)',
+                   boxShadow: 'var(--shadow-lg)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 70%)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <UsersIcon className="w-5 h-5" style={{ color: '#3B82F6' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Team
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {employees.length}
+                </div>
+                <div className="flex items-center gap-1.5 text-sm">
+                  <TrendingUp className="w-4 h-4" style={{ color: '#3B82F6' }} />
+                  <span style={{ color: '#3B82F6' }}>Active members</span>
+                </div>
               </div>
             </div>
-            <div className="stat-card">
-              <div className="stat-label">Avg Base Rate</div>
-              <div className="stat-value">
-                {employees.length > 0
-                  ? formatCurrency(employees.reduce((acc, e) => acc + (e.baseHourlyRate || 0), 0) / employees.length)
-                  : '$0.00'}
-              </div>
-              <div className="stat-change" style={{ color: 'var(--text-tertiary)' }}>
-                Per hour
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
+                   border: '1px solid var(--border-default)',
+                   backdropFilter: 'blur(40px)',
+                   WebkitBackdropFilter: 'blur(40px)',
+                   boxShadow: 'var(--shadow-lg)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at top right, rgba(16, 185, 129, 0.1), transparent 70%)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <Coins className="w-5 h-5" style={{ color: 'var(--brand-400)' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Base Rate
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {employees.length > 0
+                    ? formatCurrency(employees.reduce((acc, e) => acc + (e.baseHourlyRate || 0), 0) / employees.length)
+                    : '$0.00'}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Average per hour
+                </div>
               </div>
             </div>
-            <div className="stat-card">
-              <div className="stat-label">Avg True Cost</div>
-              <div className="stat-value">
-                {employees.length > 0
-                  ? formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0) / employees.length)
-                  : '$0.00'}
-              </div>
-              <div className="stat-change" style={{ color: 'var(--text-tertiary)' }}>
-                With burden
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
+                   border: '1px solid var(--border-default)',
+                   backdropFilter: 'blur(40px)',
+                   WebkitBackdropFilter: 'blur(40px)',
+                   boxShadow: 'var(--shadow-lg)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.1), transparent 70%)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <Shield className="w-5 h-5" style={{ color: '#F59E0B' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    True Cost
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {employees.length > 0
+                    ? formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0) / employees.length)
+                    : '$0.00'}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  With burden
+                </div>
               </div>
             </div>
-            <div className="stat-card">
-              <div className="stat-label">Total Labor Cost</div>
-              <div className="stat-value">
-                {formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0))}
-              </div>
-              <div className="stat-change" style={{ color: 'var(--text-tertiary)' }}>
-                Per hour
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
+                   border: '1px solid var(--border-default)',
+                   backdropFilter: 'blur(40px)',
+                   WebkitBackdropFilter: 'blur(40px)',
+                   boxShadow: 'var(--shadow-lg)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.1), transparent 70%)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <BarChart3 className="w-5 h-5" style={{ color: '#8B5CF6' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Total
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0))}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Labor cost per hour
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Action Bar */}
-          <div className="flex justify-between items-center mb-6">
+          {/* Premium Action Bar */}
+          <div className="flex justify-between items-center mb-8">
             <div>
-              <h2 className="text-xl font-semibold" style={{ color: 'var(--text-primary)' }}>
+              <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
                 Team Members
               </h2>
-              <p className="text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+              <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
                 {employees.length} {employees.length === 1 ? 'employee' : 'employees'} in your organization
               </p>
             </div>
             <button
               onClick={() => setShowForm(true)}
-              className="btn btn-primary btn-md"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hardware-accelerated"
+              style={{
+                background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
+                color: 'white',
+                boxShadow: '0 4px 14px 0 rgba(59, 130, 246, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+              }}
             >
-              <Plus className="w-4 h-4" />
+              <Plus className="w-5 h-5" />
               Add Employee
             </button>
           </div>
 
-          {/* Form Modal */}
+          {/* Premium Form Modal */}
           {showForm && (
             <div className="modal-overlay">
-              <div className="modal-content" style={{ maxWidth: '600px' }}>
+              <div className="modal-content" style={{ maxWidth: '640px' }}>
                 <div className="modal-header">
                   <div>
                     <h2 className="modal-title">Add New Employee</h2>
                     <p className="text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
-                      Configure employee details and burden rates
+                      Configure employee details and calculate true labor costs
                     </p>
                   </div>
                   <button
                     onClick={() => setShowForm(false)}
-                    className="icon-btn"
+                    className="icon-btn glass"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
+                      border: '1px solid var(--border-default)'
+                    }}
                   >
                     <X className="w-5 h-5" />
                   </button>
@@ -209,11 +355,20 @@ export default function EmployeesPage() {
 
                 <form onSubmit={handleSubmit} className="modal-body">
                   {/* Personal Information */}
-                  <div className="mb-6">
-                    <h3 className="text-sm font-semibold uppercase tracking-wider mb-4"
-                        style={{ color: 'var(--text-tertiary)' }}>
-                      Personal Information
-                    </h3>
+                  <div className="mb-7">
+                    <div className="flex items-center gap-2 mb-5">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+                           style={{
+                             background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.1) 100%)',
+                             border: '1px solid rgba(59, 130, 246, 0.3)'
+                           }}>
+                        <User className="w-4 h-4" style={{ color: '#3B82F6' }} />
+                      </div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider"
+                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                        Personal Information
+                      </h3>
+                    </div>
                     <div className="form-grid form-grid-2">
                       <div className="input-group">
                         <label className="input-label">First Name</label>
@@ -239,11 +394,20 @@ export default function EmployeesPage() {
                   </div>
 
                   {/* Contact Information */}
-                  <div className="mb-6">
-                    <h3 className="text-sm font-semibold uppercase tracking-wider mb-4"
-                        style={{ color: 'var(--text-tertiary)' }}>
-                      Contact Information
-                    </h3>
+                  <div className="mb-7">
+                    <div className="flex items-center gap-2 mb-5">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+                           style={{
+                             background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%)',
+                             border: '1px solid rgba(16, 185, 129, 0.3)'
+                           }}>
+                        <Mail className="w-4 h-4" style={{ color: 'var(--brand-400)' }} />
+                      </div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider"
+                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                        Contact Information
+                      </h3>
+                    </div>
                     <div className="form-grid form-grid-2">
                       <div className="input-group">
                         <label className="input-label">Email</label>
@@ -269,19 +433,28 @@ export default function EmployeesPage() {
                   </div>
 
                   {/* Position & Compensation */}
-                  <div className="mb-6">
-                    <h3 className="text-sm font-semibold uppercase tracking-wider mb-4"
-                        style={{ color: 'var(--text-tertiary)' }}>
-                      Position & Compensation
-                    </h3>
-                    <div className="space-y-4">
+                  <div className="mb-7">
+                    <div className="flex items-center gap-2 mb-5">
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center"
+                           style={{
+                             background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.1) 100%)',
+                             border: '1px solid rgba(245, 158, 11, 0.3)'
+                           }}>
+                        <Briefcase className="w-4 h-4" style={{ color: '#F59E0B' }} />
+                      </div>
+                      <h3 className="text-sm font-semibold uppercase tracking-wider"
+                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                        Position & Compensation
+                      </h3>
+                    </div>
+                    <div className="space-y-5">
                       <div className="input-group">
                         <label className="input-label">Position</label>
                         <input
                           className="input-field"
                           value={formData.position}
                           onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                          placeholder="e.g., Equipment Operator, Ground Crew"
+                          placeholder="e.g., Equipment Operator, Ground Crew, Crew Leader"
                         />
                       </div>
                       <div className="form-grid form-grid-2">
@@ -314,39 +487,61 @@ export default function EmployeesPage() {
                     </div>
                   </div>
 
-                  {/* Cost Summary */}
-                  <div className="p-6 rounded-xl mb-6"
+                  {/* Premium Cost Summary */}
+                  <div className="p-6 rounded-2xl mb-6"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05))',
-                         border: '1px solid rgba(59, 130, 246, 0.2)'
+                         background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%)',
+                         border: '1px solid rgba(59, 130, 246, 0.2)',
+                         backdropFilter: 'blur(10px)',
+                         WebkitBackdropFilter: 'blur(10px)'
                        }}>
-                    <h3 className="text-sm font-semibold uppercase tracking-wider mb-4"
-                        style={{ color: '#60A5FA' }}>
-                      Calculated Labor Cost
-                    </h3>
-                    <div className="grid grid-cols-3 gap-4">
-                      <div>
-                        <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                    <div className="flex items-center gap-2 mb-5">
+                      <DollarSign className="w-5 h-5" style={{ color: '#60A5FA' }} />
+                      <h3 className="text-sm font-semibold uppercase tracking-wider"
+                          style={{ color: '#60A5FA', letterSpacing: '0.1em' }}>
+                        Calculated Labor Cost
+                      </h3>
+                    </div>
+                    <div className="grid grid-cols-3 gap-5">
+                      <div className="text-center p-4 rounded-xl"
+                           style={{
+                             background: 'rgba(0, 0, 0, 0.2)',
+                             border: '1px solid var(--border-default)'
+                           }}>
+                        <div className="text-xs uppercase tracking-wider mb-2"
+                             style={{ color: 'var(--text-quaternary)' }}>
                           Base Rate
                         </div>
-                        <div className="text-xl font-bold mt-1" style={{ color: 'var(--text-primary)' }}>
-                          {formatCurrency(formData.baseHourlyRate)}/hr
+                        <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                          {formatCurrency(formData.baseHourlyRate)}
+                          <span className="text-sm font-normal">/hr</span>
                         </div>
                       </div>
-                      <div>
-                        <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                      <div className="text-center p-4 rounded-xl"
+                           style={{
+                             background: 'rgba(0, 0, 0, 0.2)',
+                             border: '1px solid var(--border-default)'
+                           }}>
+                        <div className="text-xs uppercase tracking-wider mb-2"
+                             style={{ color: 'var(--text-quaternary)' }}>
                           Burden
                         </div>
-                        <div className="text-xl font-bold mt-1" style={{ color: 'var(--text-primary)' }}>
+                        <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
                           {formData.burdenMultiplier}x
                         </div>
                       </div>
-                      <div>
-                        <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                      <div className="text-center p-4 rounded-xl"
+                           style={{
+                             background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
+                             boxShadow: '0 4px 14px 0 rgba(59, 130, 246, 0.35)'
+                           }}>
+                        <div className="text-xs uppercase tracking-wider mb-2"
+                             style={{ color: 'rgba(255,255,255,0.8)' }}>
                           True Cost
                         </div>
-                        <div className="text-2xl font-bold mt-1" style={{ color: '#60A5FA' }}>
-                          {formatCurrency(trueCost)}/hr
+                        <div className="text-3xl font-bold" style={{ color: 'white' }}>
+                          {formatCurrency(trueCost)}
+                          <span className="text-sm font-normal">/hr</span>
                         </div>
                       </div>
                     </div>
@@ -365,6 +560,9 @@ export default function EmployeesPage() {
                     type="submit"
                     onClick={handleSubmit}
                     className="btn btn-primary btn-md"
+                    style={{
+                      background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)'
+                    }}
                   >
                     Save Employee
                   </button>
@@ -373,133 +571,192 @@ export default function EmployeesPage() {
             </div>
           )}
 
-          {/* Employees Grid */}
+          {/* Premium Employee Grid */}
           {employees.length === 0 ? (
-            <div className="empty-state">
-              <UsersIcon className="empty-icon" />
+            <div className="empty-state glass rounded-3xl p-12"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.4) 100%)',
+                   border: '1px solid var(--border-default)',
+                   backdropFilter: 'blur(20px)',
+                   WebkitBackdropFilter: 'blur(20px)'
+                 }}>
+              <UsersIcon className="empty-icon mx-auto mb-6" style={{ opacity: 0.3 }} />
               <h3 className="empty-title">No employees yet</h3>
               <p className="empty-description">
                 Start building your team by adding your first employee.
               </p>
               <button
                 onClick={() => setShowForm(true)}
-                className="btn btn-primary btn-md"
+                className="btn btn-primary btn-lg mt-4"
+                style={{
+                  background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)'
+                }}
               >
-                <Plus className="w-4 h-4" />
+                <Plus className="w-5 h-5" />
                 Add Your First Employee
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {employees.map((emp) => (
-                <div key={emp._id} className="card group">
-                  {/* Card Header */}
-                  <div className="flex items-start justify-between mb-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 rounded-full flex items-center justify-center text-lg font-semibold"
-                           style={{
-                             background: 'linear-gradient(135deg, var(--brand-500), var(--brand-600))',
-                             color: 'white'
-                           }}>
-                        {emp.firstName?.[0]}{emp.lastName?.[0]}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-lg" style={{ color: 'var(--text-primary)' }}>
-                          {emp.firstName} {emp.lastName}
-                        </h3>
-                        <div className="flex items-center gap-2 mt-1">
-                          {emp.position && (
-                            <span className={`badge ${getPositionBadgeColor(emp.position)}`}>
-                              {emp.position}
-                            </span>
-                          )}
-                          <span className="badge badge-success">
-                            Active
-                          </span>
+                <div key={emp._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hardware-accelerated"
+                     style={{
+                       background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.98) 100%)',
+                       border: '1px solid var(--border-default)',
+                       backdropFilter: 'blur(40px)',
+                       WebkitBackdropFilter: 'blur(40px)',
+                       boxShadow: 'var(--shadow-lg)',
+                       transform: 'translateZ(0)'
+                     }}>
+                  {/* Premium Glow Effect */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                       style={{
+                         background: 'radial-gradient(circle at top left, rgba(59, 130, 246, 0.1), transparent 70%)'
+                       }} />
+
+                  <div className="relative p-6">
+                    {/* Card Header */}
+                    <div className="flex items-start justify-between mb-5">
+                      <div className="flex items-start gap-4">
+                        <div className="w-14 h-14 rounded-2xl flex items-center justify-center text-lg font-bold shadow-lg"
+                             style={{
+                               background: getPositionGradient(emp.position || ''),
+                               color: 'white',
+                               boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)'
+                             }}>
+                          {emp.firstName?.[0]}{emp.lastName?.[0]}
                         </div>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => handleDelete(emp._id)}
-                      className="icon-btn icon-btn-sm opacity-0 group-hover:opacity-100 transition-opacity"
-                      style={{ color: 'var(--color-error)' }}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-
-                  {/* Contact Info */}
-                  <div className="space-y-2 mb-4">
-                    {emp.email && (
-                      <div className="flex items-center gap-2">
-                        <Mail className="w-3 h-3" style={{ color: 'var(--text-quaternary)' }} />
-                        <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                          {emp.email}
-                        </span>
-                      </div>
-                    )}
-                    {emp.phone && (
-                      <div className="flex items-center gap-2">
-                        <Phone className="w-3 h-3" style={{ color: 'var(--text-quaternary)' }} />
-                        <span className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
-                          {emp.phone}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Cost Breakdown */}
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center py-2 border-b"
-                         style={{ borderColor: 'var(--border-default)' }}>
-                      <div className="flex items-center gap-2">
-                        <DollarSign className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                        <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                          Base Wage
-                        </span>
-                      </div>
-                      <span className="font-mono font-medium" style={{ color: 'var(--text-primary)' }}>
-                        {formatCurrency(emp.baseHourlyRate || 0)}/hr
-                      </span>
-                    </div>
-
-                    <div className="flex justify-between items-center py-2 border-b"
-                         style={{ borderColor: 'var(--border-default)' }}>
-                      <div className="flex items-center gap-2">
-                        <Award className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                        <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                          Burden Rate
-                        </span>
-                      </div>
-                      <span className="font-mono font-medium" style={{ color: 'var(--text-primary)' }}>
-                        {emp.burdenMultiplier?.toFixed(1) || '1.7'}x
-                      </span>
-                    </div>
-
-                    <div className="pt-2">
-                      <div className="flex justify-between items-end">
                         <div>
-                          <span className="text-xs uppercase tracking-wider"
-                                style={{ color: 'var(--text-quaternary)' }}>
-                            True Hourly Cost
+                          <h3 className="font-bold text-xl mb-2"
+                              style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+                            {emp.firstName} {emp.lastName}
+                          </h3>
+                          <div className="flex items-center gap-2">
+                            {emp.position && (
+                              <span className={`badge ${getPositionBadgeColor(emp.position)}`}>
+                                {emp.position}
+                              </span>
+                            )}
+                            <span className="badge badge-success">
+                              <UserCheck className="w-3 h-3" />
+                              Active
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => handleDelete(emp._id)}
+                        className="icon-btn icon-btn-sm opacity-0 group-hover:opacity-100 transition-all duration-300"
+                        style={{
+                          background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%)',
+                          border: '1px solid rgba(239, 68, 68, 0.2)'
+                        }}
+                      >
+                        <Trash2 className="w-4 h-4" style={{ color: 'var(--color-error)' }} />
+                      </button>
+                    </div>
+
+                    {/* Contact Info with Premium Styling */}
+                    {(emp.email || emp.phone) && (
+                      <div className="space-y-2 mb-5 p-3 rounded-xl"
+                           style={{
+                             background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
+                             border: '1px solid var(--border-default)'
+                           }}>
+                        {emp.email && (
+                          <div className="flex items-center gap-2">
+                            <Mail className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
+                            <span className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                              {emp.email}
+                            </span>
+                          </div>
+                        )}
+                        {emp.phone && (
+                          <div className="flex items-center gap-2">
+                            <Phone className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
+                            <span className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                              {emp.phone}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    )}
+
+                    {/* Cost Breakdown with Premium Design */}
+                    <div className="space-y-4">
+                      <div className="flex justify-between items-center p-3 rounded-xl"
+                           style={{
+                             background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
+                             border: '1px solid var(--border-default)'
+                           }}>
+                        <div className="flex items-center gap-2">
+                          <DollarSign className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
+                          <span className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                            Base Wage
                           </span>
                         </div>
-                        <div className="text-2xl font-bold" style={{ color: '#60A5FA' }}>
-                          {formatCurrency(emp.trueCostPerHour || 0)}
-                          <span className="text-sm font-normal" style={{ color: 'var(--text-tertiary)' }}>
-                            /hr
+                        <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          {formatCurrency(emp.baseHourlyRate || 0)}/hr
+                        </span>
+                      </div>
+
+                      <div className="flex justify-between items-center p-3 rounded-xl"
+                           style={{
+                             background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
+                             border: '1px solid var(--border-default)'
+                           }}>
+                        <div className="flex items-center gap-2">
+                          <Award className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
+                          <span className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                            Burden Rate
                           </span>
+                        </div>
+                        <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          {emp.burdenMultiplier?.toFixed(1) || '1.7'}x
+                        </span>
+                      </div>
+
+                      {/* Premium Total Cost Display */}
+                      <div className="pt-4 mt-4"
+                           style={{ borderTop: '1px solid var(--border-default)' }}>
+                        <div className="flex justify-between items-end">
+                          <div>
+                            <span className="text-xs uppercase tracking-wider"
+                                  style={{ color: 'var(--text-quaternary)' }}>
+                              True Hourly Cost
+                            </span>
+                          </div>
+                          <div className="text-3xl font-bold"
+                               style={{
+                                 background: 'linear-gradient(135deg, #3B82F6 0%, #60A5FA 100%)',
+                                 WebkitBackgroundClip: 'text',
+                                 WebkitTextFillColor: 'transparent',
+                                 backgroundClip: 'text'
+                               }}>
+                            {formatCurrency(emp.trueCostPerHour || 0)}
+                            <span className="text-sm font-normal" style={{ color: 'var(--text-tertiary)' }}>
+                              /hr
+                            </span>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Employee Details */}
-                  <div className="mt-4 pt-4 border-t" style={{ borderColor: 'var(--border-default)' }}>
-                    <div className="flex justify-between text-xs">
-                      <span style={{ color: 'var(--text-quaternary)' }}>
-                        {getMultiplierLabel(emp.burdenMultiplier || 1.7)}
-                      </span>
+                    {/* Employee Metadata */}
+                    <div className="flex items-center justify-between mt-5 pt-4"
+                         style={{ borderTop: '1px solid var(--border-default)' }}>
+                      <div className="flex items-center gap-1.5">
+                        <Building className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
+                        <span className="text-xs font-medium" style={{ color: 'var(--text-quaternary)' }}>
+                          {getMultiplierLabel(emp.burdenMultiplier || 1.7)}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        <Clock className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
+                        <span className="text-xs font-medium" style={{ color: 'var(--text-quaternary)' }}>
+                          Full-time
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

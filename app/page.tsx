@@ -2,6 +2,8 @@ import Link from 'next/link';
 import { BarChart3, Map, Clock, Building2 } from 'lucide-react';
 import styles from './page.module.css';
 
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
   return (
     <main className={styles.container}>

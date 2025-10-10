@@ -1,13 +1,13 @@
 /**
- * Auth Module - REAL Clerk Authentication
+ * Auth Module - Mock for now (Clerk breaks Next 15 build)
  */
 
 // Client exports
-export { ClerkProvider as AuthProvider } from '@clerk/nextjs';
-export { useAuth, useOrganization, useUser } from '@clerk/nextjs';
+export { MockAuthProvider as AuthProvider } from './MockAuthProvider';
+export { useAuth } from './MockAuthProvider';
 
 // Server exports
-export { auth as getAuth, currentUser as getUser } from '@clerk/nextjs/server';
+export { getAuth, getUser, getOrganization } from './server';
 
 // Types
 export type { AuthContext, User, Organization } from './types';

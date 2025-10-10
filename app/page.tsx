@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { Truck, Wrench, FileText, ArrowRight } from 'lucide-react';
+import { Truck, Wrench, FileText, ArrowRight, Users } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -7,25 +7,33 @@ export default function HomePage() {
   const steps = [
     {
       step: 'Step 1',
-      title: 'Equipment Library',
-      description: 'Add your equipment and auto-calculate hourly costs',
+      title: 'Equipment',
+      description: 'Add equipment and auto-calculate hourly costs',
       href: '/equipment',
       icon: Truck,
       color: 'bg-green-600',
     },
     {
       step: 'Step 2',
-      title: 'Loadouts',
-      description: 'Build crew loadouts from your saved equipment',
-      href: '/loadouts',
-      icon: Wrench,
+      title: 'Employees',
+      description: 'Add employees with burden multipliers',
+      href: '/employees',
+      icon: Users,
       color: 'bg-blue-600',
     },
     {
       step: 'Step 3',
-      title: 'Price Projects',
-      description: 'Calculate project pricing using your saved loadouts',
-      href: '/pricing',
+      title: 'Loadouts',
+      description: 'Build crew loadouts from saved equipment + employees',
+      href: '/loadouts',
+      icon: Wrench,
+      color: 'bg-yellow-600',
+    },
+    {
+      step: 'Step 4',
+      title: 'Projects',
+      description: 'Price projects using your saved loadouts',
+      href: '/projects',
       icon: FileText,
       color: 'bg-purple-600',
     },
@@ -44,7 +52,7 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((item) => {
             const Icon = item.icon;
             return (
@@ -73,7 +81,7 @@ export default function HomePage() {
         <div className="mt-16 text-center">
           <div className="inline-block bg-gray-800 border border-gray-700 rounded-xl p-8">
             <p className="text-gray-400">
-              Complete 3-Step System | Equipment → Loadouts → Projects
+              Complete 4-Step System | Equipment → Employees → Loadouts → Projects
             </p>
           </div>
         </div>

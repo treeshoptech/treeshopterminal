@@ -9,8 +9,13 @@ import { Input } from '@/components/ui/Input';
 import { NavBar } from '@/components/ui/NavBar';
 import Link from 'next/link';
 
+import { useOrganization } from '@clerk/nextjs';
+
 export default function EquipmentLibraryPage() {
-  const equipment = useQuery(api.equipment.list, { organizationId: 'org_demo' }) || [];
+  const { organization } = useOrganization();
+  const orgId = organization?.id || 'org_demo';
+
+  const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
   const createEquipment = useMutation(api.equipment.create);
   const deleteEquipment = useMutation(api.equipment.remove);
 
@@ -53,7 +58,7 @@ export default function EquipmentLibraryPage() {
     const costs = calculate();
 
     await createEquipment({
-      organizationId: 'org_demo',
+      organizationId: orgId,
       ...formData,
       ...costs,
       status: 'active',

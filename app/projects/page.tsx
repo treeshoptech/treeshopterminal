@@ -9,8 +9,13 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 
+import { useOrganization } from '@clerk/nextjs';
+
 export default function ProjectsPage() {
-  const loadouts = useQuery(api.loadouts.list, { organizationId: 'org_demo' }) || [];
+  const { organization } = useOrganization();
+  const orgId = organization?.id || 'org_demo';
+
+  const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
   const [selectedLoadout, setSelectedLoadout] = useState('');
   const [projectData, setProjectData] = useState({
     projectName: '',

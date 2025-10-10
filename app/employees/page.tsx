@@ -9,8 +9,13 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 
+import { useOrganization } from '@clerk/nextjs';
+
 export default function EmployeesPage() {
-  const employees = useQuery(api.employees.list, { organizationId: 'org_demo' }) || [];
+  const { organization } = useOrganization();
+  const orgId = organization?.id || 'org_demo';
+
+  const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];
   const createEmployee = useMutation(api.employees.create);
   const deleteEmployee = useMutation(api.employees.remove);
 
@@ -31,7 +36,7 @@ export default function EmployeesPage() {
     e.preventDefault();
 
     await createEmployee({
-      organizationId: 'org_demo',
+      organizationId: orgId,
       ...formData,
       trueCostPerHour: trueCost,
       status: 'active',

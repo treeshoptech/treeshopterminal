@@ -9,10 +9,15 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 
+import { useOrganization } from '@clerk/nextjs';
+
 export default function LoadoutsPage() {
-  const equipment = useQuery(api.equipment.list, { organizationId: 'org_demo' }) || [];
-  const employees = useQuery(api.employees.list, { organizationId: 'org_demo' }) || [];
-  const loadouts = useQuery(api.loadouts.list, { organizationId: 'org_demo' }) || [];
+  const { organization } = useOrganization();
+  const orgId = organization?.id || 'org_demo';
+
+  const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
+  const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];
+  const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
   const createLoadout = useMutation(api.loadouts.create);
   const deleteLoadout = useMutation(api.loadouts.remove);
 
@@ -50,7 +55,7 @@ export default function LoadoutsPage() {
     const selectedEmps = employees.filter((e) => formData.selectedEmployees.includes(e._id));
 
     await createLoadout({
-      organizationId: 'org_demo',
+      organizationId: orgId,
       loadoutName: formData.loadoutName,
       serviceType: formData.serviceType,
       equipmentIds: formData.selectedEquipment as any,

@@ -1,19 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { useOrganization } from '@clerk/nextjs';
-import { useMutation } from 'convex/react';
-import { api } from '@/convex/_generated/api';
-import { Card, CardContent } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
-import { Save, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
 export default function EquipmentCostCalculator() {
-  const { organization } = useOrganization();
-  const createEquipment = useMutation(api.userEquipment.create);
-
   const [formData, setFormData] = useState({
     equipmentName: '',
     purchasePrice: 0,
@@ -60,21 +52,6 @@ export default function EquipmentCostCalculator() {
     });
   };
 
-  const handleSave = async () => {
-    if (!organization?.id) {
-      alert('Please sign in to save equipment');
-      return;
-    }
-
-    await createEquipment({
-      organizationId: organization.id,
-      ...formData,
-      category: 'general',
-      annualFinanceCost: formData.purchasePrice * (formData.apr / 100),
-    });
-
-    alert('Equipment saved to inventory!');
-  };
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4">
@@ -213,18 +190,11 @@ export default function EquipmentCostCalculator() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-800 to-green-700 text-white p-8 rounded-xl text-center shadow-xl mb-6">
+          <div className="bg-gradient-to-r from-green-800 to-green-700 text-white p-8 rounded-xl text-center shadow-xl">
             <div className="text-sm uppercase tracking-wider opacity-90 mb-2">
               Equipment Hourly Cost
             </div>
             <div className="text-6xl font-bold font-mono">${result.totalPerHour.toFixed(2)}</div>
-          </div>
-
-          <div className="flex gap-3">
-            <Button onClick={handleSave} className="flex items-center gap-2">
-              <Save className="w-4 h-4" />
-              Save to Equipment Library
-            </Button>
           </div>
         </div>
       </div>

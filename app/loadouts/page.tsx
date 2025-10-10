@@ -1,3 +1,4 @@
+import { NavBar } from '@/components/ui/NavBar';
 'use client';
 
 import { useState } from 'react';

@@ -11,6 +11,7 @@ export default function HomePage() {
       href: '/tools/equipment-cost',
       icon: Truck,
       color: 'bg-green-600',
+      step: 'Step 1',
     },
     {
       title: 'Employee Cost Calculator',
@@ -18,6 +19,7 @@ export default function HomePage() {
       href: '/tools/employee-cost',
       icon: Users,
       color: 'bg-blue-600',
+      step: 'Step 2',
     },
     {
       title: 'Loadout Cost Calculator',
@@ -25,6 +27,7 @@ export default function HomePage() {
       href: '/tools/loadout-cost',
       icon: Calculator,
       color: 'bg-yellow-600',
+      step: 'Step 3',
     },
     {
       title: 'Profit Margin Converter',
@@ -32,6 +35,7 @@ export default function HomePage() {
       href: '/tools/profit-margin',
       icon: DollarSign,
       color: 'bg-purple-600',
+      step: 'Step 4',
     },
     {
       title: 'Project Pricing Calculator',
@@ -39,6 +43,7 @@ export default function HomePage() {
       href: '/tools/project-pricing',
       icon: FileText,
       color: 'bg-indigo-600',
+      step: 'Steps 5 & 6',
     },
     {
       title: 'Complete Pricing System',
@@ -46,6 +51,7 @@ export default function HomePage() {
       href: '/pricing',
       icon: TrendingUp,
       color: 'bg-green-800',
+      step: 'All Steps',
     },
   ];
 
@@ -114,8 +120,11 @@ export default function HomePage() {
                   className="group bg-white dark:bg-gray-950 border border-gray-200 dark:border-gray-800 rounded-lg p-6 hover:border-gray-300 dark:hover:border-gray-700 transition-all"
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <div className={`${tool.color} w-10 h-10 rounded-lg flex items-center justify-center`}>
-                      <Icon className="w-5 h-5 text-white" />
+                    <div className="flex items-center gap-3">
+                      <div className={`${tool.color} w-10 h-10 rounded-lg flex items-center justify-center`}>
+                        <Icon className="w-5 h-5 text-white" />
+                      </div>
+                      <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">{tool.step}</span>
                     </div>
                     <ArrowRight className="w-5 h-5 text-gray-300 dark:text-gray-700 group-hover:text-gray-400 group-hover:translate-x-1 transition-all" />
                   </div>

@@ -6,16 +6,10 @@ import { api } from '@/convex/_generated/api';
 import { Plus, Edit, Trash2, Truck, X } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { NavBar } from '@/components/ui/NavBar';
 import Link from 'next/link';
 
-import { useOrganization } from '@clerk/nextjs';
-
 export default function EquipmentLibraryPage() {
-  const { organization } = useOrganization();
-  const orgId = organization?.id || 'org_demo';
-
-  const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
+  const equipment = useQuery(api.equipment.list, { organizationId: 'org_demo' }) || [];
   const createEquipment = useMutation(api.equipment.create);
   const deleteEquipment = useMutation(api.equipment.remove);
 
@@ -58,7 +52,7 @@ export default function EquipmentLibraryPage() {
     const costs = calculate();
 
     await createEquipment({
-      organizationId: orgId,
+      organizationId: 'org_demo',
       ...formData,
       ...costs,
       status: 'active',
@@ -90,10 +84,8 @@ export default function EquipmentLibraryPage() {
   const costs = calculate();
 
   return (
-    <>
-      <NavBar />
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-        <div className="max-w-7xl mx-auto p-4 md:p-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-7xl mx-auto p-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div>
@@ -112,17 +104,16 @@ export default function EquipmentLibraryPage() {
         {/* Form Modal */}
         {showForm && (
           <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white dark:bg-gray-950 rounded-xl max-w-4xl w-full h-[90vh] flex flex-col">
-              <div className="bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 p-4 md:p-6 flex items-center justify-between flex-shrink-0">
-                <h2 className="text-xl md:text-2xl font-bold">Add Equipment</h2>
+            <div className="bg-white dark:bg-gray-950 rounded-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+              <div className="sticky top-0 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800 p-6 flex items-center justify-between">
+                <h2 className="text-2xl font-bold">Add Equipment</h2>
                 <button onClick={() => setShowForm(false)}>
                   <X className="w-6 h-6" />
                 </button>
               </div>
 
-              <form onSubmit={handleSubmit} className="flex-1 flex flex-col overflow-hidden">
-                <div className="flex-1 overflow-y-auto p-4 md:p-6 space-y-4 md:space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <form onSubmit={handleSubmit} className="p-6 space-y-6">
+                <div className="grid grid-cols-2 gap-4">
                   <Input
                     label="Equipment Name"
                     value={formData.equipmentName}

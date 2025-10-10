@@ -1,0 +1,104 @@
+.container {
+  padding: var(--space-6);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-8);
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.subtitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.filters {
+  display: flex;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.filters > * {
+  flex: 1;
+  min-width: 200px;
+}
+
+.statusTabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  overflow-x: auto;
+  padding-bottom: var(--space-2);
+}
+
+.statusTab {
+  padding: var(--space-2) var(--space-4);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.statusTab:hover {
+  border-color: var(--border-hover);
+  color: var(--text-primary);
+}
+
+.statusTab.active {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: white;
+  box-shadow: var(--neu-soft-light), var(--neu-soft-dark);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: var(--space-6);
+}
+
+.empty {
+  text-align: center;
+  padding: var(--space-16) var(--space-8);
+  background: var(--bg-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--neu-soft-light), var(--neu-soft-dark);
+}
+
+.emptyIcon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto var(--space-6);
+  color: var(--text-tertiary);
+}
+
+.emptyTitle {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  color: var(--text-primary);
+  margin: 0 0 var(--space-3) 0;
+}
+
+.emptyText {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-6) 0;
+}

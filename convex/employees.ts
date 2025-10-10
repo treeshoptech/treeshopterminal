@@ -58,3 +58,10 @@ export const create = mutation({
     return employeeId;
   },
 });
+
+export const remove = mutation({
+  args: { id: v.id('employees') },
+  handler: async (ctx, args) => {
+    await ctx.db.delete(args.id);
+  },
+});

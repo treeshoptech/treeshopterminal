@@ -116,7 +116,7 @@ export default function EquipmentLibraryPage() {
 
   const getCategoryGradient = (category: string) => {
     switch (category) {
-      case 'truck': return 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+      case 'truck': return 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)';
       case 'mulcher': return 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)';
       case 'grinder': return 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)';
       default: return 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)';
@@ -141,7 +141,7 @@ export default function EquipmentLibraryPage() {
           <div className="absolute inset-0"
                style={{
                  backgroundImage: `
-                   radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
+                   radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.04) 0%, transparent 40%),
                    radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 40%)
                  `
                }} />
@@ -178,8 +178,8 @@ export default function EquipmentLibraryPage() {
                   </h1>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%)',
-                         border: '1px solid rgba(16, 185, 129, 0.2)'
+                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%)',
+                         border: '1px solid rgba(34, 197, 94, 0.2)'
                        }}>
                     <Sparkles className="w-3.5 h-3.5" style={{ color: 'var(--brand-400)' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
@@ -200,15 +200,15 @@ export default function EquipmentLibraryPage() {
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
                    background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(16, 185, 129, 0.2)',
+                   border: '2px solid rgba(34, 197, 94, 0.2)',
                    backdropFilter: 'blur(60px)',
                    WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.2)'
+                     background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
@@ -341,7 +341,7 @@ export default function EquipmentLibraryPage() {
               style={{
                 background: 'var(--gradient-brand)',
                 color: 'white',
-                boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                boxShadow: '0 4px 14px 0 rgba(34, 197, 94, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
               }}
             >
               <Plus className="w-5 h-5" />
@@ -378,8 +378,8 @@ export default function EquipmentLibraryPage() {
                     <div className="flex items-center gap-2 mb-5">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%)',
-                             border: '1px solid rgba(16, 185, 129, 0.3)'
+                             background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.1) 100%)',
+                             border: '1px solid rgba(34, 197, 94, 0.3)'
                            }}>
                         <Truck className="w-4 h-4" style={{ color: 'var(--brand-400)' }} />
                       </div>
@@ -587,8 +587,8 @@ export default function EquipmentLibraryPage() {
                   {/* Premium Cost Summary */}
                   <div className="p-6 rounded-2xl mb-6"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.03) 100%)',
-                         border: '1px solid rgba(16, 185, 129, 0.2)',
+                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%)',
+                         border: '1px solid rgba(34, 197, 94, 0.2)',
                          backdropFilter: 'blur(10px)',
                          WebkitBackdropFilter: 'blur(10px)'
                        }}>
@@ -631,7 +631,7 @@ export default function EquipmentLibraryPage() {
                       <div className="text-center p-4 rounded-xl"
                            style={{
                              background: 'var(--gradient-brand)',
-                             boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.35)'
+                             boxShadow: '0 4px 14px 0 rgba(34, 197, 94, 0.35)'
                            }}>
                         <div className="text-xs uppercase tracking-wider mb-2"
                              style={{ color: 'rgba(255,255,255,0.8)' }}>
@@ -703,7 +703,7 @@ export default function EquipmentLibraryPage() {
                   {/* Premium Glow Effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                        style={{
-                         background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.1), transparent 70%)'
+                         background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 70%)'
                        }} />
 
                   <div className="relative p-6">

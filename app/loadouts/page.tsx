@@ -106,19 +106,19 @@ export default function LoadoutsPage() {
 
   const getServiceTypeGradient = (serviceType: string) => {
     switch (serviceType) {
-      case 'mulching': return 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+      case 'mulching': return 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)';
       case 'clearing': return 'linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%)';
-      case 'stumps': return 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
-      default: return 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+      case 'stumps': return 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)';
+      default: return 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)';
     }
   };
 
   const getServiceTypeColor = (serviceType: string) => {
     switch (serviceType) {
-      case 'mulching': return '#10B981';
+      case 'mulching': return '#22C55E';
       case 'clearing': return '#8B5CF6';
-      case 'stumps': return '#10B981';
-      default: return '#10B981';
+      case 'stumps': return '#22C55E';
+      default: return '#22C55E';
     }
   };
 
@@ -140,14 +140,14 @@ export default function LoadoutsPage() {
           <div className="absolute inset-0"
                style={{
                  backgroundImage: `
-                   radial-gradient(circle at 20% 30%, rgba(16, 185, 129, 0.25) 0%, transparent 50%),
+                   radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.25) 0%, transparent 50%),
                    radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.25) 0%, transparent 50%)
                  `
                }} />
           {/* BOLD Animated Gradient Orbs */}
           <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 70%)',
+                 background: 'radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, rgba(34, 197, 94, 0.2) 40%, transparent 70%)',
                  filter: 'blur(80px)',
                  transform: 'translate3d(0, 0, 0)',
                  animationDelay: '1s'
@@ -192,15 +192,15 @@ export default function LoadoutsPage() {
                   </h1>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
-                         border: '2px solid rgba(16, 185, 129, 0.4)',
+                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
+                         border: '2px solid rgba(34, 197, 94, 0.4)',
                          backdropFilter: 'blur(30px)',
                          WebkitBackdropFilter: 'blur(30px)',
-                         boxShadow: '0 8px 32px rgba(16, 185, 129, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
+                         boxShadow: '0 8px 32px rgba(34, 197, 94, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#10B981', filter: 'drop-shadow(0 0 8px rgba(16, 185, 129, 0.8))' }} />
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: '#10B981', letterSpacing: '0.1em', textShadow: '0 0 20px rgba(16, 185, 129, 0.5)' }}>
+                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: '0 0 20px rgba(34, 197, 94, 0.5)' }}>
                       Step 03
                     </span>
                   </div>
@@ -217,19 +217,19 @@ export default function LoadoutsPage() {
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
                    background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(16, 185, 129, 0.2)',
+                   border: '2px solid rgba(34, 197, 94, 0.2)',
                    backdropFilter: 'blur(60px)',
                    WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.3), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.2)'
+                     background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.3), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
-                  <Settings className="w-5 h-5" style={{ color: '#10B981' }} />
+                  <Settings className="w-5 h-5" style={{ color: '#22C55E' }} />
                   <span className="text-xs font-semibold uppercase tracking-wider"
                         style={{ color: 'var(--text-quaternary)' }}>
                     Total
@@ -240,8 +240,8 @@ export default function LoadoutsPage() {
                   {loadouts.length}
                 </div>
                 <div className="flex items-center gap-1.5 text-sm">
-                  <TrendingUp className="w-4 h-4" style={{ color: '#10B981' }} />
-                  <span style={{ color: '#10B981' }}>Configured loadouts</span>
+                  <TrendingUp className="w-4 h-4" style={{ color: '#22C55E' }} />
+                  <span style={{ color: '#22C55E' }}>Configured loadouts</span>
                 </div>
               </div>
             </div>
@@ -249,15 +249,15 @@ export default function LoadoutsPage() {
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
                    background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(16, 185, 129, 0.2)',
+                   border: '2px solid rgba(34, 197, 94, 0.2)',
                    backdropFilter: 'blur(60px)',
                    WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top right, rgba(16, 185, 129, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.2)'
+                     background: 'radial-gradient(circle at top right, rgba(34, 197, 94, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
@@ -282,19 +282,19 @@ export default function LoadoutsPage() {
             <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
                  style={{
                    background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(16, 185, 129, 0.2)',
+                   border: '2px solid rgba(34, 197, 94, 0.2)',
                    backdropFilter: 'blur(60px)',
                    WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(16, 185, 129, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(16, 185, 129, 0.2)'
+                     background: 'radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
-                  <Truck className="w-5 h-5" style={{ color: '#10B981' }} />
+                  <Truck className="w-5 h-5" style={{ color: '#22C55E' }} />
                   <span className="text-xs font-semibold uppercase tracking-wider"
                         style={{ color: 'var(--text-quaternary)' }}>
                     Equipment
@@ -356,11 +356,11 @@ export default function LoadoutsPage() {
               onClick={() => setShowForm(true)}
               className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hardware-accelerated"
               style={{
-                background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                 color: 'white',
                 boxShadow: `
-                  0 8px 24px 0 rgba(16, 185, 129, 0.5),
-                  0 0 40px rgba(16, 185, 129, 0.3),
+                  0 8px 24px 0 rgba(34, 197, 94, 0.5),
+                  0 0 40px rgba(34, 197, 94, 0.3),
                   inset 0 2px 4px rgba(255, 255, 255, 0.2),
                   inset 0 -2px 4px rgba(0, 0, 0, 0.2)
                 `
@@ -400,11 +400,11 @@ export default function LoadoutsPage() {
                     <div className="flex items-center gap-2 mb-5">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
-                             border: '2px solid rgba(16, 185, 129, 0.4)',
-                             boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3)'
+                             background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
+                             border: '2px solid rgba(34, 197, 94, 0.4)',
+                             boxShadow: '0 4px 16px rgba(34, 197, 94, 0.3)'
                            }}>
-                        <Settings className="w-4 h-4" style={{ color: '#10B981' }} />
+                        <Settings className="w-4 h-4" style={{ color: '#22C55E' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
                           style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
@@ -442,9 +442,9 @@ export default function LoadoutsPage() {
                     <div className="flex items-center gap-2 mb-5">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
-                             border: '2px solid rgba(16, 185, 129, 0.4)',
-                             boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3)'
+                             background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
+                             border: '2px solid rgba(34, 197, 94, 0.4)',
+                             boxShadow: '0 4px 16px rgba(34, 197, 94, 0.3)'
                            }}>
                         <Truck className="w-4 h-4" style={{ color: 'var(--brand-400)' }} />
                       </div>
@@ -488,15 +488,15 @@ export default function LoadoutsPage() {
                             className="group p-4 rounded-xl text-left transition-all duration-300 hardware-accelerated"
                             style={{
                               background: formData.selectedEquipment.includes(eq._id)
-                                ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)'
+                                ? 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)'
                                 : 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                               border: formData.selectedEquipment.includes(eq._id)
-                                ? '2px solid rgba(16, 185, 129, 0.4)'
+                                ? '2px solid rgba(34, 197, 94, 0.4)'
                                 : '2px solid var(--border-default)',
                               backdropFilter: 'blur(30px)',
                               WebkitBackdropFilter: 'blur(30px)',
                               boxShadow: formData.selectedEquipment.includes(eq._id)
-                                ? '0 8px 24px rgba(16, 185, 129, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                                ? '0 8px 24px rgba(34, 197, 94, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
                                 : '0 4px 12px rgba(0, 0, 0, 0.2)'
                             }}
                           >
@@ -518,11 +518,11 @@ export default function LoadoutsPage() {
                     <div className="flex items-center gap-2 mb-5">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
-                             border: '2px solid rgba(16, 185, 129, 0.4)',
-                             boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3)'
+                             background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
+                             border: '2px solid rgba(34, 197, 94, 0.4)',
+                             boxShadow: '0 4px 16px rgba(34, 197, 94, 0.3)'
                            }}>
-                        <UsersIcon className="w-4 h-4" style={{ color: '#10B981' }} />
+                        <UsersIcon className="w-4 h-4" style={{ color: '#22C55E' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
                           style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
@@ -537,7 +537,7 @@ export default function LoadoutsPage() {
                            }}>
                         <p style={{ color: 'var(--text-tertiary)' }}>
                           No employees available.{' '}
-                          <Link href="/employees" className="font-semibold" style={{ color: '#10B981' }}>
+                          <Link href="/employees" className="font-semibold" style={{ color: '#22C55E' }}>
                             Add employees first
                           </Link>
                         </p>
@@ -564,15 +564,15 @@ export default function LoadoutsPage() {
                             className="group p-4 rounded-xl text-left transition-all duration-300 hardware-accelerated"
                             style={{
                               background: formData.selectedEmployees.includes(emp._id)
-                                ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)'
+                                ? 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)'
                                 : 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                               border: formData.selectedEmployees.includes(emp._id)
-                                ? '2px solid rgba(16, 185, 129, 0.4)'
+                                ? '2px solid rgba(34, 197, 94, 0.4)'
                                 : '2px solid var(--border-default)',
                               backdropFilter: 'blur(30px)',
                               WebkitBackdropFilter: 'blur(30px)',
                               boxShadow: formData.selectedEmployees.includes(emp._id)
-                                ? '0 8px 24px rgba(16, 185, 129, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                                ? '0 8px 24px rgba(34, 197, 94, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
                                 : '0 4px 12px rgba(0, 0, 0, 0.2)'
                             }}
                           >
@@ -583,7 +583,7 @@ export default function LoadoutsPage() {
                               {emp.position}
                             </div>
                             <div className="text-sm font-mono font-semibold"
-                                 style={{ color: formData.selectedEmployees.includes(emp._id) ? '#10B981' : 'var(--text-tertiary)' }}>
+                                 style={{ color: formData.selectedEmployees.includes(emp._id) ? '#22C55E' : 'var(--text-tertiary)' }}>
                               ${emp.trueCostPerHour?.toFixed(2) || '0.00'}/hr
                             </div>
                           </button>
@@ -628,16 +628,16 @@ export default function LoadoutsPage() {
                   {/* Premium Cost Summary */}
                   <div className="p-6 rounded-2xl"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
-                         border: '2px solid rgba(16, 185, 129, 0.4)',
+                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
+                         border: '2px solid rgba(34, 197, 94, 0.4)',
                          backdropFilter: 'blur(60px)',
                          WebkitBackdropFilter: 'blur(60px)',
-                         boxShadow: '0 16px 48px rgba(16, 185, 129, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.15)'
+                         boxShadow: '0 16px 48px rgba(34, 197, 94, 0.3), inset 0 2px 4px rgba(255, 255, 255, 0.15)'
                        }}>
                     <div className="flex items-center gap-2 mb-5">
-                      <BarChart3 className="w-5 h-5" style={{ color: '#10B981' }} />
+                      <BarChart3 className="w-5 h-5" style={{ color: '#22C55E' }} />
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: '#10B981', letterSpacing: '0.1em' }}>
+                          style={{ color: '#22C55E', letterSpacing: '0.1em' }}>
                         Loadout Cost Breakdown
                       </h3>
                     </div>
@@ -672,8 +672,8 @@ export default function LoadoutsPage() {
                       </div>
                       <div className="text-center p-4 rounded-xl"
                            style={{
-                             background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                             boxShadow: '0 8px 24px rgba(16, 185, 129, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.2)'
+                             background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
+                             boxShadow: '0 8px 24px rgba(34, 197, 94, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.2)'
                            }}>
                         <div className="text-xs uppercase tracking-wider mb-2"
                              style={{ color: 'rgba(255,255,255,0.8)' }}>
@@ -701,9 +701,9 @@ export default function LoadoutsPage() {
                     onClick={handleSubmit}
                     className="btn btn-md"
                     style={{
-                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                      background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                       color: 'white',
-                      boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                      boxShadow: '0 4px 14px 0 rgba(34, 197, 94, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
                     }}
                   >
                     Save Loadout
@@ -731,9 +731,9 @@ export default function LoadoutsPage() {
                 onClick={() => setShowForm(true)}
                 className="btn btn-lg mt-4"
                 style={{
-                  background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                  background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                   color: 'white',
-                  boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                  boxShadow: '0 4px 14px 0 rgba(34, 197, 94, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
                 }}
               >
                 <Plus className="w-5 h-5" />

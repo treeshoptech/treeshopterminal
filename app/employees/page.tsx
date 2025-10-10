@@ -111,8 +111,8 @@ export default function EmployeesPage() {
     const lowerPos = position?.toLowerCase() || '';
     if (lowerPos.includes('operator')) return 'linear-gradient(135deg, #F59E0B 0%, #D97706 100%)';
     if (lowerPos.includes('lead') || lowerPos.includes('leader')) return 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)';
-    if (lowerPos.includes('arborist')) return 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
-    return 'linear-gradient(135deg, #10B981 0%, #059669 100%)';
+    if (lowerPos.includes('arborist')) return 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)';
+    return 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)';
   };
 
   return (
@@ -124,8 +124,8 @@ export default function EmployeesPage() {
           <div className="absolute inset-0"
                style={{
                  backgroundImage: `
-                   radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.04) 0%, transparent 40%),
-                   radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.04) 0%, transparent 40%)
+                   radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.04) 0%, transparent 40%),
+                   radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.04) 0%, transparent 40%)
                  `
                }} />
         </div>
@@ -161,12 +161,12 @@ export default function EmployeesPage() {
                   </h1>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%)',
-                         border: '1px solid rgba(16, 185, 129, 0.2)'
+                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%)',
+                         border: '1px solid rgba(34, 197, 94, 0.2)'
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#10B981' }} />
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: '#10B981' }}>
+                          style={{ color: '#22C55E' }}>
                       Step 02
                     </span>
                   </div>
@@ -190,11 +190,11 @@ export default function EmployeesPage() {
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.1), transparent 70%)'
+                     background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 70%)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
-                  <UsersIcon className="w-5 h-5" style={{ color: '#10B981' }} />
+                  <UsersIcon className="w-5 h-5" style={{ color: '#22C55E' }} />
                   <span className="text-xs font-semibold uppercase tracking-wider"
                         style={{ color: 'var(--text-quaternary)' }}>
                     Team
@@ -205,8 +205,8 @@ export default function EmployeesPage() {
                   {employees.length}
                 </div>
                 <div className="flex items-center gap-1.5 text-sm">
-                  <TrendingUp className="w-4 h-4" style={{ color: '#10B981' }} />
-                  <span style={{ color: '#10B981' }}>Active members</span>
+                  <TrendingUp className="w-4 h-4" style={{ color: '#22C55E' }} />
+                  <span style={{ color: '#22C55E' }}>Active members</span>
                 </div>
               </div>
             </div>
@@ -221,7 +221,7 @@ export default function EmployeesPage() {
                  }}>
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                    style={{
-                     background: 'radial-gradient(circle at top right, rgba(16, 185, 129, 0.1), transparent 70%)'
+                     background: 'radial-gradient(circle at top right, rgba(34, 197, 94, 0.1), transparent 70%)'
                    }} />
               <div className="relative">
                 <div className="flex items-center justify-between mb-3">
@@ -320,9 +320,9 @@ export default function EmployeesPage() {
               onClick={() => setShowForm(true)}
               className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hardware-accelerated"
               style={{
-                background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+                background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                 color: 'white',
-                boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                boxShadow: '0 4px 14px 0 rgba(34, 197, 94, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
               }}
             >
               <Plus className="w-5 h-5" />
@@ -359,10 +359,10 @@ export default function EmployeesPage() {
                     <div className="flex items-center gap-2 mb-5">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%)',
-                             border: '1px solid rgba(16, 185, 129, 0.3)'
+                             background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.1) 100%)',
+                             border: '1px solid rgba(34, 197, 94, 0.3)'
                            }}>
-                        <User className="w-4 h-4" style={{ color: '#10B981' }} />
+                        <User className="w-4 h-4" style={{ color: '#22C55E' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
                           style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
@@ -398,8 +398,8 @@ export default function EmployeesPage() {
                     <div className="flex items-center gap-2 mb-5">
                       <div className="w-8 h-8 rounded-lg flex items-center justify-center"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%)',
-                             border: '1px solid rgba(16, 185, 129, 0.3)'
+                             background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.1) 100%)',
+                             border: '1px solid rgba(34, 197, 94, 0.3)'
                            }}>
                         <Mail className="w-4 h-4" style={{ color: 'var(--brand-400)' }} />
                       </div>
@@ -490,15 +490,15 @@ export default function EmployeesPage() {
                   {/* Premium Cost Summary */}
                   <div className="p-6 rounded-2xl mb-6"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.03) 100%)',
-                         border: '1px solid rgba(16, 185, 129, 0.2)',
+                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.08) 0%, rgba(34, 197, 94, 0.03) 100%)',
+                         border: '1px solid rgba(34, 197, 94, 0.2)',
                          backdropFilter: 'blur(10px)',
                          WebkitBackdropFilter: 'blur(10px)'
                        }}>
                     <div className="flex items-center gap-2 mb-5">
-                      <DollarSign className="w-5 h-5" style={{ color: '#34D399' }} />
+                      <DollarSign className="w-5 h-5" style={{ color: '#4ADE80' }} />
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: '#34D399', letterSpacing: '0.1em' }}>
+                          style={{ color: '#4ADE80', letterSpacing: '0.1em' }}>
                         Calculated Labor Cost
                       </h3>
                     </div>
@@ -532,8 +532,8 @@ export default function EmployeesPage() {
                       </div>
                       <div className="text-center p-4 rounded-xl"
                            style={{
-                             background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                             boxShadow: '0 4px 14px 0 rgba(16, 185, 129, 0.35)'
+                             background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
+                             boxShadow: '0 4px 14px 0 rgba(34, 197, 94, 0.35)'
                            }}>
                         <div className="text-xs uppercase tracking-wider mb-2"
                              style={{ color: 'rgba(255,255,255,0.8)' }}>
@@ -561,7 +561,7 @@ export default function EmployeesPage() {
                     onClick={handleSubmit}
                     className="btn btn-primary btn-md"
                     style={{
-                      background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
+                      background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)'
                     }}
                   >
                     Save Employee
@@ -589,7 +589,7 @@ export default function EmployeesPage() {
                 onClick={() => setShowForm(true)}
                 className="btn btn-primary btn-lg mt-4"
                 style={{
-                  background: 'linear-gradient(135deg, #10B981 0%, #059669 100%)'
+                  background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)'
                 }}
               >
                 <Plus className="w-5 h-5" />
@@ -611,7 +611,7 @@ export default function EmployeesPage() {
                   {/* Premium Glow Effect */}
                   <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                        style={{
-                         background: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.1), transparent 70%)'
+                         background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 70%)'
                        }} />
 
                   <div className="relative p-6">
@@ -728,7 +728,7 @@ export default function EmployeesPage() {
                           </div>
                           <div className="text-3xl font-bold"
                                style={{
-                                 background: 'linear-gradient(135deg, #10B981 0%, #34D399 100%)',
+                                 background: 'linear-gradient(135deg, #22C55E 0%, #4ADE80 100%)',
                                  WebkitBackgroundClip: 'text',
                                  WebkitTextFillColor: 'transparent',
                                  backgroundClip: 'text'

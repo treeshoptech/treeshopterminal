@@ -28,9 +28,9 @@ export default function HomePage() {
       href: '/equipment',
       icon: Truck,
       color: 'var(--brand-500)',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+      gradient: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
       metrics: 'Hourly cost tracking',
-      bgGradient: 'radial-gradient(circle at top left, rgba(16, 185, 129, 0.1), transparent 70%)'
+      bgGradient: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 70%)'
     },
     {
       step: '02',
@@ -39,9 +39,9 @@ export default function HomePage() {
       href: '/employees',
       icon: Users,
       color: 'var(--brand-500)',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+      gradient: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
       metrics: 'Burden multipliers',
-      bgGradient: 'radial-gradient(circle at top right, rgba(16, 185, 129, 0.1), transparent 70%)'
+      bgGradient: 'radial-gradient(circle at top right, rgba(34, 197, 94, 0.1), transparent 70%)'
     },
     {
       step: '03',
@@ -50,9 +50,9 @@ export default function HomePage() {
       href: '/loadouts',
       icon: Wrench,
       color: 'var(--brand-500)',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+      gradient: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
       metrics: 'Equipment + labor',
-      bgGradient: 'radial-gradient(circle at bottom left, rgba(16, 185, 129, 0.1), transparent 70%)'
+      bgGradient: 'radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.1), transparent 70%)'
     },
     {
       step: '04',
@@ -61,9 +61,9 @@ export default function HomePage() {
       href: '/projects',
       icon: FileText,
       color: 'var(--brand-500)',
-      gradient: 'linear-gradient(135deg, #10B981 0%, #059669 100%)',
+      gradient: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
       metrics: 'Margin calculator',
-      bgGradient: 'radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.1), transparent 70%)'
+      bgGradient: 'radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.1), transparent 70%)'
     },
   ];
 
@@ -94,22 +94,22 @@ export default function HomePage() {
           <div className="absolute inset-0"
                style={{
                  backgroundImage: `
-                   radial-gradient(circle at 20% 50%, rgba(16, 185, 129, 0.25) 0%, transparent 50%),
-                   radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.2) 0%, transparent 50%),
-                   radial-gradient(circle at 40% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 50%)
+                   radial-gradient(circle at 20% 50%, rgba(34, 197, 94, 0.25) 0%, transparent 50%),
+                   radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.2) 0%, transparent 50%),
+                   radial-gradient(circle at 40% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 50%)
                  `
                }} />
 
           {/* BOLD Animated Gradient Orbs - Much More Prominent */}
           <div className="absolute top-1/4 -left-32 w-[600px] h-[600px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4) 0%, rgba(16, 185, 129, 0.2) 40%, transparent 70%)',
+                 background: 'radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, rgba(34, 197, 94, 0.2) 40%, transparent 70%)',
                  filter: 'blur(80px)',
                  transform: 'translate3d(0, 0, 0)'
                }} />
           <div className="absolute -bottom-32 -right-32 w-[700px] h-[700px] rounded-full animate-pulse"
                style={{
-                 background: 'radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.15) 40%, transparent 70%)',
+                 background: 'radial-gradient(circle, rgba(34, 197, 94, 0.35) 0%, rgba(34, 197, 94, 0.15) 40%, transparent 70%)',
                  filter: 'blur(80px)',
                  animationDelay: '1s',
                  transform: 'translate3d(0, 0, 0)'
@@ -129,27 +129,27 @@ export default function HomePage() {
                style={{ animationDelay: '100ms' }}>
             <div className="inline-flex items-center gap-2 px-5 py-3 rounded-full glass"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(16, 185, 129, 0.15) 100%)',
-                   border: '2px solid rgba(16, 185, 129, 0.4)',
+                   background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
+                   border: '2px solid rgba(34, 197, 94, 0.4)',
                    backdropFilter: 'blur(30px)',
                    WebkitBackdropFilter: 'blur(30px)',
-                   boxShadow: '0 8px 32px rgba(16, 185, 129, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
+                   boxShadow: '0 8px 32px rgba(34, 197, 94, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
                  }}>
               <span className="relative flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75"
                       style={{ background: 'var(--brand-400)' }}></span>
                 <span className="relative inline-flex rounded-full h-3 w-3"
-                      style={{ background: 'var(--brand-400)', boxShadow: '0 0 10px rgba(16, 185, 129, 0.8)' }}></span>
+                      style={{ background: 'var(--brand-400)', boxShadow: '0 0 10px rgba(34, 197, 94, 0.8)' }}></span>
               </span>
               <span className="text-sm font-bold uppercase tracking-wider"
                     style={{
                       color: 'var(--brand-400)',
                       letterSpacing: '0.1em',
-                      textShadow: '0 0 20px rgba(16, 185, 129, 0.5)'
+                      textShadow: '0 0 20px rgba(34, 197, 94, 0.5)'
                     }}>
                 Enterprise Ready
               </span>
-              <Sparkles className="w-4 h-4" style={{ color: 'var(--brand-400)', filter: 'drop-shadow(0 0 8px rgba(16, 185, 129, 0.8))' }} />
+              <Sparkles className="w-4 h-4" style={{ color: 'var(--brand-400)', filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
             </div>
           </div>
 
@@ -169,11 +169,11 @@ export default function HomePage() {
               TreeShop
               <span className="block text-5xl sm:text-6xl lg:text-7xl mt-4"
                     style={{
-                      background: 'linear-gradient(135deg, #10B981 0%, #34D399 30%, #10B981 60%, #059669 100%)',
+                      background: 'linear-gradient(135deg, #22C55E 0%, #4ADE80 30%, #22C55E 60%, #16A34A 100%)',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       backgroundClip: 'text',
-                      filter: 'drop-shadow(0 0 40px rgba(16, 185, 129, 0.5))'
+                      filter: 'drop-shadow(0 0 40px rgba(34, 197, 94, 0.5))'
                     }}>
                 Pricing System
               </span>
@@ -197,11 +197,11 @@ export default function HomePage() {
             <Link href="/equipment"
                   className="group inline-flex items-center justify-center px-10 py-5 text-lg font-bold rounded-2xl transition-all duration-300 hardware-accelerated"
                   style={{
-                    background: 'linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%)',
+                    background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 50%, #047857 100%)',
                     color: 'white',
                     boxShadow: `
-                      0 8px 24px 0 rgba(16, 185, 129, 0.5),
-                      0 0 40px rgba(16, 185, 129, 0.3),
+                      0 8px 24px 0 rgba(34, 197, 94, 0.5),
+                      0 0 40px rgba(34, 197, 94, 0.3),
                       inset 0 2px 4px rgba(255, 255, 255, 0.2),
                       inset 0 -2px 4px rgba(0, 0, 0, 0.2)
                     `,
@@ -243,10 +243,10 @@ export default function HomePage() {
                      }}>
                   <div className="p-2.5 rounded-xl"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(16, 185, 129, 0.2) 100%)',
-                         boxShadow: '0 4px 16px rgba(16, 185, 129, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.2)'
+                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.3) 0%, rgba(34, 197, 94, 0.2) 100%)',
+                         boxShadow: '0 4px 16px rgba(34, 197, 94, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.2)'
                        }}>
-                    <Icon className="w-5 h-5" style={{ color: 'var(--brand-400)', filter: 'drop-shadow(0 0 8px rgba(16, 185, 129, 0.8))' }} />
+                    <Icon className="w-5 h-5" style={{ color: 'var(--brand-400)', filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
                   </div>
                   <div>
                     <div className="text-sm font-bold" style={{ color: 'var(--text-primary)' }}>
@@ -268,7 +268,7 @@ export default function HomePage() {
         {/* Section Background */}
         <div className="absolute inset-0"
              style={{
-               background: 'linear-gradient(180deg, transparent 0%, rgba(16, 185, 129, 0.02) 50%, transparent 100%)'
+               background: 'linear-gradient(180deg, transparent 0%, rgba(34, 197, 94, 0.02) 50%, transparent 100%)'
              }} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
@@ -276,8 +276,8 @@ export default function HomePage() {
           <div className="text-center mb-16 space-y-4">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full mb-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%)',
-                   border: '1px solid rgba(16, 185, 129, 0.2)'
+                   background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%)',
+                   border: '1px solid rgba(34, 197, 94, 0.2)'
                  }}>
               <Target className="w-3.5 h-3.5" style={{ color: 'var(--brand-400)' }} />
               <span className="text-xs font-semibold uppercase tracking-wider"
@@ -423,7 +423,7 @@ export default function HomePage() {
         {/* Gradient Background */}
         <div className="absolute inset-0"
              style={{
-               background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, transparent 50%, rgba(59, 130, 246, 0.03) 100%)'
+               background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.03) 0%, transparent 50%, rgba(59, 130, 246, 0.03) 100%)'
              }} />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -431,7 +431,7 @@ export default function HomePage() {
             <div className="text-center group">
               <div className="inline-block p-6 rounded-3xl transition-all duration-300 group-hover:scale-105"
                    style={{
-                     background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%)',
+                     background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%)',
                      backdropFilter: 'blur(10px)',
                      WebkitBackdropFilter: 'blur(10px)'
                    }}>
@@ -505,7 +505,7 @@ export default function HomePage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center">
         <div className="inline-flex items-center gap-3 px-6 py-3.5 rounded-2xl glass animate-glow"
              style={{
-               background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%)',
+               background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, transparent 100%)',
                border: '1px solid var(--border-default)',
                backdropFilter: 'blur(20px)',
                WebkitBackdropFilter: 'blur(20px)'

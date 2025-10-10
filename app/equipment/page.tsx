@@ -26,7 +26,6 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import { NavBar } from '@/components/ui/NavBar';
 import Link from 'next/link';
 import '@/styles/design-system.css';
 
@@ -136,9 +135,7 @@ export default function EquipmentLibraryPage() {
   };
 
   return (
-    <>
-      <NavBar />
-      <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
+    <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute inset-0"
@@ -829,7 +826,6 @@ export default function EquipmentLibraryPage() {
             </div>
           )}
         </div>
-      </div>
-    </>
+    </div>
   );
 }

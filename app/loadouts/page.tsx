@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { NavBar } from '@/components/ui/NavBar';
+
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import {
@@ -135,7 +135,6 @@ export default function LoadoutsPage() {
 
   return (
     <>
-      <NavBar />
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">

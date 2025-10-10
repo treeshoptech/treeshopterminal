@@ -9,11 +9,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 
-import { useOrganization } from '@clerk/nextjs';
 
 export default function EmployeesPage() {
-  const { organization } = useOrganization();
-  const orgId = organization?.id || 'org_demo';
+  const orgId = 'org_demo';
 
   const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];
   const createEmployee = useMutation(api.employees.create);

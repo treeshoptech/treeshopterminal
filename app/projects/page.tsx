@@ -9,11 +9,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 
-import { useOrganization } from '@clerk/nextjs';
 
 export default function ProjectsPage() {
-  const { organization } = useOrganization();
-  const orgId = organization?.id || 'org_demo';
+  const orgId = 'org_demo';
 
   const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
   const [selectedLoadout, setSelectedLoadout] = useState('');

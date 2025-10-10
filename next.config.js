@@ -14,10 +14,6 @@ const nextConfig = {
   },
   compress: true,
   poweredByHeader: false,
-  // Skip failing error pages
-  generateBuildId: async () => {
-    return 'build-' + Date.now();
-  },
 };
 
 module.exports = nextConfig;

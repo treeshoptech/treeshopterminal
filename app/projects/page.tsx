@@ -355,113 +355,99 @@ export default function ProjectsPage() {
                 {selectedLoadout && (
                   <>
                     {/* Project Parameters Section */}
-                    <div>
-                      <div className="flex items-center gap-2 mb-6">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-                             style={{
-                               background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
-                               border: '2px solid rgba(34, 197, 94, 0.4)',
-                               boxShadow: '0 8px 24px rgba(34, 197, 94, 0.3)'
-                             }}>
-                          <Target className="w-5 h-5" style={{ color: '#22C55E' }} />
-                        </div>
-                        <h3 className="text-lg font-semibold uppercase tracking-wider"
-                            style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
-                          Project Parameters
-                        </h3>
+                    <div className="space-y-6">
+                      {/* LARGE Acreage Input */}
+                      <div>
+                        <label className="block text-sm font-semibold mb-3 uppercase tracking-wider"
+                               style={{ color: 'var(--text-secondary)' }}>
+                          Project Acreage
+                        </label>
+                        <input
+                          className="w-full text-center px-6 py-8 rounded-2xl font-mono text-6xl font-black"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%)',
+                            border: '2px solid rgba(34, 197, 94, 0.4)',
+                            color: '#22C55E',
+                            backdropFilter: 'blur(20px)',
+                            WebkitBackdropFilter: 'blur(20px)'
+                          }}
+                          type="number"
+                          step="0.1"
+                          value={projectData.acres || ''}
+                          onChange={(e) => setProjectData({ ...projectData, acres: Number(e.target.value) || 0 })}
+                          onFocus={(e) => e.target.select()}
+                          placeholder="0"
+                        />
                       </div>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                        <div className="input-group">
-                          <label className="input-label">Project Acreage</label>
-                          <input
-                            className="input-field"
-                            type="number"
-                            step="0.1"
-                            value={projectData.acres}
-                            onChange={(e) => setProjectData({ ...projectData, acres: Number(e.target.value) })}
-                            onFocus={(e) => e.target.select()}
-                          />
-                        </div>
-                        <div className="input-group">
-                          <label className="input-label">DBH Package</label>
-                          <select
-                            className="input-field select-field"
-                            value={projectData.dbhPackage}
-                            onChange={(e) => setProjectData({ ...projectData, dbhPackage: Number(e.target.value) })}
-                          >
-                            <option value={4}>Small (4")</option>
-                            <option value={6}>Medium (6")</option>
-                            <option value={8}>Large (8")</option>
-                            <option value={10}>XLarge (10")</option>
-                            <option value={12}>Max (12")</option>
-                          </select>
-                        </div>
+
+                      {/* DBH Package */}
+                      <div>
+                        <label className="block text-sm font-semibold mb-3 uppercase tracking-wider"
+                               style={{ color: 'var(--text-secondary)' }}>
+                          DBH Package
+                        </label>
+                        <select
+                          className="w-full px-6 py-5 rounded-xl font-semibold text-xl text-center"
+                          style={{
+                            background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
+                            border: '2px solid var(--border-default)',
+                            color: 'var(--text-primary)',
+                            backdropFilter: 'blur(20px)',
+                            WebkitBackdropFilter: 'blur(20px)'
+                          }}
+                          value={projectData.dbhPackage}
+                          onChange={(e) => setProjectData({ ...projectData, dbhPackage: Number(e.target.value) })}
+                        >
+                          <option value={4}>Small (4")</option>
+                          <option value={6}>Medium (6")</option>
+                          <option value={8}>Large (8")</option>
+                          <option value={10}>XLarge (10")</option>
+                          <option value={12}>Max (12")</option>
+                        </select>
                       </div>
                     </div>
 
                     {/* Profit Margin Section */}
                     <div>
-                      <div className="flex items-center gap-2 mb-6">
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center"
-                             style={{
-                               background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
-                               border: '2px solid rgba(34, 197, 94, 0.4)',
-                               boxShadow: '0 8px 24px rgba(34, 197, 94, 0.3)'
-                             }}>
-                          <BarChart3 className="w-5 h-5" style={{ color: '#16A34A' }} />
-                        </div>
-                        <h3 className="text-lg font-semibold uppercase tracking-wider"
-                            style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
-                          Profit Margin
-                        </h3>
-                      </div>
-                      <div className="flex items-center gap-4">
+                      <label className="block text-sm font-semibold mb-3 uppercase tracking-wider"
+                             style={{ color: 'var(--text-secondary)' }}>
+                        Profit Margin (%)
+                      </label>
+                      <div className="flex items-center gap-3">
                         <button
                           type="button"
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.max(0, projectData.profitMargin - 5) })}
-                          className="group p-4 rounded-xl transition-all duration-300 hover:scale-110 hardware-accelerated"
+                          className="w-16 h-16 rounded-xl transition-all duration-200 active:scale-95"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
-                            border: '2px solid rgba(34, 197, 94, 0.4)',
-                            backdropFilter: 'blur(30px)',
-                            WebkitBackdropFilter: 'blur(30px)',
-                            boxShadow: '0 8px 24px rgba(34, 197, 94, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                            background: 'rgba(34, 197, 94, 0.1)',
+                            border: '2px solid rgba(34, 197, 94, 0.3)',
+                            color: '#22C55E'
                           }}
                         >
-                          <Minus className="w-6 h-6" style={{ color: '#22C55E' }} />
+                          <Minus className="w-6 h-6 mx-auto" />
                         </button>
-                        <div className="flex-1">
-                          <input
-                            type="number"
-                            className="w-full text-center px-6 py-5 rounded-xl font-mono text-3xl font-bold transition-all duration-300"
-                            style={{
-                              background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
-                              border: '2px solid rgba(34, 197, 94, 0.3)',
-                              color: '#22C55E',
-                              backdropFilter: 'blur(20px)',
-                              WebkitBackdropFilter: 'blur(20px)',
-                              boxShadow: 'inset 0 2px 8px rgba(0, 0, 0, 0.3)'
-                            }}
-                            value={projectData.profitMargin}
-                            onChange={(e) => setProjectData({ ...projectData, profitMargin: Number(e.target.value) })}
-                          />
-                          <p className="text-center text-xs mt-2" style={{ color: 'var(--text-quaternary)' }}>
-                            Click +/- to adjust by 5%
-                          </p>
-                        </div>
+                        <input
+                          type="number"
+                          className="flex-1 text-center px-4 py-6 rounded-xl font-mono text-4xl font-bold"
+                          style={{
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '2px solid var(--border-default)',
+                            color: '#22C55E'
+                          }}
+                          value={projectData.profitMargin}
+                          onChange={(e) => setProjectData({ ...projectData, profitMargin: Number(e.target.value) })}
+                        />
                         <button
                           type="button"
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.min(100, projectData.profitMargin + 5) })}
-                          className="group p-4 rounded-xl transition-all duration-300 hover:scale-110 hardware-accelerated"
+                          className="w-16 h-16 rounded-xl transition-all duration-200 active:scale-95"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
-                            border: '2px solid rgba(34, 197, 94, 0.4)',
-                            backdropFilter: 'blur(30px)',
-                            WebkitBackdropFilter: 'blur(30px)',
-                            boxShadow: '0 8px 24px rgba(34, 197, 94, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                            background: 'rgba(34, 197, 94, 0.1)',
+                            border: '2px solid rgba(34, 197, 94, 0.3)',
+                            color: '#22C55E'
                           }}
                         >
-                          <Plus className="w-6 h-6" style={{ color: '#22C55E' }} />
+                          <Plus className="w-6 h-6 mx-auto" />
                         </button>
                       </div>
                     </div>

@@ -15,7 +15,7 @@ export default function ProjectsPage() {
     projectName: '',
     acres: 10,
     dbhPackage: 6,
-    profitMargin: 50,
+    profitMargin: 40,
   });
 
   const loadout = loadouts.find((l) => l._id === selectedLoadout);

@@ -122,9 +122,9 @@ export default function ProjectsPage() {
                          WebkitBackdropFilter: 'blur(30px)',
                          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: '' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: '0 0 20px rgba(34, 197, 94, 0.5)' }}>
+                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: 'none' }}>
                       Step 04
                     </span>
                   </div>
@@ -527,46 +527,28 @@ export default function ProjectsPage() {
                       </div>
                     </div>
 
-                    {/* BOLD Final Price Display */}
+                    {/* Clean Final Price Display */}
                     <div className="relative overflow-hidden rounded-3xl p-8 md:p-10 text-center"
                          style={{
-                           background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.4) 0%, rgba(34, 197, 94, 0.4) 50%, rgba(34, 197, 94, 0.3) 100%)',
-                           border: '2px solid rgba(34, 197, 94, 0.6)',
-                           backdropFilter: 'blur(60px)',
-                           WebkitBackdropFilter: 'blur(60px)',
-                           boxShadow: `
-                             0 24px 64px rgba(34, 197, 94, 0.4),
-                             0 0 80px rgba(34, 197, 94, 0.3),
-                             inset 0 2px 4px rgba(255, 255, 255, 0.2),
-                             inset 0 -2px 4px rgba(0, 0, 0, 0.2)
-                           `
+                           background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.15) 100%)',
+                           border: '2px solid rgba(34, 197, 94, 0.4)',
+                           backdropFilter: 'blur(40px)',
+                           WebkitBackdropFilter: 'blur(40px)',
+                           boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)'
                          }}>
-                      {/* Animated Background Glow */}
-                      <div className="absolute inset-0 animate-pulse"
-                           style={{
-                             background: 'radial-gradient(circle at center, rgba(34, 197, 94, 0.2), transparent 70%)',
-                             animationDuration: '3s'
-                           }} />
 
                       <div className="relative">
-                        <div className="flex items-center justify-center gap-2 mb-3">
-                          <Zap className="w-6 h-6" style={{ color: 'white', filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.8))' }} />
-                          <div className="text-sm uppercase tracking-widest font-bold"
-                               style={{
-                                 color: 'rgba(255,255,255,0.9)',
-                                 letterSpacing: '0.2em',
-                                 textShadow: '0 0 20px rgba(255, 255, 255, 0.5)'
-                               }}>
-                            Total Project Price
-                          </div>
-                          <Zap className="w-6 h-6" style={{ color: 'white', filter: 'drop-shadow(0 0 12px rgba(255, 255, 255, 0.8))' }} />
+                        <div className="text-sm uppercase tracking-wider font-semibold mb-4"
+                             style={{
+                               color: 'rgba(255,255,255,0.7)',
+                               letterSpacing: '0.15em'
+                             }}>
+                          Total Project Price
                         </div>
-                        <div className="text-7xl font-black font-mono mb-2"
+                        <div className="text-6xl md:text-7xl font-black font-mono mb-3"
                              style={{
                                color: 'white',
-                               letterSpacing: '-0.02em',
-                               textShadow: '0 0 40px rgba(255, 255, 255, 0.5), 0 0 80px rgba(34, 197, 94, 0.8)',
-                               filter: 'drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3))'
+                               letterSpacing: '-0.02em'
                              }}>
                           {formatCurrency(totalPrice)}
                         </div>

@@ -199,9 +199,9 @@ export default function LoadoutsPage() {
                          WebkitBackdropFilter: 'blur(30px)',
                          boxShadow: '0 8px 32px rgba(34, 197, 94, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: '' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: '0 0 20px rgba(34, 197, 94, 0.5)' }}>
+                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: 'none' }}>
                       Step 03
                     </span>
                   </div>

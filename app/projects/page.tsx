@@ -69,14 +69,12 @@ export default function ProjectsPage() {
                  `
                }} />
           {/* BOLD Animated Gradient Orbs */}
-          <div className="absolute top-1/4 -left-32 w-[550px] h-[550px] rounded-full animate-pulse"
                style={{
                  background: 'radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, rgba(34, 197, 94, 0.2) 40%, transparent 70%)',
                  filter: 'blur(80px)',
                  transform: 'translate3d(0, 0, 0)',
                  animationDelay: '0.5s'
                }} />
-          <div className="absolute -bottom-32 -right-32 w-[700px] h-[700px] rounded-full animate-pulse"
                style={{
                  background: 'radial-gradient(circle, rgba(34, 197, 94, 0.35) 0%, rgba(34, 197, 94, 0.15) 40%, transparent 70%)',
                  filter: 'blur(80px)',

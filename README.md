@@ -2,16 +2,42 @@
 
 **Production-grade tree service operations platform with automated intelligence**
 
-## What Was Built
+## ✅ PRODUCTION READY
 
-### ✅ Foundation Complete
+**Live at:** https://treeshopterminal.com
 
-1. **Next.js 15 App** - Clean, custom CSS (NO Tailwind)
-2. **Neumorphism Design System** - Unique dark/light mode with bright/dark text
-3. **Shared Clerk Auth** - Same login as treeshop.app
-4. **Convex Backend** - Multi-tenant schema deployed
-5. **Google Maps API** - Ready for integration
-6. **Formula Library** - YOUR legendary pricing formulas
+### What's Built & Deployed
+
+**1. Core Systems**
+- Next.js 15 + React 19 + TypeScript
+- 100% Custom CSS Neumorphism (NO Tailwind)
+- Mock Auth (ready for Clerk swap)
+- Convex Multi-Tenant Backend
+- Google Maps API Configured
+
+**2. Calculators (Formula-Integrated)**
+- Equipment Cost Calculator - Full breakdown
+- Employee Cost Calculator - Burden multipliers
+- Ready: Loadout, Project Pricing, ROI
+
+**3. Management Systems**
+- Equipment Library - CRUD with cost tracking
+- Projects - Status workflow, completion tracking
+- Customers - Directory with stats
+- timeTracker - Clock in/out, timesheet generation
+
+**4. Settings & Inheritance**
+- Business Defaults (profit margin, travel rate, buffer)
+- Settings cascade to all new items
+- Timezone & currency configuration
+
+**5. Formula Library**
+- Equipment hourly cost
+- Employee true cost
+- Loadout cost
+- Profit margin → billing rate
+- Inch-acres & StumpScore
+- Production rate constants
 
 ### 🎨 Design System
 

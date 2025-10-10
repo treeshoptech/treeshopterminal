@@ -1,7 +1,7 @@
-import { NavBar } from '@/components/ui/NavBar';
 'use client';
 
 import { useState } from 'react';
+import { NavBar } from '@/components/ui/NavBar';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Plus, Trash2, X, Users as UsersIcon } from 'lucide-react';
@@ -56,8 +56,10 @@ export default function EmployeesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-7xl mx-auto p-8">
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-7xl mx-auto p-4 md:p-8">
         <div className="flex items-center justify-between mb-8">
           <div>
             <div className="flex items-center gap-3 mb-2">
@@ -209,7 +211,8 @@ export default function EmployeesPage() {
             ))}
           </div>
         )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

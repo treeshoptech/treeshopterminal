@@ -1,7 +1,7 @@
-import { NavBar } from '@/components/ui/NavBar';
 'use client';
 
 import { useState } from 'react';
+import { NavBar } from '@/components/ui/NavBar';
 import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { Plus, FileText } from 'lucide-react';
@@ -28,8 +28,10 @@ export default function ProjectsPage() {
   const totalPrice = hours * billingRate;
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
-      <div className="max-w-5xl mx-auto p-8">
+    <>
+      <NavBar />
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+        <div className="max-w-5xl mx-auto p-4 md:p-8">
         <div className="flex items-center gap-3 mb-8">
           <Link href="/" className="text-gray-400 hover:text-gray-600">←</Link>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Price Projects</h1>
@@ -154,7 +156,8 @@ export default function ProjectsPage() {
             </div>
           </div>
         )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

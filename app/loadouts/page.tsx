@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import { Plus, Trash2, Wrench, X, Users, Truck } from 'lucide-react';
+import { Plus, Trash2, Wrench, X, Users as UsersIcon, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 
 export default function LoadoutsPage() {
   const equipment = useQuery(api.equipment.list, { organizationId: 'org_demo' }) || [];
+  const employees = useQuery(api.employees.list, { organizationId: 'org_demo' }) || [];
   const loadouts = useQuery(api.loadouts.list, { organizationId: 'org_demo' }) || [];
   const createLoadout = useMutation(api.loadouts.create);
   const deleteLoadout = useMutation(api.loadouts.remove);
@@ -19,7 +20,7 @@ export default function LoadoutsPage() {
     loadoutName: '',
     serviceType: 'mulching',
     selectedEquipment: [] as string[],
-    employees: [{ position: 'Operator', baseWage: 35, multiplier: 1.7 }],
+    selectedEmployees: [] as string[],
     productionRate: 1.3,
   });
 
@@ -29,10 +30,10 @@ export default function LoadoutsPage() {
       return sum + (eq?.totalCostPerHour || 0);
     }, 0);
 
-    const laborCost = formData.employees.reduce(
-      (sum, emp) => sum + emp.baseWage * emp.multiplier,
-      0
-    );
+    const laborCost = formData.selectedEmployees.reduce((sum, empId) => {
+      const emp = employees.find((e) => e._id === empId);
+      return sum + (emp?.trueCostPerHour || 0);
+    }, 0);
 
     return {
       equipment: equipmentCost,
@@ -45,16 +46,18 @@ export default function LoadoutsPage() {
     e.preventDefault();
     const totals = calculateTotals();
 
+    const selectedEmps = employees.filter((e) => formData.selectedEmployees.includes(e._id));
+
     await createLoadout({
       organizationId: 'org_demo',
       loadoutName: formData.loadoutName,
       serviceType: formData.serviceType,
       equipmentIds: formData.selectedEquipment as any,
-      employees: formData.employees.map((emp) => ({
-        position: emp.position,
-        baseWage: emp.baseWage,
-        burdenMultiplier: emp.multiplier,
-        trueCostPerHour: emp.baseWage * emp.multiplier,
+      employees: selectedEmps.map((emp) => ({
+        position: emp.position || '',
+        baseWage: emp.baseHourlyRate || 0,
+        burdenMultiplier: emp.burdenMultiplier || 1.7,
+        trueCostPerHour: emp.trueCostPerHour || 0,
       })),
       totalEquipmentCostPerHour: totals.equipment,
       totalLaborCostPerHour: totals.labor,
@@ -63,6 +66,13 @@ export default function LoadoutsPage() {
     });
 
     setShowForm(false);
+    setFormData({
+      loadoutName: '',
+      serviceType: 'mulching',
+      selectedEquipment: [],
+      selectedEmployees: [],
+      productionRate: 1.3,
+    });
   };
 
   const totals = calculateTotals();

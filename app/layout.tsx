@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ConvexClientProvider } from '@/components/providers/ConvexClientProvider';
+import { MobileNav } from '@/components/layout/MobileNav';
 import '../styles/design-system.css';
 import '../styles/globals.css';
 
@@ -34,7 +35,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ConvexClientProvider>
-          {children}
+          <div className="pb-20 md:pb-0">
+            {children}
+          </div>
+          <MobileNav />
         </ConvexClientProvider>
       </body>
     </html>

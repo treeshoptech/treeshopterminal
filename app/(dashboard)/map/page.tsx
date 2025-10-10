@@ -4,8 +4,10 @@ import { useState, useCallback, useRef } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { GoogleMap, useJsApiLoader, Marker, InfoWindow, Polygon, DrawingManager } from '@react-google-maps/api';
-import { MapPin, Layers, Maximize, Edit3, Trash2, Save } from 'lucide-react';
+import { MapPin, Layers, Maximize, Edit3, Trash2, Save, Plus } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
+import { Input } from '@/components/ui/Input';
+import { Modal } from '@/components/ui/Modal';
 import type { Id } from '@/convex/_generated/dataModel';
 import styles from './page.module.css';
 
@@ -29,10 +31,15 @@ export default function MapPage() {
   const [drawnPolygon, setDrawnPolygon] = useState<google.maps.Polygon | null>(null);
   const [polygonCoords, setPolygonCoords] = useState<{lat: number; lng: number}[]>([]);
   const [polygonArea, setPolygonArea] = useState<number | null>(null);
+  const [workAreaName, setWorkAreaName] = useState('');
+  const [showNameModal, setShowNameModal] = useState(false);
 
   const organizationId = 'org_mock123';
   const jobSites = useQuery(api.jobSites.list, { organizationId });
   const customers = useQuery(api.customers.list, { organizationId });
+  const workAreas = useQuery(api.workAreas.list, { organizationId });
+  const createWorkArea = useMutation(api.workAreas.create);
+  const deleteWorkArea = useMutation(api.workAreas.remove);
   const updateJobSite = useMutation(api.jobSites.update);
 
   const { isLoaded } = useJsApiLoader({
@@ -100,23 +107,58 @@ export default function MapPage() {
     }
     setPolygonCoords([]);
     setPolygonArea(null);
+    setWorkAreaName('');
   };
 
-  const savePolygonToSite = async () => {
+  const handleSaveWorkArea = () => {
     if (!selectedSite || !polygonCoords.length || !polygonArea) {
       alert('Please select a job site and draw a polygon first');
       return;
     }
+    setShowNameModal(true);
+  };
 
-    await updateJobSite({
-      id: selectedSite as Id<'jobSites'>,
+  const saveWorkArea = async () => {
+    if (!workAreaName.trim()) {
+      alert('Please enter a name for this work area');
+      return;
+    }
+
+    if (!selectedSite || !polygonCoords.length || !polygonArea) {
+      return;
+    }
+
+    // Calculate perimeter
+    let perimeter = 0;
+    if (window.google?.maps?.geometry && polygonCoords.length > 0) {
+      for (let i = 0; i < polygonCoords.length; i++) {
+        const p1 = new google.maps.LatLng(polygonCoords[i].lat, polygonCoords[i].lng);
+        const p2 = new google.maps.LatLng(
+          polygonCoords[(i + 1) % polygonCoords.length].lat,
+          polygonCoords[(i + 1) % polygonCoords.length].lng
+        );
+        perimeter += google.maps.geometry.spherical.computeDistanceBetween(p1, p2);
+      }
+      perimeter = perimeter * 0.000621371; // Convert meters to miles
+    }
+
+    await createWorkArea({
+      organizationId,
+      jobSiteId: selectedSite as Id<'jobSites'>,
+      name: workAreaName,
       polygon: polygonCoords,
-      polygonArea,
-      acreage: polygonArea,
+      area: polygonArea,
+      perimeter,
     });
 
-    alert(`Polygon saved! Area: ${polygonArea.toFixed(2)} acres`);
+    setShowNameModal(false);
     clearPolygon();
+  };
+
+  const handleDeleteWorkArea = async (workAreaId: Id<'workAreas'>) => {
+    if (confirm('Delete this work area?')) {
+      await deleteWorkArea({ id: workAreaId });
+    }
   };
 
   const selectedSiteData = jobSites?.find((site) => site._id === selectedSite);
@@ -178,36 +220,35 @@ export default function MapPage() {
               )}
 
               {jobSites?.map((site) => (
-                <>
-                  <Marker
-                    key={site._id}
-                    position={{
-                      lat: site.coordinates.lat,
-                      lng: site.coordinates.lng,
-                    }}
-                    onClick={() => setSelectedSite(site._id)}
-                    icon={{
-                      path: google.maps.SymbolPath.CIRCLE,
-                      scale: 10,
-                      fillColor: selectedSite === site._id ? '#3B82F6' : '#10B981',
-                      fillOpacity: 1,
-                      strokeColor: '#FFFFFF',
-                      strokeWeight: 2,
-                    }}
-                  />
-                  {site.polygon && (
-                    <Polygon
-                      key={`polygon-${site._id}`}
-                      paths={site.polygon}
-                      options={{
-                        fillColor: selectedSite === site._id ? '#3B82F6' : '#10B981',
-                        fillOpacity: 0.2,
-                        strokeColor: selectedSite === site._id ? '#3B82F6' : '#10B981',
-                        strokeWeight: 2,
-                      }}
-                    />
-                  )}
-                </>
+                <Marker
+                  key={site._id}
+                  position={{
+                    lat: site.coordinates.lat,
+                    lng: site.coordinates.lng,
+                  }}
+                  onClick={() => setSelectedSite(site._id)}
+                  icon={{
+                    path: google.maps.SymbolPath.CIRCLE,
+                    scale: 10,
+                    fillColor: selectedSite === site._id ? '#3B82F6' : '#10B981',
+                    fillOpacity: 1,
+                    strokeColor: '#FFFFFF',
+                    strokeWeight: 2,
+                  }}
+                />
+              ))}
+
+              {workAreas?.filter(wa => !selectedSite || wa.jobSiteId === selectedSite).map((workArea, idx) => (
+                <Polygon
+                  key={workArea._id}
+                  paths={workArea.polygon}
+                  options={{
+                    fillColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'][idx % 5],
+                    fillOpacity: 0.25,
+                    strokeColor: ['#3B82F6', '#10B981', '#F59E0B', '#EF4444', '#8B5CF6'][idx % 5],
+                    strokeWeight: 2,
+                  }}
+                />
               ))}
 
               {selectedSiteData && (
@@ -310,7 +351,7 @@ export default function MapPage() {
                     disabled={drawingMode === 'polygon'}
                   >
                     <Edit3 size={16} style={{ marginRight: '8px' }} />
-                    {drawingMode ? 'Drawing...' : 'Draw Boundary'}
+                    {drawingMode ? 'Drawing...' : 'Draw Work Area'}
                   </Button>
                 ) : (
                   <div>
@@ -333,10 +374,10 @@ export default function MapPage() {
                     <div style={{ display: 'flex', gap: '8px' }}>
                       <Button
                         size="sm"
-                        onClick={savePolygonToSite}
+                        onClick={handleSaveWorkArea}
                       >
                         <Save size={16} style={{ marginRight: '8px' }} />
-                        Save
+                        Save Work Area
                       </Button>
                       <Button
                         size="sm"
@@ -349,11 +390,82 @@ export default function MapPage() {
                     </div>
                   </div>
                 )}
+
+                {/* Work Areas List */}
+                {selectedSite && workAreas && workAreas.filter(wa => wa.jobSiteId === selectedSite).length > 0 && (
+                  <div style={{ marginTop: '20px', paddingTop: '20px', borderTop: '1px solid var(--border)' }}>
+                    <h4 style={{ margin: '0 0 12px 0', fontSize: '14px', fontWeight: '600' }}>
+                      Work Areas
+                    </h4>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      {workAreas.filter(wa => wa.jobSiteId === selectedSite).map((wa, idx) => (
+                        <div
+                          key={wa._id}
+                          style={{
+                            padding: '10px',
+                            backgroundColor: 'var(--surface)',
+                            borderRadius: '8px',
+                            border: '1px solid var(--border)',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center'
+                          }}
+                        >
+                          <div>
+                            <div style={{ fontSize: '14px', fontWeight: '500', marginBottom: '4px' }}>
+                              {wa.name}
+                            </div>
+                            <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+                              {wa.area.toFixed(2)} acres
+                            </div>
+                          </div>
+                          <button
+                            onClick={() => handleDeleteWorkArea(wa._id)}
+                            style={{
+                              background: 'none',
+                              border: 'none',
+                              color: 'var(--color-danger)',
+                              cursor: 'pointer',
+                              padding: '4px'
+                            }}
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </>
         )}
       </div>
+
+      <Modal isOpen={showNameModal} onClose={() => setShowNameModal(false)} title="Name Work Area">
+        <div style={{ padding: '20px' }}>
+          <Input
+            label="Work Area Name"
+            placeholder="e.g., Front Clearing, Back Woods, East Side"
+            value={workAreaName}
+            onChange={(e) => setWorkAreaName(e.target.value)}
+            onKeyPress={(e) => e.key === 'Enter' && saveWorkArea()}
+          />
+          {polygonArea && (
+            <div style={{ marginTop: '12px', fontSize: '14px', color: 'var(--text-secondary)' }}>
+              Area: {polygonArea.toFixed(2)} acres
+            </div>
+          )}
+          <div style={{ marginTop: '20px', display: 'flex', gap: '12px', justifyContent: 'flex-end' }}>
+            <Button variant="secondary" onClick={() => setShowNameModal(false)}>
+              Cancel
+            </Button>
+            <Button onClick={saveWorkArea}>
+              Save Work Area
+            </Button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 }

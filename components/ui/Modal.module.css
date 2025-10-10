@@ -33,6 +33,10 @@
   animation: slideUp var(--transition-base);
 }
 
+.modal.large {
+  max-width: 900px;
+}
+
 @keyframes slideUp {
   from {
     opacity: 0;

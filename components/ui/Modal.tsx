@@ -8,14 +8,15 @@ interface ModalProps {
   title: string;
   children: ReactNode;
   footer?: ReactNode;
+  size?: 'default' | 'large';
 }
 
-export function Modal({ isOpen, onClose, title, children, footer }: ModalProps) {
+export function Modal({ isOpen, onClose, title, children, footer, size = 'default' }: ModalProps) {
   if (!isOpen) return null;
 
   return (
     <div className={styles.overlay} onClick={onClose}>
-      <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
+      <div className={`${styles.modal} ${size === 'large' ? styles.large : ''}`} onClick={(e) => e.stopPropagation()}>
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>
           <button className={styles.closeButton} onClick={onClose}>

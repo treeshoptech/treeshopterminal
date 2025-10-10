@@ -7,7 +7,7 @@ import { api } from '@/convex/_generated/api';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { WorkOrderCard } from '@/components/work-orders/WorkOrderCard';
-import { CreateWorkOrderModal } from '@/components/work-orders/CreateWorkOrderModal';
+import { WorkOrderWizard } from '@/components/work-orders/WorkOrderWizard';
 import styles from './page.module.css';
 
 export default function WorkOrdersPage() {
@@ -112,7 +112,7 @@ export default function WorkOrdersPage() {
         </div>
       )}
 
-      <CreateWorkOrderModal
+      <WorkOrderWizard
         isOpen={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         organizationId={organizationId}

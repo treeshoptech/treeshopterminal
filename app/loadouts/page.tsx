@@ -134,7 +134,7 @@ export default function LoadoutsPage() {
   };
 
   return (
-    <>
+    <AuthGuard>
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
@@ -867,6 +867,6 @@ export default function LoadoutsPage() {
           )}
         </div>
       </div>
-    </>
+    </AuthGuard>
   );
 }

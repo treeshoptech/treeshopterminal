@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { UserButton } from '@clerk/nextjs';
 import { Truck, Users, Wrench, FileText, Home } from 'lucide-react';
 
 export function NavBar() {
@@ -48,7 +49,15 @@ export function NavBar() {
             })}
           </div>
 
-          <div className="w-8" /> {/* Spacer for symmetry */}
+          <div className="flex items-center gap-2">
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: 'w-8 h-8',
+                },
+              }}
+            />
+          </div>
         </div>
       </div>
     </nav>

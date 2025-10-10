@@ -15,9 +15,11 @@ import type {
 } from "convex/server";
 import type * as companies from "../companies.js";
 import type * as customers from "../customers.js";
+import type * as employees from "../employees.js";
 import type * as equipment from "../equipment.js";
 import type * as projects from "../projects.js";
 import type * as timeTracker from "../timeTracker.js";
+import type * as workOrders from "../workOrders.js";
 
 /**
  * A utility for referencing Convex functions in your app's API.
@@ -30,9 +32,11 @@ import type * as timeTracker from "../timeTracker.js";
 declare const fullApi: ApiFromModules<{
   companies: typeof companies;
   customers: typeof customers;
+  employees: typeof employees;
   equipment: typeof equipment;
   projects: typeof projects;
   timeTracker: typeof timeTracker;
+  workOrders: typeof workOrders;
 }>;
 export declare const api: FilterApi<
   typeof fullApi,

@@ -1,46 +1,60 @@
 'use client';
 
-import { useState } from 'react';
-import { useMutation } from 'convex/react';
+import { useState, useEffect } from 'react';
+import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/Input';
-import Link from 'next/link';
+import { useTreeShopAuth } from '@/lib/auth/useTreeShopAuth';
 import { ArrowRight, LogIn } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
-  const login = useMutation(api.auth.login);
+  const { signIn, signUp, isAuthenticated, isLoading: authLoading } = useTreeShopAuth();
 
+  const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [company, setCompany] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const whitelistCheck = useQuery(api.auth.checkWhitelist, email ? { email } : 'skip');
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated && !authLoading) {
+      router.push('/equipment');
+    }
+  }, [isAuthenticated, authLoading, router]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
     setLoading(true);
 
     try {
       // Check whitelist first
-      const approved = await fetch('/api/check-whitelist', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      }).then(r => r.json());
-
-      if (!approved.isApproved) {
+      if (!whitelistCheck?.isApproved) {
         setError('This email is not approved. Contact office@fltreeshop.com for access.');
         setLoading(false);
         return;
       }
 
-      const result = await login({ email });
-      localStorage.setItem('userEmail', result.email);
-      localStorage.setItem('orgId', result.orgId);
+      if (isSignUp) {
+        if (!name) {
+          setError('Please enter your name');
+          setLoading(false);
+          return;
+        }
+        await signUp(email, password, name, company);
+      } else {
+        await signIn(email, password);
+      }
+
       router.push('/equipment');
     } catch (err: any) {
-      setError(err.message || 'Login failed. Contact office@fltreeshop.com for access.');
+      setError(err.message || 'Authentication failed. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -85,7 +99,7 @@ export default function LoginPage() {
           </p>
         </div>
 
-        <form onSubmit={handleLogin} className="rounded-3xl overflow-hidden p-8"
+        <form onSubmit={handleSubmit} className="rounded-3xl overflow-hidden p-8"
               style={{
                 background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
                 border: '2px solid rgba(34, 197, 94, 0.2)',
@@ -94,6 +108,32 @@ export default function LoginPage() {
                 boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 40px rgba(34, 197, 94, 0.2)'
               }}>
           <div className="space-y-5">
+            {isSignUp && (
+              <>
+                <div className="input-group">
+                  <label className="input-label">Full Name</label>
+                  <input
+                    className="input-field"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="John Doe"
+                    required={isSignUp}
+                  />
+                </div>
+                <div className="input-group">
+                  <label className="input-label">Company (Optional)</label>
+                  <input
+                    className="input-field"
+                    type="text"
+                    value={company}
+                    onChange={(e) => setCompany(e.target.value)}
+                    placeholder="Your Tree Service"
+                  />
+                </div>
+              </>
+            )}
+
             <div className="input-group">
               <label className="input-label">Email</label>
               <input
@@ -102,6 +142,18 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com"
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <label className="input-label">Password</label>
+              <input
+                className="input-field"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
                 required
               />
             </div>
@@ -126,17 +178,28 @@ export default function LoginPage() {
                 color: 'white',
                 boxShadow: '0 8px 24px rgba(34, 197, 94, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.2)'
               }}>
-              {loading ? 'Signing in...' : (
+              {loading ? (isSignUp ? 'Creating account...' : 'Signing in...') : (
                 <>
                   <LogIn className="w-5 h-5" />
-                  <span>Sign In</span>
+                  <span>{isSignUp ? 'Create Account' : 'Sign In'}</span>
                 </>
               )}
             </button>
           </div>
 
           <div className="mt-6 text-center">
-            <p className="text-xs" style={{ color: 'var(--text-quaternary)' }}>
+            <button
+              type="button"
+              onClick={() => {
+                setIsSignUp(!isSignUp);
+                setError('');
+              }}
+              className="text-sm hover:underline"
+              style={{ color: 'var(--brand-400)' }}
+            >
+              {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+            </button>
+            <p className="text-xs mt-4" style={{ color: 'var(--text-quaternary)' }}>
               Access is by invitation only.
             </p>
             <p className="text-xs mt-2" style={{ color: 'var(--text-quaternary)' }}>

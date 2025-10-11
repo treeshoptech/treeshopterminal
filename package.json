@@ -14,6 +14,7 @@
     "@hookform/resolvers": "^5.2.2",
     "@react-google-maps/api": "^2.19.3",
     "@stripe/stripe-js": "^7.8.0",
+    "bcryptjs": "^3.0.2",
     "clsx": "^2.1.1",
     "convex": "^1.25.4",
     "date-fns": "^4.1.0",
@@ -29,6 +30,7 @@
     "zustand": "^5.0.0"
   },
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/google.maps": "^3.58.1",
     "@types/node": "^20",
     "@types/react": "^19",

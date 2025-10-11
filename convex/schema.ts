@@ -9,6 +9,30 @@ import { v } from "convex/values";
 
 export default defineSchema({
   // ============================================
+  // AUTHENTICATION (Simple Custom)
+  // ============================================
+
+  // Email whitelist for approved users
+  whitelist: defineTable({
+    email: v.string(),
+    approved: v.boolean(),
+    approvedBy: v.optional(v.string()),
+    approvedAt: v.optional(v.number()),
+    notes: v.optional(v.string()),
+    createdAt: v.number(),
+  }).index("by_email", ["email"]),
+
+  // User sessions
+  sessions: defineTable({
+    userId: v.id("userProfiles"),
+    token: v.string(),
+    expiresAt: v.number(),
+    createdAt: v.number(),
+  })
+    .index("by_token", ["token"])
+    .index("by_userId", ["userId"]),
+
+  // ============================================
   // MULTI-TENANT CORE
   // ============================================
 
@@ -92,6 +116,7 @@ export default defineSchema({
   userProfiles: defineTable({
     clerkUserId: v.string(),
     email: v.string(),
+    passwordHash: v.optional(v.string()), // For simple auth
     firstName: v.optional(v.string()),
     lastName: v.optional(v.string()),
     currentOrgId: v.optional(v.string()),

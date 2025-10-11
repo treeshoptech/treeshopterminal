@@ -1,19 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/hooks/useAuth';
+import { useTreeShopAuth } from '@/lib/auth/useTreeShopAuth';
 import { AuthGuard } from '@/components/auth/AuthGuard';
 import { Settings, User, Bell, Palette, Shield, LogOut, Smartphone, Download } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function SettingsPage() {
-  const { userEmail, logout } = useAuth();
+  const { email, name, signOut } = useTreeShopAuth();
   const router = useRouter();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await signOut();
     router.push('/login');
   };
 
@@ -64,10 +64,10 @@ export default function SettingsPage() {
               </div>
               <div>
                 <div className="font-semibold" style={{ color: 'var(--text-primary)' }}>
-                  {userEmail || 'Not signed in'}
+                  {name || email || 'Not signed in'}
                 </div>
                 <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Account
+                  {email || 'Account'}
                 </div>
               </div>
             </div>

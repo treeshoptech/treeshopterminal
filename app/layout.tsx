@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ConvexClientProvider } from '@/components/providers/ConvexClientProvider';
+import { ConvexAuthProvider } from '@/lib/auth/ConvexAuthProvider';
 import { MobileNav } from '@/components/layout/MobileNav';
 import '../styles/design-system.css';
 import '../styles/globals.css';
@@ -34,12 +34,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <ConvexClientProvider>
+        <ConvexAuthProvider>
           <div className="pb-20 md:pb-0">
             {children}
           </div>
           <MobileNav />
-        </ConvexClientProvider>
+        </ConvexAuthProvider>
       </body>
     </html>
   );

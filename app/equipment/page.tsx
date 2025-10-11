@@ -29,12 +29,11 @@ import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 import '@/styles/design-system.css';
 
-import { useAuth } from '@/hooks/useAuth';
-
+import { useTreeShopAuth } from '@/lib/auth/useTreeShopAuth';
 import { AuthGuard } from '@/components/auth/AuthGuard';
 
 export default function EquipmentLibraryPage() {
-  const { orgId } = useAuth();
+  const { orgId } = useTreeShopAuth();
   const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
   const createEquipment = useMutation(api.equipment.create);
   const deleteEquipment = useMutation(api.equipment.remove);

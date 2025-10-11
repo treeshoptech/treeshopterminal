@@ -2,15 +2,13 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
-import { useAuth } from '@/hooks/useAuth';
-import Link from 'next/link';
-import { Truck, Users, Wrench, FileText, Lock, ArrowRight } from 'lucide-react';
+import { useTreeShopAuth } from '@/lib/auth/useTreeShopAuth';
 import '@/styles/design-system.css';
 
 export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading } = useTreeShopAuth();
   const router = useRouter();
 
   // Redirect based on auth state
@@ -24,7 +22,7 @@ export default function HomePage() {
     }
   }, [isAuthenticated, isLoading, router]);
 
-  // Show nothing while redirecting
+  // Show loading spinner while checking auth
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: '#000' }}>
@@ -34,5 +32,4 @@ export default function HomePage() {
   }
 
   return null;
-
 }

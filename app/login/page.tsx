@@ -24,7 +24,7 @@ export default function LoginPage() {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated && !authLoading) {
-      router.push('/equipment');
+      router.push('/');
     }
   }, [isAuthenticated, authLoading, router]);
 

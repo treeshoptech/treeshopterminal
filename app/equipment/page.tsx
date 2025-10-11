@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import { useRouter } from 'next/navigation';
 import {
   Plus,
   Edit,
@@ -26,13 +27,13 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-import Link from 'next/link';
 import '@/styles/design-system.css';
 
 import { useTreeShopAuth } from '@/lib/auth/useTreeShopAuth';
 import { AuthGuard } from '@/components/auth/AuthGuard';
 
 export default function EquipmentLibraryPage() {
+  const router = useRouter();
   const { orgId } = useTreeShopAuth();
   const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
   const createEquipment = useMutation(api.equipment.create);
@@ -153,8 +154,8 @@ export default function EquipmentLibraryPage() {
           {/* Premium Header Section */}
           <div className="mb-10">
             <div className="flex items-start gap-4 mb-8">
-              <Link
-                href="/"
+              <button
+                onClick={() => router.push('/')}
                 className="group mt-1 p-2.5 rounded-xl transition-all duration-300 hover:scale-110"
                 style={{
                   background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
@@ -165,7 +166,7 @@ export default function EquipmentLibraryPage() {
               >
                 <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
                              style={{ color: 'var(--text-secondary)' }} />
-              </Link>
+              </button>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <h1 className="text-4xl sm:text-5xl font-black"

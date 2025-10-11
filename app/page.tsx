@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { Truck, Users, Wrench, FileText, Lock, ArrowRight } from 'lucide-react';
 import '@/styles/design-system.css';
 
+export const dynamic = 'force-dynamic';
+
 export default function HomePage() {
   const { isAuthenticated, isLoading } = useAuth();
   const router = useRouter();

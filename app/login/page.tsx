@@ -52,7 +52,7 @@ export default function LoginPage() {
         await signIn(email, password);
       }
 
-      router.push('/equipment');
+      router.push('/');
     } catch (err: any) {
       setError(err.message || 'Authentication failed. Please try again.');
     } finally {

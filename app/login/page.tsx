@@ -60,11 +60,11 @@ export default function LoginPage() {
       }
 
       console.log('Redirecting to home...');
-      router.push('/');
+      // Force full page reload to ensure auth state updates
+      window.location.href = '/';
     } catch (err: any) {
       console.error('Auth error:', err);
       setError(err.message || 'Authentication failed. Please try again.');
-    } finally {
       setLoading(false);
     }
   };

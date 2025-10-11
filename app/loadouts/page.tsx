@@ -28,6 +28,7 @@ import Link from 'next/link';
 import '@/styles/design-system.css';
 
 import { useAuth } from '@/hooks/useAuth';
+import { AuthGuard } from '@/components/auth/AuthGuard';
 
 export default function LoadoutsPage() {
   const { orgId } = useAuth();

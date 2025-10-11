@@ -22,12 +22,25 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      // Check whitelist first
+      const approved = await fetch('/api/check-whitelist', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      }).then(r => r.json());
+
+      if (!approved.isApproved) {
+        setError('This email is not approved. Contact office@fltreeshop.com for access.');
+        setLoading(false);
+        return;
+      }
+
       const result = await login({ email });
       localStorage.setItem('userEmail', result.email);
       localStorage.setItem('orgId', result.orgId);
       router.push('/equipment');
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'Login failed. Contact office@fltreeshop.com for access.');
     } finally {
       setLoading(false);
     }
@@ -123,11 +136,11 @@ export default function LoginPage() {
           </div>
 
           <div className="mt-6 text-center">
-            <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-              Don't have an account?{' '}
-              <Link href="/signup" className="font-semibold" style={{ color: 'var(--brand-400)' }}>
-                Sign up
-              </Link>
+            <p className="text-xs" style={{ color: 'var(--text-quaternary)' }}>
+              Access is by invitation only.
+            </p>
+            <p className="text-xs mt-2" style={{ color: 'var(--text-quaternary)' }}>
+              Contact <span className="font-semibold" style={{ color: 'var(--brand-400)' }}>office@fltreeshop.com</span> to request access
             </p>
           </div>
         </form>

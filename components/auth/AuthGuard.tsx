@@ -5,16 +5,19 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, userEmail } = useAuth();
+  const { isAuthenticated, userEmail, isLoading } = useAuth();
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated || !userEmail) {
+    // Only redirect after loading is complete
+    if (!isLoading && (!isAuthenticated || !userEmail)) {
+      console.log('Not authenticated, redirecting to login');
       router.push('/login');
     }
-  }, [isAuthenticated, userEmail, router]);
+  }, [isLoading, isAuthenticated, userEmail, router]);
 
-  if (!isAuthenticated || !userEmail) {
+  // Show loading while checking
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ background: 'var(--bg-canvas)' }}>
         <div className="text-center">
@@ -23,6 +26,11 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
         </div>
       </div>
     );
+  }
+
+  // Block access if not authenticated
+  if (!isAuthenticated || !userEmail) {
+    return null; // Will redirect in useEffect
   }
 
   return <>{children}</>;

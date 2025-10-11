@@ -33,8 +33,11 @@ export default function LoginPage() {
     setError('');
     setLoading(true);
 
+    console.log('Login attempt:', { email, isSignUp });
+
     try {
       // Check whitelist first
+      console.log('Whitelist check:', whitelistCheck);
       if (!whitelistCheck?.isApproved) {
         setError('This email is not approved. Contact office@fltreeshop.com for access.');
         setLoading(false);
@@ -47,13 +50,19 @@ export default function LoginPage() {
           setLoading(false);
           return;
         }
-        await signUp(email, password, name, company);
+        console.log('Attempting signup...');
+        const result = await signUp(email, password, name, company);
+        console.log('Signup result:', result);
       } else {
-        await signIn(email, password);
+        console.log('Attempting signin...');
+        const result = await signIn(email, password);
+        console.log('Signin result:', result);
       }
 
+      console.log('Redirecting to home...');
       router.push('/');
     } catch (err: any) {
+      console.error('Auth error:', err);
       setError(err.message || 'Authentication failed. Please try again.');
     } finally {
       setLoading(false);

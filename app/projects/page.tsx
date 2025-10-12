@@ -1131,20 +1131,27 @@ export default function ProjectsPage() {
 
       {/* New Customer Modal */}
       {showCustomerModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
-             style={{
+        <div style={{
+               position: 'fixed',
+               inset: '0',
+               zIndex: 9999,
+               display: 'flex',
+               alignItems: 'center',
+               justifyContent: 'center',
+               padding: '16px',
                background: 'rgba(0, 0, 0, 0.85)',
                backdropFilter: 'blur(20px)',
-               WebkitBackdropFilter: 'blur(20px)'
              }}
              onClick={() => setShowCustomerModal(false)}>
-          <div className="relative max-w-2xl w-full rounded-3xl overflow-hidden"
-               style={{
-                 background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%)',
+          <div style={{
+                 position: 'relative',
+                 maxWidth: '672px',
+                 width: '100%',
+                 borderRadius: '24px',
+                 overflow: 'hidden',
+                 background: '#1A1A1A',
                  border: '2px solid rgba(0, 255, 65, 0.3)',
                  boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 255, 65, 0.3)',
-                 backdropFilter: 'blur(40px)',
-                 WebkitBackdropFilter: 'blur(40px)'
                }}
                onClick={(e) => e.stopPropagation()}>
             <div className="p-8">

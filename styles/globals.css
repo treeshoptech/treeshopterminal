@@ -260,12 +260,12 @@ textarea::placeholder {
 .overflow-scroll { overflow: scroll; }
 
 /* ============================================
-   SCROLLBAR STYLING (Neumorphism)
+   SCROLLBAR STYLING (Electric Theme)
    ============================================ */
 
 ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -276,13 +276,11 @@ textarea::placeholder {
 ::-webkit-scrollbar-thumb {
   background: var(--bg-tertiary);
   border-radius: var(--radius-full);
-  box-shadow:
-    inset 2px 2px 4px rgba(0, 0, 0, 0.3),
-    inset -2px -2px 4px rgba(255, 255, 255, 0.05);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--bg-elevated);
+  background: var(--accent-green);
+  box-shadow: var(--shadow-glow);
 }
 
 /* Firefox Scrollbar */
@@ -296,13 +294,13 @@ textarea::placeholder {
    ============================================ */
 
 ::selection {
-  background-color: var(--brand-primary);
-  color: white;
+  background-color: var(--accent-green);
+  color: var(--bg-primary);
 }
 
 ::-moz-selection {
-  background-color: var(--brand-primary);
-  color: white;
+  background-color: var(--accent-green);
+  color: var(--bg-primary);
 }
 
 /* ============================================
@@ -327,6 +325,67 @@ textarea::placeholder {
   .no-print {
     display: none !important;
   }
+}
+
+/* ============================================
+   GLASS MORPHISM & MODERN EFFECTS
+   ============================================ */
+
+.glass-surface {
+  background: var(--glass-light);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-surface:hover {
+  background: var(--glass-medium);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: var(--shadow-glow);
+}
+
+.glass-surface-medium {
+  background: var(--glass-medium);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+.shadow-glow-green {
+  box-shadow: var(--shadow-glow-green);
+}
+
+/* Electric Button Style */
+.btn-electric {
+  background: var(--accent-green);
+  color: var(--bg-primary);
+  border: 1px solid var(--accent-green);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-electric:hover {
+  background: var(--muted-green);
+  box-shadow: var(--shadow-glow-green);
+  transform: translateY(-1px);
+}
+
+/* Modern Card Style */
+.card-modern {
+  background: var(--bg-secondary);
+  border: 1px solid var(--bg-elevated);
+  border-radius: var(--radius-xl);
+  transition: all 0.3s ease;
+}
+
+.card-modern:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 255, 65, 0.12);
+  border-color: var(--accent-green);
 }
 
 /* ============================================

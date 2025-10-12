@@ -34,97 +34,85 @@
   min-height: 56px;
 }
 
-/* Primary Button - Neumorphism Raised */
+/* Primary Button - Electric Green */
 .primary {
   background: var(--brand-primary);
-  color: white;
-  box-shadow:
-    6px 6px 12px rgba(0, 0, 0, 0.4),
-    -6px -6px 12px rgba(59, 130, 246, 0.1);
+  color: var(--bg-primary);
+  border: 1px solid var(--brand-primary);
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
 }
 
 .primary:hover:not(:disabled) {
   background: var(--brand-primary-hover);
-  transform: translateY(-2px);
-  box-shadow:
-    8px 8px 16px rgba(0, 0, 0, 0.5),
-    -8px -8px 16px rgba(59, 130, 246, 0.15);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow-green);
 }
 
 .primary:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow:
-    inset 4px 4px 8px rgba(0, 0, 0, 0.3),
-    inset -4px -4px 8px rgba(59, 130, 246, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
-/* Secondary Button - Neumorphism Surface */
+/* Secondary Button - Glass Surface */
 .secondary {
   background: var(--bg-secondary);
   color: var(--text-primary);
-  box-shadow:
-    6px 6px 12px rgba(0, 0, 0, 0.4),
-    -6px -6px 12px rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--bg-elevated);
+  box-shadow: var(--shadow-md);
 }
 
 .secondary:hover:not(:disabled) {
   background: var(--bg-tertiary);
-  transform: translateY(-2px);
-  box-shadow:
-    8px 8px 16px rgba(0, 0, 0, 0.5),
-    -8px -8px 16px rgba(255, 255, 255, 0.08);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-glow);
 }
 
 .secondary:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow:
-    inset 4px 4px 8px rgba(0, 0, 0, 0.5),
-    inset -4px -4px 8px rgba(255, 255, 255, 0.05);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Ghost Button - Flat */
+/* Ghost Button - Transparent */
 .ghost {
   background: transparent;
   color: var(--text-primary);
+  border: 1px solid transparent;
   box-shadow: none;
 }
 
 .ghost:hover:not(:disabled) {
-  background: var(--bg-secondary);
-  box-shadow:
-    4px 4px 8px rgba(0, 0, 0, 0.3),
-    -4px -4px 8px rgba(255, 255, 255, 0.03);
+  background: var(--glass-light);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  box-shadow: var(--shadow-glow);
 }
 
 .ghost:active:not(:disabled) {
-  background: var(--bg-tertiary);
-  box-shadow:
-    inset 2px 2px 4px rgba(0, 0, 0, 0.4),
-    inset -2px -2px 4px rgba(255, 255, 255, 0.03);
+  background: var(--glass-medium);
+  box-shadow: var(--shadow-sm);
 }
 
-/* Danger Button */
+/* Danger Button - Hot Red */
 .danger {
   background: var(--error);
-  color: white;
-  box-shadow:
-    6px 6px 12px rgba(0, 0, 0, 0.4),
-    -6px -6px 12px rgba(239, 68, 68, 0.1);
+  color: var(--bg-primary);
+  border: 1px solid var(--error);
+  font-weight: 600;
+  box-shadow: var(--shadow-md);
 }
 
 .danger:hover:not(:disabled) {
-  background: #DC2626;
-  transform: translateY(-2px);
-  box-shadow:
-    8px 8px 16px rgba(0, 0, 0, 0.5),
-    -8px -8px 16px rgba(239, 68, 68, 0.15);
+  background: #FF1A54;
+  transform: translateY(-1px);
+  box-shadow: 0 0 32px rgba(255, 0, 64, 0.4);
 }
 
 .danger:active:not(:disabled) {
   transform: translateY(0);
-  box-shadow:
-    inset 4px 4px 8px rgba(0, 0, 0, 0.3),
-    inset -4px -4px 8px rgba(239, 68, 68, 0.1);
+  box-shadow: var(--shadow-md);
 }
 
 /* States */

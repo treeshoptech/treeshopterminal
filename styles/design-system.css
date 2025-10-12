@@ -22,25 +22,25 @@
   --bg-glass-heavy: rgba(10, 10, 10, 0.9);
   --bg-glass-light: rgba(20, 20, 20, 0.4);
 
-  /* Premium Gradients */
-  --gradient-brand: linear-gradient(135deg, #10B981 0%, #059669 50%, #047857 100%);
-  --gradient-brand-radial: radial-gradient(circle at 30% 107%, #10B981 0%, #059669 45%, #047857 90%);
+  /* Premium Gradients - Electric Theme */
+  --gradient-brand: linear-gradient(135deg, #00FF41 0%, #00D938 50%, #00B830 100%);
+  --gradient-brand-radial: radial-gradient(circle at 30% 107%, #00FF41 0%, #00D938 45%, #00B830 90%);
   --gradient-glass: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0.02) 100%);
   --gradient-surface: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
-  --gradient-glow: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, transparent 70%);
+  --gradient-glow: radial-gradient(circle, rgba(0, 255, 65, 0.15) 0%, transparent 70%);
 
-  /* Premium Brand Colors - Bright TreeShop Green */
-  --brand-50: #F0FDF4;
-  --brand-100: #DCFCE7;
-  --brand-200: #BBF7D0;
-  --brand-300: #86EFAC;
-  --brand-400: #4ADE80;   /* Bright accent */
-  --brand-500: #22C55E;   /* Primary - Vibrant green */
-  --brand-600: #16A34A;
-  --brand-700: #15803D;
-  --brand-800: #166534;
-  --brand-900: #14532D;
-  --brand-950: #052E16;   /* Ultra deep green */
+  /* Premium Brand Colors - Electric Green */
+  --brand-50: #F0FFF4;
+  --brand-100: #C6FFC1;
+  --brand-200: #9CFFB1;
+  --brand-300: #66FF99;
+  --brand-400: #33FF66;   /* Bright accent */
+  --brand-500: #00FF41;   /* Primary - Electric green */
+  --brand-600: #00D938;   /* Hover state */
+  --brand-700: #00B830;
+  --brand-800: #009627;
+  --brand-900: #00751F;
+  --brand-950: #005417;   /* Ultra deep green */
 
   /* Text Hierarchy - Ultra-high contrast */
   --text-primary: rgba(255, 255, 255, 1);
@@ -50,12 +50,12 @@
   --text-disabled: rgba(255, 255, 255, 0.20);
   --text-inverse: #000000;
 
-  /* Semantic Colors - Premium palette */
-  --color-success: #10B981;
-  --color-warning: #F59E0B;
-  --color-error: #EF4444;
-  --color-info: #3B82F6;
-  --color-purple: #8B5CF6;
+  /* Semantic Colors - Electric Bright Palette */
+  --color-success: #00FF41;    /* electric green */
+  --color-warning: #FFE500;    /* electric yellow */
+  --color-error: #FF0040;      /* hot red */
+  --color-info: #00BFFF;       /* electric blue */
+  --color-purple: #FF3D8A;     /* soft pink */
 
   /* Premium Borders - Subtle but sophisticated */
   --border-default: rgba(255, 255, 255, 0.06);
@@ -64,7 +64,7 @@
   --border-strong: rgba(255, 255, 255, 0.15);
   --border-gradient: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
 
-  /* Premium Shadows - Multi-layered depth */
+  /* Premium Shadows - Multi-layered depth with Electric Glow */
   --shadow-xs: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
   --shadow-sm: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 4px rgba(0, 0, 0, 0.15);
   --shadow-md: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -72,9 +72,9 @@
   --shadow-xl: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 20px 40px rgba(0, 0, 0, 0.4);
   --shadow-2xl: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 25px 50px rgba(0, 0, 0, 0.5);
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.2);
-  --shadow-glow: 0 0 40px rgba(16, 185, 129, 0.2);
-  --shadow-glow-sm: 0 0 20px rgba(16, 185, 129, 0.15);
-  --shadow-glow-lg: 0 0 60px rgba(16, 185, 129, 0.25);
+  --shadow-glow: 0 0 40px rgba(0, 255, 65, 0.3);
+  --shadow-glow-sm: 0 0 20px rgba(0, 255, 65, 0.25);
+  --shadow-glow-lg: 0 0 60px rgba(0, 255, 65, 0.4);
 
   /* ============================================
      REFINED SPACING SYSTEM
@@ -236,7 +236,7 @@
   box-shadow: var(--shadow-md);
 }
 
-/* Premium gradient border effect */
+/* Premium gradient border effect - Electric Green */
 .card::before {
   content: '';
   position: absolute;
@@ -244,11 +244,11 @@
   border-radius: var(--radius-2xl);
   padding: 1px;
   background: linear-gradient(135deg,
-    rgba(16, 185, 129, 0.3),
-    rgba(16, 185, 129, 0.1),
+    rgba(0, 255, 65, 0.3),
+    rgba(0, 255, 65, 0.1),
     transparent,
-    rgba(16, 185, 129, 0.1),
-    rgba(16, 185, 129, 0.3)
+    rgba(0, 255, 65, 0.1),
+    rgba(0, 255, 65, 0.3)
   );
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -361,13 +361,13 @@
   gap: var(--space-2-5);
 }
 
-/* Premium Primary Button */
+/* Premium Primary Button - Electric Green */
 .btn-primary {
   background: var(--gradient-brand);
-  color: white;
+  color: var(--text-inverse);
   font-weight: var(--font-semibold);
   box-shadow:
-    0 2px 8px rgba(16, 185, 129, 0.25),
+    0 2px 8px rgba(0, 255, 65, 0.3),
     inset 0 1px 1px rgba(255, 255, 255, 0.1);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
@@ -375,7 +375,7 @@
 .btn-primary:hover {
   transform: translateY(-1px);
   box-shadow:
-    0 6px 20px rgba(16, 185, 129, 0.35),
+    0 6px 20px rgba(0, 255, 65, 0.4),
     inset 0 1px 1px rgba(255, 255, 255, 0.15),
     var(--shadow-glow-sm);
 }
@@ -383,7 +383,7 @@
 .btn-primary:active {
   transform: translateY(0);
   box-shadow:
-    0 2px 8px rgba(16, 185, 129, 0.25),
+    0 2px 8px rgba(0, 255, 65, 0.3),
     inset 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -607,9 +607,9 @@
 }
 
 .badge-success {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.1) 100%);
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.15) 0%, rgba(0, 255, 65, 0.1) 100%);
   color: var(--brand-400);
-  border: 1px solid rgba(16, 185, 129, 0.3);
+  border: 1px solid rgba(0, 255, 65, 0.3);
   box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
 }
 
@@ -994,8 +994,8 @@ button:focus-visible {
    ============================================ */
 
 ::selection {
-  background-color: rgba(16, 185, 129, 0.3);
-  color: white;
+  background-color: rgba(0, 255, 65, 0.3);
+  color: var(--text-inverse);
 }
 
 /* ============================================

@@ -8,70 +8,87 @@
 
 :root {
   /* ============================================
-     NEUMORPHISM DARK MODE (Primary)
+     ELECTRIC BLACK THEME (TreeShop Terminal)
      ============================================ */
 
-  /* Base Colors - Dark Mode */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #222222;
-  --bg-tertiary: #2a2a2a;
-  --bg-elevated: #323232;
+  /* Base Colors - Pure Black Theme */
+  --bg-primary: #000000;           /* pure black background */
+  --bg-secondary: #0A0A0A;         /* near-black cards */
+  --bg-tertiary: #1A1A1A;          /* sections, subtle borders */
+  --bg-elevated: #2A2A2A;          /* elevated surfaces */
 
-  /* Neumorphism Shadows - Dark Mode */
+  /* Glass Morphism Effects */
+  --glass-light: rgba(255, 255, 255, 0.02);
+  --glass-medium: rgba(255, 255, 255, 0.05);
+  --glass-heavy: rgba(255, 255, 255, 0.08);
+
+  /* Modern Shadows - Electric Glow */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.6), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.7), 0 4px 6px -2px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.8), 0 10px 10px -5px rgba(0, 0, 0, 0.4);
+  --shadow-glow: 0 0 20px rgba(0, 255, 65, 0.3);
+  --shadow-glow-green: 0 0 32px rgba(0, 255, 65, 0.4);
+
+  /* Legacy Neumorphism (kept for backward compatibility) */
   --neu-shadow-light: rgba(255, 255, 255, 0.05);
   --neu-shadow-dark: rgba(0, 0, 0, 0.5);
-
-  /* Pressed/Inset Effect */
   --neu-inset-light: inset 2px 2px 5px rgba(0, 0, 0, 0.5);
   --neu-inset-dark: inset -2px -2px 5px rgba(255, 255, 255, 0.05);
-
-  /* Raised/Elevated Effect */
   --neu-raised-light: 6px 6px 12px var(--neu-shadow-dark);
   --neu-raised-dark: -6px -6px 12px var(--neu-shadow-light);
-
-  /* Soft Shadow */
   --neu-soft-light: 4px 4px 8px rgba(0, 0, 0, 0.4);
   --neu-soft-dark: -4px -4px 8px rgba(255, 255, 255, 0.03);
 
-  /* Text Colors - Dark Mode (Bright) */
-  --text-primary: #FFFFFF;
-  --text-secondary: #B8B8B8;
-  --text-tertiary: #7A7A7A;
-  --text-disabled: #4A4A4A;
+  /* Text Colors - High Contrast */
+  --text-primary: #FFFFFF;         /* pure white */
+  --text-secondary: #CCCCCC;       /* bright gray */
+  --text-tertiary: #999999;        /* medium gray */
+  --text-disabled: #777777;        /* muted gray */
 
   /* ============================================
-     BRAND COLORS
+     BRAND COLORS - Electric Green Theme
      ============================================ */
 
-  /* Primary Brand */
-  --brand-primary: #3B82F6;
-  --brand-primary-hover: #2563EB;
-  --brand-primary-active: #1D4ED8;
+  /* Primary Brand - Electric Green */
+  --brand-primary: #00FF41;        /* electric bright green */
+  --brand-primary-hover: #00D938;  /* muted green */
+  --brand-primary-active: #00B830; /* darker green */
 
-  /* Secondary Brand */
-  --brand-secondary: #10B981;
-  --brand-secondary-hover: #059669;
-  --brand-secondary-active: #047857;
+  /* Secondary Brand - Bright Accents */
+  --brand-secondary: #00BFFF;      /* electric blue */
+  --brand-secondary-hover: #00A8E6;
+  --brand-secondary-active: #0092CC;
+
+  /* Additional Accent Colors */
+  --accent-green: #00FF41;
+  --accent-white: #FFFFFF;
+  --muted-green: #00D938;
+  --hot-red: #FF0040;
+  --amber: #FFE500;
+  --soft-pink: #FF3D8A;
+  --soft-blue: #00BFFF;
+  --light-orange: #FF8C00;
 
   /* ============================================
-     SEMANTIC COLORS
+     SEMANTIC COLORS - Electric Bright
      ============================================ */
 
-  --success: #10B981;
-  --success-bg: rgba(16, 185, 129, 0.1);
-  --success-border: rgba(16, 185, 129, 0.3);
+  --success: #00FF41;              /* electric green */
+  --success-bg: rgba(0, 255, 65, 0.1);
+  --success-border: rgba(0, 255, 65, 0.3);
 
-  --warning: #F59E0B;
-  --warning-bg: rgba(245, 158, 11, 0.1);
-  --warning-border: rgba(245, 158, 11, 0.3);
+  --warning: #FFE500;              /* electric yellow/amber */
+  --warning-bg: rgba(255, 229, 0, 0.1);
+  --warning-border: rgba(255, 229, 0, 0.3);
 
-  --error: #EF4444;
-  --error-bg: rgba(239, 68, 68, 0.1);
-  --error-border: rgba(239, 68, 68, 0.3);
+  --error: #FF0040;                /* hot red */
+  --error-bg: rgba(255, 0, 64, 0.1);
+  --error-border: rgba(255, 0, 64, 0.3);
 
-  --info: #3B82F6;
-  --info-bg: rgba(59, 130, 246, 0.1);
-  --info-border: rgba(59, 130, 246, 0.3);
+  --info: #00BFFF;                 /* electric blue */
+  --info-bg: rgba(0, 191, 255, 0.1);
+  --info-border: rgba(0, 191, 255, 0.3);
 
   /* ============================================
      BORDERS & DIVIDERS
@@ -99,22 +116,22 @@
   --space-24: 6rem;     /* 96px */
 
   /* ============================================
-     BORDER RADIUS
+     BORDER RADIUS - Modern Rounded
      ============================================ */
 
-  --radius-sm: 6px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
-  --radius-2xl: 28px;
+  --radius-sm: 0.25rem;   /* 4px */
+  --radius-md: 0.5rem;    /* 8px */
+  --radius-lg: 0.75rem;   /* 12px */
+  --radius-xl: 1rem;      /* 16px */
+  --radius-2xl: 1.5rem;   /* 24px */
   --radius-full: 9999px;
 
   /* ============================================
      TYPOGRAPHY
      ============================================ */
 
-  /* Font Families */
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Font Families - Inter Primary */
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: "SF Mono", Monaco, "Cascadia Code", "Roboto Mono", Consolas, "Courier New", monospace;
 
   /* Font Sizes */

@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 
-import { useQuery } from 'convex/react';
+import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import type { Id } from '@/convex/_generated/dataModel';
 import {
   Plus,
   FileText,
@@ -30,13 +31,32 @@ export default function ProjectsPage() {
   const orgId = "org_demo";
 
   const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
+  const projects = useQuery(api.projects.list, { organizationId: orgId }) || [];
+  const customers = useQuery(api.customers.list, { organizationId: orgId }) || [];
+
+  const createProject = useMutation(api.projects.create);
+  const updateProject = useMutation(api.projects.update);
+  const removeProject = useMutation(api.projects.remove);
+
   const [selectedLoadout, setSelectedLoadout] = useState('');
+  const [selectedCustomerId, setSelectedCustomerId] = useState<Id<"customers"> | ''>('');
+  const [newCustomerName, setNewCustomerName] = useState('');
   const [projectData, setProjectData] = useState({
     projectName: '',
     acres: 0,
     dbhPackage: 8,
     profitMargin: 40,
   });
+  const [saving, setSaving] = useState(false);
+  const [loadingProject, setLoadingProject] = useState<Id<"projects"> | null>(null);
+
+  // Analytics calculations
+  const wonProjects = projects.filter(p => p.status === 'won');
+  const lostProjects = projects.filter(p => p.status === 'lost');
+  const quotedProjects = projects.filter(p => p.status === 'quoted' || !p.status);
+  const totalRevenue = wonProjects.reduce((sum, p) => sum + (p.totalPrice || 0), 0);
+  const winRate = projects.length > 0 ? (wonProjects.length / projects.length * 100) : 0;
+  const avgProjectSize = projects.length > 0 ? projects.reduce((sum, p) => sum + (p.projectSize || 0), 0) / projects.length : 0;
 
   const loadout = loadouts.find((l) => l._id === selectedLoadout);
   const loadoutCost = loadout?.totalLoadoutCostPerHour || 0;
@@ -53,6 +73,112 @@ export default function ProjectsPage() {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(value);
+  };
+
+  const handleSaveQuote = async () => {
+    if (!selectedLoadout || !projectData.projectName) {
+      alert('Please select a loadout and enter a project name');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      await createProject({
+        organizationId: orgId,
+        projectName: projectData.projectName,
+        customerId: selectedCustomerId ? selectedCustomerId as Id<"customers"> : undefined,
+        customerName: selectedCustomerId ? undefined : (newCustomerName || 'Walk-in Customer'),
+        serviceType: 'Forestry Mulching',
+        loadoutId: selectedLoadout as Id<"loadouts">,
+        loadoutName: loadout?.loadoutName,
+        loadoutCostPerHour: loadoutCost,
+        profitMargin: projectData.profitMargin,
+        billingRatePerHour: billingRate,
+        projectSize: projectData.acres,
+        sizeUnit: 'acres',
+        dbhPackage: projectData.dbhPackage,
+        workHours: hours,
+        totalHours: hours,
+        totalCost: hours * loadoutCost,
+        totalPrice: totalPrice,
+        totalProfit: totalPrice - (hours * loadoutCost),
+        inchAcres: inchAcres,
+        productionRate: productionRate,
+      });
+
+      // Reset form
+      setProjectData({ projectName: '', acres: 0, dbhPackage: 8, profitMargin: 40 });
+      setSelectedCustomerId('');
+      setNewCustomerName('');
+      alert('Quote saved successfully!');
+    } catch (error) {
+      console.error('Error saving quote:', error);
+      alert('Failed to save quote');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDuplicateLastQuote = () => {
+    if (projects.length === 0) return;
+
+    const lastProject = projects[0];
+    setProjectData({
+      projectName: `${lastProject.projectName} (Copy)`,
+      acres: lastProject.projectSize || 0,
+      dbhPackage: lastProject.dbhPackage || 8,
+      profitMargin: lastProject.profitMargin || 40,
+    });
+    setSelectedLoadout(lastProject.loadoutId || '');
+    setSelectedCustomerId('');
+    setNewCustomerName('');
+  };
+
+  const handleLoadSimilar = () => {
+    if (!projectData.acres || projects.length === 0) return;
+
+    // Find project with closest acreage
+    const similar = projects.reduce((closest, project) => {
+      const currentDiff = Math.abs((project.projectSize || 0) - projectData.acres);
+      const closestDiff = Math.abs((closest.projectSize || 0) - projectData.acres);
+      return currentDiff < closestDiff ? project : closest;
+    });
+
+    handleLoadQuote(similar);
+  };
+
+  const handleLoadQuote = (project: any) => {
+    setLoadingProject(project._id);
+    setProjectData({
+      projectName: project.projectName,
+      acres: project.projectSize || 0,
+      dbhPackage: project.dbhPackage || 8,
+      profitMargin: project.profitMargin || 40,
+    });
+    setSelectedLoadout(project.loadoutId || '');
+    setSelectedCustomerId('');
+    setNewCustomerName('');
+    setLoadingProject(null);
+  };
+
+  const handleUpdateStatus = async (projectId: Id<"projects">, status: string) => {
+    try {
+      await updateProject({ id: projectId, status });
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('Failed to update status');
+    }
+  };
+
+  const handleDeleteQuote = async (projectId: Id<"projects">) => {
+    if (!confirm('Are you sure you want to delete this quote?')) return;
+
+    try {
+      await removeProject({ id: projectId });
+    } catch (error) {
+      console.error('Error deleting quote:', error);
+      alert('Failed to delete quote');
+    }
   };
 
   return (
@@ -120,6 +246,166 @@ export default function ProjectsPage() {
               </div>
             </div>
           </div>
+
+          {/* Analytics Dashboard */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 255, 65, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at top left, rgba(0, 255, 65, 0.3), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <Target className="w-5 h-5" style={{ color: '#00FF41' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Win Rate
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {winRate.toFixed(0)}%
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  {wonProjects.length} won / {projects.length} total
+                </div>
+              </div>
+            </div>
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 255, 65, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at top right, rgba(0, 255, 65, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <DollarSign className="w-5 h-5" style={{ color: 'var(--brand-400)' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Revenue
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {formatCurrency(totalRevenue).replace('.00', '')}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  From won projects
+                </div>
+              </div>
+            </div>
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 191, 255, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 191, 255, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at bottom left, rgba(0, 191, 255, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(0, 191, 255, 0.2)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <BarChart3 className="w-5 h-5" style={{ color: '#00BFFF' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Pipeline
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {quotedProjects.length}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Pending quotes
+                </div>
+              </div>
+            </div>
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 255, 65, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at bottom right, rgba(0, 255, 65, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <Activity className="w-5 h-5" style={{ color: '#16A34A' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Avg Size
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {avgProjectSize.toFixed(1)}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Acres per project
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          {projects.length > 0 && (
+            <div className="flex flex-wrap gap-3 mb-10">
+              <button
+                onClick={handleDuplicateLastQuote}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                style={{
+                  background: 'rgba(0, 255, 65, 0.1)',
+                  border: '1px solid rgba(0, 255, 65, 0.3)',
+                  color: '#00FF41'
+                }}
+              >
+                <Zap className="w-4 h-4" />
+                Duplicate Last Quote
+              </button>
+
+              {projectData.acres > 0 && (
+                <button
+                  onClick={handleLoadSimilar}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                  style={{
+                    background: 'rgba(0, 191, 255, 0.1)',
+                    border: '1px solid rgba(0, 191, 255, 0.3)',
+                    color: '#00BFFF'
+                  }}
+                >
+                  <Target className="w-4 h-4" />
+                  Load Similar Project
+                </button>
+              )}
+            </div>
+          )}
 
           {/* ULTRA-Premium Stats Cards with BOLD Glassmorphism */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
@@ -320,6 +606,37 @@ export default function ProjectsPage() {
                         placeholder="Smith Property - New Smyrna Beach"
                       />
                     </div>
+
+                    <div className="input-group">
+                      <label className="input-label">Customer</label>
+                      <select
+                        className="input-field select-field"
+                        value={selectedCustomerId}
+                        onChange={(e) => {
+                          setSelectedCustomerId(e.target.value as Id<"customers"> | '');
+                          if (e.target.value) setNewCustomerName('');
+                        }}
+                      >
+                        <option value="">New Customer...</option>
+                        {customers.map((c) => (
+                          <option key={c._id} value={c._id}>
+                            {c.name} {c.company ? `(${c.company})` : ''}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {!selectedCustomerId && (
+                      <div className="input-group">
+                        <label className="input-label">New Customer Name</label>
+                        <input
+                          className="input-field"
+                          value={newCustomerName}
+                          onChange={(e) => setNewCustomerName(e.target.value)}
+                          placeholder="John Smith"
+                        />
+                      </div>
+                    )}
 
                     <div className="input-group">
                       <label className="input-label">Select Loadout</label>
@@ -536,14 +853,148 @@ export default function ProjectsPage() {
                         </div>
                       </div>
                     </div>
+
+                    {/* Save Quote Button */}
+                    <button
+                      onClick={handleSaveQuote}
+                      disabled={saving || !projectData.projectName || !selectedLoadout}
+                      className="w-full group inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hardware-accelerated"
+                      style={{
+                        background: saving ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
+                        color: 'white',
+                        boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+                        opacity: (!projectData.projectName || !selectedLoadout) ? 0.5 : 1,
+                        cursor: (!projectData.projectName || !selectedLoadout || saving) ? 'not-allowed' : 'pointer'
+                      }}
+                    >
+                      {saving ? (
+                        <>
+                          <div className="spinner" />
+                          Saving...
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="w-5 h-5" />
+                          Save Quote
+                        </>
+                      )}
+                    </button>
                   </>
                 )}
+              </div>
+            </div>
+          )}
+
+          {/* Recent Quotes Section */}
+          {projects.length > 0 && (
+            <div className="mt-10 relative rounded-3xl overflow-hidden"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 255, 65, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 255, 65, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="p-6 md:p-8">
+                <div className="flex items-center gap-2 mb-6">
+                  <FileText className="w-5 h-5" style={{ color: '#00FF41' }} />
+                  <h3 className="text-lg font-semibold uppercase tracking-wider"
+                      style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                    Recent Quotes
+                  </h3>
+                  <span className="ml-auto text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                    {projects.length} total
+                  </span>
+                </div>
+
+                <div className="space-y-4">
+                  {projects.slice(0, 10).map((project) => (
+                    <div key={project._id}
+                         className="group rounded-xl p-4 transition-all duration-300"
+                         style={{
+                           background: 'rgba(255, 255, 255, 0.02)',
+                           border: '1px solid rgba(255, 255, 255, 0.08)',
+                         }}>
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h4 className="font-semibold text-lg truncate" style={{ color: 'var(--text-primary)' }}>
+                              {project.projectName}
+                            </h4>
+                            <span className={`px-2 py-1 rounded-full text-xs font-semibold uppercase tracking-wider`}
+                                  style={{
+                                    background: project.status === 'won' ? 'rgba(0, 255, 65, 0.15)' :
+                                               project.status === 'lost' ? 'rgba(255, 0, 64, 0.15)' :
+                                               'rgba(0, 191, 255, 0.15)',
+                                    color: project.status === 'won' ? '#00FF41' :
+                                           project.status === 'lost' ? '#FF0040' :
+                                           '#00BFFF',
+                                    border: `1px solid ${project.status === 'won' ? 'rgba(0, 255, 65, 0.3)' :
+                                           project.status === 'lost' ? 'rgba(255, 0, 64, 0.3)' :
+                                           'rgba(0, 191, 255, 0.3)'}`
+                                  }}>
+                              {project.status || 'quoted'}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                            <span>{project.projectSize} acres</span>
+                            <span>•</span>
+                            <span>{formatCurrency(project.totalPrice || 0)}</span>
+                            <span>•</span>
+                            <span>{new Date(project.createdAt).toLocaleDateString()}</span>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleLoadQuote(project)}
+                            className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                            style={{
+                              background: 'rgba(0, 255, 65, 0.1)',
+                              border: '1px solid rgba(0, 255, 65, 0.3)',
+                              color: '#00FF41'
+                            }}
+                          >
+                            Load
+                          </button>
+
+                          <select
+                            value={project.status || 'quoted'}
+                            onChange={(e) => handleUpdateStatus(project._id, e.target.value)}
+                            className="px-3 py-2 rounded-lg font-medium text-sm transition-all"
+                            style={{
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              border: '1px solid rgba(255, 255, 255, 0.1)',
+                              color: 'var(--text-primary)'
+                            }}
+                          >
+                            <option value="quoted">Quoted</option>
+                            <option value="won">Won</option>
+                            <option value="lost">Lost</option>
+                          </select>
+
+                          <button
+                            onClick={() => handleDeleteQuote(project._id)}
+                            className="px-3 py-2 rounded-lg text-sm transition-all duration-200 hover:scale-105"
+                            style={{
+                              background: 'rgba(255, 0, 64, 0.1)',
+                              border: '1px solid rgba(255, 0, 64, 0.3)',
+                              color: '#FF0040'
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
         </div>
       </div>
     </>
-    
+
   );
 }

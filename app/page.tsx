@@ -123,52 +123,63 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Steps - Microsoft Metro Tile Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* Dashboard Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {steps.map((step) => (
             <Link key={step.number} href={step.href}>
               <div
-                className="group relative rounded-3xl p-8 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                className="group relative rounded-2xl p-8 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
                 style={{
                   background: step.complete
-                    ? `linear-gradient(135deg, ${step.color}20 0%, ${step.color}10 100%)`
+                    ? `linear-gradient(135deg, ${step.color}15 0%, ${step.color}08 100%)`
                     : 'rgba(255, 255, 255, 0.03)',
                   border: step.complete
                     ? `2px solid ${step.color}40`
-                    : '2px solid rgba(255,255,255,0.1)',
-                  boxShadow: step.complete
-                    ? `0 8px 24px ${step.color}20`
-                    : '0 4px 12px rgba(0,0,0,0.3)',
-                  minHeight: '200px'
+                    : '2px solid rgba(255,255,255,0.08)',
                 }}
               >
-                <div className="flex flex-col h-full justify-between">
-                  {/* Top: Number & Icon */}
-                  <div className="flex items-start justify-between">
-                    <div
-                      className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-black"
-                      style={{
-                        background: step.complete ? `${step.color}30` : 'rgba(255,255,255,0.05)',
-                        color: step.complete ? step.color : 'rgba(255,255,255,0.4)',
-                      }}
-                    >
-                      {step.number}
+                <div className="flex items-center gap-6">
+                  {/* Left: Big Number */}
+                  <div
+                    className="w-20 h-20 rounded-2xl flex items-center justify-center text-3xl font-black flex-shrink-0"
+                    style={{
+                      background: step.complete ? step.color : 'rgba(255,255,255,0.05)',
+                      color: step.complete ? '#000' : 'rgba(255,255,255,0.3)',
+                    }}
+                  >
+                    {step.number}
+                  </div>
+
+                  {/* Right: Content */}
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-4xl">{step.emoji}</span>
+                      <h3 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                        {step.title}
+                      </h3>
                     </div>
-                    {step.complete && (
-                      <CheckCircle2 className="w-5 h-5" style={{ color: step.color }} />
+                    <p className="text-sm mb-3" style={{ color: 'var(--text-tertiary)' }}>
+                      {step.description}
+                    </p>
+                    {step.stat && (
+                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg"
+                           style={{
+                             background: `${step.color}20`,
+                             border: `1px solid ${step.color}40`,
+                           }}>
+                        <span className="text-sm font-bold" style={{ color: step.color }}>
+                          {step.stat}
+                        </span>
+                      </div>
                     )}
                   </div>
 
-                  {/* Middle: Title & Emoji */}
-                  <div>
-                    <div className="text-5xl mb-3">{step.emoji}</div>
-                    <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
-                      {step.title}
-                    </h3>
-                    {step.stat && (
-                      <div className="text-lg font-bold" style={{ color: step.color }}>
-                        {step.stat}
-                      </div>
+                  {/* Status Icon */}
+                  <div className="flex-shrink-0">
+                    {step.complete ? (
+                      <CheckCircle2 className="w-8 h-8" style={{ color: step.color }} />
+                    ) : (
+                      <Circle className="w-8 h-8" style={{ color: 'rgba(255,255,255,0.2)' }} />
                     )}
                   </div>
                 </div>

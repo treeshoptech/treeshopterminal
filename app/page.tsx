@@ -83,99 +83,99 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 py-12 pb-32 md:pb-12">
+      <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8 pb-32 md:pb-8">
 
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-black mb-3"
-              style={{
-                background: 'linear-gradient(135deg, #00FF41 0%, #00D938 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.02em'
-              }}>
-            TreeShop Terminal
+        <div className="mb-10">
+          <h1 className="text-4xl md:text-5xl font-black mb-2"
+              style={{ color: 'var(--text-primary)' }}>
+            Dashboard
           </h1>
-          <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
-            Build your pricing system in 4 steps
+          <p className="text-base" style={{ color: 'var(--text-tertiary)' }}>
+            Overview of your business operations
           </p>
         </div>
 
-        {/* Progress Bar */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
-              Setup Progress
-            </span>
-            <span className="text-sm font-semibold" style={{ color: 'var(--brand-400)' }}>
-              {completedSteps}/4 Complete
-            </span>
-          </div>
-          <div className="h-3 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            <div
-              className="h-full transition-all duration-500"
-              style={{
-                width: `${(completedSteps / 4) * 100}%`,
-                background: 'linear-gradient(90deg, #00FF41 0%, #00D938 100%)',
-                boxShadow: '0 0 20px rgba(0, 255, 65, 0.5)'
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Simple Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {steps.map((step) => (
-            <Link key={step.number} href={step.href}>
-              <div
-                className="relative rounded-xl p-6 transition-all duration-150 hover:brightness-110 active:scale-95"
-                style={{
-                  background: step.complete ? step.color : 'rgba(255, 255, 255, 0.05)',
-                  border: `1px solid ${step.complete ? step.color : 'rgba(255,255,255,0.1)'}`,
-                }}
-              >
-                <div className="text-6xl mb-4">{step.emoji}</div>
-                <h3 className="text-lg font-bold mb-1"
-                    style={{ color: step.complete ? '#000' : 'var(--text-primary)' }}>
-                  {step.title}
-                </h3>
-                {step.stat ? (
-                  <div className="text-sm font-semibold"
-                       style={{ color: step.complete ? '#000' : step.color }}>
-                    {step.stat}
-                  </div>
-                ) : (
-                  <div className="text-sm" style={{ color: step.complete ? 'rgba(0,0,0,0.6)' : 'var(--text-tertiary)' }}>
-                    Step {step.number}
-                  </div>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Settings - Separated at Bottom */}
-        <div className="mt-16 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
-          <Link href="/settings">
-            <div
-              className="group rounded-2xl p-6 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
-              style={{
-                background: 'rgba(255, 255, 255, 0.02)',
-                border: '1px solid rgba(255,255,255,0.08)',
-              }}
-            >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <span className="text-3xl">⚙️</span>
-                  <div>
-                    <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Settings</h3>
-                    <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>App preferences</p>
-                  </div>
-                </div>
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" style={{ color: 'var(--text-quaternary)' }} />
-              </div>
+        {/* KPI Cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10">
+          <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+               style={{
+                 background: 'rgba(0, 255, 65, 0.08)',
+                 border: '1px solid rgba(0, 255, 65, 0.25)',
+               }}>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Equipment</span>
             </div>
-          </Link>
+            <div className="text-3xl md:text-4xl font-bold" style={{ color: '#00FF41' }}>{equipment.length}</div>
+            <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
+              {totalEquipmentValue > 0 ? formatCurrency(totalEquipmentValue) : 'Not configured'}
+            </div>
+          </div>
+
+          <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+               style={{
+                 background: 'rgba(0, 191, 255, 0.08)',
+                 border: '1px solid rgba(0, 191, 255, 0.25)',
+               }}>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Team</span>
+            </div>
+            <div className="text-3xl md:text-4xl font-bold" style={{ color: '#00BFFF' }}>{employees.length}</div>
+            <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
+              {totalLaborCost > 0 ? `${formatCurrency(totalLaborCost)}/hr` : 'Not configured'}
+            </div>
+          </div>
+
+          <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+               style={{
+                 background: 'rgba(255, 229, 0, 0.08)',
+                 border: '1px solid rgba(255, 229, 0, 0.25)',
+               }}>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Loadouts</span>
+            </div>
+            <div className="text-3xl md:text-4xl font-bold" style={{ color: '#FFE500' }}>{loadouts.length}</div>
+            <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>
+              {loadouts.length > 0 ? 'Ready to price' : 'Not configured'}
+            </div>
+          </div>
+
+          <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+               style={{
+                 background: 'rgba(255, 255, 255, 0.03)',
+                 border: '1px solid rgba(255, 255, 255, 0.1)',
+               }}>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Status</span>
+            </div>
+            <div className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--text-primary)' }}>
+              {completedSteps}/4
+            </div>
+            <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Setup complete</div>
+          </div>
+        </div>
+
+        {/* Quick Access Grid */}
+        <div>
+          <h2 className="text-2xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>Quick Access</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {steps.map((step) => (
+              <Link key={step.number} href={step.href}>
+                <div
+                  className="relative rounded-xl p-6 transition-all duration-150 hover:brightness-110 active:scale-95"
+                  style={{
+                    background: step.complete ? `${step.color}15` : 'rgba(255, 255, 255, 0.05)',
+                    border: `1px solid ${step.complete ? `${step.color}40` : 'rgba(255,255,255,0.1)'}`,
+                  }}
+                >
+                  <div className="text-5xl mb-3">{step.emoji}</div>
+                  <h3 className="text-base font-bold" style={{ color: 'var(--text-primary)' }}>
+                    {step.title}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
 
       </div>

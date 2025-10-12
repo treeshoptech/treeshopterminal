@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ConvexClientProvider } from '@/components/providers/ConvexClientProvider';
-import { MobileNav } from '@/components/layout/MobileNav';
+import { AppShell } from '@/components/layout/AppShell';
 import '../styles/design-system.css';
 import '../styles/globals.css';
 
@@ -38,10 +38,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ConvexClientProvider>
-          <div className="pb-20 md:pb-0">
+          <AppShell>
             {children}
-          </div>
-          <MobileNav />
+          </AppShell>
         </ConvexClientProvider>
       </body>
     </html>

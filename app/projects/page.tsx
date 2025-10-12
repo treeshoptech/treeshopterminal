@@ -19,7 +19,11 @@ import {
   Zap,
   Settings,
   Package,
-  Minus
+  Minus,
+  Download,
+  Printer,
+  Mail,
+  Copy
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -38,11 +42,22 @@ export default function ProjectsPage() {
   const updateProject = useMutation(api.projects.update);
   const removeProject = useMutation(api.projects.remove);
 
+  const createCustomer = useMutation(api.customers.create);
+
   const [selectedLoadout, setSelectedLoadout] = useState('');
   const [selectedCustomerId, setSelectedCustomerId] = useState<Id<"customers"> | ''>('');
-  const [newCustomerName, setNewCustomerName] = useState('');
+  const [showCustomerModal, setShowCustomerModal] = useState(false);
+  const [newCustomer, setNewCustomer] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    company: '',
+  });
   const [projectData, setProjectData] = useState({
-    projectName: '',
     acres: 0,
     dbhPackage: 8,
     profitMargin: 40,
@@ -75,19 +90,56 @@ export default function ProjectsPage() {
     }).format(value);
   };
 
+  const handleCreateCustomer = async () => {
+    if (!newCustomer.name || !newCustomer.phone) {
+      alert('Please enter customer name and phone number');
+      return;
+    }
+
+    try {
+      const customerId = await createCustomer({
+        organizationId: orgId,
+        name: newCustomer.name,
+        phone: newCustomer.phone,
+        email: newCustomer.email,
+        company: newCustomer.company,
+        address: newCustomer.address,
+        city: newCustomer.city,
+        state: newCustomer.state,
+        zipCode: newCustomer.zipCode,
+        status: 'lead',
+      });
+
+      setSelectedCustomerId(customerId);
+      setShowCustomerModal(false);
+      setNewCustomer({ name: '', phone: '', email: '', address: '', city: '', state: '', zipCode: '', company: '' });
+    } catch (error) {
+      console.error('Error creating customer:', error);
+      alert('Failed to create customer');
+    }
+  };
+
   const handleSaveQuote = async () => {
-    if (!selectedLoadout || !projectData.projectName) {
-      alert('Please select a loadout and enter a project name');
+    if (!selectedLoadout || !selectedCustomerId) {
+      alert('Please select a customer and loadout');
+      return;
+    }
+
+    const customer = customers.find(c => c._id === selectedCustomerId);
+    if (!customer) {
+      alert('Customer not found');
       return;
     }
 
     setSaving(true);
     try {
+      const projectUID = `Q${Date.now().toString().slice(-6)}`;
+      const projectName = `${customer.name}-${projectUID}`;
+
       await createProject({
         organizationId: orgId,
-        projectName: projectData.projectName,
-        customerId: selectedCustomerId ? selectedCustomerId as Id<"customers"> : undefined,
-        customerName: selectedCustomerId ? undefined : (newCustomerName || 'Walk-in Customer'),
+        projectName,
+        customerId: selectedCustomerId as Id<"customers">,
         serviceType: 'Forestry Mulching',
         loadoutId: selectedLoadout as Id<"loadouts">,
         loadoutName: loadout?.loadoutName,
@@ -107,10 +159,8 @@ export default function ProjectsPage() {
       });
 
       // Reset form
-      setProjectData({ projectName: '', acres: 0, dbhPackage: 8, profitMargin: 40 });
-      setSelectedCustomerId('');
-      setNewCustomerName('');
-      alert('Quote saved successfully!');
+      setProjectData({ acres: 0, dbhPackage: 8, profitMargin: 40 });
+      alert(`Quote ${projectName} saved successfully!`);
     } catch (error) {
       console.error('Error saving quote:', error);
       alert('Failed to save quote');
@@ -124,14 +174,12 @@ export default function ProjectsPage() {
 
     const lastProject = projects[0];
     setProjectData({
-      projectName: `${lastProject.projectName} (Copy)`,
       acres: lastProject.projectSize || 0,
       dbhPackage: lastProject.dbhPackage || 8,
       profitMargin: lastProject.profitMargin || 40,
     });
     setSelectedLoadout(lastProject.loadoutId || '');
-    setSelectedCustomerId('');
-    setNewCustomerName('');
+    setSelectedCustomerId(lastProject.customerId || '');
   };
 
   const handleLoadSimilar = () => {
@@ -150,14 +198,12 @@ export default function ProjectsPage() {
   const handleLoadQuote = (project: any) => {
     setLoadingProject(project._id);
     setProjectData({
-      projectName: project.projectName,
       acres: project.projectSize || 0,
       dbhPackage: project.dbhPackage || 8,
       profitMargin: project.profitMargin || 40,
     });
     setSelectedLoadout(project.loadoutId || '');
-    setSelectedCustomerId('');
-    setNewCustomerName('');
+    setSelectedCustomerId(project.customerId || '');
     setLoadingProject(null);
   };
 
@@ -598,45 +644,48 @@ export default function ProjectsPage() {
                   </div>
                   <div className="space-y-6">
                     <div className="input-group">
-                      <label className="input-label">Project Name</label>
-                      <input
-                        className="input-field"
-                        value={projectData.projectName}
-                        onChange={(e) => setProjectData({ ...projectData, projectName: e.target.value })}
-                        placeholder="Smith Property - New Smyrna Beach"
-                      />
-                    </div>
-
-                    <div className="input-group">
                       <label className="input-label">Customer</label>
-                      <select
-                        className="input-field select-field"
-                        value={selectedCustomerId}
-                        onChange={(e) => {
-                          setSelectedCustomerId(e.target.value as Id<"customers"> | '');
-                          if (e.target.value) setNewCustomerName('');
-                        }}
-                      >
-                        <option value="">New Customer...</option>
-                        {customers.map((c) => (
-                          <option key={c._id} value={c._id}>
-                            {c.name} {c.company ? `(${c.company})` : ''}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-
-                    {!selectedCustomerId && (
-                      <div className="input-group">
-                        <label className="input-label">New Customer Name</label>
-                        <input
-                          className="input-field"
-                          value={newCustomerName}
-                          onChange={(e) => setNewCustomerName(e.target.value)}
-                          placeholder="John Smith"
-                        />
+                      <div className="flex gap-3">
+                        <select
+                          className="input-field select-field flex-1"
+                          value={selectedCustomerId}
+                          onChange={(e) => setSelectedCustomerId(e.target.value as Id<"customers"> | '')}
+                        >
+                          <option value="">Select customer...</option>
+                          {customers.map((c) => (
+                            <option key={c._id} value={c._id}>
+                              {c.name} {c.company ? `(${c.company})` : ''}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          onClick={() => setShowCustomerModal(true)}
+                          className="px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105"
+                          style={{
+                            background: 'rgba(0, 255, 65, 0.1)',
+                            border: '1px solid rgba(0, 255, 65, 0.3)',
+                            color: '#00FF41',
+                            whiteSpace: 'nowrap'
+                          }}
+                        >
+                          <Plus className="w-5 h-5 inline mr-1" />
+                          New
+                        </button>
                       </div>
-                    )}
+                      {selectedCustomerId && customers.find(c => c._id === selectedCustomerId) && (
+                        <div className="mt-2 text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                          {(() => {
+                            const customer = customers.find(c => c._id === selectedCustomerId);
+                            return customer ? (
+                              <div className="flex flex-col gap-1">
+                                {customer.phone && <span>{customer.phone}</span>}
+                                {customer.address && <span>{customer.address}, {customer.city}, {customer.state} {customer.zipCode}</span>}
+                              </div>
+                            ) : null;
+                          })()}
+                        </div>
+                      )}
+                    </div>
 
                     <div className="input-group">
                       <label className="input-label">Select Loadout</label>
@@ -666,12 +715,32 @@ export default function ProjectsPage() {
                                style={{ color: 'var(--text-secondary)' }}>
                           Project Acreage
                         </label>
+
+                        {/* Acre Presets */}
+                        <div className="grid grid-cols-4 md:grid-cols-6 gap-2 mb-4">
+                          {[2, 5, 10, 15, 20, 30].map((acres) => (
+                            <button
+                              key={acres}
+                              type="button"
+                              onClick={() => setProjectData({ ...projectData, acres })}
+                              className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
+                              style={{
+                                background: projectData.acres === acres ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                                border: projectData.acres === acres ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
+                                color: projectData.acres === acres ? '#00FF41' : 'var(--text-secondary)'
+                              }}
+                            >
+                              {acres}
+                            </button>
+                          ))}
+                        </div>
+
                         <input
-                          className="w-full text-center px-6 py-8 rounded-2xl font-mono text-6xl font-black"
+                          className="w-full text-center px-4 md:px-6 py-6 md:py-8 rounded-2xl font-mono text-4xl md:text-6xl font-black"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%)',
-                            border: '2px solid rgba(34, 197, 94, 0.4)',
-                            color: '#22C55E',
+                            background: 'linear-gradient(135deg, rgba(0, 255, 65, 0.15) 0%, rgba(0, 255, 65, 0.08) 100%)',
+                            border: '2px solid rgba(0, 255, 65, 0.4)',
+                            color: '#00FF41',
                             backdropFilter: 'blur(20px)',
                             WebkitBackdropFilter: 'blur(20px)'
                           }}
@@ -717,26 +786,46 @@ export default function ProjectsPage() {
                              style={{ color: 'var(--text-secondary)' }}>
                         Profit Margin (%)
                       </label>
+
+                      {/* Margin Presets */}
+                      <div className="grid grid-cols-4 gap-2 mb-4">
+                        {[30, 40, 50, 60].map((margin) => (
+                          <button
+                            key={margin}
+                            type="button"
+                            onClick={() => setProjectData({ ...projectData, profitMargin: margin })}
+                            className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
+                            style={{
+                              background: projectData.profitMargin === margin ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                              border: projectData.profitMargin === margin ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
+                              color: projectData.profitMargin === margin ? '#00FF41' : 'var(--text-secondary)'
+                            }}
+                          >
+                            {margin}%
+                          </button>
+                        ))}
+                      </div>
+
                       <div className="flex items-center gap-3">
                         <button
                           type="button"
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.max(0, projectData.profitMargin - 5) })}
-                          className="w-16 h-16 rounded-xl transition-all duration-200 active:scale-95"
+                          className="w-12 h-12 md:w-16 md:h-16 rounded-xl transition-all duration-200 active:scale-95"
                           style={{
-                            background: 'rgba(34, 197, 94, 0.1)',
-                            border: '2px solid rgba(34, 197, 94, 0.3)',
-                            color: '#22C55E'
+                            background: 'rgba(0, 255, 65, 0.1)',
+                            border: '2px solid rgba(0, 255, 65, 0.3)',
+                            color: '#00FF41'
                           }}
                         >
-                          <Minus className="w-6 h-6 mx-auto" />
+                          <Minus className="w-5 h-5 md:w-6 md:h-6 mx-auto" />
                         </button>
                         <input
                           type="number"
-                          className="flex-1 text-center px-4 py-6 rounded-xl font-mono text-4xl font-bold"
+                          className="flex-1 text-center px-4 py-4 md:py-6 rounded-xl font-mono text-3xl md:text-4xl font-bold"
                           style={{
                             background: 'rgba(255,255,255,0.03)',
                             border: '2px solid var(--border-default)',
-                            color: '#22C55E'
+                            color: '#00FF41'
                           }}
                           value={projectData.profitMargin}
                           onChange={(e) => setProjectData({ ...projectData, profitMargin: Number(e.target.value) })}
@@ -744,14 +833,14 @@ export default function ProjectsPage() {
                         <button
                           type="button"
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.min(100, projectData.profitMargin + 5) })}
-                          className="w-16 h-16 rounded-xl transition-all duration-200 active:scale-95"
+                          className="w-12 h-12 md:w-16 md:h-16 rounded-xl transition-all duration-200 active:scale-95"
                           style={{
-                            background: 'rgba(34, 197, 94, 0.1)',
-                            border: '2px solid rgba(34, 197, 94, 0.3)',
-                            color: '#22C55E'
+                            background: 'rgba(0, 255, 65, 0.1)',
+                            border: '2px solid rgba(0, 255, 65, 0.3)',
+                            color: '#00FF41'
                           }}
                         >
-                          <Plus className="w-6 h-6 mx-auto" />
+                          <Plus className="w-5 h-5 md:w-6 md:h-6 mx-auto" />
                         </button>
                       </div>
                     </div>
@@ -854,31 +943,75 @@ export default function ProjectsPage() {
                       </div>
                     </div>
 
-                    {/* Save Quote Button */}
-                    <button
-                      onClick={handleSaveQuote}
-                      disabled={saving || !projectData.projectName || !selectedLoadout}
-                      className="w-full group inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hardware-accelerated"
-                      style={{
-                        background: saving ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
-                        color: 'white',
-                        boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
-                        opacity: (!projectData.projectName || !selectedLoadout) ? 0.5 : 1,
-                        cursor: (!projectData.projectName || !selectedLoadout || saving) ? 'not-allowed' : 'pointer'
-                      }}
-                    >
-                      {saving ? (
-                        <>
-                          <div className="spinner" />
-                          Saving...
-                        </>
-                      ) : (
-                        <>
-                          <Plus className="w-5 h-5" />
-                          Save Quote
-                        </>
-                      )}
-                    </button>
+                    {/* Action Buttons */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <button
+                        onClick={handleSaveQuote}
+                        disabled={saving || !selectedCustomerId || !selectedLoadout}
+                        className="group inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105"
+                        style={{
+                          background: saving ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
+                          color: 'white',
+                          boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+                          opacity: (!selectedCustomerId || !selectedLoadout) ? 0.5 : 1,
+                          cursor: (!selectedCustomerId || !selectedLoadout || saving) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        {saving ? (
+                          <>
+                            <div className="spinner" />
+                            <span className="hidden md:inline">Saving...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="w-5 h-5" />
+                            <span className="hidden md:inline">Save Quote</span>
+                            <span className="md:hidden">Save</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => window.print()}
+                        disabled={!selectedLoadout || !selectedCustomerId}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105"
+                        style={{
+                          background: 'rgba(0, 191, 255, 0.1)',
+                          border: '1px solid rgba(0, 191, 255, 0.3)',
+                          color: '#00BFFF',
+                          opacity: (!selectedLoadout || !selectedCustomerId) ? 0.5 : 1,
+                          cursor: (!selectedLoadout || !selectedCustomerId) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        <Printer className="w-5 h-5" />
+                        <span className="hidden md:inline">Print</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          const customer = customers.find(c => c._id === selectedCustomerId);
+                          if (customer && customer.email) {
+                            const subject = `Quote for ${customer.name}`;
+                            const body = `Project: ${customer.name}-Q\nAcreage: ${projectData.acres}\nPrice: ${formatCurrency(totalPrice)}`;
+                            window.location.href = `mailto:${customer.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                          } else {
+                            alert('Customer has no email address');
+                          }
+                        }}
+                        disabled={!selectedLoadout || !selectedCustomerId}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105"
+                        style={{
+                          background: 'rgba(255, 229, 0, 0.1)',
+                          border: '1px solid rgba(255, 229, 0, 0.3)',
+                          color: '#FFE500',
+                          opacity: (!selectedLoadout || !selectedCustomerId) ? 0.5 : 1,
+                          cursor: (!selectedLoadout || !selectedCustomerId) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        <Mail className="w-5 h-5" />
+                        <span className="hidden md:inline">Email</span>
+                      </button>
+                    </div>
                   </>
                 )}
               </div>
@@ -945,10 +1078,10 @@ export default function ProjectsPage() {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
                           <button
                             onClick={() => handleLoadQuote(project)}
-                            className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                            className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105 whitespace-nowrap"
                             style={{
                               background: 'rgba(0, 255, 65, 0.1)',
                               border: '1px solid rgba(0, 255, 65, 0.3)',
@@ -994,6 +1127,157 @@ export default function ProjectsPage() {
           )}
         </div>
       </div>
+
+      {/* New Customer Modal */}
+      {showCustomerModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4"
+             style={{
+               background: 'rgba(0, 0, 0, 0.85)',
+               backdropFilter: 'blur(20px)',
+               WebkitBackdropFilter: 'blur(20px)'
+             }}
+             onClick={() => setShowCustomerModal(false)}>
+          <div className="relative max-w-2xl w-full rounded-3xl overflow-hidden"
+               style={{
+                 background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%)',
+                 border: '2px solid rgba(0, 255, 65, 0.3)',
+                 boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 255, 65, 0.3)',
+                 backdropFilter: 'blur(40px)',
+                 WebkitBackdropFilter: 'blur(40px)'
+               }}
+               onClick={(e) => e.stopPropagation()}>
+            <div className="p-8">
+              <h2 className="text-3xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
+                New Customer
+              </h2>
+
+              <div className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="input-group">
+                    <label className="input-label">Name *</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.name}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, name: e.target.value })}
+                      placeholder="John Smith"
+                      autoFocus
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label className="input-label">Phone *</label>
+                    <input
+                      className="input-field"
+                      type="tel"
+                      value={newCustomer.phone}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, phone: e.target.value })}
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="input-group">
+                    <label className="input-label">Email</label>
+                    <input
+                      className="input-field"
+                      type="email"
+                      value={newCustomer.email}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, email: e.target.value })}
+                      placeholder="john@example.com"
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label className="input-label">Company</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.company}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, company: e.target.value })}
+                      placeholder="ABC Properties LLC"
+                    />
+                  </div>
+                </div>
+
+                <div className="input-group">
+                  <label className="input-label">Street Address</label>
+                  <input
+                    className="input-field"
+                    value={newCustomer.address}
+                    onChange={(e) => setNewCustomer({ ...newCustomer, address: e.target.value })}
+                    placeholder="123 Main Street"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+                  <div className="input-group">
+                    <label className="input-label">City</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.city}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, city: e.target.value })}
+                      placeholder="New Smyrna Beach"
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label className="input-label">State</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.state}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, state: e.target.value })}
+                      placeholder="FL"
+                      maxLength={2}
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label className="input-label">Zip Code</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.zipCode}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, zipCode: e.target.value })}
+                      placeholder="32168"
+                      maxLength={5}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-8">
+                <button
+                  onClick={() => {
+                    setShowCustomerModal(false);
+                    setNewCustomer({ name: '', phone: '', email: '', address: '', city: '', state: '', zipCode: '', company: '' });
+                  }}
+                  className="flex-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    color: 'var(--text-primary)'
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleCreateCustomer}
+                  disabled={!newCustomer.name || !newCustomer.phone}
+                  className="flex-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105"
+                  style={{
+                    background: (!newCustomer.name || !newCustomer.phone) ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
+                    color: 'white',
+                    boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35)',
+                    opacity: (!newCustomer.name || !newCustomer.phone) ? 0.5 : 1,
+                    cursor: (!newCustomer.name || !newCustomer.phone) ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  Create Customer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
 
   );

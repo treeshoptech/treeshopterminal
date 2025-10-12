@@ -722,8 +722,8 @@ export default function LoadoutsPage() {
                       </div>
 
                       {/* Cost Breakdown */}
-                      <div className="space-y-3 mb-4">
-                        <div className="flex items-center justify-between p-3 rounded-xl"
+                      <div className="space-y-5 mb-6">
+                        <div className="flex items-center justify-between p-4 rounded-xl"
                              style={{
                                background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                                border: '1px solid var(--border-default)'
@@ -736,7 +736,7 @@ export default function LoadoutsPage() {
                             ${loadout.totalEquipmentCostPerHour.toFixed(2)}/hr
                           </span>
                         </div>
-                        <div className="flex items-center justify-between p-3 rounded-xl"
+                        <div className="flex items-center justify-between p-4 rounded-xl"
                              style={{
                                background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                                border: '1px solid var(--border-default)'
@@ -749,7 +749,7 @@ export default function LoadoutsPage() {
                             ${loadout.totalLaborCostPerHour.toFixed(2)}/hr
                           </span>
                         </div>
-                        <div className="flex items-center justify-between p-3 rounded-xl"
+                        <div className="flex items-center justify-between p-4 rounded-xl"
                              style={{
                                background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                                border: '1px solid var(--border-default)'

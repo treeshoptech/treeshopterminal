@@ -678,7 +678,7 @@ export default function EquipmentLibraryPage() {
 
                     {/* Cost Breakdown with Premium Styling */}
                     <div className="space-y-4">
-                      <div className="flex justify-between items-center p-3 rounded-xl"
+                      <div className="flex justify-between items-center p-4 rounded-xl"
                            style={{
                              background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                              border: '1px solid var(--border-default)'
@@ -694,7 +694,7 @@ export default function EquipmentLibraryPage() {
                         </span>
                       </div>
 
-                      <div className="flex justify-between items-center p-3 rounded-xl"
+                      <div className="flex justify-between items-center p-4 rounded-xl"
                            style={{
                              background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                              border: '1px solid var(--border-default)'

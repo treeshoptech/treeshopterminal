@@ -752,7 +752,7 @@ export default function ProjectsPage() {
                         </h3>
                       </div>
                       <div className="grid grid-cols-2 gap-4">
-                        <div className="flex justify-between items-center p-3 rounded-xl"
+                        <div className="flex justify-between items-center p-4 rounded-xl"
                              style={{
                                background: 'rgba(0, 0, 0, 0.2)',
                                border: '1px solid var(--border-default)'
@@ -762,7 +762,7 @@ export default function ProjectsPage() {
                             {inchAcres.toFixed(2)} IA
                           </span>
                         </div>
-                        <div className="flex justify-between items-center p-3 rounded-xl"
+                        <div className="flex justify-between items-center p-4 rounded-xl"
                              style={{
                                background: 'rgba(0, 0, 0, 0.2)',
                                border: '1px solid var(--border-default)'
@@ -772,7 +772,7 @@ export default function ProjectsPage() {
                             {hours.toFixed(2)} hrs
                           </span>
                         </div>
-                        <div className="flex justify-between items-center p-3 rounded-xl"
+                        <div className="flex justify-between items-center p-4 rounded-xl"
                              style={{
                                background: 'rgba(0, 0, 0, 0.2)',
                                border: '1px solid var(--border-default)'
@@ -782,7 +782,7 @@ export default function ProjectsPage() {
                             {formatCurrency(loadoutCost)}/hr
                           </span>
                         </div>
-                        <div className="flex justify-between items-center p-3 rounded-xl"
+                        <div className="flex justify-between items-center p-4 rounded-xl"
                              style={{
                                background: 'rgba(0, 0, 0, 0.2)',
                                border: '1px solid var(--border-default)'

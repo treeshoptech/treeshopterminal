@@ -38,7 +38,7 @@ export default function HomePage() {
       statLabel: 'Fleet Value',
       description: 'Add your trucks, mulchers, and equipment to calculate hourly costs',
       complete: equipment.length > 0,
-      color: '#00FF41',
+      color: '#22C55E',
     },
     {
       number: 2,
@@ -50,7 +50,7 @@ export default function HomePage() {
       statLabel: 'Team Size',
       description: 'Add crew members and calculate true labor costs with burden multiplier',
       complete: employees.length > 0,
-      color: '#00BFFF',
+      color: '#3B82F6',
     },
     {
       number: 3,
@@ -62,7 +62,7 @@ export default function HomePage() {
       statLabel: 'Ready',
       description: 'Combine equipment and crew into complete job configurations',
       complete: loadouts.length > 0,
-      color: '#FFE500',
+      color: '#F59E0B',
     },
     {
       number: 4,
@@ -74,7 +74,7 @@ export default function HomePage() {
       statLabel: null,
       description: 'Calculate project quotes using inch-acres, loadouts, and profit margins',
       complete: loadouts.length > 0,
-      color: '#00FF41',
+      color: '#22C55E',
     },
   ];
 
@@ -82,102 +82,162 @@ export default function HomePage() {
   const nextStep = steps.find(s => !s.complete);
 
   return (
-    <div className="min-h-screen" style={{ background: '#F9FAFB' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-8">
+    <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
+      <div className="max-w-5xl mx-auto px-6 sm:px-8 py-12 pb-32 md:pb-12">
 
         {/* Header */}
-        <div className="mb-8 sm:mb-10">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-2"
-              style={{ color: '#111827', letterSpacing: '-0.02em' }}>
-            Dashboard
+        <div className="text-center mb-12">
+          <h1 className="text-5xl md:text-6xl font-black mb-3"
+              style={{
+                background: 'linear-gradient(135deg, #22C55E 0%, #4ADE80 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.02em'
+              }}>
+            TreeShop Terminal
           </h1>
-          <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>
-            Overview of your business operations
+          <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
+            Build your pricing system in 4 steps
           </p>
         </div>
 
-        {/* KPI Cards - BIGGER and MORE SPACIOUS */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div className="rounded-2xl p-10"
-               style={{
-                 background: '#FFFFFF',
-                 border: '2px solid #E5E7EB',
-                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-               }}>
-            <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Equipment</div>
-            <div className="text-6xl font-black mb-3" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{equipment.length}</div>
-            <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
-              {totalEquipmentValue > 0 ? formatCurrency(totalEquipmentValue).replace('.00', '') : 'Add equipment'}
-            </div>
+        {/* Progress Bar */}
+        <div className="mb-12">
+          <div className="flex items-center justify-between mb-3">
+            <span className="text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
+              Setup Progress
+            </span>
+            <span className="text-sm font-semibold" style={{ color: 'var(--brand-400)' }}>
+              {completedSteps}/4 Complete
+            </span>
           </div>
-
-          <div className="rounded-2xl p-10"
-               style={{
-                 background: '#FFFFFF',
-                 border: '2px solid #E5E7EB',
-                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-               }}>
-            <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Team</div>
-            <div className="text-6xl font-black mb-3" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>{employees.length}</div>
-            <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
-              {totalLaborCost > 0 ? `${formatCurrency(totalLaborCost).replace('.00', '')}/hr` : 'Add employees'}
-            </div>
-          </div>
-
-          <div className="rounded-2xl p-10"
-               style={{
-                 background: '#FFFFFF',
-                 border: '2px solid #E5E7EB',
-                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-               }}>
-            <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Loadouts</div>
-            <div className="text-6xl font-black mb-3" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>{loadouts.length}</div>
-            <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
-              {loadouts.length > 0 ? 'Ready to price' : 'Create loadouts'}
-            </div>
-          </div>
-
-          <div className="rounded-2xl p-10"
-               style={{
-                 background: '#FFFFFF',
-                 border: '2px solid #E5E7EB',
-                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-               }}>
-            <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Progress</div>
-            <div className="text-6xl font-black mb-3" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
-              {completedSteps}/4
-            </div>
-            <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Steps complete</div>
+          <div className="h-3 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
+            <div
+              className="h-full transition-all duration-500"
+              style={{
+                width: `${(completedSteps / 4) * 100}%`,
+                background: 'linear-gradient(90deg, #22C55E 0%, #4ADE80 100%)',
+                boxShadow: '0 0 20px rgba(34, 197, 94, 0.5)'
+              }}
+            />
           </div>
         </div>
 
-        {/* Quick Actions - CLEARER SECTIONS */}
-        <div>
-          <h2 className="text-3xl font-black mb-8" style={{ color: '#111827', letterSpacing: '-0.01em' }}>Quick Actions</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step) => (
-              <Link key={step.number} href={step.href}>
-                <div
-                  className="group relative rounded-2xl p-8 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
-                  style={{
-                    background: '#FFFFFF',
-                    border: '2px solid #E5E7EB',
-                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                  }}
-                >
-                  <div className="text-6xl mb-6 transition-transform duration-200 group-hover:scale-110">{step.emoji}</div>
-                  <h3 className="text-xl font-bold mb-3" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
-                    {step.title}
-                  </h3>
-                  {step.count !== null && (
-                    <p className="text-base font-medium" style={{ color: '#6B7280' }}>
-                      {step.count} {step.count === 1 ? 'item' : 'items'}
+        {/* Steps */}
+        <div className="space-y-6">
+          {steps.map((step) => (
+            <Link key={step.number} href={step.href}>
+              <div
+                className="group relative rounded-2xl p-8 transition-all duration-300 hover:scale-[1.01]"
+                style={{
+                  background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%)',
+                  border: step.complete
+                    ? `2px solid ${step.color}40`
+                    : '2px solid rgba(255,255,255,0.08)',
+                  backdropFilter: 'blur(60px)',
+                  boxShadow: step.complete
+                    ? `0 8px 32px ${step.color}20`
+                    : '0 8px 32px rgba(0,0,0,0.3)'
+                }}
+              >
+                <div className="flex items-start gap-6">
+                  {/* Step Number & Status */}
+                  <div className="flex-shrink-0">
+                    <div
+                      className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black"
+                      style={{
+                        background: step.complete
+                          ? `linear-gradient(135deg, ${step.color} 0%, ${step.color}CC 100%)`
+                          : 'rgba(255,255,255,0.05)',
+                        color: step.complete ? 'white' : 'rgba(255,255,255,0.3)',
+                        border: step.complete ? 'none' : '2px solid rgba(255,255,255,0.1)'
+                      }}
+                    >
+                      {step.number}
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-3xl">{step.emoji}</span>
+                      <h3 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                        {step.title}
+                      </h3>
+                      {step.complete ? (
+                        <CheckCircle2 className="w-6 h-6" style={{ color: step.color }} />
+                      ) : (
+                        <Circle className="w-6 h-6" style={{ color: 'rgba(255,255,255,0.2)' }} />
+                      )}
+                    </div>
+                    <p className="text-base mb-4" style={{ color: 'var(--text-tertiary)' }}>
+                      {step.description}
                     </p>
-                  )}
+
+                    {/* Stats */}
+                    {step.stat && (
+                      <div className="flex items-center gap-6">
+                        <div>
+                          <div className="text-2xl font-bold" style={{ color: step.color }}>
+                            {step.stat}
+                          </div>
+                          <div className="text-xs uppercase tracking-wider" style={{ color: 'var(--text-quaternary)' }}>
+                            {step.statLabel}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {!step.complete && step === nextStep && (
+                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg"
+                           style={{
+                             background: `${step.color}15`,
+                             border: `1px solid ${step.color}40`,
+                             color: step.color
+                           }}>
+                        <span className="text-sm font-semibold">Start Here</span>
+                        <ArrowRight className="w-4 h-4" />
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Arrow */}
+                  <div className="flex-shrink-0">
+                    <ArrowRight
+                      className="w-6 h-6 transition-transform group-hover:translate-x-1"
+                      style={{ color: 'var(--text-quaternary)' }}
+                    />
+                  </div>
                 </div>
-              </Link>
-            ))}
-          </div>
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* Settings at Bottom */}
+        <div className="mt-12">
+          <Link href="/settings">
+            <div
+              className="group rounded-2xl p-6 transition-all duration-300 hover:scale-[1.01]"
+              style={{
+                background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%)',
+                border: '2px solid rgba(255,255,255,0.08)',
+                backdropFilter: 'blur(60px)',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
+              }}
+            >
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <span className="text-3xl">⚙️</span>
+                  <div>
+                    <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Settings</h3>
+                    <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>App preferences</p>
+                  </div>
+                </div>
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" style={{ color: 'var(--text-quaternary)' }} />
+              </div>
+            </div>
+          </Link>
         </div>
 
       </div>

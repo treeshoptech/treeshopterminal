@@ -46,10 +46,15 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
 
       {/* Slide-out Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 z-[90] transition-transform duration-300 ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
         style={{
+          position: 'fixed',
+          top: 0,
+          right: 0,
+          height: '100%',
+          width: '320px',
+          zIndex: 90,
+          transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
+          transition: 'transform 0.3s',
           background: 'white',
           borderLeft: '1px solid #E5E7EB',
           boxShadow: '-8px 0 32px rgba(0, 0, 0, 0.1)',

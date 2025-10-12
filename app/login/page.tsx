@@ -21,15 +21,6 @@ export default function LoginPage() {
 
   const whitelistCheck = useQuery(api.auth.checkWhitelist, email ? { email } : 'skip');
 
-  // Redirect if already authenticated
-  useEffect(() => {
-    console.log('Login page auth check:', { isAuthenticated, authLoading });
-    if (isAuthenticated && !authLoading) {
-      console.log('Already authenticated - redirecting to home');
-      window.location.href = '/';
-    }
-  }, [isAuthenticated, authLoading]);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');

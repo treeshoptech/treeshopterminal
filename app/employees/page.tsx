@@ -179,131 +179,68 @@ export default function EmployeesPage() {
             </div>
           </div>
 
-          {/* Premium Stats Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+          {/* Stats Cards - Clean 2-Column Mobile Design */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-8">
+            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(40px)',
-                   WebkitBackdropFilter: 'blur(40px)',
-                   boxShadow: 'var(--shadow-lg)'
+                   background: 'rgba(0, 255, 65, 0.08)',
+                   border: '1px solid rgba(0, 255, 65, 0.25)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 70%)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <UsersIcon className="w-5 h-5" style={{ color: '#22C55E' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Team
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {employees.length}
-                </div>
-                <div className="flex items-center gap-1.5 text-sm">
-                  <TrendingUp className="w-4 h-4" style={{ color: '#22C55E' }} />
-                  <span style={{ color: '#22C55E' }}>Active members</span>
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <UsersIcon className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Team</span>
               </div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{employees.length}</div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Active</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(40px)',
-                   WebkitBackdropFilter: 'blur(40px)',
-                   boxShadow: 'var(--shadow-lg)'
+                   background: 'rgba(0, 191, 255, 0.08)',
+                   border: '1px solid rgba(0, 191, 255, 0.25)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at top right, rgba(34, 197, 94, 0.1), transparent 70%)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Coins className="w-5 h-5" style={{ color: 'var(--brand-400)' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Base Rate
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {employees.length > 0
-                    ? formatCurrency(employees.reduce((acc, e) => acc + (e.baseHourlyRate || 0), 0) / employees.length)
-                    : '$0.00'}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Average per hour
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <Coins className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00BFFF' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Base</span>
               </div>
+              <div className="text-xl md:text-3xl font-bold" style={{ color: '#00BFFF' }}>
+                {employees.length > 0
+                  ? formatCurrency(employees.reduce((acc, e) => acc + (e.baseHourlyRate || 0), 0) / employees.length).replace('.00', '')
+                  : '$0'}
+              </div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Avg/hr</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(40px)',
-                   WebkitBackdropFilter: 'blur(40px)',
-                   boxShadow: 'var(--shadow-lg)'
+                   background: 'rgba(255, 229, 0, 0.08)',
+                   border: '1px solid rgba(255, 229, 0, 0.25)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at bottom left, rgba(245, 158, 11, 0.1), transparent 70%)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Shield className="w-5 h-5" style={{ color: '#F59E0B' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    True Cost
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {employees.length > 0
-                    ? formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0) / employees.length)
-                    : '$0.00'}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  With burden
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <Shield className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#FFE500' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>True</span>
               </div>
+              <div className="text-xl md:text-3xl font-bold" style={{ color: '#FFE500' }}>
+                {employees.length > 0
+                  ? formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0) / employees.length).replace('.00', '')
+                  : '$0'}
+              </div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>+Burden</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(40px)',
-                   WebkitBackdropFilter: 'blur(40px)',
-                   boxShadow: 'var(--shadow-lg)'
+                   background: 'rgba(255, 255, 255, 0.03)',
+                   border: '1px solid rgba(255, 255, 255, 0.1)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.1), transparent 70%)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <BarChart3 className="w-5 h-5" style={{ color: '#8B5CF6' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Total
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0))}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Labor cost per hour
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <BarChart3 className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Total</span>
               </div>
+              <div className="text-xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                {formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0)).replace('.00', '')}
+              </div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Labor/hr</div>
             </div>
           </div>
 
@@ -598,7 +535,7 @@ export default function EmployeesPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {employees.map((emp) => (
                 <div key={emp._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hardware-accelerated"
                      style={{

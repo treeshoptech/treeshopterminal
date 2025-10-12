@@ -212,133 +212,62 @@ export default function LoadoutsPage() {
             </div>
           </div>
 
-          {/* ULTRA-Premium Stats Cards with BOLD Glassmorphism */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+          {/* Stats Cards - Clean 2-Column Mobile Design */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-8">
+            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(34, 197, 94, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(0, 255, 65, 0.08)',
+                   border: '1px solid rgba(0, 255, 65, 0.25)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.3), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Settings className="w-5 h-5" style={{ color: '#22C55E' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Total
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {loadouts.length}
-                </div>
-                <div className="flex items-center gap-1.5 text-sm">
-                  <TrendingUp className="w-4 h-4" style={{ color: '#22C55E' }} />
-                  <span style={{ color: '#22C55E' }}>Configured loadouts</span>
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <Settings className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Total</span>
               </div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{loadouts.length}</div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Loadouts</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(34, 197, 94, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(0, 191, 255, 0.08)',
+                   border: '1px solid rgba(0, 191, 255, 0.25)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at top right, rgba(34, 197, 94, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <DollarSign className="w-5 h-5" style={{ color: 'var(--brand-400)' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Avg Cost
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {loadouts.length > 0
-                    ? formatCurrency(loadouts.reduce((acc, l) => acc + l.totalLoadoutCostPerHour, 0) / loadouts.length)
-                    : '$0.00'}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Per loadout hour
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <DollarSign className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00BFFF' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Avg Cost</span>
               </div>
+              <div className="text-xl md:text-3xl font-bold" style={{ color: '#00BFFF' }}>
+                {loadouts.length > 0
+                  ? formatCurrency(loadouts.reduce((acc, l) => acc + l.totalLoadoutCostPerHour, 0) / loadouts.length).replace('.00', '')
+                  : '$0'}
+              </div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Per hour</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(34, 197, 94, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(255, 255, 255, 0.03)',
+                   border: '1px solid rgba(255, 255, 255, 0.1)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Truck className="w-5 h-5" style={{ color: '#22C55E' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Equipment
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {equipment.length}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Available pieces
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <Truck className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Equipment</span>
               </div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{equipment.length}</div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Available</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(139, 92, 246, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(139, 92, 246, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(255, 255, 255, 0.03)',
+                   border: '1px solid rgba(255, 255, 255, 0.1)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at bottom right, rgba(139, 92, 246, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(139, 92, 246, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <UsersIcon className="w-5 h-5" style={{ color: '#8B5CF6' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Crew
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {employees.length}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Available workers
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <UsersIcon className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Crew</span>
               </div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{employees.length}</div>
+              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Workers</div>
             </div>
           </div>
 
@@ -741,7 +670,7 @@ export default function LoadoutsPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {loadouts.map((loadout) => {
                 const serviceColor = getServiceTypeColor(loadout.serviceType);
                 const serviceGradient = getServiceTypeGradient(loadout.serviceType);

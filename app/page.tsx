@@ -38,7 +38,7 @@ export default function HomePage() {
       statLabel: 'Fleet Value',
       description: 'Add your trucks, mulchers, and equipment to calculate hourly costs',
       complete: equipment.length > 0,
-      color: '#22C55E',
+      color: '#00FF41',
     },
     {
       number: 2,
@@ -50,7 +50,7 @@ export default function HomePage() {
       statLabel: 'Team Size',
       description: 'Add crew members and calculate true labor costs with burden multiplier',
       complete: employees.length > 0,
-      color: '#3B82F6',
+      color: '#00BFFF',
     },
     {
       number: 3,
@@ -62,7 +62,7 @@ export default function HomePage() {
       statLabel: 'Ready',
       description: 'Combine equipment and crew into complete job configurations',
       complete: loadouts.length > 0,
-      color: '#F59E0B',
+      color: '#FFE500',
     },
     {
       number: 4,
@@ -74,7 +74,7 @@ export default function HomePage() {
       statLabel: null,
       description: 'Calculate project quotes using inch-acres, loadouts, and profit margins',
       complete: loadouts.length > 0,
-      color: '#22C55E',
+      color: '#00FF41',
     },
   ];
 
@@ -89,7 +89,7 @@ export default function HomePage() {
         <div className="text-center mb-12">
           <h1 className="text-5xl md:text-6xl font-black mb-3"
               style={{
-                background: 'linear-gradient(135deg, #22C55E 0%, #4ADE80 100%)',
+                background: 'linear-gradient(135deg, #00FF41 0%, #00D938 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 letterSpacing: '-0.02em'
@@ -116,97 +116,59 @@ export default function HomePage() {
               className="h-full transition-all duration-500"
               style={{
                 width: `${(completedSteps / 4) * 100}%`,
-                background: 'linear-gradient(90deg, #22C55E 0%, #4ADE80 100%)',
-                boxShadow: '0 0 20px rgba(34, 197, 94, 0.5)'
+                background: 'linear-gradient(90deg, #00FF41 0%, #00D938 100%)',
+                boxShadow: '0 0 20px rgba(0, 255, 65, 0.5)'
               }}
             />
           </div>
         </div>
 
-        {/* Steps */}
-        <div className="space-y-6">
+        {/* Steps - Microsoft Metro Tile Grid */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step) => (
             <Link key={step.number} href={step.href}>
               <div
-                className="group relative rounded-2xl p-8 transition-all duration-300 hover:scale-[1.01]"
+                className="group relative aspect-square rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02]"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%)',
+                  background: step.complete
+                    ? `linear-gradient(135deg, ${step.color}20 0%, ${step.color}10 100%)`
+                    : 'rgba(255, 255, 255, 0.03)',
                   border: step.complete
                     ? `2px solid ${step.color}40`
-                    : '2px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(60px)',
+                    : '2px solid rgba(255,255,255,0.1)',
                   boxShadow: step.complete
-                    ? `0 8px 32px ${step.color}20`
-                    : '0 8px 32px rgba(0,0,0,0.3)'
+                    ? `0 8px 24px ${step.color}20`
+                    : '0 4px 12px rgba(0,0,0,0.3)'
                 }}
               >
-                <div className="flex items-start gap-6">
-                  {/* Step Number & Status */}
-                  <div className="flex-shrink-0">
+                <div className="flex flex-col h-full justify-between">
+                  {/* Top: Number & Icon */}
+                  <div className="flex items-start justify-between">
                     <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black"
+                      className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-black"
                       style={{
-                        background: step.complete
-                          ? `linear-gradient(135deg, ${step.color} 0%, ${step.color}CC 100%)`
-                          : 'rgba(255,255,255,0.05)',
-                        color: step.complete ? 'white' : 'rgba(255,255,255,0.3)',
-                        border: step.complete ? 'none' : '2px solid rgba(255,255,255,0.1)'
+                        background: step.complete ? `${step.color}30` : 'rgba(255,255,255,0.05)',
+                        color: step.complete ? step.color : 'rgba(255,255,255,0.4)',
                       }}
                     >
                       {step.number}
                     </div>
+                    {step.complete && (
+                      <CheckCircle2 className="w-5 h-5" style={{ color: step.color }} />
+                    )}
                   </div>
 
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-3xl">{step.emoji}</span>
-                      <h3 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
-                        {step.title}
-                      </h3>
-                      {step.complete ? (
-                        <CheckCircle2 className="w-6 h-6" style={{ color: step.color }} />
-                      ) : (
-                        <Circle className="w-6 h-6" style={{ color: 'rgba(255,255,255,0.2)' }} />
-                      )}
-                    </div>
-                    <p className="text-base mb-4" style={{ color: 'var(--text-tertiary)' }}>
-                      {step.description}
-                    </p>
-
-                    {/* Stats */}
+                  {/* Middle: Title & Emoji */}
+                  <div>
+                    <div className="text-5xl mb-3">{step.emoji}</div>
+                    <h3 className="text-xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+                      {step.title}
+                    </h3>
                     {step.stat && (
-                      <div className="flex items-center gap-6">
-                        <div>
-                          <div className="text-2xl font-bold" style={{ color: step.color }}>
-                            {step.stat}
-                          </div>
-                          <div className="text-xs uppercase tracking-wider" style={{ color: 'var(--text-quaternary)' }}>
-                            {step.statLabel}
-                          </div>
-                        </div>
+                      <div className="text-lg font-bold" style={{ color: step.color }}>
+                        {step.stat}
                       </div>
                     )}
-
-                    {!step.complete && step === nextStep && (
-                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg"
-                           style={{
-                             background: `${step.color}15`,
-                             border: `1px solid ${step.color}40`,
-                             color: step.color
-                           }}>
-                        <span className="text-sm font-semibold">Start Here</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="flex-shrink-0">
-                    <ArrowRight
-                      className="w-6 h-6 transition-transform group-hover:translate-x-1"
-                      style={{ color: 'var(--text-quaternary)' }}
-                    />
                   </div>
                 </div>
               </div>
@@ -214,16 +176,14 @@ export default function HomePage() {
           ))}
         </div>
 
-        {/* Settings at Bottom */}
-        <div className="mt-12">
+        {/* Settings - Separated at Bottom */}
+        <div className="mt-16 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <Link href="/settings">
             <div
               className="group rounded-2xl p-6 transition-all duration-300 hover:scale-[1.01]"
               style={{
-                background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                border: '2px solid rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(60px)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
+                background: 'rgba(255, 255, 255, 0.02)',
+                border: '1px solid rgba(255,255,255,0.08)',
               }}
             >
               <div className="flex items-center justify-between">

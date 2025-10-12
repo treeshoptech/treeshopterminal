@@ -922,10 +922,11 @@ export default function ProjectsPage() {
                              }}>
                           Total Project Price
                         </div>
-                        <div className="text-6xl md:text-7xl font-black font-mono mb-3"
+                        <div className="text-8xl md:text-9xl font-black font-mono mb-4"
                              style={{
                                color: 'white',
-                               letterSpacing: '-0.02em'
+                               letterSpacing: '-0.02em',
+                               fontSize: 'clamp(4rem, 12vw, 10rem)'
                              }}>
                           {formatCurrency(totalPrice)}
                         </div>

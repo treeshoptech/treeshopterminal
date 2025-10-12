@@ -419,130 +419,55 @@ export default function ProjectsPage() {
             </div>
           )}
 
-          {/* ULTRA-Premium Stats Cards with BOLD Glassmorphism */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+          {/* Calculator Quick Stats */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
+            <div className="rounded-xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(34, 197, 94, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(255, 255, 255, 0.03)',
+                   border: '1px solid rgba(255, 255, 255, 0.1)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.3), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Package className="w-5 h-5" style={{ color: '#22C55E' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Loadouts
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {loadouts.length}
-                </div>
-                <div className="flex items-center gap-1.5 text-sm">
-                  <TrendingUp className="w-4 h-4" style={{ color: '#22C55E' }} />
-                  <span style={{ color: '#22C55E' }}>Available configs</span>
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <Package className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Loadouts</span>
               </div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{loadouts.length}</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(34, 197, 94, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(0, 255, 65, 0.08)',
+                   border: '1px solid rgba(0, 255, 65, 0.25)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at top right, rgba(34, 197, 94, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Calculator className="w-5 h-5" style={{ color: '#22C55E' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Margin
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {projectData.profitMargin}%
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Target profit
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <Calculator className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Margin</span>
               </div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{projectData.profitMargin}%</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(34, 197, 94, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(255, 255, 255, 0.03)',
+                   border: '1px solid rgba(255, 255, 255, 0.1)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at bottom left, rgba(34, 197, 94, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Activity className="w-5 h-5" style={{ color: '#16A34A' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Acres
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {projectData.acres}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Project size
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <Activity className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Acres</span>
               </div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{projectData.acres}</div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            <div className="rounded-xl p-3 md:p-4"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(34, 197, 94, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(34, 197, 94, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(0, 255, 65, 0.12)',
+                   border: '1px solid rgba(0, 255, 65, 0.3)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at bottom right, rgba(34, 197, 94, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(34, 197, 94, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <DollarSign className="w-5 h-5" style={{ color: 'var(--brand-400)' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Price
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {selectedLoadout && !isNaN(totalPrice) ? formatCurrency(totalPrice) : '$0'}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Total estimate
-                </div>
+              <div className="flex items-center gap-2 mb-1">
+                <DollarSign className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Price</span>
+              </div>
+              <div className="text-xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>
+                {selectedLoadout && !isNaN(totalPrice) ? formatCurrency(totalPrice).replace('.00', '') : '$0'}
               </div>
             </div>
           </div>

@@ -68,19 +68,6 @@ export default function ProjectsPage() {
                    radial-gradient(circle at 70% 80%, rgba(34, 197, 94, 0.25) 0%, transparent 50%)
                  `
                }} />
-          {/* BOLD Animated Gradient Orbs */}
-               style={{
-                 background: 'radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, rgba(34, 197, 94, 0.2) 40%, transparent 70%)',
-                 filter: 'blur(80px)',
-                 transform: 'translate3d(0, 0, 0)',
-                 animationDelay: '0.5s'
-               }} />
-               style={{
-                 background: 'radial-gradient(circle, rgba(34, 197, 94, 0.35) 0%, rgba(34, 197, 94, 0.15) 40%, transparent 70%)',
-                 filter: 'blur(80px)',
-                 animationDelay: '1.5s',
-                 transform: 'translate3d(0, 0, 0)'
-               }} />
         </div>
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

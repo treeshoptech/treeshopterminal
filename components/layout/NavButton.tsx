@@ -10,14 +10,22 @@ export function NavButton({ onClick }: NavButtonProps) {
   return (
     <button
       onClick={onClick}
-      className="fixed top-6 right-6 z-[100] p-4 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95"
+      className="nav-menu-button"
       style={{
+        position: 'fixed',
+        top: '24px',
+        right: '24px',
+        zIndex: 9999,
+        padding: '16px',
+        borderRadius: '12px',
         background: '#00FF41',
         border: '2px solid #00D938',
         boxShadow: '0 4px 12px rgba(0, 255, 65, 0.4)',
+        cursor: 'pointer',
+        transition: 'all 0.2s',
       }}
     >
-      <Menu className="w-7 h-7" style={{ color: '#000' }} />
+      <Menu style={{ width: '28px', height: '28px', color: '#000' }} />
     </button>
   );
 }

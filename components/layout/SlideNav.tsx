@@ -55,26 +55,26 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
           zIndex: 90,
           transform: isOpen ? 'translateX(0)' : 'translateX(100%)',
           transition: 'transform 0.3s',
-          background: 'white',
-          borderLeft: '1px solid #E5E7EB',
-          boxShadow: '-8px 0 32px rgba(0, 0, 0, 0.1)',
+          background: '#1A1A1A',
+          borderLeft: '1px solid rgba(255,255,255,0.1)',
+          boxShadow: '-8px 0 32px rgba(0, 0, 0, 0.8)',
         }}
       >
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold" style={{ color: '#111827' }}>
+            <h2 className="text-2xl font-bold" style={{ color: '#FFFFFF' }}>
               Menu
             </h2>
             <button
               onClick={onClose}
               className="p-2 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
               style={{
-                background: '#F9FAFB',
-                border: '1px solid #E5E7EB',
+                background: 'rgba(255,255,255,0.1)',
+                border: '1px solid rgba(255,255,255,0.2)',
               }}
             >
-              <X className="w-6 h-6" style={{ color: '#6B7280' }} />
+              <X className="w-6 h-6" style={{ color: '#CCCCCC' }} />
             </button>
           </div>
 
@@ -91,18 +91,18 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
                   onClick={onClose}
                   className="flex items-center justify-between p-4 rounded-xl transition-all duration-200 active:scale-95"
                   style={{
-                    background: isActive ? '#F0FDF4' : '#F9FAFB',
-                    border: isActive ? `2px solid ${link.color}` : '1px solid #E5E7EB',
+                    background: isActive ? `${link.color}20` : 'rgba(255,255,255,0.05)',
+                    border: isActive ? `2px solid ${link.color}` : '1px solid rgba(255,255,255,0.1)',
                   }}
                 >
                   <div className="flex items-center gap-3">
                     <Icon
                       className="w-6 h-6"
-                      style={{ color: isActive ? link.color : 'var(--text-secondary)' }}
+                      style={{ color: isActive ? link.color : '#999999' }}
                     />
                     <span
                       className="text-lg font-semibold"
-                      style={{ color: isActive ? link.color : '#111827' }}
+                      style={{ color: isActive ? link.color : '#FFFFFF' }}
                     >
                       {link.label}
                     </span>

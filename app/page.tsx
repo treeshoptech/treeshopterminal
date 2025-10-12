@@ -82,16 +82,16 @@ export default function HomePage() {
   const nextStep = steps.find(s => !s.complete);
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
+    <div className="min-h-screen" style={{ background: '#F9FAFB' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-8">
 
         {/* Header */}
         <div className="mb-8 sm:mb-10">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-black mb-2"
-              style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+              style={{ color: '#111827', letterSpacing: '-0.02em' }}>
             Dashboard
           </h1>
-          <p className="text-sm sm:text-base" style={{ color: 'var(--text-tertiary)' }}>
+          <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>
             Overview of your business operations
           </p>
         </div>
@@ -100,80 +100,77 @@ export default function HomePage() {
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10">
           <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                style={{
-                 background: 'rgba(0, 255, 65, 0.08)',
-                 border: '1px solid rgba(0, 255, 65, 0.25)',
-                 backdropFilter: 'blur(10px)',
+                 background: '#FFFFFF',
+                 border: '1px solid #E5E7EB',
+                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                }}>
-            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Equipment</div>
+            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Equipment</div>
             <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{equipment.length}</div>
-            <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>
+            <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>
               {totalEquipmentValue > 0 ? formatCurrency(totalEquipmentValue).replace('.00', '') : 'Add equipment'}
             </div>
           </div>
 
           <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                style={{
-                 background: 'rgba(0, 191, 255, 0.08)',
-                 border: '1px solid rgba(0, 191, 255, 0.25)',
-                 backdropFilter: 'blur(10px)',
+                 background: '#FFFFFF',
+                 border: '1px solid #E5E7EB',
+                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                }}>
-            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Team</div>
+            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Team</div>
             <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>{employees.length}</div>
-            <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>
+            <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>
               {totalLaborCost > 0 ? `${formatCurrency(totalLaborCost).replace('.00', '')}/hr` : 'Add employees'}
             </div>
           </div>
 
           <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                style={{
-                 background: 'rgba(255, 229, 0, 0.08)',
-                 border: '1px solid rgba(255, 229, 0, 0.25)',
-                 backdropFilter: 'blur(10px)',
+                 background: '#FFFFFF',
+                 border: '1px solid #E5E7EB',
+                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                }}>
-            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Loadouts</div>
+            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Loadouts</div>
             <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>{loadouts.length}</div>
-            <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>
+            <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>
               {loadouts.length > 0 ? 'Ready to price' : 'Create loadouts'}
             </div>
           </div>
 
           <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                style={{
-                 background: 'rgba(255, 255, 255, 0.03)',
-                 border: '1px solid rgba(255, 255, 255, 0.1)',
-                 backdropFilter: 'blur(10px)',
+                 background: '#FFFFFF',
+                 border: '1px solid #E5E7EB',
+                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                }}>
-            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Progress</div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Progress</div>
+            <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
               {completedSteps}/4
             </div>
-            <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Steps complete</div>
+            <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Steps complete</div>
           </div>
         </div>
 
         {/* Quick Access Grid */}
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>Quick Access</h2>
+          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6" style={{ color: '#111827', letterSpacing: '-0.01em' }}>Quick Access</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
             {steps.map((step) => (
               <Link key={step.number} href={step.href}>
                 <div
                   className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                   style={{
-                    background: step.complete
-                      ? `linear-gradient(135deg, ${step.color}15 0%, ${step.color}08 100%)`
-                      : 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                    border: `1px solid ${step.complete ? `${step.color}40` : 'rgba(255,255,255,0.1)'}`,
-                    backdropFilter: 'blur(10px)',
-                    boxShadow: step.complete ? `0 4px 12px ${step.color}20` : '0 2px 8px rgba(0,0,0,0.2)',
+                    background: '#FFFFFF',
+                    border: '1px solid #E5E7EB',
+                    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                   }}
                 >
                   <div className="text-4xl sm:text-5xl mb-3 transition-transform duration-200 group-hover:scale-110">{step.emoji}</div>
-                  <h3 className="text-sm sm:text-base font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+                  <h3 className="text-sm sm:text-base font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                     {step.title}
                   </h3>
                   {step.count !== null && (
-                    <p className="text-xs" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="text-xs" style={{ color: '#6B7280' }}>
                       {step.count} {step.count === 1 ? 'item' : 'items'}
                     </p>
                   )}

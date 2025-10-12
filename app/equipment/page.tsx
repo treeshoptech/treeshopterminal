@@ -134,18 +134,7 @@ export default function EquipmentLibraryPage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-        {/* Premium Background Pattern */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0"
-               style={{
-                 backgroundImage: `
-                   radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.04) 0%, transparent 40%),
-                   radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.04) 0%, transparent 40%)
-                 `
-               }} />
-        </div>
-
+    <div className="min-h-screen" style={{ background: '#F9FAFB' }}>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-8">
           {/* Premium Header Section */}
           <div className="mb-8 sm:mb-10">
@@ -154,19 +143,19 @@ export default function EquipmentLibraryPage() {
                 onClick={() => router.push('/')}
                 className="group mt-1 p-2 sm:p-2.5 rounded-lg sm:rounded-xl transition-all duration-200 hover:scale-105 active:scale-95"
                 style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid var(--border-default)',
-                  backdropFilter: 'blur(10px)',
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
+                  boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
                 }}
               >
                 <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:-translate-x-1"
-                             style={{ color: 'var(--text-secondary)' }} />
+                             style={{ color: '#6B7280' }} />
               </button>
               <div className="flex-1">
                 <div className="flex items-center gap-2 sm:gap-3 mb-2">
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-black"
                       style={{
-                        color: 'var(--text-primary)',
+                        color: '#111827',
                         letterSpacing: '-0.02em'
                       }}>
                     Equipment
@@ -175,7 +164,6 @@ export default function EquipmentLibraryPage() {
                        style={{
                          background: 'rgba(0, 255, 65, 0.1)',
                          border: '1px solid rgba(0, 255, 65, 0.3)',
-                         backdropFilter: 'blur(10px)',
                        }}>
                     <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" style={{ color: '#00FF41' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
@@ -184,7 +172,7 @@ export default function EquipmentLibraryPage() {
                     </span>
                   </div>
                 </div>
-                <p className="text-sm sm:text-base" style={{ color: 'var(--text-tertiary)' }}>
+                <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>
                   Track fleet costs and calculate hourly operating expenses
                 </p>
               </div>
@@ -195,64 +183,64 @@ export default function EquipmentLibraryPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10">
             <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
-                   background: 'rgba(0, 255, 65, 0.08)',
-                   border: '1px solid rgba(0, 255, 65, 0.25)',
-                   backdropFilter: 'blur(10px)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Fleet</div>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Fleet</div>
               <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{equipment.length}</div>
-              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Active items</div>
+              <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Active items</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
-                   background: 'rgba(0, 191, 255, 0.08)',
-                   border: '1px solid rgba(0, 191, 255, 0.25)',
-                   backdropFilter: 'blur(10px)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Avg Cost</div>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Avg Cost</div>
               <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
                 {equipment.length > 0
                   ? formatCurrency(equipment.reduce((acc, e) => acc + e.totalCostPerHour, 0) / equipment.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Per hour</div>
+              <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Per hour</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
-                   background: 'rgba(255, 229, 0, 0.08)',
-                   border: '1px solid rgba(255, 229, 0, 0.25)',
-                   backdropFilter: 'blur(10px)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Value</div>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Value</div>
               <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>
                 {formatCurrency(equipment.reduce((acc, e) => acc + (e.purchasePrice || 0), 0)).replace('.00', '')}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Investment</div>
+              <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Investment</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
-                   background: 'rgba(255, 255, 255, 0.03)',
-                   border: '1px solid rgba(255, 255, 255, 0.1)',
-                   backdropFilter: 'blur(10px)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Hours</div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Hours</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
                 {equipment.reduce((acc, e) => acc + (e.annualHours || 0), 0).toLocaleString()}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Annual</div>
+              <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Annual</div>
             </div>
           </div>
 
           {/* Action Bar */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+              <h2 className="text-xl sm:text-2xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                 Equipment Fleet
               </h2>
-              <p className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>
+              <p className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>
                 {equipment.length} {equipment.length === 1 ? 'item' : 'items'} in your library
               </p>
             </div>
@@ -591,10 +579,9 @@ export default function EquipmentLibraryPage() {
           {equipment.length === 0 ? (
             <div className="empty-state glass rounded-3xl p-12"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.4) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(20px)',
-                   WebkitBackdropFilter: 'blur(20px)'
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                  }}>
               <Truck className="empty-icon mx-auto mb-6" style={{ opacity: 0.3 }} />
               <h3 className="empty-title">No equipment yet</h3>
@@ -612,21 +599,12 @@ export default function EquipmentLibraryPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {equipment.map((item) => (
-                <div key={item._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
+                <div key={item._id} className="group relative rounded-2xl overflow-hidden transition-all duration-200 hover:scale-[1.01]"
                      style={{
-                       background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.98) 100%)',
-                       border: '1px solid var(--border-default)',
-                       backdropFilter: 'blur(40px)',
-                       WebkitBackdropFilter: 'blur(40px)',
-                       boxShadow: 'var(--shadow-lg)',
-                       transform: 'translateZ(0)'
+                       background: '#FFFFFF',
+                       border: '1px solid #E5E7EB',
+                       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                      }}>
-                  {/* Premium Glow Effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                       style={{
-                         background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 70%)'
-                       }} />
-
                   <div className="relative p-8">
                     {/* Card Header */}
                     <div className="flex items-start justify-between mb-5">
@@ -640,7 +618,7 @@ export default function EquipmentLibraryPage() {
                         </div>
                         <div>
                           <h3 className="font-bold text-xl mb-2"
-                              style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+                              style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                             {item.equipmentName}
                           </h3>
                           <div className="flex items-center gap-2">
@@ -669,55 +647,55 @@ export default function EquipmentLibraryPage() {
                     <div className="space-y-4">
                       <div className="flex justify-between items-center p-4 rounded-xl"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                             border: '1px solid var(--border-default)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                          <span className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                          <Clock className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                          <span className="text-sm font-medium" style={{ color: '#6B7280' }}>
                             Ownership
                           </span>
                         </div>
-                        <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                        <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                           {formatCurrency(item.ownershipCostPerHour)}/hr
                         </span>
                       </div>
 
                       <div className="flex justify-between items-center p-4 rounded-xl"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                             border: '1px solid var(--border-default)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         <div className="flex items-center gap-2">
-                          <Fuel className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                          <span className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                          <Fuel className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                          <span className="text-sm font-medium" style={{ color: '#6B7280' }}>
                             Operating
                           </span>
                         </div>
-                        <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                        <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                           {formatCurrency(item.operatingCostPerHour)}/hr
                         </span>
                       </div>
 
                       {/* Premium Total Cost Display */}
                       <div className="pt-4 mt-4"
-                           style={{ borderTop: '1px solid var(--border-default)' }}>
+                           style={{ borderTop: '1px solid #E5E7EB' }}>
                         <div className="flex justify-between items-end">
                           <div>
                             <span className="text-xs uppercase tracking-wider"
-                                  style={{ color: 'var(--text-quaternary)' }}>
+                                  style={{ color: '#9CA3AF' }}>
                               Total Hourly
                             </span>
                           </div>
                           <div className="text-3xl font-bold"
                                style={{
-                                 background: 'var(--gradient-brand)',
+                                 background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                                  WebkitBackgroundClip: 'text',
                                  WebkitTextFillColor: 'transparent',
                                  backgroundClip: 'text'
                                }}>
                             {formatCurrency(item.totalCostPerHour)}
-                            <span className="text-sm font-normal" style={{ color: 'var(--text-tertiary)' }}>
+                            <span className="text-sm font-normal" style={{ color: '#6B7280' }}>
                               /hr
                             </span>
                           </div>
@@ -727,16 +705,16 @@ export default function EquipmentLibraryPage() {
 
                     {/* Equipment Metadata */}
                     <div className="flex justify-between items-center mt-5 pt-4"
-                         style={{ borderTop: '1px solid var(--border-default)' }}>
+                         style={{ borderTop: '1px solid #E5E7EB' }}>
                       <div className="flex items-center gap-1.5">
-                        <Activity className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
-                        <span className="text-xs font-medium" style={{ color: 'var(--text-quaternary)' }}>
+                        <Activity className="w-3.5 h-3.5" style={{ color: '#9CA3AF' }} />
+                        <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>
                           {item.annualHours} hrs/year
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
-                        <span className="text-xs font-medium" style={{ color: 'var(--text-quaternary)' }}>
+                        <Clock className="w-3.5 h-3.5" style={{ color: '#9CA3AF' }} />
+                        <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>
                           {item.usefulLifeYears} year lifespan
                         </span>
                       </div>

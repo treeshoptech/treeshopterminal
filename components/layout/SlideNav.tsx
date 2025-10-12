@@ -35,9 +35,9 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 z-40 transition-opacity duration-300"
+          className="fixed inset-0 z-[80] transition-opacity duration-300"
           style={{
-            background: 'rgba(0, 0, 0, 0.7)',
+            background: 'rgba(0, 0, 0, 0.5)',
             backdropFilter: 'blur(4px)',
           }}
           onClick={onClose}
@@ -46,7 +46,7 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
 
       {/* Slide-out Menu */}
       <div
-        className={`fixed top-0 right-0 h-full w-80 z-50 transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-80 z-[90] transition-transform duration-300 ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         style={{

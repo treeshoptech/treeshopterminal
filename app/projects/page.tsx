@@ -19,7 +19,11 @@ import {
   Zap,
   Settings,
   Package,
-  Minus
+  Minus,
+  Download,
+  Printer,
+  Mail,
+  Copy
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -711,12 +715,32 @@ export default function ProjectsPage() {
                                style={{ color: 'var(--text-secondary)' }}>
                           Project Acreage
                         </label>
+
+                        {/* Acre Presets */}
+                        <div className="grid grid-cols-4 md:grid-cols-6 gap-2 mb-4">
+                          {[2, 5, 10, 15, 20, 30].map((acres) => (
+                            <button
+                              key={acres}
+                              type="button"
+                              onClick={() => setProjectData({ ...projectData, acres })}
+                              className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
+                              style={{
+                                background: projectData.acres === acres ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                                border: projectData.acres === acres ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
+                                color: projectData.acres === acres ? '#00FF41' : 'var(--text-secondary)'
+                              }}
+                            >
+                              {acres}
+                            </button>
+                          ))}
+                        </div>
+
                         <input
-                          className="w-full text-center px-6 py-8 rounded-2xl font-mono text-6xl font-black"
+                          className="w-full text-center px-4 md:px-6 py-6 md:py-8 rounded-2xl font-mono text-4xl md:text-6xl font-black"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%)',
-                            border: '2px solid rgba(34, 197, 94, 0.4)',
-                            color: '#22C55E',
+                            background: 'linear-gradient(135deg, rgba(0, 255, 65, 0.15) 0%, rgba(0, 255, 65, 0.08) 100%)',
+                            border: '2px solid rgba(0, 255, 65, 0.4)',
+                            color: '#00FF41',
                             backdropFilter: 'blur(20px)',
                             WebkitBackdropFilter: 'blur(20px)'
                           }}
@@ -762,26 +786,46 @@ export default function ProjectsPage() {
                              style={{ color: 'var(--text-secondary)' }}>
                         Profit Margin (%)
                       </label>
+
+                      {/* Margin Presets */}
+                      <div className="grid grid-cols-4 gap-2 mb-4">
+                        {[30, 40, 50, 60].map((margin) => (
+                          <button
+                            key={margin}
+                            type="button"
+                            onClick={() => setProjectData({ ...projectData, profitMargin: margin })}
+                            className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
+                            style={{
+                              background: projectData.profitMargin === margin ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                              border: projectData.profitMargin === margin ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
+                              color: projectData.profitMargin === margin ? '#00FF41' : 'var(--text-secondary)'
+                            }}
+                          >
+                            {margin}%
+                          </button>
+                        ))}
+                      </div>
+
                       <div className="flex items-center gap-3">
                         <button
                           type="button"
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.max(0, projectData.profitMargin - 5) })}
-                          className="w-16 h-16 rounded-xl transition-all duration-200 active:scale-95"
+                          className="w-12 h-12 md:w-16 md:h-16 rounded-xl transition-all duration-200 active:scale-95"
                           style={{
-                            background: 'rgba(34, 197, 94, 0.1)',
-                            border: '2px solid rgba(34, 197, 94, 0.3)',
-                            color: '#22C55E'
+                            background: 'rgba(0, 255, 65, 0.1)',
+                            border: '2px solid rgba(0, 255, 65, 0.3)',
+                            color: '#00FF41'
                           }}
                         >
-                          <Minus className="w-6 h-6 mx-auto" />
+                          <Minus className="w-5 h-5 md:w-6 md:h-6 mx-auto" />
                         </button>
                         <input
                           type="number"
-                          className="flex-1 text-center px-4 py-6 rounded-xl font-mono text-4xl font-bold"
+                          className="flex-1 text-center px-4 py-4 md:py-6 rounded-xl font-mono text-3xl md:text-4xl font-bold"
                           style={{
                             background: 'rgba(255,255,255,0.03)',
                             border: '2px solid var(--border-default)',
-                            color: '#22C55E'
+                            color: '#00FF41'
                           }}
                           value={projectData.profitMargin}
                           onChange={(e) => setProjectData({ ...projectData, profitMargin: Number(e.target.value) })}
@@ -789,14 +833,14 @@ export default function ProjectsPage() {
                         <button
                           type="button"
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.min(100, projectData.profitMargin + 5) })}
-                          className="w-16 h-16 rounded-xl transition-all duration-200 active:scale-95"
+                          className="w-12 h-12 md:w-16 md:h-16 rounded-xl transition-all duration-200 active:scale-95"
                           style={{
-                            background: 'rgba(34, 197, 94, 0.1)',
-                            border: '2px solid rgba(34, 197, 94, 0.3)',
-                            color: '#22C55E'
+                            background: 'rgba(0, 255, 65, 0.1)',
+                            border: '2px solid rgba(0, 255, 65, 0.3)',
+                            color: '#00FF41'
                           }}
                         >
-                          <Plus className="w-6 h-6 mx-auto" />
+                          <Plus className="w-5 h-5 md:w-6 md:h-6 mx-auto" />
                         </button>
                       </div>
                     </div>
@@ -899,31 +943,75 @@ export default function ProjectsPage() {
                       </div>
                     </div>
 
-                    {/* Save Quote Button */}
-                    <button
-                      onClick={handleSaveQuote}
-                      disabled={saving || !selectedCustomerId || !selectedLoadout}
-                      className="w-full group inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:scale-105 hardware-accelerated"
-                      style={{
-                        background: saving ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
-                        color: 'white',
-                        boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
-                        opacity: (!selectedCustomerId || !selectedLoadout) ? 0.5 : 1,
-                        cursor: (!selectedCustomerId || !selectedLoadout || saving) ? 'not-allowed' : 'pointer'
-                      }}
-                    >
-                      {saving ? (
-                        <>
-                          <div className="spinner" />
-                          Saving...
-                        </>
-                      ) : (
-                        <>
-                          <Plus className="w-5 h-5" />
-                          Save Quote
-                        </>
-                      )}
-                    </button>
+                    {/* Action Buttons */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <button
+                        onClick={handleSaveQuote}
+                        disabled={saving || !selectedCustomerId || !selectedLoadout}
+                        className="group inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105"
+                        style={{
+                          background: saving ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
+                          color: 'white',
+                          boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+                          opacity: (!selectedCustomerId || !selectedLoadout) ? 0.5 : 1,
+                          cursor: (!selectedCustomerId || !selectedLoadout || saving) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        {saving ? (
+                          <>
+                            <div className="spinner" />
+                            <span className="hidden md:inline">Saving...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="w-5 h-5" />
+                            <span className="hidden md:inline">Save Quote</span>
+                            <span className="md:hidden">Save</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => window.print()}
+                        disabled={!selectedLoadout || !selectedCustomerId}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105"
+                        style={{
+                          background: 'rgba(0, 191, 255, 0.1)',
+                          border: '1px solid rgba(0, 191, 255, 0.3)',
+                          color: '#00BFFF',
+                          opacity: (!selectedLoadout || !selectedCustomerId) ? 0.5 : 1,
+                          cursor: (!selectedLoadout || !selectedCustomerId) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        <Printer className="w-5 h-5" />
+                        <span className="hidden md:inline">Print</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          const customer = customers.find(c => c._id === selectedCustomerId);
+                          if (customer && customer.email) {
+                            const subject = `Quote for ${customer.name}`;
+                            const body = `Project: ${customer.name}-Q\nAcreage: ${projectData.acres}\nPrice: ${formatCurrency(totalPrice)}`;
+                            window.location.href = `mailto:${customer.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                          } else {
+                            alert('Customer has no email address');
+                          }
+                        }}
+                        disabled={!selectedLoadout || !selectedCustomerId}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105"
+                        style={{
+                          background: 'rgba(255, 229, 0, 0.1)',
+                          border: '1px solid rgba(255, 229, 0, 0.3)',
+                          color: '#FFE500',
+                          opacity: (!selectedLoadout || !selectedCustomerId) ? 0.5 : 1,
+                          cursor: (!selectedLoadout || !selectedCustomerId) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        <Mail className="w-5 h-5" />
+                        <span className="hidden md:inline">Email</span>
+                      </button>
+                    </div>
                   </>
                 )}
               </div>
@@ -990,10 +1078,10 @@ export default function ProjectsPage() {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
                           <button
                             onClick={() => handleLoadQuote(project)}
-                            className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                            className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105 whitespace-nowrap"
                             style={{
                               background: 'rgba(0, 255, 65, 0.1)',
                               border: '1px solid rgba(0, 255, 65, 0.3)',

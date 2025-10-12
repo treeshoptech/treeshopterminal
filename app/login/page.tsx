@@ -23,10 +23,12 @@ export default function LoginPage() {
 
   // Redirect if already authenticated
   useEffect(() => {
+    console.log('Login page auth check:', { isAuthenticated, authLoading });
     if (isAuthenticated && !authLoading) {
-      router.push('/');
+      console.log('Already authenticated - redirecting to home');
+      window.location.href = '/';
     }
-  }, [isAuthenticated, authLoading, router]);
+  }, [isAuthenticated, authLoading]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

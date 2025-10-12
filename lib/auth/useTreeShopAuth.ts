@@ -24,9 +24,20 @@ export function useTreeShopAuth() {
   // Load token from localStorage on mount
   useEffect(() => {
     const storedToken = localStorage.getItem('session_token');
+    console.log('useTreeShopAuth: Loaded token from localStorage:', storedToken ? 'EXISTS' : 'NULL');
     setToken(storedToken);
     setIsLoading(false);
   }, []);
+
+  // Debug current user state
+  useEffect(() => {
+    console.log('useTreeShopAuth: Auth state:', {
+      hasToken: !!token,
+      currentUser: currentUser ? 'EXISTS' : 'NULL',
+      isAuthenticated: !!currentUser,
+      isLoading: isLoading || currentUser === undefined
+    });
+  }, [token, currentUser, isLoading]);
 
   return {
     // User state

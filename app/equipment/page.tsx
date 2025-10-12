@@ -146,138 +146,127 @@ export default function EquipmentLibraryPage() {
                }} />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-8">
           {/* Premium Header Section */}
-          <div className="mb-10">
-            <div className="flex items-start gap-4 mb-8">
+          <div className="mb-8 sm:mb-10">
+            <div className="flex items-start gap-3 sm:gap-4 mb-6 sm:mb-8">
               <button
                 onClick={() => router.push('/')}
-                className="group mt-1 p-2.5 rounded-xl transition-all duration-300 hover:scale-110"
+                className="group mt-1 p-2 sm:p-2.5 rounded-lg sm:rounded-xl transition-all duration-200 hover:scale-105 active:scale-95"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
+                  background: 'rgba(255,255,255,0.05)',
                   border: '1px solid var(--border-default)',
                   backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)'
                 }}
               >
-                <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:-translate-x-1"
                              style={{ color: 'var(--text-secondary)' }} />
               </button>
               <div className="flex-1">
-                <div className="flex items-center gap-3 mb-2">
-                  <h1 className="text-4xl sm:text-5xl font-black"
+                <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl font-black"
                       style={{
-                        background: 'linear-gradient(180deg, var(--text-primary) 0%, rgba(255,255,255,0.8) 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
+                        color: 'var(--text-primary)',
                         letterSpacing: '-0.02em'
                       }}>
-                    Equipment Library
+                    Equipment
                   </h1>
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
+                  <div className="inline-flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, transparent 100%)',
-                         border: '1px solid rgba(34, 197, 94, 0.2)'
+                         background: 'rgba(0, 255, 65, 0.1)',
+                         border: '1px solid rgba(0, 255, 65, 0.3)',
+                         backdropFilter: 'blur(10px)',
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: 'var(--brand-400)' }} />
+                    <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" style={{ color: '#00FF41' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: 'var(--brand-400)' }}>
+                          style={{ color: '#00FF41' }}>
                       Step 01
                     </span>
                   </div>
                 </div>
-                <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
-                  Track your fleet costs with precision and calculate hourly operating expenses
+                <p className="text-sm sm:text-base" style={{ color: 'var(--text-tertiary)' }}>
+                  Track fleet costs and calculate hourly operating expenses
                 </p>
               </div>
             </div>
           </div>
 
           {/* Stats Cards - Clean 2-Column Mobile Design */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10">
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10">
+            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
                    background: 'rgba(0, 255, 65, 0.08)',
                    border: '1px solid rgba(0, 255, 65, 0.25)',
+                   backdropFilter: 'blur(10px)',
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <Package className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Fleet</span>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{equipment.length}</div>
-              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Active</div>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Fleet</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{equipment.length}</div>
+              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Active items</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
                    background: 'rgba(0, 191, 255, 0.08)',
                    border: '1px solid rgba(0, 191, 255, 0.25)',
+                   backdropFilter: 'blur(10px)',
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <BarChart3 className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00BFFF' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Avg Cost</span>
-              </div>
-              <div className="text-xl md:text-3xl font-bold" style={{ color: '#00BFFF' }}>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Avg Cost</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
                 {equipment.length > 0
                   ? formatCurrency(equipment.reduce((acc, e) => acc + e.totalCostPerHour, 0) / equipment.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Per hour</div>
+              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Per hour</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
                    background: 'rgba(255, 229, 0, 0.08)',
                    border: '1px solid rgba(255, 229, 0, 0.25)',
+                   backdropFilter: 'blur(10px)',
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <DollarSign className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#FFE500' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Value</span>
-              </div>
-              <div className="text-xl md:text-3xl font-bold" style={{ color: '#FFE500' }}>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Value</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>
                 {formatCurrency(equipment.reduce((acc, e) => acc + (e.purchasePrice || 0), 0)).replace('.00', '')}
               </div>
-              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Investment</div>
+              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Investment</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
                    background: 'rgba(255, 255, 255, 0.03)',
                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                   backdropFilter: 'blur(10px)',
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <Activity className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Hours</span>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Hours</div>
+              <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
                 {equipment.reduce((acc, e) => acc + (e.annualHours || 0), 0).toLocaleString()}
               </div>
-              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Annual</div>
+              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Annual</div>
             </div>
           </div>
 
-          {/* Premium Action Bar */}
-          <div className="flex justify-between items-center mb-8">
+          {/* Action Bar */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
             <div>
-              <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+              <h2 className="text-xl sm:text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
                 Equipment Fleet
               </h2>
-              <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+              <p className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>
                 {equipment.length} {equipment.length === 1 ? 'item' : 'items'} in your library
               </p>
             </div>
             <button
               onClick={() => setShowForm(true)}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] hardware-accelerated"
+              className="group inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               style={{
-                background: 'var(--gradient-brand)',
-                color: 'white',
-                boxShadow: '0 4px 14px 0 rgba(34, 197, 94, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
+                background: 'linear-gradient(135deg, #00FF41 0%, #00D938 100%)',
+                color: 'black',
+                boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)'
               }}
             >
               <Plus className="w-5 h-5" />
-              Add Equipment
+              <span>Add Equipment</span>
             </button>
           </div>
 
@@ -621,7 +610,7 @@ export default function EquipmentLibraryPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {equipment.map((item) => (
                 <div key={item._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
                      style={{

@@ -19,18 +19,17 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-      <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 pb-24 md:pb-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-black mb-2"
+        <div className="mb-8 sm:mb-10">
+          <h1 className="text-3xl sm:text-4xl font-black mb-2"
               style={{
-                background: 'linear-gradient(180deg, var(--text-primary) 0%, rgba(255,255,255,0.8) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                color: 'var(--text-primary)',
+                letterSpacing: '-0.02em'
               }}>
             Settings
           </h1>
-          <p style={{ color: 'var(--text-tertiary)' }}>
+          <p className="text-sm sm:text-base" style={{ color: 'var(--text-tertiary)' }}>
             Manage your account and app preferences
           </p>
         </div>

@@ -638,7 +638,7 @@ export default function EquipmentLibraryPage() {
                          background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 70%)'
                        }} />
 
-                  <div className="relative p-6">
+                  <div className="relative p-8">
                     {/* Card Header */}
                     <div className="flex items-start justify-between mb-5">
                       <div className="flex items-start gap-4">

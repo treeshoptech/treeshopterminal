@@ -692,7 +692,7 @@ export default function LoadoutsPage() {
                            boxShadow: `inset 0 0 80px ${serviceColor}30`
                          }} />
 
-                    <div className="relative p-6">
+                    <div className="relative p-8">
                       {/* Card Header */}
                       <div className="flex items-start justify-between mb-5">
                         <div className="flex-1">

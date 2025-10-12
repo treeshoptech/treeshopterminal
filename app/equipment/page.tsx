@@ -179,68 +179,68 @@ export default function EquipmentLibraryPage() {
             </div>
           </div>
 
-          {/* Stats Cards - Clean 2-Column Mobile Design */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10">
-            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+          {/* Stats Cards - BIGGER WITH MORE SPACE */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Fleet</div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{equipment.length}</div>
-              <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Active items</div>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Fleet</div>
+              <div className="text-6xl font-black mb-3" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{equipment.length}</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Active items</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Avg Cost</div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Avg Cost</div>
+              <div className="text-5xl font-black mb-3" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
                 {equipment.length > 0
                   ? formatCurrency(equipment.reduce((acc, e) => acc + e.totalCostPerHour, 0) / equipment.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Per hour</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Per hour</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Value</div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Value</div>
+              <div className="text-5xl font-black mb-3" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>
                 {formatCurrency(equipment.reduce((acc, e) => acc + (e.purchasePrice || 0), 0)).replace('.00', '')}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Investment</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Investment</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Hours</div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Hours</div>
+              <div className="text-6xl font-black mb-3" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
                 {equipment.reduce((acc, e) => acc + (e.annualHours || 0), 0).toLocaleString()}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Annual</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Annual</div>
             </div>
           </div>
 
-          {/* Action Bar */}
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
+          {/* Action Bar - BIGGER SECTION HEADERS */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 mb-10">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
+              <h2 className="text-3xl font-black mb-2" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                 Equipment Fleet
               </h2>
-              <p className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>
+              <p className="text-base font-medium" style={{ color: '#6B7280' }}>
                 {equipment.length} {equipment.length === 1 ? 'item' : 'items'} in your library
               </p>
             </div>
@@ -597,19 +597,19 @@ export default function EquipmentLibraryPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {equipment.map((item) => (
                 <div key={item._id} className="group relative rounded-2xl overflow-hidden transition-all duration-200 hover:scale-[1.01]"
                      style={{
                        background: '#FFFFFF',
-                       border: '1px solid #E5E7EB',
-                       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                       border: '2px solid #E5E7EB',
+                       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                      }}>
-                  <div className="relative p-8">
-                    {/* Card Header */}
-                    <div className="flex items-start justify-between mb-5">
-                      <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-xl flex items-center justify-center"
+                  <div className="relative p-10">
+                    {/* Card Header - MORE PROMINENT */}
+                    <div className="flex items-start justify-between mb-8">
+                      <div className="flex items-start gap-5">
+                        <div className="w-16 h-16 rounded-xl flex items-center justify-center"
                              style={{
                                background: getCategoryGradient(item.category),
                                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)'
@@ -617,15 +617,15 @@ export default function EquipmentLibraryPage() {
                           {getCategoryIcon(item.category)}
                         </div>
                         <div>
-                          <h3 className="font-bold text-xl mb-2"
+                          <h3 className="font-bold text-2xl mb-3"
                               style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                             {item.equipmentName}
                           </h3>
-                          <div className="flex items-center gap-2">
-                            <span className="badge badge-info">
+                          <div className="flex items-center gap-3">
+                            <span className="badge badge-info text-sm px-3 py-1">
                               {item.category}
                             </span>
-                            <span className="badge badge-success">
+                            <span className="badge badge-success text-sm px-3 py-1">
                               Active
                             </span>
                           </div>
@@ -643,51 +643,51 @@ export default function EquipmentLibraryPage() {
                       </button>
                     </div>
 
-                    {/* Cost Breakdown with Premium Styling */}
-                    <div className="space-y-4">
-                      <div className="flex justify-between items-center p-4 rounded-xl"
+                    {/* Cost Breakdown - MORE SPACE & BIGGER TEXT */}
+                    <div className="space-y-5">
+                      <div className="flex justify-between items-center p-6 rounded-xl"
                            style={{
                              background: '#F9FAFB',
-                             border: '1px solid #E5E7EB'
+                             border: '2px solid #E5E7EB'
                            }}>
-                        <div className="flex items-center gap-2">
-                          <Clock className="w-4 h-4" style={{ color: '#9CA3AF' }} />
-                          <span className="text-sm font-medium" style={{ color: '#6B7280' }}>
+                        <div className="flex items-center gap-3">
+                          <Clock className="w-5 h-5" style={{ color: '#9CA3AF' }} />
+                          <span className="text-base font-semibold" style={{ color: '#6B7280' }}>
                             Ownership
                           </span>
                         </div>
-                        <span className="font-mono font-semibold" style={{ color: '#111827' }}>
+                        <span className="font-mono font-bold text-lg" style={{ color: '#111827' }}>
                           {formatCurrency(item.ownershipCostPerHour)}/hr
                         </span>
                       </div>
 
-                      <div className="flex justify-between items-center p-4 rounded-xl"
+                      <div className="flex justify-between items-center p-6 rounded-xl"
                            style={{
                              background: '#F9FAFB',
-                             border: '1px solid #E5E7EB'
+                             border: '2px solid #E5E7EB'
                            }}>
-                        <div className="flex items-center gap-2">
-                          <Fuel className="w-4 h-4" style={{ color: '#9CA3AF' }} />
-                          <span className="text-sm font-medium" style={{ color: '#6B7280' }}>
+                        <div className="flex items-center gap-3">
+                          <Fuel className="w-5 h-5" style={{ color: '#9CA3AF' }} />
+                          <span className="text-base font-semibold" style={{ color: '#6B7280' }}>
                             Operating
                           </span>
                         </div>
-                        <span className="font-mono font-semibold" style={{ color: '#111827' }}>
+                        <span className="font-mono font-bold text-lg" style={{ color: '#111827' }}>
                           {formatCurrency(item.operatingCostPerHour)}/hr
                         </span>
                       </div>
 
-                      {/* Premium Total Cost Display */}
-                      <div className="pt-4 mt-4"
-                           style={{ borderTop: '1px solid #E5E7EB' }}>
+                      {/* Premium Total Cost Display - MUCH BIGGER */}
+                      <div className="pt-6 mt-6"
+                           style={{ borderTop: '2px solid #E5E7EB' }}>
                         <div className="flex justify-between items-end">
                           <div>
-                            <span className="text-xs uppercase tracking-wider"
+                            <span className="text-sm uppercase tracking-widest font-bold"
                                   style={{ color: '#9CA3AF' }}>
                               Total Hourly
                             </span>
                           </div>
-                          <div className="text-3xl font-bold"
+                          <div className="text-4xl font-black"
                                style={{
                                  background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                                  WebkitBackgroundClip: 'text',
@@ -695,7 +695,7 @@ export default function EquipmentLibraryPage() {
                                  backgroundClip: 'text'
                                }}>
                             {formatCurrency(item.totalCostPerHour)}
-                            <span className="text-sm font-normal" style={{ color: '#6B7280' }}>
+                            <span className="text-lg font-semibold" style={{ color: '#6B7280' }}>
                               /hr
                             </span>
                           </div>
@@ -703,18 +703,18 @@ export default function EquipmentLibraryPage() {
                       </div>
                     </div>
 
-                    {/* Equipment Metadata */}
-                    <div className="flex justify-between items-center mt-5 pt-4"
-                         style={{ borderTop: '1px solid #E5E7EB' }}>
-                      <div className="flex items-center gap-1.5">
-                        <Activity className="w-3.5 h-3.5" style={{ color: '#9CA3AF' }} />
-                        <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>
+                    {/* Equipment Metadata - BIGGER TEXT */}
+                    <div className="flex justify-between items-center mt-6 pt-6"
+                         style={{ borderTop: '2px solid #E5E7EB' }}>
+                      <div className="flex items-center gap-2">
+                        <Activity className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                        <span className="text-sm font-semibold" style={{ color: '#9CA3AF' }}>
                           {item.annualHours} hrs/year
                         </span>
                       </div>
-                      <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" style={{ color: '#9CA3AF' }} />
-                        <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                        <span className="text-sm font-semibold" style={{ color: '#9CA3AF' }}>
                           {item.usefulLifeYears} year lifespan
                         </span>
                       </div>

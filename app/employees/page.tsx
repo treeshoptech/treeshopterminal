@@ -165,70 +165,70 @@ export default function EmployeesPage() {
             </div>
           </div>
 
-          {/* Stats Cards */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10">
-            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+          {/* Stats Cards - BIGGER WITH MORE SPACE */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#9CA3AF' }}>Team</div>
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{employees.length}</div>
-              <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>Active</div>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Team</div>
+              <div className="text-6xl font-black mb-3" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{employees.length}</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Active</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#9CA3AF' }}>Base</div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Base</div>
+              <div className="text-5xl font-black mb-3" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
                 {employees.length > 0
                   ? formatCurrency(employees.reduce((acc, e) => acc + (e.baseHourlyRate || 0), 0) / employees.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>Avg/hr</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Avg/hr</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#9CA3AF' }}>True Cost</div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>True Cost</div>
+              <div className="text-5xl font-black mb-3" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>
                 {employees.length > 0
                   ? formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0) / employees.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>+Burden</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>+Burden</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#9CA3AF' }}>Total</div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Total</div>
+              <div className="text-5xl font-black mb-3" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
                 {formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0)).replace('.00', '')}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>Labor/hr</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Labor/hr</div>
             </div>
           </div>
 
-          {/* Action Bar */}
-          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
+          {/* Action Bar - BIGGER SECTION HEADERS */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-6 mb-10">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
+              <h2 className="text-3xl font-black mb-2" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                 Team Members
               </h2>
-              <p className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>
+              <p className="text-base font-medium" style={{ color: '#6B7280' }}>
                 {employees.length} {employees.length === 1 ? 'employee' : 'employees'} in your organization
               </p>
             </div>
@@ -513,16 +513,16 @@ export default function EmployeesPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {employees.map((emp) => (
                 <div key={emp._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
                      style={{
                        background: '#FFFFFF',
-                       border: '1px solid #E5E7EB',
-                       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                       border: '2px solid #E5E7EB',
+                       boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                        transform: 'translateZ(0)'
                      }}>
-                  <div className="relative p-8">
+                  <div className="relative p-10">
                     {/* Card Header */}
                     <div className="flex items-start justify-between mb-5">
                       <div className="flex items-start gap-4">

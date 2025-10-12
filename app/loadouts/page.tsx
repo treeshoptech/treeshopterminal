@@ -180,76 +180,64 @@ export default function LoadoutsPage() {
             </div>
           </div>
 
-          {/* Stats Cards - Clean 2-Column Mobile Design */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10">
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+          {/* Stats Cards - BIGGER WITH MORE SPACE */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <Settings className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Total</span>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{loadouts.length}</div>
-              <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>Loadouts</div>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Total</div>
+              <div className="text-6xl font-black mb-3" style={{ color: '#00FF41' }}>{loadouts.length}</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Loadouts</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <DollarSign className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00BFFF' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Avg Cost</span>
-              </div>
-              <div className="text-xl md:text-3xl font-bold" style={{ color: '#00BFFF' }}>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Avg Cost</div>
+              <div className="text-5xl font-black mb-3" style={{ color: '#00BFFF' }}>
                 {loadouts.length > 0
                   ? formatCurrency(loadouts.reduce((acc, l) => acc + l.totalLoadoutCostPerHour, 0) / loadouts.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>Per hour</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Per hour</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <Truck className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#6B7280' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Equipment</span>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#111827' }}>{equipment.length}</div>
-              <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>Available</div>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Equipment</div>
+              <div className="text-6xl font-black mb-3" style={{ color: '#111827' }}>{equipment.length}</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Available</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <UsersIcon className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#6B7280' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Crew</span>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#111827' }}>{employees.length}</div>
-              <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>Workers</div>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Crew</div>
+              <div className="text-6xl font-black mb-3" style={{ color: '#111827' }}>{employees.length}</div>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Workers</div>
             </div>
           </div>
 
-          {/* Premium Action Bar */}
-          <div className="flex justify-between items-center mb-8">
+          {/* Action Bar - BIGGER SECTION HEADERS */}
+          <div className="flex justify-between items-center mb-10">
             <div>
-              <h2 className="text-2xl font-bold mb-1" style={{ color: '#111827' }}>
+              <h2 className="text-3xl font-black mb-2" style={{ color: '#111827' }}>
                 Configured Loadouts
               </h2>
-              <p className="text-sm" style={{ color: '#6B7280' }}>
+              <p className="text-base font-medium" style={{ color: '#6B7280' }}>
                 {loadouts.length} {loadouts.length === 1 ? 'loadout' : 'loadouts'} ready for projects
               </p>
             </div>
@@ -641,7 +629,7 @@ export default function LoadoutsPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {loadouts.map((loadout) => {
                 const serviceColor = getServiceTypeColor(loadout.serviceType);
                 const serviceGradient = getServiceTypeGradient(loadout.serviceType);
@@ -650,11 +638,11 @@ export default function LoadoutsPage() {
                   <div key={loadout._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
                        style={{
                          background: '#FFFFFF',
-                         border: '1px solid #E5E7EB',
-                         boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                         border: '2px solid #E5E7EB',
+                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                          transform: 'translateZ(0)'
                        }}>
-                    <div className="relative p-8">
+                    <div className="relative p-10">
                       {/* Card Header */}
                       <div className="flex items-start justify-between mb-5">
                         <div className="flex-1">

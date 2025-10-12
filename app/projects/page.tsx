@@ -276,96 +276,84 @@ export default function ProjectsPage() {
             </div>
           </div>
 
-          {/* Analytics Dashboard */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10">
+          {/* Analytics Dashboard - BIGGER WITH MORE SPACE */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
             {/* Win Rate Card */}
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-2">
-                <Target className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold"
+              <div className="text-sm uppercase tracking-widest font-bold mb-4"
                       style={{ color: '#6B7280' }}>
                   Win Rate
-                </span>
               </div>
-              <div className="text-3xl md:text-4xl font-bold"
+              <div className="text-6xl font-black mb-3"
                    style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>
                 {winRate.toFixed(0)}%
               </div>
-              <div className="text-xs md:text-sm mt-1" style={{ color: '#6B7280' }}>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
                 {wonProjects.length} won / {projects.length} total
               </div>
             </div>
 
             {/* Revenue Card */}
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-2">
-                <DollarSign className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold"
+              <div className="text-sm uppercase tracking-widest font-bold mb-4"
                       style={{ color: '#6B7280' }}>
                   Revenue
-                </span>
               </div>
-              <div className="text-2xl md:text-4xl font-bold"
+              <div className="text-5xl font-black mb-3"
                    style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>
                 {formatCurrency(totalRevenue).replace('.00', '').replace('$0', '$0')}
               </div>
-              <div className="text-xs md:text-sm mt-1" style={{ color: '#6B7280' }}>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
                 Won projects
               </div>
             </div>
 
             {/* Pipeline Card */}
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-2">
-                <BarChart3 className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00BFFF' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold"
+              <div className="text-sm uppercase tracking-widest font-bold mb-4"
                       style={{ color: '#6B7280' }}>
                   Pipeline
-                </span>
               </div>
-              <div className="text-3xl md:text-4xl font-bold"
+              <div className="text-6xl font-black mb-3"
                    style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
                 {quotedProjects.length}
               </div>
-              <div className="text-xs md:text-sm mt-1" style={{ color: '#6B7280' }}>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
                 Pending quotes
               </div>
             </div>
 
             {/* Avg Size Card */}
-            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-2">
-                <Activity className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#6B7280' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold"
+              <div className="text-sm uppercase tracking-widest font-bold mb-4"
                       style={{ color: '#6B7280' }}>
                   Avg Size
-                </span>
               </div>
-              <div className="text-3xl md:text-4xl font-bold"
+              <div className="text-6xl font-black mb-3"
                    style={{ color: '#111827', letterSpacing: '-0.02em' }}>
                 {avgProjectSize.toFixed(1)}
               </div>
-              <div className="text-xs md:text-sm mt-1" style={{ color: '#6B7280' }}>
+              <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
                 Acres/project
               </div>
             </div>
@@ -406,56 +394,44 @@ export default function ProjectsPage() {
             </div>
           )}
 
-          {/* Calculator Quick Stats */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-            <div className="rounded-xl p-5 md:p-7"
+          {/* Calculator Quick Stats - BIGGER AND CLEARER */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <Package className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#6B7280' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Loadouts</span>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#111827' }}>{loadouts.length}</div>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Loadouts</div>
+              <div className="text-6xl font-black" style={{ color: '#111827' }}>{loadouts.length}</div>
             </div>
 
-            <div className="rounded-xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: 'rgba(0, 255, 65, 0.08)',
-                   border: '1px solid rgba(0, 255, 65, 0.25)',
+                   border: '2px solid rgba(0, 255, 65, 0.25)',
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <Calculator className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Margin</span>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{projectData.profitMargin}%</div>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Margin</div>
+              <div className="text-6xl font-black" style={{ color: '#00FF41' }}>{projectData.profitMargin}%</div>
             </div>
 
-            <div className="rounded-xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: '#FFFFFF',
-                   border: '1px solid #E5E7EB',
-                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
+                   border: '2px solid #E5E7EB',
+                   boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)'
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <Activity className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#6B7280' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Acres</span>
-              </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#111827' }}>{projectData.acres}</div>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Acres</div>
+              <div className="text-6xl font-black" style={{ color: '#111827' }}>{projectData.acres}</div>
             </div>
 
-            <div className="rounded-xl p-5 md:p-7"
+            <div className="rounded-2xl p-10"
                  style={{
                    background: 'rgba(0, 255, 65, 0.12)',
-                   border: '1px solid rgba(0, 255, 65, 0.3)',
+                   border: '2px solid rgba(0, 255, 65, 0.3)',
                  }}>
-              <div className="flex items-center gap-2 mb-1">
-                <DollarSign className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Price</span>
-              </div>
-              <div className="text-xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>
+              <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Price</div>
+              <div className="text-5xl font-black" style={{ color: '#00FF41' }}>
                 {selectedLoadout && !isNaN(totalPrice) ? formatCurrency(totalPrice).replace('.00', '') : '$0'}
               </div>
             </div>

@@ -96,81 +96,81 @@ export default function HomePage() {
           </p>
         </div>
 
-        {/* KPI Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10">
-          <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+        {/* KPI Cards - BIGGER and MORE SPACIOUS */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          <div className="rounded-2xl p-10"
                style={{
                  background: '#FFFFFF',
-                 border: '1px solid #E5E7EB',
-                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                 border: '2px solid #E5E7EB',
+                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                }}>
-            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Equipment</div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{equipment.length}</div>
-            <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>
+            <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Equipment</div>
+            <div className="text-6xl font-black mb-3" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{equipment.length}</div>
+            <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
               {totalEquipmentValue > 0 ? formatCurrency(totalEquipmentValue).replace('.00', '') : 'Add equipment'}
             </div>
           </div>
 
-          <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+          <div className="rounded-2xl p-10"
                style={{
                  background: '#FFFFFF',
-                 border: '1px solid #E5E7EB',
-                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                 border: '2px solid #E5E7EB',
+                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                }}>
-            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Team</div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>{employees.length}</div>
-            <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>
+            <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Team</div>
+            <div className="text-6xl font-black mb-3" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>{employees.length}</div>
+            <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
               {totalLaborCost > 0 ? `${formatCurrency(totalLaborCost).replace('.00', '')}/hr` : 'Add employees'}
             </div>
           </div>
 
-          <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+          <div className="rounded-2xl p-10"
                style={{
                  background: '#FFFFFF',
-                 border: '1px solid #E5E7EB',
-                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                 border: '2px solid #E5E7EB',
+                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                }}>
-            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Loadouts</div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>{loadouts.length}</div>
-            <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>
+            <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Loadouts</div>
+            <div className="text-6xl font-black mb-3" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>{loadouts.length}</div>
+            <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>
               {loadouts.length > 0 ? 'Ready to price' : 'Create loadouts'}
             </div>
           </div>
 
-          <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
+          <div className="rounded-2xl p-10"
                style={{
                  background: '#FFFFFF',
-                 border: '1px solid #E5E7EB',
-                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                 border: '2px solid #E5E7EB',
+                 boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                }}>
-            <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#6B7280' }}>Progress</div>
-            <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
+            <div className="text-sm uppercase tracking-widest font-bold mb-4" style={{ color: '#6B7280' }}>Progress</div>
+            <div className="text-6xl font-black mb-3" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
               {completedSteps}/4
             </div>
-            <div className="text-xs sm:text-sm" style={{ color: '#9CA3AF' }}>Steps complete</div>
+            <div className="text-base font-medium" style={{ color: '#9CA3AF' }}>Steps complete</div>
           </div>
         </div>
 
-        {/* Quick Access Grid */}
+        {/* Quick Actions - CLEARER SECTIONS */}
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6" style={{ color: '#111827', letterSpacing: '-0.01em' }}>Quick Access</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+          <h2 className="text-3xl font-black mb-8" style={{ color: '#111827', letterSpacing: '-0.01em' }}>Quick Actions</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {steps.map((step) => (
               <Link key={step.number} href={step.href}>
                 <div
-                  className="group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                  className="group relative rounded-2xl p-8 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                   style={{
                     background: '#FFFFFF',
-                    border: '1px solid #E5E7EB',
-                    boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
+                    border: '2px solid #E5E7EB',
+                    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                   }}
                 >
-                  <div className="text-4xl sm:text-5xl mb-3 transition-transform duration-200 group-hover:scale-110">{step.emoji}</div>
-                  <h3 className="text-sm sm:text-base font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
+                  <div className="text-6xl mb-6 transition-transform duration-200 group-hover:scale-110">{step.emoji}</div>
+                  <h3 className="text-xl font-bold mb-3" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                     {step.title}
                   </h3>
                   {step.count !== null && (
-                    <p className="text-xs" style={{ color: '#6B7280' }}>
+                    <p className="text-base font-medium" style={{ color: '#6B7280' }}>
                       {step.count} {step.count === 1 ? 'item' : 'items'}
                     </p>
                   )}

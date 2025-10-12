@@ -4,16 +4,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Truck, Users, Wrench, FileText, Settings } from 'lucide-react';
 
-import { useAuth } from '@/hooks/useAuth';
-
 export function MobileNav() {
   const pathname = usePathname();
-  const { isAuthenticated } = useAuth();
-
-  // Hide nav on login/signup pages
-  if (!isAuthenticated && (pathname === '/login' || pathname === '/signup')) {
-    return null;
-  }
 
   const links = [
     { href: '/', icon: LayoutDashboard, label: 'Home' },

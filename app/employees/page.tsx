@@ -119,17 +119,7 @@ export default function EmployeesPage() {
   return (
     
     
-      <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-        {/* Premium Background Pattern */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0"
-               style={{
-                 backgroundImage: `
-                   radial-gradient(circle at 10% 20%, rgba(34, 197, 94, 0.04) 0%, transparent 40%),
-                   radial-gradient(circle at 80% 80%, rgba(34, 197, 94, 0.04) 0%, transparent 40%)
-                 `
-               }} />
-        </div>
+      <div className="min-h-screen" style={{ background: '#F9FAFB' }}>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-24 md:pb-8">
           {/* Premium Header Section */}
@@ -139,19 +129,19 @@ export default function EmployeesPage() {
                 href="/"
                 className="group mt-1 p-2 sm:p-2.5 rounded-lg sm:rounded-xl transition-all duration-200 hover:scale-105 active:scale-95"
                 style={{
-                  background: 'rgba(255,255,255,0.05)',
-                  border: '1px solid var(--border-default)',
-                  backdropFilter: 'blur(10px)',
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
+                  boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                 }}
               >
                 <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 group-hover:-translate-x-1"
-                             style={{ color: 'var(--text-secondary)' }} />
+                             style={{ color: '#6B7280' }} />
               </Link>
               <div className="flex-1">
                 <div className="flex items-center gap-2 sm:gap-3 mb-2">
                   <h1 className="text-3xl sm:text-4xl md:text-5xl font-black"
                       style={{
-                        color: 'var(--text-primary)',
+                        color: '#111827',
                         letterSpacing: '-0.02em'
                       }}>
                     Team
@@ -159,8 +149,7 @@ export default function EmployeesPage() {
                   <div className="inline-flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full"
                        style={{
                          background: 'rgba(0, 191, 255, 0.1)',
-                         border: '1px solid rgba(0, 191, 255, 0.3)',
-                         backdropFilter: 'blur(10px)',
+                         border: '1px solid rgba(0, 191, 255, 0.3)'
                        }}>
                     <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5" style={{ color: '#00BFFF' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
@@ -169,7 +158,7 @@ export default function EmployeesPage() {
                     </span>
                   </div>
                 </div>
-                <p className="text-sm sm:text-base" style={{ color: 'var(--text-tertiary)' }}>
+                <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>
                   Manage employees and calculate true labor costs
                 </p>
               </div>
@@ -180,66 +169,66 @@ export default function EmployeesPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-8 sm:mb-10">
             <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
-                   background: 'rgba(0, 255, 65, 0.08)',
-                   border: '1px solid rgba(0, 255, 65, 0.25)',
-                   backdropFilter: 'blur(10px)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Team</div>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#9CA3AF' }}>Team</div>
               <div className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1" style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>{employees.length}</div>
-              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Active</div>
+              <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>Active</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
-                   background: 'rgba(0, 191, 255, 0.08)',
-                   border: '1px solid rgba(0, 191, 255, 0.25)',
-                   backdropFilter: 'blur(10px)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Base</div>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#9CA3AF' }}>Base</div>
               <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
                 {employees.length > 0
                   ? formatCurrency(employees.reduce((acc, e) => acc + (e.baseHourlyRate || 0), 0) / employees.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Avg/hr</div>
+              <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>Avg/hr</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
-                   background: 'rgba(255, 229, 0, 0.08)',
-                   border: '1px solid rgba(255, 229, 0, 0.25)',
-                   backdropFilter: 'blur(10px)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>True Cost</div>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#9CA3AF' }}>True Cost</div>
               <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#FFE500', letterSpacing: '-0.02em' }}>
                 {employees.length > 0
                   ? formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0) / employees.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>+Burden</div>
+              <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>+Burden</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-4 sm:p-5 md:p-6"
                  style={{
-                   background: 'rgba(255, 255, 255, 0.03)',
-                   border: '1px solid rgba(255, 255, 255, 0.1)',
-                   backdropFilter: 'blur(10px)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
-              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: 'var(--text-quaternary)' }}>Total</div>
-              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+              <div className="text-xs uppercase tracking-wider font-semibold mb-2" style={{ color: '#9CA3AF' }}>Total</div>
+              <div className="text-xl sm:text-2xl md:text-3xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.02em' }}>
                 {formatCurrency(employees.reduce((acc, e) => acc + (e.trueCostPerHour || 0), 0)).replace('.00', '')}
               </div>
-              <div className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>Labor/hr</div>
+              <div className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>Labor/hr</div>
             </div>
           </div>
 
           {/* Action Bar */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6 sm:mb-8">
             <div>
-              <h2 className="text-xl sm:text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+              <h2 className="text-xl sm:text-2xl font-bold mb-1" style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                 Team Members
               </h2>
-              <p className="text-xs sm:text-sm" style={{ color: 'var(--text-tertiary)' }}>
+              <p className="text-xs sm:text-sm" style={{ color: '#6B7280' }}>
                 {employees.length} {employees.length === 1 ? 'employee' : 'employees'} in your organization
               </p>
             </div>
@@ -264,7 +253,7 @@ export default function EmployeesPage() {
                 <div className="modal-header">
                   <div>
                     <h2 className="modal-title">Add New Employee</h2>
-                    <p className="text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="text-sm mt-1" style={{ color: '#6B7280' }}>
                       Configure employee details and calculate true labor costs
                     </p>
                   </div>
@@ -272,8 +261,9 @@ export default function EmployeesPage() {
                     onClick={() => setShowForm(false)}
                     className="icon-btn glass"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
-                      border: '1px solid var(--border-default)'
+                      background: '#F9FAFB',
+                      border: '1px solid #E5E7EB',
+                      boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                     }}
                   >
                     <X className="w-5 h-5" />
@@ -292,7 +282,7 @@ export default function EmployeesPage() {
                         <User className="w-4 h-4" style={{ color: '#22C55E' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                          style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                         Personal Information
                       </h3>
                     </div>
@@ -331,7 +321,7 @@ export default function EmployeesPage() {
                         <Mail className="w-4 h-4" style={{ color: 'var(--brand-400)' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                          style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                         Contact Information
                       </h3>
                     </div>
@@ -370,7 +360,7 @@ export default function EmployeesPage() {
                         <Briefcase className="w-4 h-4" style={{ color: '#F59E0B' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                          style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                         Position & Compensation
                       </h3>
                     </div>
@@ -432,28 +422,28 @@ export default function EmployeesPage() {
                     <div className="grid grid-cols-3 gap-5">
                       <div className="text-center p-4 rounded-xl"
                            style={{
-                             background: 'rgba(0, 0, 0, 0.2)',
-                             border: '1px solid var(--border-default)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         <div className="text-xs uppercase tracking-wider mb-2"
-                             style={{ color: 'var(--text-quaternary)' }}>
+                             style={{ color: '#9CA3AF' }}>
                           Base Rate
                         </div>
-                        <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                        <div className="text-2xl font-bold" style={{ color: '#111827' }}>
                           {formatCurrency(formData.baseHourlyRate)}
                           <span className="text-sm font-normal">/hr</span>
                         </div>
                       </div>
                       <div className="text-center p-4 rounded-xl"
                            style={{
-                             background: 'rgba(0, 0, 0, 0.2)',
-                             border: '1px solid var(--border-default)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         <div className="text-xs uppercase tracking-wider mb-2"
-                             style={{ color: 'var(--text-quaternary)' }}>
+                             style={{ color: '#9CA3AF' }}>
                           Burden
                         </div>
-                        <div className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+                        <div className="text-2xl font-bold" style={{ color: '#111827' }}>
                           {formData.burdenMultiplier}x
                         </div>
                       </div>
@@ -502,10 +492,9 @@ export default function EmployeesPage() {
           {employees.length === 0 ? (
             <div className="empty-state glass rounded-3xl p-12"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.4) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(20px)',
-                   WebkitBackdropFilter: 'blur(20px)'
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <UsersIcon className="empty-icon mx-auto mb-6" style={{ opacity: 0.3 }} />
               <h3 className="empty-title">No employees yet</h3>
@@ -528,19 +517,11 @@ export default function EmployeesPage() {
               {employees.map((emp) => (
                 <div key={emp._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
                      style={{
-                       background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.98) 100%)',
-                       border: '1px solid var(--border-default)',
-                       backdropFilter: 'blur(40px)',
-                       WebkitBackdropFilter: 'blur(40px)',
-                       boxShadow: 'var(--shadow-lg)',
+                       background: '#FFFFFF',
+                       border: '1px solid #E5E7EB',
+                       boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                        transform: 'translateZ(0)'
                      }}>
-                  {/* Premium Glow Effect */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                       style={{
-                         background: 'radial-gradient(circle at top left, rgba(34, 197, 94, 0.1), transparent 70%)'
-                       }} />
-
                   <div className="relative p-8">
                     {/* Card Header */}
                     <div className="flex items-start justify-between mb-5">
@@ -555,7 +536,7 @@ export default function EmployeesPage() {
                         </div>
                         <div>
                           <h3 className="font-bold text-xl mb-2"
-                              style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+                              style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                             {emp.firstName} {emp.lastName}
                           </h3>
                           <div className="flex items-center gap-2">
@@ -587,21 +568,21 @@ export default function EmployeesPage() {
                     {(emp.email || emp.phone) && (
                       <div className="space-y-2 mb-5 p-4 rounded-xl"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                             border: '1px solid var(--border-default)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         {emp.email && (
                           <div className="flex items-center gap-2">
-                            <Mail className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
-                            <span className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                            <Mail className="w-3.5 h-3.5" style={{ color: '#9CA3AF' }} />
+                            <span className="text-xs font-medium" style={{ color: '#6B7280' }}>
                               {emp.email}
                             </span>
                           </div>
                         )}
                         {emp.phone && (
                           <div className="flex items-center gap-2">
-                            <Phone className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
-                            <span className="text-xs font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                            <Phone className="w-3.5 h-3.5" style={{ color: '#9CA3AF' }} />
+                            <span className="text-xs font-medium" style={{ color: '#6B7280' }}>
                               {emp.phone}
                             </span>
                           </div>
@@ -613,43 +594,43 @@ export default function EmployeesPage() {
                     <div className="space-y-4">
                       <div className="flex justify-between items-center p-4 rounded-xl"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                             border: '1px solid var(--border-default)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         <div className="flex items-center gap-2">
-                          <DollarSign className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                          <span className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                          <DollarSign className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                          <span className="text-sm font-medium" style={{ color: '#6B7280' }}>
                             Base Wage
                           </span>
                         </div>
-                        <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                        <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                           {formatCurrency(emp.baseHourlyRate || 0)}/hr
                         </span>
                       </div>
 
                       <div className="flex justify-between items-center p-4 rounded-xl"
                            style={{
-                             background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                             border: '1px solid var(--border-default)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         <div className="flex items-center gap-2">
-                          <Award className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                          <span className="text-sm font-medium" style={{ color: 'var(--text-tertiary)' }}>
+                          <Award className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                          <span className="text-sm font-medium" style={{ color: '#6B7280' }}>
                             Burden Rate
                           </span>
                         </div>
-                        <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                        <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                           {emp.burdenMultiplier?.toFixed(1) || '1.7'}x
                         </span>
                       </div>
 
                       {/* Premium Total Cost Display */}
                       <div className="pt-4 mt-4"
-                           style={{ borderTop: '1px solid var(--border-default)' }}>
+                           style={{ borderTop: '1px solid #E5E7EB' }}>
                         <div className="flex justify-between items-end">
                           <div>
                             <span className="text-xs uppercase tracking-wider"
-                                  style={{ color: 'var(--text-quaternary)' }}>
+                                  style={{ color: '#9CA3AF' }}>
                               True Hourly Cost
                             </span>
                           </div>
@@ -661,7 +642,7 @@ export default function EmployeesPage() {
                                  backgroundClip: 'text'
                                }}>
                             {formatCurrency(emp.trueCostPerHour || 0)}
-                            <span className="text-sm font-normal" style={{ color: 'var(--text-tertiary)' }}>
+                            <span className="text-sm font-normal" style={{ color: '#6B7280' }}>
                               /hr
                             </span>
                           </div>
@@ -671,16 +652,16 @@ export default function EmployeesPage() {
 
                     {/* Employee Metadata */}
                     <div className="flex items-center justify-between mt-5 pt-4"
-                         style={{ borderTop: '1px solid var(--border-default)' }}>
+                         style={{ borderTop: '1px solid #E5E7EB' }}>
                       <div className="flex items-center gap-1.5">
-                        <Building className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
-                        <span className="text-xs font-medium" style={{ color: 'var(--text-quaternary)' }}>
+                        <Building className="w-3.5 h-3.5" style={{ color: '#9CA3AF' }} />
+                        <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>
                           {getMultiplierLabel(emp.burdenMultiplier || 1.7)}
                         </span>
                       </div>
                       <div className="flex items-center gap-1.5">
-                        <Clock className="w-3.5 h-3.5" style={{ color: 'var(--text-quaternary)' }} />
-                        <span className="text-xs font-medium" style={{ color: 'var(--text-quaternary)' }}>
+                        <Clock className="w-3.5 h-3.5" style={{ color: '#9CA3AF' }} />
+                        <span className="text-xs font-medium" style={{ color: '#9CA3AF' }}>
                           Full-time
                         </span>
                       </div>

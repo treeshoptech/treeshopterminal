@@ -134,32 +134,7 @@ export default function LoadoutsPage() {
 
   return (
     
-      <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-        {/* Premium Background Pattern */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0"
-               style={{
-                 backgroundImage: `
-                   radial-gradient(circle at 20% 30%, rgba(34, 197, 94, 0.25) 0%, transparent 50%),
-                   radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.25) 0%, transparent 50%)
-                 `
-               }} />
-          {/* BOLD Animated Gradient Orbs */}
-          <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full animate-pulse"
-               style={{
-                 background: 'radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, rgba(34, 197, 94, 0.2) 40%, transparent 70%)',
-                 filter: 'blur(80px)',
-                 transform: 'translate3d(0, 0, 0)',
-                 animationDelay: '1s'
-               }} />
-          <div className="absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full animate-pulse"
-               style={{
-                 background: 'radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, rgba(139, 92, 246, 0.15) 40%, transparent 70%)',
-                 filter: 'blur(80px)',
-                 animationDelay: '2s',
-                 transform: 'translate3d(0, 0, 0)'
-               }} />
-        </div>
+      <div className="min-h-screen" style={{ background: '#F9FAFB' }}>
 
         <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
           {/* Premium Header Section */}
@@ -169,43 +144,36 @@ export default function LoadoutsPage() {
                 href="/"
                 className="group mt-1 p-2.5 rounded-xl transition-all duration-300 hover:scale-110"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
-                  border: '1px solid var(--border-default)',
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)'
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
+                  boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                 }}
               >
                 <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
-                             style={{ color: 'var(--text-secondary)' }} />
+                             style={{ color: '#6B7280' }} />
               </Link>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <h1 className="text-4xl sm:text-5xl font-black"
                       style={{
-                        background: 'linear-gradient(180deg, var(--text-primary) 0%, rgba(255,255,255,0.8) 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
+                        color: '#111827',
                         letterSpacing: '-0.02em'
                       }}>
                     Loadouts
                   </h1>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.25) 0%, rgba(34, 197, 94, 0.15) 100%)',
-                         border: '2px solid rgba(34, 197, 94, 0.4)',
-                         backdropFilter: 'blur(30px)',
-                         WebkitBackdropFilter: 'blur(30px)',
-                         boxShadow: '0 8px 32px rgba(34, 197, 94, 0.2), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
+                         background: 'rgba(34, 197, 94, 0.1)',
+                         border: '1px solid rgba(34, 197, 94, 0.3)'
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: 'drop-shadow(0 0 8px rgba(34, 197, 94, 0.8))' }} />
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: '0 0 20px rgba(34, 197, 94, 0.5)' }}>
+                          style={{ color: '#22C55E', letterSpacing: '0.1em' }}>
                       Step 03
                     </span>
                   </div>
                 </div>
-                <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
+                <p className="text-lg" style={{ color: '#6B7280' }}>
                   Build profitable crew configurations by combining equipment and labor
                 </p>
               </div>
@@ -216,68 +184,72 @@ export default function LoadoutsPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10">
             <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(0, 255, 65, 0.08)',
-                   border: '1px solid rgba(0, 255, 65, 0.25)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-1">
                 <Settings className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Total</span>
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Total</span>
               </div>
               <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{loadouts.length}</div>
-              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Loadouts</div>
+              <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>Loadouts</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(0, 191, 255, 0.08)',
-                   border: '1px solid rgba(0, 191, 255, 0.25)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-1">
                 <DollarSign className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00BFFF' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Avg Cost</span>
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Avg Cost</span>
               </div>
               <div className="text-xl md:text-3xl font-bold" style={{ color: '#00BFFF' }}>
                 {loadouts.length > 0
                   ? formatCurrency(loadouts.reduce((acc, l) => acc + l.totalLoadoutCostPerHour, 0) / loadouts.length).replace('.00', '')
                   : '$0'}
               </div>
-              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Per hour</div>
+              <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>Per hour</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(255, 255, 255, 0.03)',
-                   border: '1px solid rgba(255, 255, 255, 0.1)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-1">
-                <Truck className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Equipment</span>
+                <Truck className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#6B7280' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Equipment</span>
               </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{equipment.length}</div>
-              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Available</div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#111827' }}>{equipment.length}</div>
+              <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>Available</div>
             </div>
 
             <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(255, 255, 255, 0.03)',
-                   border: '1px solid rgba(255, 255, 255, 0.1)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-1">
-                <UsersIcon className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Crew</span>
+                <UsersIcon className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#6B7280' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Crew</span>
               </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{employees.length}</div>
-              <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Workers</div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#111827' }}>{employees.length}</div>
+              <div className="text-xs mt-0.5" style={{ color: '#6B7280' }}>Workers</div>
             </div>
           </div>
 
           {/* Premium Action Bar */}
           <div className="flex justify-between items-center mb-8">
             <div>
-              <h2 className="text-2xl font-bold mb-1" style={{ color: 'var(--text-primary)' }}>
+              <h2 className="text-2xl font-bold mb-1" style={{ color: '#111827' }}>
                 Configured Loadouts
               </h2>
-              <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+              <p className="text-sm" style={{ color: '#6B7280' }}>
                 {loadouts.length} {loadouts.length === 1 ? 'loadout' : 'loadouts'} ready for projects
               </p>
             </div>
@@ -307,7 +279,7 @@ export default function LoadoutsPage() {
                 <div className="modal-header">
                   <div>
                     <h2 className="modal-title">Create New Loadout</h2>
-                    <p className="text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                    <p className="text-sm mt-1" style={{ color: '#6B7280' }}>
                       Configure equipment and crew for your next project
                     </p>
                   </div>
@@ -316,7 +288,7 @@ export default function LoadoutsPage() {
                     className="icon-btn glass"
                     style={{
                       background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
-                      border: '1px solid var(--border-default)'
+                      border: '1px solid #E5E7EB'
                     }}
                   >
                     <X className="w-5 h-5" />
@@ -336,7 +308,7 @@ export default function LoadoutsPage() {
                         <Settings className="w-4 h-4" style={{ color: '#22C55E' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                          style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                         Configuration
                       </h3>
                     </div>
@@ -378,7 +350,7 @@ export default function LoadoutsPage() {
                         <Truck className="w-4 h-4" style={{ color: 'var(--brand-400)' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                          style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                         Select Equipment ({formData.selectedEquipment.length} selected)
                       </h3>
                     </div>
@@ -386,9 +358,9 @@ export default function LoadoutsPage() {
                       <div className="text-center py-8 rounded-2xl"
                            style={{
                              background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                             border: '2px dashed var(--border-default)'
+                             border: '2px dashed #E5E7EB'
                            }}>
-                        <p style={{ color: 'var(--text-tertiary)' }}>
+                        <p style={{ color: '#6B7280' }}>
                           No equipment available.{' '}
                           <Link href="/equipment" className="font-semibold" style={{ color: 'var(--brand-400)' }}>
                             Add equipment first
@@ -421,7 +393,7 @@ export default function LoadoutsPage() {
                                 : 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                               border: formData.selectedEquipment.includes(eq._id)
                                 ? '2px solid rgba(34, 197, 94, 0.4)'
-                                : '2px solid var(--border-default)',
+                                : '2px solid #E5E7EB',
                               backdropFilter: 'blur(30px)',
                               WebkitBackdropFilter: 'blur(30px)',
                               boxShadow: formData.selectedEquipment.includes(eq._id)
@@ -429,11 +401,11 @@ export default function LoadoutsPage() {
                                 : '0 4px 12px rgba(0, 0, 0, 0.2)'
                             }}
                           >
-                            <div className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                            <div className="font-semibold mb-1" style={{ color: '#111827' }}>
                               {eq.equipmentName}
                             </div>
                             <div className="text-sm font-mono font-semibold"
-                                 style={{ color: formData.selectedEquipment.includes(eq._id) ? 'var(--brand-400)' : 'var(--text-tertiary)' }}>
+                                 style={{ color: formData.selectedEquipment.includes(eq._id) ? 'var(--brand-400)' : '#6B7280' }}>
                               ${eq.totalCostPerHour.toFixed(2)}/hr
                             </div>
                           </button>
@@ -454,7 +426,7 @@ export default function LoadoutsPage() {
                         <UsersIcon className="w-4 h-4" style={{ color: '#22C55E' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                          style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                         Select Crew ({formData.selectedEmployees.length} selected)
                       </h3>
                     </div>
@@ -462,9 +434,9 @@ export default function LoadoutsPage() {
                       <div className="text-center py-8 rounded-2xl"
                            style={{
                              background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                             border: '2px dashed var(--border-default)'
+                             border: '2px dashed #E5E7EB'
                            }}>
-                        <p style={{ color: 'var(--text-tertiary)' }}>
+                        <p style={{ color: '#6B7280' }}>
                           No employees available.{' '}
                           <Link href="/employees" className="font-semibold" style={{ color: '#22C55E' }}>
                             Add employees first
@@ -497,7 +469,7 @@ export default function LoadoutsPage() {
                                 : 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
                               border: formData.selectedEmployees.includes(emp._id)
                                 ? '2px solid rgba(34, 197, 94, 0.4)'
-                                : '2px solid var(--border-default)',
+                                : '2px solid #E5E7EB',
                               backdropFilter: 'blur(30px)',
                               WebkitBackdropFilter: 'blur(30px)',
                               boxShadow: formData.selectedEmployees.includes(emp._id)
@@ -505,14 +477,14 @@ export default function LoadoutsPage() {
                                 : '0 4px 12px rgba(0, 0, 0, 0.2)'
                             }}
                           >
-                            <div className="font-semibold text-sm mb-0.5" style={{ color: 'var(--text-primary)' }}>
+                            <div className="font-semibold text-sm mb-0.5" style={{ color: '#111827' }}>
                               {emp.firstName} {emp.lastName}
                             </div>
-                            <div className="text-xs mb-1" style={{ color: 'var(--text-tertiary)' }}>
+                            <div className="text-xs mb-1" style={{ color: '#6B7280' }}>
                               {emp.position}
                             </div>
                             <div className="text-sm font-mono font-semibold"
-                                 style={{ color: formData.selectedEmployees.includes(emp._id) ? '#22C55E' : 'var(--text-tertiary)' }}>
+                                 style={{ color: formData.selectedEmployees.includes(emp._id) ? '#22C55E' : '#6B7280' }}>
                               ${emp.trueCostPerHour?.toFixed(2) || '0.00'}/hr
                             </div>
                           </button>
@@ -533,7 +505,7 @@ export default function LoadoutsPage() {
                         <Zap className="w-4 h-4" style={{ color: '#8B5CF6' }} />
                       </div>
                       <h3 className="text-sm font-semibold uppercase tracking-wider"
-                          style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                          style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                         Production Rate
                       </h3>
                     </div>
@@ -548,7 +520,7 @@ export default function LoadoutsPage() {
                         onFocus={(e: any) => e.target.select()}
                         placeholder="1.3"
                       />
-                      <p className="text-xs mt-2" style={{ color: 'var(--text-quaternary)' }}>
+                      <p className="text-xs mt-2" style={{ color: '#9CA3AF' }}>
                         e.g., 1.3 for Cat 265, 5.0 for SK200TR
                       </p>
                     </div>
@@ -573,8 +545,8 @@ export default function LoadoutsPage() {
                     <div className="grid grid-cols-3 gap-5">
                       <div className="text-center p-4 rounded-xl"
                            style={{
-                             background: 'rgba(0, 0, 0, 0.3)',
-                             border: '1px solid rgba(255, 255, 255, 0.1)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         <div className="text-xs uppercase tracking-wider mb-2"
                              style={{ color: 'rgba(255,255,255,0.6)' }}>
@@ -587,8 +559,8 @@ export default function LoadoutsPage() {
                       </div>
                       <div className="text-center p-4 rounded-xl"
                            style={{
-                             background: 'rgba(0, 0, 0, 0.3)',
-                             border: '1px solid rgba(255, 255, 255, 0.1)'
+                             background: '#F9FAFB',
+                             border: '1px solid #E5E7EB'
                            }}>
                         <div className="text-xs uppercase tracking-wider mb-2"
                              style={{ color: 'rgba(255,255,255,0.6)' }}>
@@ -646,10 +618,9 @@ export default function LoadoutsPage() {
           {loadouts.length === 0 ? (
             <div className="empty-state glass rounded-3xl p-12"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.4) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(20px)',
-                   WebkitBackdropFilter: 'blur(20px)'
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <Wrench className="empty-icon mx-auto mb-6" style={{ opacity: 0.3 }} />
               <h3 className="empty-title">No loadouts configured</h3>
@@ -678,26 +649,17 @@ export default function LoadoutsPage() {
                 return (
                   <div key={loadout._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                         border: `2px solid ${serviceColor}33`,
-                         backdropFilter: 'blur(60px)',
-                         WebkitBackdropFilter: 'blur(60px)',
-                         boxShadow: `0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px ${serviceColor}20, inset 0 2px 4px rgba(255, 255, 255, 0.08)`,
+                         background: '#FFFFFF',
+                         border: '1px solid #E5E7EB',
+                         boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)',
                          transform: 'translateZ(0)'
                        }}>
-                    {/* BOLD Background Gradient */}
-                    <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                         style={{
-                           background: `radial-gradient(circle at top left, ${serviceColor}40, transparent 70%)`,
-                           boxShadow: `inset 0 0 80px ${serviceColor}30`
-                         }} />
-
                     <div className="relative p-8">
                       {/* Card Header */}
                       <div className="flex items-start justify-between mb-5">
                         <div className="flex-1">
                           <h3 className="font-bold text-xl mb-2"
-                              style={{ color: 'var(--text-primary)', letterSpacing: '-0.01em' }}>
+                              style={{ color: '#111827', letterSpacing: '-0.01em' }}>
                             {loadout.loadoutName}
                           </h3>
                           <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold capitalize"
@@ -726,39 +688,39 @@ export default function LoadoutsPage() {
                         <div className="flex items-center justify-between p-4 rounded-xl"
                              style={{
                                background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                               border: '1px solid var(--border-default)'
+                               border: '1px solid #E5E7EB'
                              }}>
                           <div className="flex items-center gap-2">
-                            <Truck className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                            <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>Equipment</span>
+                            <Truck className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                            <span className="text-sm" style={{ color: '#6B7280' }}>Equipment</span>
                           </div>
-                          <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                             ${loadout.totalEquipmentCostPerHour.toFixed(2)}/hr
                           </span>
                         </div>
                         <div className="flex items-center justify-between p-4 rounded-xl"
                              style={{
                                background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                               border: '1px solid var(--border-default)'
+                               border: '1px solid #E5E7EB'
                              }}>
                           <div className="flex items-center gap-2">
-                            <UsersIcon className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                            <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>Labor</span>
+                            <UsersIcon className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                            <span className="text-sm" style={{ color: '#6B7280' }}>Labor</span>
                           </div>
-                          <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                             ${loadout.totalLaborCostPerHour.toFixed(2)}/hr
                           </span>
                         </div>
                         <div className="flex items-center justify-between p-4 rounded-xl"
                              style={{
                                background: 'linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%)',
-                               border: '1px solid var(--border-default)'
+                               border: '1px solid #E5E7EB'
                              }}>
                           <div className="flex items-center gap-2">
-                            <Activity className="w-4 h-4" style={{ color: 'var(--text-quaternary)' }} />
-                            <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>Production</span>
+                            <Activity className="w-4 h-4" style={{ color: '#9CA3AF' }} />
+                            <span className="text-sm" style={{ color: '#6B7280' }}>Production</span>
                           </div>
-                          <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                             {loadout.productionRate.toFixed(1)} IA/hr
                           </span>
                         </div>
@@ -766,10 +728,10 @@ export default function LoadoutsPage() {
 
                       {/* Premium Total Display */}
                       <div className="pt-4 mt-4"
-                           style={{ borderTop: '1px solid var(--border-default)' }}>
+                           style={{ borderTop: '1px solid #E5E7EB' }}>
                         <div className="flex justify-between items-end">
                           <span className="text-xs uppercase tracking-wider"
-                                style={{ color: 'var(--text-quaternary)' }}>
+                                style={{ color: '#9CA3AF' }}>
                             Total Cost
                           </span>
                           <div className="text-3xl font-bold"
@@ -781,7 +743,7 @@ export default function LoadoutsPage() {
                                  filter: `drop-shadow(0 0 20px ${serviceColor}60)`
                                }}>
                             ${loadout.totalLoadoutCostPerHour.toFixed(2)}
-                            <span className="text-sm font-normal" style={{ color: 'var(--text-tertiary)' }}>
+                            <span className="text-sm font-normal" style={{ color: '#6B7280' }}>
                               /hr
                             </span>
                           </div>

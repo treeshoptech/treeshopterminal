@@ -230,17 +230,7 @@ export default function ProjectsPage() {
   return (
     
     <>
-      <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-        {/* Premium Background Pattern */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute inset-0"
-               style={{
-                 backgroundImage: `
-                   radial-gradient(circle at 30% 20%, rgba(34, 197, 94, 0.3) 0%, transparent 50%),
-                   radial-gradient(circle at 70% 80%, rgba(34, 197, 94, 0.25) 0%, transparent 50%)
-                 `
-               }} />
-        </div>
+      <div className="min-h-screen" style={{ background: '#F9FAFB' }}>
 
         <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
           {/* Premium Header Section */}
@@ -250,43 +240,36 @@ export default function ProjectsPage() {
                 href="/"
                 className="group mt-1 p-2.5 rounded-xl transition-all duration-300 hover:scale-110"
                 style={{
-                  background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%)',
-                  border: '1px solid var(--border-default)',
-                  backdropFilter: 'blur(10px)',
-                  WebkitBackdropFilter: 'blur(10px)'
+                  background: '#FFFFFF',
+                  border: '1px solid #E5E7EB',
+                  boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                 }}
               >
                 <ChevronLeft className="w-5 h-5 transition-transform duration-300 group-hover:-translate-x-1"
-                             style={{ color: 'var(--text-secondary)' }} />
+                             style={{ color: '#6B7280' }} />
               </Link>
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <h1 className="text-4xl sm:text-5xl font-black"
                       style={{
-                        background: 'linear-gradient(180deg, var(--text-primary) 0%, rgba(255,255,255,0.8) 100%)',
-                        WebkitBackgroundClip: 'text',
-                        WebkitTextFillColor: 'transparent',
-                        backgroundClip: 'text',
+                        color: '#111827',
                         letterSpacing: '-0.02em'
                       }}>
                     Price Projects
                   </h1>
                   <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full"
                        style={{
-                         background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.3) 0%, rgba(34, 197, 94, 0.2) 100%)',
-                         border: '2px solid rgba(34, 197, 94, 0.5)',
-                         backdropFilter: 'blur(30px)',
-                         WebkitBackdropFilter: 'blur(30px)',
-                         boxShadow: '0 8px 32px rgba(34, 197, 94, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.15)'
+                         background: 'rgba(34, 197, 94, 0.1)',
+                         border: '1px solid rgba(34, 197, 94, 0.3)'
                        }}>
-                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E', filter: '' }} />
+                    <Sparkles className="w-3.5 h-3.5" style={{ color: '#22C55E' }} />
                     <span className="text-xs font-semibold uppercase tracking-wider"
-                          style={{ color: '#22C55E', letterSpacing: '0.1em', textShadow: 'none' }}>
+                          style={{ color: '#22C55E', letterSpacing: '0.1em' }}>
                       Step 04
                     </span>
                   </div>
                 </div>
-                <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
+                <p className="text-lg" style={{ color: '#6B7280' }}>
                   Calculate project pricing with confidence using your configured loadouts
                 </p>
               </div>
@@ -298,13 +281,14 @@ export default function ProjectsPage() {
             {/* Win Rate Card */}
             <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(0, 255, 65, 0.05)',
-                   border: '1px solid rgba(0, 255, 65, 0.2)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-2">
                 <Target className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00FF41' }} />
                 <span className="text-xs uppercase tracking-wider font-semibold"
-                      style={{ color: 'var(--text-tertiary)' }}>
+                      style={{ color: '#6B7280' }}>
                   Win Rate
                 </span>
               </div>
@@ -312,7 +296,7 @@ export default function ProjectsPage() {
                    style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>
                 {winRate.toFixed(0)}%
               </div>
-              <div className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+              <div className="text-xs md:text-sm mt-1" style={{ color: '#6B7280' }}>
                 {wonProjects.length} won / {projects.length} total
               </div>
             </div>
@@ -320,13 +304,14 @@ export default function ProjectsPage() {
             {/* Revenue Card */}
             <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(0, 255, 65, 0.05)',
-                   border: '1px solid rgba(0, 255, 65, 0.2)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-2">
                 <DollarSign className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00FF41' }} />
                 <span className="text-xs uppercase tracking-wider font-semibold"
-                      style={{ color: 'var(--text-tertiary)' }}>
+                      style={{ color: '#6B7280' }}>
                   Revenue
                 </span>
               </div>
@@ -334,7 +319,7 @@ export default function ProjectsPage() {
                    style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>
                 {formatCurrency(totalRevenue).replace('.00', '').replace('$0', '$0')}
               </div>
-              <div className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+              <div className="text-xs md:text-sm mt-1" style={{ color: '#6B7280' }}>
                 Won projects
               </div>
             </div>
@@ -342,13 +327,14 @@ export default function ProjectsPage() {
             {/* Pipeline Card */}
             <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(0, 191, 255, 0.05)',
-                   border: '1px solid rgba(0, 191, 255, 0.2)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-2">
                 <BarChart3 className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00BFFF' }} />
                 <span className="text-xs uppercase tracking-wider font-semibold"
-                      style={{ color: 'var(--text-tertiary)' }}>
+                      style={{ color: '#6B7280' }}>
                   Pipeline
                 </span>
               </div>
@@ -356,7 +342,7 @@ export default function ProjectsPage() {
                    style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
                 {quotedProjects.length}
               </div>
-              <div className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+              <div className="text-xs md:text-sm mt-1" style={{ color: '#6B7280' }}>
                 Pending quotes
               </div>
             </div>
@@ -364,21 +350,22 @@ export default function ProjectsPage() {
             {/* Avg Size Card */}
             <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(255, 255, 255, 0.03)',
-                   border: '1px solid rgba(255, 255, 255, 0.1)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-2">
-                <Activity className="w-4 h-4 md:w-5 md:h-5" style={{ color: 'var(--text-secondary)' }} />
+                <Activity className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#6B7280' }} />
                 <span className="text-xs uppercase tracking-wider font-semibold"
-                      style={{ color: 'var(--text-tertiary)' }}>
+                      style={{ color: '#6B7280' }}>
                   Avg Size
                 </span>
               </div>
               <div className="text-3xl md:text-4xl font-bold"
-                   style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                   style={{ color: '#111827', letterSpacing: '-0.02em' }}>
                 {avgProjectSize.toFixed(1)}
               </div>
-              <div className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+              <div className="text-xs md:text-sm mt-1" style={{ color: '#6B7280' }}>
                 Acres/project
               </div>
             </div>
@@ -423,14 +410,15 @@ export default function ProjectsPage() {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
             <div className="rounded-xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(255, 255, 255, 0.03)',
-                   border: '1px solid rgba(255, 255, 255, 0.1)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-1">
-                <Package className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Loadouts</span>
+                <Package className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#6B7280' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Loadouts</span>
               </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{loadouts.length}</div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#111827' }}>{loadouts.length}</div>
             </div>
 
             <div className="rounded-xl p-5 md:p-7"
@@ -440,21 +428,22 @@ export default function ProjectsPage() {
                  }}>
               <div className="flex items-center gap-2 mb-1">
                 <Calculator className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Margin</span>
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Margin</span>
               </div>
               <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{projectData.profitMargin}%</div>
             </div>
 
             <div className="rounded-xl p-5 md:p-7"
                  style={{
-                   background: 'rgba(255, 255, 255, 0.03)',
-                   border: '1px solid rgba(255, 255, 255, 0.1)',
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="flex items-center gap-2 mb-1">
-                <Activity className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: 'var(--text-secondary)' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Acres</span>
+                <Activity className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#6B7280' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Acres</span>
               </div>
-              <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{projectData.acres}</div>
+              <div className="text-2xl md:text-3xl font-bold" style={{ color: '#111827' }}>{projectData.acres}</div>
             </div>
 
             <div className="rounded-xl p-5 md:p-7"
@@ -464,7 +453,7 @@ export default function ProjectsPage() {
                  }}>
               <div className="flex items-center gap-2 mb-1">
                 <DollarSign className="w-3.5 h-3.5 md:w-4 md:h-4" style={{ color: '#00FF41' }} />
-                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: 'var(--text-tertiary)' }}>Price</span>
+                <span className="text-xs uppercase tracking-wider font-semibold" style={{ color: '#6B7280' }}>Price</span>
               </div>
               <div className="text-xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>
                 {selectedLoadout && !isNaN(totalPrice) ? formatCurrency(totalPrice).replace('.00', '') : '$0'}
@@ -476,10 +465,9 @@ export default function ProjectsPage() {
           {loadouts.length === 0 ? (
             <div className="empty-state glass rounded-3xl p-12"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.6) 0%, rgba(10, 10, 10, 0.4) 100%)',
-                   border: '1px solid var(--border-default)',
-                   backdropFilter: 'blur(20px)',
-                   WebkitBackdropFilter: 'blur(20px)'
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <FileText className="empty-icon mx-auto mb-6" style={{ opacity: 0.3 }} />
               <h3 className="empty-title">No loadouts available</h3>
@@ -503,19 +491,10 @@ export default function ProjectsPage() {
           ) : (
             <div className="relative rounded-3xl overflow-hidden"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(34, 197, 94, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(34, 197, 94, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
-              {/* Premium Glow Effect */}
-              <div className="absolute inset-0"
-                   style={{
-                     background: 'radial-gradient(circle at top center, rgba(34, 197, 94, 0.15), transparent 60%)',
-                     pointerEvents: 'none'
-                   }} />
-
               <div className="relative p-6 md:p-8 space-y-8 md:space-y-10">
                 {/* Project Details Section */}
                 <div>
@@ -529,7 +508,7 @@ export default function ProjectsPage() {
                       <Settings className="w-5 h-5" style={{ color: '#22C55E' }} />
                     </div>
                     <h3 className="text-lg font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                        style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                       Project Details
                     </h3>
                   </div>
@@ -564,7 +543,7 @@ export default function ProjectsPage() {
                         </button>
                       </div>
                       {selectedCustomerId && customers.find(c => c._id === selectedCustomerId) && (
-                        <div className="mt-2 text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                        <div className="mt-2 text-sm" style={{ color: '#6B7280' }}>
                           {(() => {
                             const customer = customers.find(c => c._id === selectedCustomerId);
                             return customer ? (
@@ -603,7 +582,7 @@ export default function ProjectsPage() {
                       {/* LARGE Acreage Input */}
                       <div>
                         <label className="block text-sm font-semibold mb-3 uppercase tracking-wider"
-                               style={{ color: 'var(--text-secondary)' }}>
+                               style={{ color: '#6B7280' }}>
                           Project Acreage
                         </label>
 
@@ -618,7 +597,7 @@ export default function ProjectsPage() {
                               style={{
                                 background: projectData.acres === acres ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
                                 border: projectData.acres === acres ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
-                                color: projectData.acres === acres ? '#00FF41' : 'var(--text-secondary)'
+                                color: projectData.acres === acres ? '#00FF41' : '#6B7280'
                               }}
                             >
                               {acres}
@@ -647,15 +626,15 @@ export default function ProjectsPage() {
                       {/* DBH Package */}
                       <div>
                         <label className="block text-sm font-semibold mb-3 uppercase tracking-wider"
-                               style={{ color: 'var(--text-secondary)' }}>
+                               style={{ color: '#6B7280' }}>
                           DBH Package
                         </label>
                         <select
                           className="w-full px-6 py-5 rounded-xl font-semibold text-xl text-center"
                           style={{
                             background: 'linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%)',
-                            border: '2px solid var(--border-default)',
-                            color: 'var(--text-primary)',
+                            border: '2px solid #E5E7EB',
+                            color: '#111827',
                             backdropFilter: 'blur(20px)',
                             WebkitBackdropFilter: 'blur(20px)'
                           }}
@@ -674,7 +653,7 @@ export default function ProjectsPage() {
                     {/* Profit Margin Section */}
                     <div>
                       <label className="block text-sm font-semibold mb-3 uppercase tracking-wider"
-                             style={{ color: 'var(--text-secondary)' }}>
+                             style={{ color: '#6B7280' }}>
                         Profit Margin (%)
                       </label>
 
@@ -689,7 +668,7 @@ export default function ProjectsPage() {
                             style={{
                               background: projectData.profitMargin === margin ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
                               border: projectData.profitMargin === margin ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
-                              color: projectData.profitMargin === margin ? '#00FF41' : 'var(--text-secondary)'
+                              color: projectData.profitMargin === margin ? '#00FF41' : '#6B7280'
                             }}
                           >
                             {margin}%
@@ -715,7 +694,7 @@ export default function ProjectsPage() {
                           className="flex-1 text-center px-4 py-4 md:py-6 rounded-xl font-mono text-3xl md:text-4xl font-bold"
                           style={{
                             background: 'rgba(255,255,255,0.03)',
-                            border: '2px solid var(--border-default)',
+                            border: '2px solid #E5E7EB',
                             color: '#00FF41'
                           }}
                           value={projectData.profitMargin}
@@ -755,40 +734,40 @@ export default function ProjectsPage() {
                         <div className="flex justify-between items-center p-4 rounded-xl"
                              style={{
                                background: 'rgba(0, 0, 0, 0.2)',
-                               border: '1px solid var(--border-default)'
+                               border: '1px solid #E5E7EB'
                              }}>
-                          <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>Inch-Acres</span>
-                          <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          <span className="text-sm" style={{ color: '#6B7280' }}>Inch-Acres</span>
+                          <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                             {inchAcres.toFixed(2)} IA
                           </span>
                         </div>
                         <div className="flex justify-between items-center p-4 rounded-xl"
                              style={{
                                background: 'rgba(0, 0, 0, 0.2)',
-                               border: '1px solid var(--border-default)'
+                               border: '1px solid #E5E7EB'
                              }}>
-                          <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>Production Hours</span>
-                          <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          <span className="text-sm" style={{ color: '#6B7280' }}>Production Hours</span>
+                          <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                             {hours.toFixed(2)} hrs
                           </span>
                         </div>
                         <div className="flex justify-between items-center p-4 rounded-xl"
                              style={{
                                background: 'rgba(0, 0, 0, 0.2)',
-                               border: '1px solid var(--border-default)'
+                               border: '1px solid #E5E7EB'
                              }}>
-                          <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>Loadout Cost</span>
-                          <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          <span className="text-sm" style={{ color: '#6B7280' }}>Loadout Cost</span>
+                          <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                             {formatCurrency(loadoutCost)}/hr
                           </span>
                         </div>
                         <div className="flex justify-between items-center p-4 rounded-xl"
                              style={{
                                background: 'rgba(0, 0, 0, 0.2)',
-                               border: '1px solid var(--border-default)'
+                               border: '1px solid #E5E7EB'
                              }}>
-                          <span className="text-sm" style={{ color: 'var(--text-tertiary)' }}>Billing Rate</span>
-                          <span className="font-mono font-semibold" style={{ color: 'var(--text-primary)' }}>
+                          <span className="text-sm" style={{ color: '#6B7280' }}>Billing Rate</span>
+                          <span className="font-mono font-semibold" style={{ color: '#111827' }}>
                             {formatCurrency(billingRate)}/hr
                           </span>
                         </div>
@@ -913,20 +892,18 @@ export default function ProjectsPage() {
           {projects.length > 0 && (
             <div className="mt-10 relative rounded-3xl overflow-hidden"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(0, 255, 65, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 255, 65, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: '#FFFFFF',
+                   border: '1px solid #E5E7EB',
+                   boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                  }}>
               <div className="p-6 md:p-8">
                 <div className="flex items-center gap-2 mb-6">
                   <FileText className="w-5 h-5" style={{ color: '#00FF41' }} />
                   <h3 className="text-lg font-semibold uppercase tracking-wider"
-                      style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                      style={{ color: '#6B7280', letterSpacing: '0.1em' }}>
                     Recent Quotes
                   </h3>
-                  <span className="ml-auto text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  <span className="ml-auto text-sm" style={{ color: '#6B7280' }}>
                     {projects.length} total
                   </span>
                 </div>
@@ -942,7 +919,7 @@ export default function ProjectsPage() {
                       <div className="flex items-center justify-between gap-4">
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 mb-2">
-                            <h4 className="font-semibold text-lg truncate" style={{ color: 'var(--text-primary)' }}>
+                            <h4 className="font-semibold text-lg truncate" style={{ color: '#111827' }}>
                               {project.projectName}
                             </h4>
                             <span className={`px-2 py-1 rounded-full text-xs font-semibold uppercase tracking-wider`}
@@ -960,7 +937,7 @@ export default function ProjectsPage() {
                               {project.status || 'quoted'}
                             </span>
                           </div>
-                          <div className="flex items-center gap-4 text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                          <div className="flex items-center gap-4 text-sm" style={{ color: '#6B7280' }}>
                             <span>{project.projectSize} acres</span>
                             <span>•</span>
                             <span>{formatCurrency(project.totalPrice || 0)}</span>
@@ -989,7 +966,7 @@ export default function ProjectsPage() {
                             style={{
                               background: 'rgba(255, 255, 255, 0.05)',
                               border: '1px solid rgba(255, 255, 255, 0.1)',
-                              color: 'var(--text-primary)'
+                              color: '#111827'
                             }}
                           >
                             <option value="quoted">Quoted</option>
@@ -1030,15 +1007,13 @@ export default function ProjectsPage() {
              onClick={() => setShowCustomerModal(false)}>
           <div className="relative max-w-2xl w-full rounded-3xl overflow-hidden"
                style={{
-                 background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%)',
-                 border: '2px solid rgba(0, 255, 65, 0.3)',
-                 boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 255, 65, 0.3)',
-                 backdropFilter: 'blur(40px)',
-                 WebkitBackdropFilter: 'blur(40px)'
+                 background: '#FFFFFF',
+                 border: '1px solid #E5E7EB',
+                 boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
                }}
                onClick={(e) => e.stopPropagation()}>
             <div className="p-8">
-              <h2 className="text-3xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
+              <h2 className="text-3xl font-bold mb-6" style={{ color: '#111827' }}>
                 New Customer
               </h2>
 
@@ -1145,7 +1120,7 @@ export default function ProjectsPage() {
                   style={{
                     background: 'rgba(255, 255, 255, 0.05)',
                     border: '1px solid rgba(255, 255, 255, 0.1)',
-                    color: 'var(--text-primary)'
+                    color: '#111827'
                   }}
                 >
                   Cancel

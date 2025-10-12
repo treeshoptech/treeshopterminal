@@ -128,7 +128,7 @@ export default function HomePage() {
           {steps.map((step) => (
             <Link key={step.number} href={step.href}>
               <div
-                className="group relative aspect-square rounded-3xl p-6 transition-all duration-300 hover:scale-[1.02]"
+                className="group relative rounded-3xl p-8 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
                 style={{
                   background: step.complete
                     ? `linear-gradient(135deg, ${step.color}20 0%, ${step.color}10 100%)`
@@ -138,7 +138,8 @@ export default function HomePage() {
                     : '2px solid rgba(255,255,255,0.1)',
                   boxShadow: step.complete
                     ? `0 8px 24px ${step.color}20`
-                    : '0 4px 12px rgba(0,0,0,0.3)'
+                    : '0 4px 12px rgba(0,0,0,0.3)',
+                  minHeight: '200px'
                 }}
               >
                 <div className="flex flex-col h-full justify-between">
@@ -180,7 +181,7 @@ export default function HomePage() {
         <div className="mt-16 pt-8" style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}>
           <Link href="/settings">
             <div
-              className="group rounded-2xl p-6 transition-all duration-300 hover:scale-[1.01]"
+              className="group rounded-2xl p-6 transition-all duration-200 hover:scale-[1.01] active:scale-[0.99]"
               style={{
                 background: 'rgba(255, 255, 255, 0.02)',
                 border: '1px solid rgba(255,255,255,0.08)',

@@ -256,7 +256,7 @@ export default function EmployeesPage() {
             </div>
             <button
               onClick={() => setShowForm(true)}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] hardware-accelerated"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] hardware-accelerated"
               style={{
                 background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                 color: 'white',

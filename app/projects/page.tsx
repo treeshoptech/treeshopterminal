@@ -389,7 +389,7 @@ export default function ProjectsPage() {
             <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 md:gap-3 mb-8">
               <button
                 onClick={handleDuplicateLastQuote}
-                className="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-2 rounded-lg font-medium text-xs md:text-sm transition-all duration-200 hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-2 rounded-lg font-medium text-xs md:text-sm transition-all duration-200 hover:scale-105 active:scale-95"
                 style={{
                   background: 'rgba(0, 255, 65, 0.1)',
                   border: '1px solid rgba(0, 255, 65, 0.3)',
@@ -404,7 +404,7 @@ export default function ProjectsPage() {
               {projectData.acres > 0 && (
                 <button
                   onClick={handleLoadSimilar}
-                  className="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-2 rounded-lg font-medium text-xs md:text-sm transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-2 rounded-lg font-medium text-xs md:text-sm transition-all duration-200 hover:scale-105 active:scale-95"
                   style={{
                     background: 'rgba(0, 191, 255, 0.1)',
                     border: '1px solid rgba(0, 191, 255, 0.3)',
@@ -551,7 +551,7 @@ export default function ProjectsPage() {
                         </select>
                         <button
                           onClick={() => setShowCustomerModal(true)}
-                          className="px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105"
+                          className="px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
                           style={{
                             background: 'rgba(0, 255, 65, 0.1)',
                             border: '1px solid rgba(0, 255, 65, 0.3)',
@@ -614,7 +614,7 @@ export default function ProjectsPage() {
                               key={acres}
                               type="button"
                               onClick={() => setProjectData({ ...projectData, acres })}
-                              className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
+                              className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 active:scale-95"
                               style={{
                                 background: projectData.acres === acres ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
                                 border: projectData.acres === acres ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
@@ -685,7 +685,7 @@ export default function ProjectsPage() {
                             key={margin}
                             type="button"
                             onClick={() => setProjectData({ ...projectData, profitMargin: margin })}
-                            className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
+                            className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105 active:scale-95"
                             style={{
                               background: projectData.profitMargin === margin ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
                               border: projectData.profitMargin === margin ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
@@ -865,7 +865,7 @@ export default function ProjectsPage() {
                       <button
                         onClick={() => window.print()}
                         disabled={!selectedLoadout || !selectedCustomerId}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105 active:scale-95"
                         style={{
                           background: 'rgba(0, 191, 255, 0.1)',
                           border: '1px solid rgba(0, 191, 255, 0.3)',
@@ -890,7 +890,7 @@ export default function ProjectsPage() {
                           }
                         }}
                         disabled={!selectedLoadout || !selectedCustomerId}
-                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105"
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105 active:scale-95"
                         style={{
                           background: 'rgba(255, 229, 0, 0.1)',
                           border: '1px solid rgba(255, 229, 0, 0.3)',
@@ -972,7 +972,7 @@ export default function ProjectsPage() {
                         <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
                           <button
                             onClick={() => handleLoadQuote(project)}
-                            className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105 whitespace-nowrap"
+                            className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105 active:scale-95 whitespace-nowrap"
                             style={{
                               background: 'rgba(0, 255, 65, 0.1)',
                               border: '1px solid rgba(0, 255, 65, 0.3)',
@@ -999,7 +999,7 @@ export default function ProjectsPage() {
 
                           <button
                             onClick={() => handleDeleteQuote(project._id)}
-                            className="px-3 py-2 rounded-lg text-sm transition-all duration-200 hover:scale-105"
+                            className="px-3 py-2 rounded-lg text-sm transition-all duration-200 hover:scale-105 active:scale-95"
                             style={{
                               background: 'rgba(255, 0, 64, 0.1)',
                               border: '1px solid rgba(255, 0, 64, 0.3)',
@@ -1153,7 +1153,7 @@ export default function ProjectsPage() {
                 <button
                   onClick={handleCreateCustomer}
                   disabled={!newCustomer.name || !newCustomer.phone}
-                  className="flex-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105"
+                  className="flex-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105 active:scale-95"
                   style={{
                     background: (!newCustomer.name || !newCustomer.phone) ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
                     color: 'white',

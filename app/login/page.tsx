@@ -1,65 +1,37 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useQuery } from 'convex/react';
-import { api } from '@/convex/_generated/api';
+import { useAuthActions } from "@convex-dev/auth/react";
+import { useState } from 'react';
+import { LogIn } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { useTreeShopAuth } from '@/lib/auth/useTreeShopAuth';
-import { ArrowRight, LogIn } from 'lucide-react';
 
 export default function LoginPage() {
+  const { signIn } = useAuthActions();
   const router = useRouter();
-  const { signIn, signUp, isAuthenticated, isLoading: authLoading } = useTreeShopAuth();
-
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
-  const [company, setCompany] = useState('');
+  const [flow, setFlow] = useState<"signIn" | "signUp">("signIn");
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
-  const whitelistCheck = useQuery(api.auth.checkWhitelist, email ? { email } : 'skip');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setSubmitting(true);
     setError('');
-    setLoading(true);
 
-    console.log('Login attempt:', { email, isSignUp });
+    const formData = new FormData(event.currentTarget);
 
-    try {
-      // Check whitelist first
-      console.log('Whitelist check:', whitelistCheck);
-      if (!whitelistCheck?.isApproved) {
-        setError('This email is not approved. Contact office@fltreeshop.com for access.');
-        setLoading(false);
-        return;
-      }
-
-      if (isSignUp) {
-        if (!name) {
-          setError('Please enter your name');
-          setLoading(false);
-          return;
-        }
-        console.log('Attempting signup...');
-        const result = await signUp(email, password, name, company);
-        console.log('Signup result:', result);
-      } else {
-        console.log('Attempting signin...');
-        const result = await signIn(email, password);
-        console.log('Signin result:', result);
-      }
-
-      console.log('Redirecting to home...');
-      // Force full page reload to ensure auth state updates
-      window.location.href = '/';
-    } catch (err: any) {
-      console.error('Auth error:', err);
-      setError(err.message || 'Authentication failed. Please try again.');
-      setLoading(false);
-    }
+    signIn("password", formData)
+      .then(() => {
+        // Redirect to home on success
+        window.location.href = '/';
+      })
+      .catch((err) => {
+        console.error('Auth error:', err);
+        const message = flow === "signIn"
+          ? "Could not sign in - check your email and password"
+          : "Could not sign up - email may already be registered";
+        setError(message);
+        setSubmitting(false);
+      });
   };
 
   return (
@@ -94,10 +66,10 @@ export default function LoginPage() {
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent'
               }}>
-            Welcome Back
+            {flow === 'signIn' ? 'Welcome Back' : 'Create Account'}
           </h1>
           <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
-            Sign in to your TreeShop account
+            {flow === 'signIn' ? 'Sign in to your TreeShop account' : 'Join TreeShop Terminal'}
           </p>
         </div>
 
@@ -110,55 +82,33 @@ export default function LoginPage() {
                 boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 40px rgba(34, 197, 94, 0.2)'
               }}>
           <div className="space-y-5">
-            {isSignUp && (
-              <>
-                <div className="input-group">
-                  <label className="input-label">Full Name</label>
-                  <input
-                    className="input-field"
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="John Doe"
-                    required={isSignUp}
-                  />
-                </div>
-                <div className="input-group">
-                  <label className="input-label">Company (Optional)</label>
-                  <input
-                    className="input-field"
-                    type="text"
-                    value={company}
-                    onChange={(e) => setCompany(e.target.value)}
-                    placeholder="Your Tree Service"
-                  />
-                </div>
-              </>
-            )}
-
             <div className="input-group">
-              <label className="input-label">Email</label>
+              <label className="input-label" htmlFor="email">Email</label>
               <input
                 className="input-field"
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                name="email"
+                id="email"
                 placeholder="your@email.com"
                 required
+                autoComplete="email"
               />
             </div>
 
             <div className="input-group">
-              <label className="input-label">Password</label>
+              <label className="input-label" htmlFor="password">Password</label>
               <input
                 className="input-field"
                 type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                name="password"
+                id="password"
                 placeholder="••••••••"
                 required
+                autoComplete={flow === "signIn" ? "current-password" : "new-password"}
               />
             </div>
+
+            <input name="flow" value={flow} type="hidden" />
 
             {error && (
               <div className="p-4 rounded-xl"
@@ -173,17 +123,17 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              disabled={loading}
+              disabled={submitting}
               className="w-full inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
               style={{
                 background: 'var(--gradient-brand)',
                 color: 'white',
                 boxShadow: '0 8px 24px rgba(34, 197, 94, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.2)'
               }}>
-              {loading ? (isSignUp ? 'Creating account...' : 'Signing in...') : (
+              {submitting ? (flow === 'signUp' ? 'Creating account...' : 'Signing in...') : (
                 <>
                   <LogIn className="w-5 h-5" />
-                  <span>{isSignUp ? 'Create Account' : 'Sign In'}</span>
+                  <span>{flow === 'signIn' ? 'Sign In' : 'Create Account'}</span>
                 </>
               )}
             </button>
@@ -193,13 +143,15 @@ export default function LoginPage() {
             <button
               type="button"
               onClick={() => {
-                setIsSignUp(!isSignUp);
+                setFlow(flow === "signIn" ? "signUp" : "signIn");
                 setError('');
               }}
               className="text-sm hover:underline"
               style={{ color: 'var(--brand-400)' }}
             >
-              {isSignUp ? 'Already have an account? Sign in' : "Don't have an account? Sign up"}
+              {flow === "signIn"
+                ? "Don't have an account? Sign up"
+                : "Already have an account? Sign in"}
             </button>
             <p className="text-xs mt-4" style={{ color: 'var(--text-quaternary)' }}>
               Access is by invitation only.

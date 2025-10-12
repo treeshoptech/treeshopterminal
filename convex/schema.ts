@@ -1,5 +1,6 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
 /**
  * TreeShopTerminal Convex Schema
@@ -9,8 +10,9 @@ import { v } from "convex/values";
 
 export default defineSchema({
   // ============================================
-  // AUTHENTICATION (Simple Custom)
+  // AUTHENTICATION (Convex Auth)
   // ============================================
+  ...authTables,
 
   // Email whitelist for approved users
   whitelist: defineTable({
@@ -21,16 +23,6 @@ export default defineSchema({
     notes: v.optional(v.string()),
     createdAt: v.number(),
   }).index("by_email", ["email"]),
-
-  // User sessions
-  sessions: defineTable({
-    userId: v.id("userProfiles"),
-    token: v.string(),
-    expiresAt: v.number(),
-    createdAt: v.number(),
-  })
-    .index("by_token", ["token"])
-    .index("by_userId", ["userId"]),
 
   // ============================================
   // MULTI-TENANT CORE

@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
-import { TreeShopAuthProvider } from '@/lib/auth/ConvexAuthProvider';
+import { ConvexProvider, ConvexReactClient } from 'convex/react';
 import { MobileNav } from '@/components/layout/MobileNav';
 import '../styles/design-system.css';
 import '../styles/globals.css';
+
+const convex = new ConvexReactClient(process.env.NEXT_PUBLIC_CONVEX_URL!);
 
 export const metadata: Metadata = {
   title: 'TreeShop Pricing System',
@@ -34,12 +36,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <TreeShopAuthProvider>
+        <ConvexProvider client={convex}>
           <div className="pb-20 md:pb-0">
             {children}
           </div>
           <MobileNav />
-        </TreeShopAuthProvider>
+        </ConvexProvider>
       </body>
     </html>
   );

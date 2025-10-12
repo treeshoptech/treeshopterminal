@@ -29,12 +29,9 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import '@/styles/design-system.css';
 
-import { useTreeShopAuth } from '@/lib/auth/useTreeShopAuth';
-import { AuthGuard } from '@/components/auth/AuthGuard';
-
 export default function EquipmentLibraryPage() {
   const router = useRouter();
-  const { orgId } = useTreeShopAuth();
+  const orgId = 'org_demo'; // Default org for all users
   const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
   const createEquipment = useMutation(api.equipment.create);
   const deleteEquipment = useMutation(api.equipment.remove);
@@ -137,7 +134,6 @@ export default function EquipmentLibraryPage() {
   };
 
   return (
-    <AuthGuard>
     <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
@@ -830,6 +826,5 @@ export default function EquipmentLibraryPage() {
           )}
         </div>
     </div>
-    </AuthGuard>
   );
 }

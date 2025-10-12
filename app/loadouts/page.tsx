@@ -27,11 +27,9 @@ import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 import '@/styles/design-system.css';
 
-import { useAuth } from '@/hooks/useAuth';
-import { AuthGuard } from '@/components/auth/AuthGuard';
 
 export default function LoadoutsPage() {
-  const { orgId } = useAuth();
+  const orgId = "org_demo";
 
   const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
   const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];
@@ -135,7 +133,7 @@ export default function LoadoutsPage() {
   };
 
   return (
-    <AuthGuard>
+    
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
@@ -868,6 +866,6 @@ export default function LoadoutsPage() {
           )}
         </div>
       </div>
-    </AuthGuard>
+    
   );
 }

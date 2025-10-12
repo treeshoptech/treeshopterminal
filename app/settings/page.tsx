@@ -1,21 +1,12 @@
 'use client';
 
 import { useState } from 'react';
-import { useTreeShopAuth } from '@/lib/auth/useTreeShopAuth';
-import { AuthGuard } from '@/components/auth/AuthGuard';
 import { Settings, User, Bell, Palette, Shield, LogOut, Smartphone, Download } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function SettingsPage() {
-  const { email, name, signOut } = useTreeShopAuth();
-  const router = useRouter();
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
-
-  const handleLogout = async () => {
-    await signOut();
-    router.push('/login');
-  };
 
   const handleInstall = async () => {
     if (deferredPrompt) {
@@ -27,7 +18,6 @@ export default function SettingsPage() {
   };
 
   return (
-    <AuthGuard>
     <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
       <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
         {/* Header */}
@@ -64,24 +54,15 @@ export default function SettingsPage() {
               </div>
               <div>
                 <div className="font-semibold" style={{ color: 'var(--text-primary)' }}>
-                  {name || email || 'Not signed in'}
+                  Demo User
                 </div>
                 <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  {email || 'Account'}
+                  demo@treeshop.com
                 </div>
               </div>
             </div>
           </div>
 
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center justify-between p-6 transition-colors hover:bg-white/5"
-          >
-            <div className="flex items-center gap-3">
-              <LogOut className="w-5 h-5" style={{ color: 'var(--color-error)' }} />
-              <span style={{ color: 'var(--color-error)' }}>Sign Out</span>
-            </div>
-          </button>
         </div>
 
         {/* App Settings */}
@@ -184,6 +165,5 @@ export default function SettingsPage() {
         </div>
       </div>
     </div>
-    </AuthGuard>
   );
 }

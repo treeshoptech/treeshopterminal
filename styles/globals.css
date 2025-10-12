@@ -409,3 +409,5 @@ textarea::placeholder {
 @media (min-width: 1280px) {
   .xl\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
 }
+[data-theme="dark"] { --page-bg: #000000; --card-bg: #1A1A1A; --text: #FFFFFF; --text-secondary: #CCCCCC; --border: rgba(255,255,255,0.1); }
+[data-theme="light"] { --page-bg: #F9FAFB; --card-bg: #FFFFFF; --text: #111827; --text-secondary: #6B7280; --border: #E5E7EB; }

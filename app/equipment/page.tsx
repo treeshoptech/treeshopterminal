@@ -146,7 +146,7 @@ export default function EquipmentLibraryPage() {
                }} />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
           {/* Premium Header Section */}
           <div className="mb-10">
             <div className="flex items-start gap-4 mb-8">
@@ -195,8 +195,8 @@ export default function EquipmentLibraryPage() {
           </div>
 
           {/* Stats Cards - Clean 2-Column Mobile Design */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
-            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10">
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
                    background: 'rgba(0, 255, 65, 0.08)',
                    border: '1px solid rgba(0, 255, 65, 0.25)',
@@ -209,7 +209,7 @@ export default function EquipmentLibraryPage() {
               <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Active</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
                    background: 'rgba(0, 191, 255, 0.08)',
                    border: '1px solid rgba(0, 191, 255, 0.25)',
@@ -226,7 +226,7 @@ export default function EquipmentLibraryPage() {
               <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Per hour</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
                    background: 'rgba(255, 229, 0, 0.08)',
                    border: '1px solid rgba(255, 229, 0, 0.25)',
@@ -241,7 +241,7 @@ export default function EquipmentLibraryPage() {
               <div className="text-xs mt-0.5" style={{ color: 'var(--text-tertiary)' }}>Investment</div>
             </div>
 
-            <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
                    background: 'rgba(255, 255, 255, 0.03)',
                    border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -621,7 +621,7 @@ export default function EquipmentLibraryPage() {
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-8">
               {equipment.map((item) => (
                 <div key={item._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
                      style={{

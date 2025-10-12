@@ -242,7 +242,7 @@ export default function ProjectsPage() {
                }} />
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="relative max-w-6xl mx-auto px-6 sm:px-8 lg:px-12 py-8">
           {/* Premium Header Section */}
           <div className="mb-10">
             <div className="flex items-start gap-4 mb-8">
@@ -294,9 +294,9 @@ export default function ProjectsPage() {
           </div>
 
           {/* Analytics Dashboard */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 mb-10">
             {/* Win Rate Card */}
-            <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
                    background: 'rgba(0, 255, 65, 0.05)',
                    border: '1px solid rgba(0, 255, 65, 0.2)',
@@ -318,7 +318,7 @@ export default function ProjectsPage() {
             </div>
 
             {/* Revenue Card */}
-            <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
                    background: 'rgba(0, 255, 65, 0.05)',
                    border: '1px solid rgba(0, 255, 65, 0.2)',
@@ -340,7 +340,7 @@ export default function ProjectsPage() {
             </div>
 
             {/* Pipeline Card */}
-            <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
                    background: 'rgba(0, 191, 255, 0.05)',
                    border: '1px solid rgba(0, 191, 255, 0.2)',
@@ -362,7 +362,7 @@ export default function ProjectsPage() {
             </div>
 
             {/* Avg Size Card */}
-            <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
+            <div className="rounded-xl md:rounded-2xl p-5 md:p-7"
                  style={{
                    background: 'rgba(255, 255, 255, 0.03)',
                    border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -421,7 +421,7 @@ export default function ProjectsPage() {
 
           {/* Calculator Quick Stats */}
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-8">
-            <div className="rounded-xl p-3 md:p-4"
+            <div className="rounded-xl p-5 md:p-7"
                  style={{
                    background: 'rgba(255, 255, 255, 0.03)',
                    border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -433,7 +433,7 @@ export default function ProjectsPage() {
               <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{loadouts.length}</div>
             </div>
 
-            <div className="rounded-xl p-3 md:p-4"
+            <div className="rounded-xl p-5 md:p-7"
                  style={{
                    background: 'rgba(0, 255, 65, 0.08)',
                    border: '1px solid rgba(0, 255, 65, 0.25)',
@@ -445,7 +445,7 @@ export default function ProjectsPage() {
               <div className="text-2xl md:text-3xl font-bold" style={{ color: '#00FF41' }}>{projectData.profitMargin}%</div>
             </div>
 
-            <div className="rounded-xl p-3 md:p-4"
+            <div className="rounded-xl p-5 md:p-7"
                  style={{
                    background: 'rgba(255, 255, 255, 0.03)',
                    border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -457,7 +457,7 @@ export default function ProjectsPage() {
               <div className="text-2xl md:text-3xl font-bold" style={{ color: 'var(--text-primary)' }}>{projectData.acres}</div>
             </div>
 
-            <div className="rounded-xl p-3 md:p-4"
+            <div className="rounded-xl p-5 md:p-7"
                  style={{
                    background: 'rgba(0, 255, 65, 0.12)',
                    border: '1px solid rgba(0, 255, 65, 0.3)',

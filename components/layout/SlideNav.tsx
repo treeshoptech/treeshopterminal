@@ -50,26 +50,26 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
         style={{
-          background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.98) 0%, rgba(0, 0, 0, 0.98) 100%)',
-          borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: '-8px 0 32px rgba(0, 0, 0, 0.5)',
+          background: 'white',
+          borderLeft: '1px solid #E5E7EB',
+          boxShadow: '-8px 0 32px rgba(0, 0, 0, 0.1)',
         }}
       >
         <div className="p-6">
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
+            <h2 className="text-2xl font-bold" style={{ color: '#111827' }}>
               Menu
             </h2>
             <button
               onClick={onClose}
               className="p-2 rounded-lg transition-all duration-200 hover:scale-110 active:scale-95"
               style={{
-                background: 'rgba(255, 255, 255, 0.05)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                background: '#F9FAFB',
+                border: '1px solid #E5E7EB',
               }}
             >
-              <X className="w-6 h-6" style={{ color: 'var(--text-secondary)' }} />
+              <X className="w-6 h-6" style={{ color: '#6B7280' }} />
             </button>
           </div>
 
@@ -86,12 +86,8 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
                   onClick={onClose}
                   className="flex items-center justify-between p-4 rounded-xl transition-all duration-200 active:scale-95"
                   style={{
-                    background: isActive
-                      ? `linear-gradient(135deg, ${link.color}20 0%, ${link.color}10 100%)`
-                      : 'rgba(255, 255, 255, 0.03)',
-                    border: isActive
-                      ? `1px solid ${link.color}40`
-                      : '1px solid rgba(255, 255, 255, 0.08)',
+                    background: isActive ? '#F0FDF4' : '#F9FAFB',
+                    border: isActive ? `2px solid ${link.color}` : '1px solid #E5E7EB',
                   }}
                 >
                   <div className="flex items-center gap-3">
@@ -101,7 +97,7 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
                     />
                     <span
                       className="text-lg font-semibold"
-                      style={{ color: isActive ? link.color : 'var(--text-primary)' }}
+                      style={{ color: isActive ? link.color : '#111827' }}
                     >
                       {link.label}
                     </span>

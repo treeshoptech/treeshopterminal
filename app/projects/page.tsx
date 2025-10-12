@@ -294,152 +294,117 @@ export default function ProjectsPage() {
           </div>
 
           {/* Analytics Dashboard */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-8">
+            {/* Win Rate Card */}
+            <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(0, 255, 65, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(0, 255, 65, 0.05)',
+                   border: '1px solid rgba(0, 255, 65, 0.2)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at top left, rgba(0, 255, 65, 0.3), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Target className="w-5 h-5" style={{ color: '#00FF41' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Win Rate
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {winRate.toFixed(0)}%
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  {wonProjects.length} won / {projects.length} total
-                </div>
+              <div className="flex items-center gap-2 mb-2">
+                <Target className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00FF41' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold"
+                      style={{ color: 'var(--text-tertiary)' }}>
+                  Win Rate
+                </span>
+              </div>
+              <div className="text-3xl md:text-4xl font-bold"
+                   style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>
+                {winRate.toFixed(0)}%
+              </div>
+              <div className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                {wonProjects.length} won / {projects.length} total
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            {/* Revenue Card */}
+            <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(0, 255, 65, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(0, 255, 65, 0.05)',
+                   border: '1px solid rgba(0, 255, 65, 0.2)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at top right, rgba(0, 255, 65, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <DollarSign className="w-5 h-5" style={{ color: 'var(--brand-400)' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Revenue
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {formatCurrency(totalRevenue).replace('.00', '')}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  From won projects
-                </div>
+              <div className="flex items-center gap-2 mb-2">
+                <DollarSign className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00FF41' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold"
+                      style={{ color: 'var(--text-tertiary)' }}>
+                  Revenue
+                </span>
+              </div>
+              <div className="text-2xl md:text-4xl font-bold"
+                   style={{ color: '#00FF41', letterSpacing: '-0.02em' }}>
+                {formatCurrency(totalRevenue).replace('.00', '').replace('$0', '$0')}
+              </div>
+              <div className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                Won projects
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            {/* Pipeline Card */}
+            <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(0, 191, 255, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 191, 255, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(0, 191, 255, 0.05)',
+                   border: '1px solid rgba(0, 191, 255, 0.2)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at bottom left, rgba(0, 191, 255, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(0, 191, 255, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <BarChart3 className="w-5 h-5" style={{ color: '#00BFFF' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Pipeline
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {quotedProjects.length}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Pending quotes
-                </div>
+              <div className="flex items-center gap-2 mb-2">
+                <BarChart3 className="w-4 h-4 md:w-5 md:h-5" style={{ color: '#00BFFF' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold"
+                      style={{ color: 'var(--text-tertiary)' }}>
+                  Pipeline
+                </span>
+              </div>
+              <div className="text-3xl md:text-4xl font-bold"
+                   style={{ color: '#00BFFF', letterSpacing: '-0.02em' }}>
+                {quotedProjects.length}
+              </div>
+              <div className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                Pending quotes
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+            {/* Avg Size Card */}
+            <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
                  style={{
-                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-                   border: '2px solid rgba(0, 255, 65, 0.2)',
-                   backdropFilter: 'blur(60px)',
-                   WebkitBackdropFilter: 'blur(60px)',
-                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                   background: 'rgba(255, 255, 255, 0.03)',
+                   border: '1px solid rgba(255, 255, 255, 0.1)',
                  }}>
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                   style={{
-                     background: 'radial-gradient(circle at bottom right, rgba(0, 255, 65, 0.25), transparent 70%)',
-                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
-                   }} />
-              <div className="relative">
-                <div className="flex items-center justify-between mb-3">
-                  <Activity className="w-5 h-5" style={{ color: '#16A34A' }} />
-                  <span className="text-xs font-semibold uppercase tracking-wider"
-                        style={{ color: 'var(--text-quaternary)' }}>
-                    Avg Size
-                  </span>
-                </div>
-                <div className="text-4xl font-bold mb-1"
-                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
-                  {avgProjectSize.toFixed(1)}
-                </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                  Acres per project
-                </div>
+              <div className="flex items-center gap-2 mb-2">
+                <Activity className="w-4 h-4 md:w-5 md:h-5" style={{ color: 'var(--text-secondary)' }} />
+                <span className="text-xs uppercase tracking-wider font-semibold"
+                      style={{ color: 'var(--text-tertiary)' }}>
+                  Avg Size
+                </span>
+              </div>
+              <div className="text-3xl md:text-4xl font-bold"
+                   style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                {avgProjectSize.toFixed(1)}
+              </div>
+              <div className="text-xs md:text-sm mt-1" style={{ color: 'var(--text-tertiary)' }}>
+                Acres/project
               </div>
             </div>
           </div>
 
           {/* Quick Actions */}
           {projects.length > 0 && (
-            <div className="flex flex-wrap gap-3 mb-10">
+            <div className="grid grid-cols-2 md:flex md:flex-wrap gap-2 md:gap-3 mb-8">
               <button
                 onClick={handleDuplicateLastQuote}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                className="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-2 rounded-lg font-medium text-xs md:text-sm transition-all duration-200 hover:scale-105"
                 style={{
                   background: 'rgba(0, 255, 65, 0.1)',
                   border: '1px solid rgba(0, 255, 65, 0.3)',
                   color: '#00FF41'
                 }}
               >
-                <Zap className="w-4 h-4" />
-                Duplicate Last Quote
+                <Copy className="w-4 h-4" />
+                <span className="hidden md:inline">Duplicate Last</span>
+                <span className="md:hidden">Duplicate</span>
               </button>
 
               {projectData.acres > 0 && (
                 <button
                   onClick={handleLoadSimilar}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                  className="inline-flex items-center justify-center gap-2 px-3 md:px-4 py-2.5 md:py-2 rounded-lg font-medium text-xs md:text-sm transition-all duration-200 hover:scale-105"
                   style={{
                     background: 'rgba(0, 191, 255, 0.1)',
                     border: '1px solid rgba(0, 191, 255, 0.3)',
@@ -447,7 +412,8 @@ export default function ProjectsPage() {
                   }}
                 >
                   <Target className="w-4 h-4" />
-                  Load Similar Project
+                  <span className="hidden md:inline">Load Similar</span>
+                  <span className="md:hidden">Similar</span>
                 </button>
               )}
             </div>

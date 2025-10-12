@@ -213,7 +213,7 @@ export default function LoadoutsPage() {
           </div>
 
           {/* Stats Cards - Clean 2-Column Mobile Design */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
             <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
                    background: 'rgba(0, 255, 65, 0.08)',
@@ -283,7 +283,7 @@ export default function LoadoutsPage() {
             </div>
             <button
               onClick={() => setShowForm(true)}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hardware-accelerated"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] hardware-accelerated"
               style={{
                 background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                 color: 'white',
@@ -676,7 +676,7 @@ export default function LoadoutsPage() {
                 const serviceGradient = getServiceTypeGradient(loadout.serviceType);
 
                 return (
-                  <div key={loadout._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hardware-accelerated"
+                  <div key={loadout._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
                        style={{
                          background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
                          border: `2px solid ${serviceColor}33`,

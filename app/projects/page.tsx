@@ -294,7 +294,7 @@ export default function ProjectsPage() {
           </div>
 
           {/* Analytics Dashboard */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
             {/* Win Rate Card */}
             <div className="rounded-xl md:rounded-2xl p-4 md:p-6"
                  style={{

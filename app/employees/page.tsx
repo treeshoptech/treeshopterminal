@@ -180,7 +180,7 @@ export default function EmployeesPage() {
           </div>
 
           {/* Stats Cards - Clean 2-Column Mobile Design */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-8">
             <div className="rounded-xl md:rounded-2xl p-3 md:p-4"
                  style={{
                    background: 'rgba(0, 255, 65, 0.08)',
@@ -256,7 +256,7 @@ export default function EmployeesPage() {
             </div>
             <button
               onClick={() => setShowForm(true)}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hardware-accelerated"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-[1.02] hardware-accelerated"
               style={{
                 background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
                 color: 'white',
@@ -537,7 +537,7 @@ export default function EmployeesPage() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {employees.map((emp) => (
-                <div key={emp._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-105 hardware-accelerated"
+                <div key={emp._id} className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:scale-[1.02] hardware-accelerated"
                      style={{
                        background: 'linear-gradient(135deg, var(--bg-surface) 0%, rgba(10, 10, 10, 0.98) 100%)',
                        border: '1px solid var(--border-default)',

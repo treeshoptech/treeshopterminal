@@ -371,6 +371,12 @@ export default function HomePage() {
                     },
                     footer: {
                       display: 'none'
+                    },
+                    footerActionText: {
+                      display: 'none'
+                    },
+                    identityPreviewEditButton: {
+                      display: 'none'
                     }
                   },
                   variables: {
@@ -383,7 +389,9 @@ export default function HomePage() {
                     borderRadius: '12px'
                   },
                 }}
-                redirectUrl="/"
+                routing="hash"
+                afterSignInUrl="/"
+                signUpUrl={undefined}
               />
 
               <div className="text-center mt-8">

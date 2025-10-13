@@ -1,14 +1,15 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
 
-// Define public routes that don't require authentication
+// Only public route is homepage (which has modal login)
+// All API webhooks should be public
 const isPublicRoute = createRouteMatcher([
   '/',
-  '/sign-in(.*)',
   '/api/webhooks(.*)',
 ]);
 
 export default clerkMiddleware(async (auth, request) => {
-  // Protect all routes except public ones (homepage has modal sign-in)
+  // Homepage shows modal login overlay - don't protect it
+  // Everything else requires authentication
   if (!isPublicRoute(request)) {
     await auth.protect();
   }

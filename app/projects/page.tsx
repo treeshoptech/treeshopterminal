@@ -27,7 +27,7 @@ import '@/styles/design-system.css';
 
 
 export default function ProjectsPage() {
-  const orgId = "org_demo";
+  const { organizationId: orgId } = useOrganization();
 
   const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
   const [selectedLoadout, setSelectedLoadout] = useState('');

@@ -1,18 +1,21 @@
 import { query, mutation } from './_generated/server';
 import { v } from 'convex/values';
+import { getCurrentOrganizationId, verifyOrganizationAccess } from './auth';
 
 export const list = query({
   args: {
-    organizationId: v.string(),
+    organizationId: v.optional(v.string()),
     serviceType: v.optional(v.string()),
     isActive: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
+    const currentOrgId = await getCurrentOrganizationId(ctx);
+    const orgId = args.organizationId || currentOrgId;
+    await verifyOrganizationAccess(ctx, orgId);
+
     const loadouts = await ctx.db
       .query('loadouts')
-      .withIndex('by_organizationId', (q) =>
-        q.eq('organizationId', args.organizationId)
-      )
+      .withIndex('by_organizationId', (q) => q.eq('organizationId', orgId))
       .collect();
 
     let filtered = loadouts;

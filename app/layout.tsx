@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import { ClerkProvider } from '@clerk/nextjs';
 import { ConvexClientProvider } from '@/components/providers/ConvexClientProvider';
 import { MobileNav } from '@/components/layout/MobileNav';
+import { DesktopHeader } from '@/components/layout/DesktopHeader';
 import '../styles/design-system.css';
 import '../styles/globals.css';
 
@@ -32,15 +34,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body>
-        <ConvexClientProvider>
-          <div className="pb-20 md:pb-0">
-            {children}
-          </div>
-          <MobileNav />
-        </ConvexClientProvider>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body>
+          <ConvexClientProvider>
+            <DesktopHeader />
+            <div className="pb-20 md:pb-0">
+              {children}
+            </div>
+            <MobileNav />
+          </ConvexClientProvider>
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }

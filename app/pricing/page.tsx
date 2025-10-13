@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
+import { useOrganization } from '@/lib/hooks/useOrganization';
 import { api } from '@/convex/_generated/api';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -11,8 +12,9 @@ import Link from 'next/link';
 type WizardStep = 'equipment' | 'employees' | 'loadouts' | 'pricing';
 
 export default function CompletePricingSystem() {
-  const equipment = useQuery(api.equipment.list, { organizationId: 'org_demo' }) || [];
-  const loadouts = useQuery(api.loadouts.list, { organizationId: 'org_demo' }) || [];
+  const { organizationId: orgId } = useOrganization();
+  const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
+  const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
   const createEquipment = useMutation(api.equipment.create);
   const createLoadout = useMutation(api.loadouts.create);
 
@@ -63,7 +65,7 @@ export default function CompletePricingSystem() {
       if (eq.equipmentName) {
         const cost = calculateEquipmentCost(eq);
         await createEquipment({
-          organizationId: 'org_demo',
+          organizationId: orgId,
           equipmentName: eq.equipmentName,
           category: eq.category,
           purchasePrice: eq.purchasePrice,
@@ -94,7 +96,7 @@ export default function CompletePricingSystem() {
     const laborCost = selectedEmp.reduce((sum, emp) => sum + emp.baseWage * emp.multiplier, 0);
 
     await createLoadout({
-      organizationId: 'org_demo',
+      organizationId: orgId,
       loadoutName: loadoutForm.loadoutName,
       serviceType: loadoutForm.serviceType,
       equipmentIds: loadoutForm.selectedEquipment as any,

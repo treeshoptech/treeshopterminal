@@ -1,17 +1,20 @@
 import { query, mutation } from './_generated/server';
 import { v } from 'convex/values';
+import { getCurrentOrganizationId, verifyOrganizationAccess } from './auth';
 
 export const list = query({
   args: {
-    organizationId: v.string(),
+    organizationId: v.optional(v.string()),
     status: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    const currentOrgId = await getCurrentOrganizationId(ctx);
+    const orgId = args.organizationId || currentOrgId;
+    await verifyOrganizationAccess(ctx, orgId);
+
     const employees = await ctx.db
       .query('employees')
-      .withIndex('by_organizationId', (q) =>
-        q.eq('organizationId', args.organizationId)
-      )
+      .withIndex('by_organizationId', (q) => q.eq('organizationId', orgId))
       .collect();
 
     let filtered = employees;
@@ -33,7 +36,7 @@ export const get = query({
 
 export const create = mutation({
   args: {
-    organizationId: v.string(),
+    organizationId: v.optional(v.string()),
     firstName: v.string(),
     lastName: v.string(),
     email: v.string(),
@@ -45,12 +48,16 @@ export const create = mutation({
     status: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
-    const now = Date.now();
+    const currentOrgId = await getCurrentOrganizationId(ctx);
+    const orgId = args.organizationId || currentOrgId;
+    await verifyOrganizationAccess(ctx, orgId);
 
+    const now = Date.now();
     const trueCost = args.trueCostPerHour || (args.baseHourlyRate * args.burdenMultiplier);
 
     const employeeId = await ctx.db.insert('employees', {
       ...args,
+      organizationId: orgId,
       trueCostPerHour: trueCost,
       status: args.status || 'active',
       createdAt: now,

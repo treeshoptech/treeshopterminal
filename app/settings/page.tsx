@@ -1,12 +1,28 @@
 'use client';
 
-import { useState } from 'react';
-import { Settings, User, Bell, Palette, Shield, LogOut, Smartphone, Download } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Settings, User, Bell, Palette, Shield, LogOut, Smartphone, Download, Moon, Sun } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 export default function SettingsPage() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(true);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
+
+  useEffect(() => {
+    // Listen for beforeinstallprompt event
+    const handler = (e: any) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    window.addEventListener('beforeinstallprompt', handler);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+    };
+  }, []);
 
   const handleInstall = async () => {
     if (deferredPrompt) {
@@ -96,10 +112,27 @@ export default function SettingsPage() {
                     </div>
                   </div>
                 </div>
-                <label className="relative inline-block w-12 h-6">
-                  <input type="checkbox" className="sr-only peer" defaultChecked />
-                  <div className="w-full h-full rounded-full transition-colors peer-checked:bg-green-500 bg-gray-600"></div>
-                  <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform peer-checked:translate-x-6"></div>
+                <label className="relative inline-block w-12 h-6 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="sr-only peer"
+                    checked={notificationsEnabled}
+                    onChange={(e) => setNotificationsEnabled(e.target.checked)}
+                  />
+                  <div
+                    className="w-full h-full rounded-full transition-all duration-300"
+                    style={{
+                      backgroundColor: notificationsEnabled ? 'var(--brand-500)' : 'rgba(255, 255, 255, 0.15)',
+                      boxShadow: notificationsEnabled ? '0 0 12px rgba(34, 197, 94, 0.3)' : 'none'
+                    }}
+                  ></div>
+                  <div
+                    className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all duration-300"
+                    style={{
+                      transform: notificationsEnabled ? 'translateX(24px)' : 'translateX(0)',
+                      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+                    }}
+                  ></div>
                 </label>
               </div>
             </div>
@@ -113,11 +146,40 @@ export default function SettingsPage() {
                       Theme
                     </div>
                     <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
-                      Dark mode enabled
+                      {theme === 'dark' ? 'Dark mode' : 'Light mode'}
                     </div>
                   </div>
                 </div>
-                <span className="badge badge-success">Default</span>
+                <button
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className="relative inline-flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all cursor-pointer"
+                  style={{
+                    background: 'linear-gradient(135deg, var(--bg-elevated) 0%, rgba(20, 20, 20, 0.95) 100%)',
+                    border: '1px solid var(--border-default)',
+                    color: 'var(--text-primary)',
+                    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'translateY(-1px)';
+                    e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 0, 0, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = '0 2px 4px rgba(0, 0, 0, 0.2)';
+                  }}
+                >
+                  {theme === 'dark' ? (
+                    <>
+                      <Moon className="w-4 h-4" />
+                      <span>Dark</span>
+                    </>
+                  ) : (
+                    <>
+                      <Sun className="w-4 h-4" />
+                      <span>Light</span>
+                    </>
+                  )}
+                </button>
               </div>
             </div>
           </div>
@@ -149,15 +211,35 @@ export default function SettingsPage() {
                 </p>
                 <button
                   onClick={handleInstall}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all"
+                  disabled={!deferredPrompt}
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold transition-all relative overflow-hidden"
                   style={{
-                    background: 'white',
-                    color: '#000',
-                    boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)'
+                    background: deferredPrompt
+                      ? 'var(--gradient-brand)'
+                      : 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)',
+                    color: deferredPrompt ? 'white' : 'var(--text-tertiary)',
+                    boxShadow: deferredPrompt
+                      ? '0 4px 12px rgba(34, 197, 94, 0.3), 0 0 20px rgba(34, 197, 94, 0.2)'
+                      : '0 2px 4px rgba(0, 0, 0, 0.2)',
+                    cursor: deferredPrompt ? 'pointer' : 'not-allowed',
+                    border: '1px solid',
+                    borderColor: deferredPrompt ? 'transparent' : 'var(--border-default)'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (deferredPrompt) {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 8px 20px rgba(34, 197, 94, 0.4), 0 0 30px rgba(34, 197, 94, 0.3)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (deferredPrompt) {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(34, 197, 94, 0.3), 0 0 20px rgba(34, 197, 94, 0.2)';
+                    }
                   }}
                 >
                   <Download className="w-4 h-4" />
-                  Install App
+                  {deferredPrompt ? 'Install App' : 'Already Installed'}
                 </button>
               </div>
             </div>

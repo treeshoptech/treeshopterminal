@@ -4,15 +4,25 @@ import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import Link from 'next/link';
 import { ArrowRight, Plus, CheckCircle2, Circle } from 'lucide-react';
+import { useOrganization } from '@/lib/hooks/useOrganization';
 import '@/styles/design-system.css';
 
 export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
-  const orgId = 'org_demo';
-  const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
-  const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];
-  const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
+  const { organizationId, isLoaded } = useOrganization();
+  const equipment = useQuery(
+    api.equipment.list,
+    organizationId ? {} : 'skip'
+  ) || [];
+  const employees = useQuery(
+    api.employees.list,
+    organizationId ? {} : 'skip'
+  ) || [];
+  const loadouts = useQuery(
+    api.loadouts.list,
+    organizationId ? {} : 'skip'
+  ) || [];
 
   const totalEquipmentValue = equipment.reduce((sum, e) => sum + (e.purchasePrice || 0), 0);
   const totalEquipmentCost = equipment.reduce((sum, e) => sum + (e.totalCostPerHour || 0), 0);

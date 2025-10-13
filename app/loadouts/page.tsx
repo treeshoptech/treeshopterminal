@@ -29,7 +29,7 @@ import '@/styles/design-system.css';
 
 
 export default function LoadoutsPage() {
-  const orgId = "org_demo";
+  const { organizationId: orgId } = useOrganization();
 
   const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
   const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];

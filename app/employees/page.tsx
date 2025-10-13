@@ -33,7 +33,7 @@ import '@/styles/design-system.css';
 
 
 export default function EmployeesPage() {
-  const orgId = "org_demo";
+  const { organizationId: orgId } = useOrganization();
 
   const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];
   const createEmployee = useMutation(api.employees.create);

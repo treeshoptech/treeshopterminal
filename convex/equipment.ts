@@ -1,22 +1,31 @@
 import { query, mutation } from './_generated/server';
 import { v } from 'convex/values';
+import { getCurrentOrganizationId, verifyOrganizationAccess } from './auth';
 
 /**
  * Equipment Management Functions
+ * All functions require authentication
  */
 
 export const list = query({
   args: {
-    organizationId: v.string(),
+    organizationId: v.optional(v.string()),
     category: v.optional(v.string()),
     status: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    // Get current user's organization ID
+    const currentOrgId = await getCurrentOrganizationId(ctx);
+
+    // Use provided organizationId or fall back to current user's org
+    const orgId = args.organizationId || currentOrgId;
+
+    // Verify user has access to this organization
+    await verifyOrganizationAccess(ctx, orgId);
+
     const equipment = await ctx.db
       .query('equipment')
-      .withIndex('by_organizationId', (q) =>
-        q.eq('organizationId', args.organizationId)
-      )
+      .withIndex('by_organizationId', (q) => q.eq('organizationId', orgId))
       .collect();
 
     let filtered = equipment;
@@ -36,13 +45,23 @@ export const list = query({
 export const get = query({
   args: { id: v.id('equipment') },
   handler: async (ctx, args) => {
-    return await ctx.db.get(args.id);
+    await getCurrentOrganizationId(ctx); // Ensure authenticated
+    const equipment = await ctx.db.get(args.id);
+
+    if (!equipment) {
+      throw new Error('Equipment not found');
+    }
+
+    // Verify user has access to this equipment's organization
+    await verifyOrganizationAccess(ctx, equipment.organizationId);
+
+    return equipment;
   },
 });
 
 export const create = mutation({
   args: {
-    organizationId: v.string(),
+    organizationId: v.optional(v.string()),
     equipmentName: v.string(),
     category: v.optional(v.string()),
     purchasePrice: v.number(),
@@ -61,10 +80,20 @@ export const create = mutation({
     status: v.optional(v.string()),
   },
   handler: async (ctx, args) => {
+    // Get current user's organization ID
+    const currentOrgId = await getCurrentOrganizationId(ctx);
+
+    // Use provided organizationId or current user's org
+    const orgId = args.organizationId || currentOrgId;
+
+    // Verify user has access to create in this organization
+    await verifyOrganizationAccess(ctx, orgId);
+
     const now = Date.now();
 
     const equipmentId = await ctx.db.insert('equipment', {
       ...args,
+      organizationId: orgId,
       status: args.status || 'active',
       category: args.category || 'general',
       createdAt: now,
@@ -90,6 +119,15 @@ export const update = mutation({
   handler: async (ctx, args) => {
     const { id, ...updates } = args;
 
+    // Get existing equipment to verify ownership
+    const equipment = await ctx.db.get(id);
+    if (!equipment) {
+      throw new Error('Equipment not found');
+    }
+
+    // Verify user has access to this equipment's organization
+    await verifyOrganizationAccess(ctx, equipment.organizationId);
+
     await ctx.db.patch(id, {
       ...updates,
       updatedAt: Date.now(),
@@ -102,6 +140,15 @@ export const update = mutation({
 export const remove = mutation({
   args: { id: v.id('equipment') },
   handler: async (ctx, args) => {
+    // Get existing equipment to verify ownership
+    const equipment = await ctx.db.get(args.id);
+    if (!equipment) {
+      throw new Error('Equipment not found');
+    }
+
+    // Verify user has access to delete this equipment
+    await verifyOrganizationAccess(ctx, equipment.organizationId);
+
     await ctx.db.delete(args.id);
   },
 });

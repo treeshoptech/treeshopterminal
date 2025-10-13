@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useRouter } from 'next/navigation';
+import { useOrganization } from '@/lib/hooks/useOrganization';
 import {
   Plus,
   Edit,
@@ -31,7 +32,7 @@ import '@/styles/design-system.css';
 
 export default function EquipmentLibraryPage() {
   const router = useRouter();
-  const orgId = 'org_demo'; // Default org for all users
+  const { organizationId: orgId } = useOrganization();
   const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
   const createEquipment = useMutation(api.equipment.create);
   const deleteEquipment = useMutation(api.equipment.remove);

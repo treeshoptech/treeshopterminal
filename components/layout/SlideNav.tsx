@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
 import {
   LayoutDashboard,
   Truck,
@@ -10,7 +11,9 @@ import {
   FileText,
   Settings,
   X,
-  ChevronRight
+  ChevronRight,
+  LogOut,
+  User
 } from 'lucide-react';
 
 interface SlideNavProps {
@@ -20,6 +23,7 @@ interface SlideNavProps {
 
 export function SlideNav({ isOpen, onClose }: SlideNavProps) {
   const pathname = usePathname();
+  const { user } = useUser();
 
   const links = [
     { href: '/', icon: LayoutDashboard, label: 'Dashboard', color: '#00FF41' },
@@ -61,6 +65,34 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
         }}
       >
         <div className="p-6">
+          {/* User Profile Section */}
+          <SignedIn>
+            <div className="mb-6 pb-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+              <div className="flex items-center gap-3">
+                <UserButton
+                  appearance={{
+                    elements: {
+                      avatarBox: "w-12 h-12",
+                      userButtonTrigger: "focus:shadow-none",
+                    },
+                    baseTheme: "dark"
+                  }}
+                  afterSignOutUrl="/sign-in"
+                />
+                {user && (
+                  <div className="flex-1">
+                    <div className="text-lg font-bold" style={{ color: '#FFFFFF' }}>
+                      {user.firstName} {user.lastName}
+                    </div>
+                    <div className="text-sm" style={{ color: '#999999' }}>
+                      {user.primaryEmailAddress?.emailAddress}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+          </SignedIn>
+
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-bold" style={{ color: '#FFFFFF' }}>

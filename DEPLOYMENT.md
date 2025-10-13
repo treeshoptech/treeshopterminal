@@ -23,18 +23,18 @@
 Add these in Vercel project settings → Environment Variables:
 
 ```bash
-# Convex (same as local)
-NEXT_PUBLIC_CONVEX_URL=https://earnest-lemming-634.convex.cloud
-CONVEX_DEPLOY_KEY=prod:earnest-lemming-634|eyJ2MiI6IjRlNTVmYWNiMzVhZDQyNzk4ZTYyNDRiZDQyYmEwZTczIn0=
-CONVEX_DEPLOYMENT=prod:earnest-lemming-634
+# Convex (TreeShopTerminal production)
+NEXT_PUBLIC_CONVEX_URL=https://effervescent-horse-265.convex.cloud
+CONVEX_DEPLOY_KEY=prod:effervescent-horse-265|YOUR_DEPLOY_KEY_HERE
+CONVEX_DEPLOYMENT=prod:effervescent-horse-265
 
 # Google Maps (same as local)
 NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=AIzaSyDxWFJ_TKhVMF9ubOlkVNNzRLHvRsffecU
 GOOGLE_MAPS_API_KEY=AIzaSyDxWFJ_TKhVMF9ubOlkVNNzRLHvRsffecU
 
-# Clerk (when ready)
-NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_live_xxx
-CLERK_SECRET_KEY=sk_live_xxx
+# Clerk Authentication
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_Y2xvc2UtdG9tY2F0LTY0LmNsZXJrLmFjY291bnRzLmRldiQ
+CLERK_SECRET_KEY=sk_test_eHWVHT9n4nn106Y0GQNG4e3b64urKHSTpdFFHEKLxS
 
 # Stripe (when ready)
 NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_live_xxx

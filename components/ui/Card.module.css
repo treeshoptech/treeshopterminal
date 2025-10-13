@@ -8,29 +8,25 @@
 
 /* Card Variants */
 .flat {
-  box-shadow:
-    6px 6px 12px rgba(0, 0, 0, 0.4),
-    -6px -6px 12px rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--bg-elevated);
+  box-shadow: var(--shadow-md);
 }
 
 .raised {
-  box-shadow:
-    8px 8px 16px rgba(0, 0, 0, 0.4),
-    -8px -8px 16px rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--bg-elevated);
+  box-shadow: var(--shadow-lg);
 }
 
 .pressed {
-  box-shadow:
-    inset 4px 4px 8px rgba(0, 0, 0, 0.5),
-    inset -4px -4px 8px rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--bg-tertiary);
+  box-shadow: var(--shadow-sm);
 }
 
 /* Hover Effect */
 .hover:hover {
-  transform: translateY(-4px);
-  box-shadow:
-    12px 12px 24px rgba(0, 0, 0, 0.5),
-    -12px -12px 24px rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  border-color: var(--accent-green);
+  box-shadow: 0 8px 32px rgba(0, 255, 65, 0.12);
 }
 
 /* Padding Variants */

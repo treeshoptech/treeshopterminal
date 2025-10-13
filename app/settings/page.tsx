@@ -34,19 +34,18 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-      <div className="max-w-4xl mx-auto px-4 py-8 pb-24 md:pb-8">
+    <div className="min-h-screen" style={{ background: '#F9FAFB' }}>
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8 pb-24 md:pb-8">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-black mb-2"
+        <div className="mb-8 sm:mb-10">
+          <h1 className="text-3xl sm:text-4xl font-black mb-2"
               style={{
-                background: 'linear-gradient(180deg, var(--text-primary) 0%, rgba(255,255,255,0.8) 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent'
+                color: '#111827',
+                letterSpacing: '-0.02em'
               }}>
             Settings
           </h1>
-          <p style={{ color: 'var(--text-tertiary)' }}>
+          <p className="text-sm sm:text-base" style={{ color: '#6B7280' }}>
             Manage your account and app preferences
           </p>
         </div>
@@ -54,12 +53,11 @@ export default function SettingsPage() {
         {/* Account Section */}
         <div className="mb-6 rounded-2xl overflow-hidden"
              style={{
-               background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-               border: '2px solid var(--border-default)',
-               backdropFilter: 'blur(60px)',
-               boxShadow: 'var(--shadow-lg)'
+               background: '#FFFFFF',
+               border: '1px solid #E5E7EB',
+               boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
              }}>
-          <div className="p-6 border-b" style={{ borderColor: 'var(--border-default)' }}>
+          <div className="p-6 border-b" style={{ borderColor: '#E5E7EB' }}>
             <div className="flex items-center gap-3">
               <div className="w-12 h-12 rounded-full flex items-center justify-center"
                    style={{
@@ -69,10 +67,10 @@ export default function SettingsPage() {
                 <User className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+                <div className="font-semibold" style={{ color: '#111827' }}>
                   Demo User
                 </div>
-                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                <div className="text-sm" style={{ color: '#6B7280' }}>
                   demo@treeshop.com
                 </div>
               </div>
@@ -84,30 +82,29 @@ export default function SettingsPage() {
         {/* App Settings */}
         <div className="mb-6 rounded-2xl overflow-hidden"
              style={{
-               background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
-               border: '2px solid var(--border-default)',
-               backdropFilter: 'blur(60px)',
-               boxShadow: 'var(--shadow-lg)'
+               background: '#FFFFFF',
+               border: '1px solid #E5E7EB',
+               boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
              }}>
-          <div className="p-6 border-b" style={{ borderColor: 'var(--border-default)' }}>
+          <div className="p-6 border-b" style={{ borderColor: '#E5E7EB' }}>
             <div className="flex items-center gap-2">
               <Settings className="w-5 h-5" style={{ color: 'var(--brand-400)' }} />
-              <h2 className="font-semibold" style={{ color: 'var(--text-primary)' }}>
+              <h2 className="font-semibold" style={{ color: '#111827' }}>
                 App Preferences
               </h2>
             </div>
           </div>
 
-          <div className="divide-y" style={{ borderColor: 'var(--border-default)' }}>
+          <div className="divide-y" style={{ borderColor: '#E5E7EB' }}>
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Bell className="w-5 h-5" style={{ color: 'var(--text-tertiary)' }} />
+                  <Bell className="w-5 h-5" style={{ color: '#6B7280' }} />
                   <div>
-                    <div className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                    <div className="font-medium" style={{ color: '#111827' }}>
                       Notifications
                     </div>
-                    <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                    <div className="text-sm" style={{ color: '#6B7280' }}>
                       Get updates about your projects
                     </div>
                   </div>
@@ -140,12 +137,12 @@ export default function SettingsPage() {
             <div className="p-6">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <Palette className="w-5 h-5" style={{ color: 'var(--text-tertiary)' }} />
+                  <Palette className="w-5 h-5" style={{ color: '#6B7280' }} />
                   <div>
-                    <div className="font-medium" style={{ color: 'var(--text-primary)' }}>
+                    <div className="font-medium" style={{ color: '#111827' }}>
                       Theme
                     </div>
-                    <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                    <div className="text-sm" style={{ color: '#6B7280' }}>
                       {theme === 'dark' ? 'Dark mode' : 'Light mode'}
                     </div>
                   </div>
@@ -188,10 +185,9 @@ export default function SettingsPage() {
         {/* PWA Install */}
         <div className="rounded-2xl overflow-hidden"
              style={{
-               background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%)',
-               border: '2px solid rgba(34, 197, 94, 0.3)',
-               backdropFilter: 'blur(60px)',
-               boxShadow: '0 8px 24px rgba(34, 197, 94, 0.2)'
+               background: '#FFFFFF',
+               border: '1px solid #E5E7EB',
+               boxShadow: '0 1px 3px 0 rgba(0, 0, 0, 0.1)'
              }}>
           <div className="p-6">
             <div className="flex items-start gap-4">
@@ -203,10 +199,10 @@ export default function SettingsPage() {
                 <Smartphone className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1">
-                <h3 className="font-semibold mb-1" style={{ color: 'var(--text-primary)' }}>
+                <h3 className="font-semibold mb-1" style={{ color: '#111827' }}>
                   Install TreeShop App
                 </h3>
-                <p className="text-sm mb-4" style={{ color: 'var(--text-secondary)' }}>
+                <p className="text-sm mb-4" style={{ color: '#6B7280' }}>
                   Add to your home screen for quick access and offline support
                 </p>
                 <button

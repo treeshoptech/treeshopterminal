@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-
-import { useQuery } from 'convex/react';
+import { useOrganization } from '@/lib/hooks/useOrganization';
+import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import type { Id } from '@/convex/_generated/dataModel';
 import {
   Plus,
   FileText,
@@ -18,7 +19,11 @@ import {
   Zap,
   Settings,
   Package,
-  Minus
+  Minus,
+  Download,
+  Printer,
+  Mail,
+  Copy
 } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -30,13 +35,43 @@ export default function ProjectsPage() {
   const { organizationId: orgId } = useOrganization();
 
   const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
+  const projects = useQuery(api.projects.list, { organizationId: orgId }) || [];
+  const customers = useQuery(api.customers.list, { organizationId: orgId }) || [];
+
+  const createProject = useMutation(api.projects.create);
+  const updateProject = useMutation(api.projects.update);
+  const removeProject = useMutation(api.projects.remove);
+
+  const createCustomer = useMutation(api.customers.create);
+
   const [selectedLoadout, setSelectedLoadout] = useState('');
+  const [selectedCustomerId, setSelectedCustomerId] = useState<Id<"customers"> | ''>('');
+  const [showCustomerModal, setShowCustomerModal] = useState(false);
+  const [newCustomer, setNewCustomer] = useState({
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    company: '',
+  });
   const [projectData, setProjectData] = useState({
-    projectName: '',
     acres: 0,
     dbhPackage: 8,
     profitMargin: 40,
   });
+  const [saving, setSaving] = useState(false);
+  const [loadingProject, setLoadingProject] = useState<Id<"projects"> | null>(null);
+
+  // Analytics calculations
+  const wonProjects = projects.filter(p => p.status === 'won');
+  const lostProjects = projects.filter(p => p.status === 'lost');
+  const quotedProjects = projects.filter(p => p.status === 'quoted' || !p.status);
+  const totalRevenue = wonProjects.reduce((sum, p) => sum + (p.totalPrice || 0), 0);
+  const winRate = projects.length > 0 ? (wonProjects.length / projects.length * 100) : 0;
+  const avgProjectSize = projects.length > 0 ? projects.reduce((sum, p) => sum + (p.projectSize || 0), 0) / projects.length : 0;
 
   const loadout = loadouts.find((l) => l._id === selectedLoadout);
   const loadoutCost = loadout?.totalLoadoutCostPerHour || 0;
@@ -53,6 +88,143 @@ export default function ProjectsPage() {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     }).format(value);
+  };
+
+  const handleCreateCustomer = async () => {
+    if (!newCustomer.name || !newCustomer.phone) {
+      alert('Please enter customer name and phone number');
+      return;
+    }
+
+    try {
+      const customerId = await createCustomer({
+        organizationId: orgId,
+        name: newCustomer.name,
+        phone: newCustomer.phone,
+        email: newCustomer.email,
+        company: newCustomer.company,
+        address: newCustomer.address,
+        city: newCustomer.city,
+        state: newCustomer.state,
+        zipCode: newCustomer.zipCode,
+        status: 'lead',
+      });
+
+      setSelectedCustomerId(customerId);
+      setShowCustomerModal(false);
+      setNewCustomer({ name: '', phone: '', email: '', address: '', city: '', state: '', zipCode: '', company: '' });
+    } catch (error) {
+      console.error('Error creating customer:', error);
+      alert('Failed to create customer');
+    }
+  };
+
+  const handleSaveQuote = async () => {
+    if (!selectedLoadout || !selectedCustomerId) {
+      alert('Please select a customer and loadout');
+      return;
+    }
+
+    const customer = customers.find(c => c._id === selectedCustomerId);
+    if (!customer) {
+      alert('Customer not found');
+      return;
+    }
+
+    setSaving(true);
+    try {
+      const projectUID = `Q${Date.now().toString().slice(-6)}`;
+      const projectName = `${customer.name}-${projectUID}`;
+
+      await createProject({
+        organizationId: orgId,
+        projectName,
+        customerId: selectedCustomerId as Id<"customers">,
+        serviceType: 'Forestry Mulching',
+        loadoutId: selectedLoadout as Id<"loadouts">,
+        loadoutName: loadout?.loadoutName,
+        loadoutCostPerHour: loadoutCost,
+        profitMargin: projectData.profitMargin,
+        billingRatePerHour: billingRate,
+        projectSize: projectData.acres,
+        sizeUnit: 'acres',
+        dbhPackage: projectData.dbhPackage,
+        workHours: hours,
+        totalHours: hours,
+        totalCost: hours * loadoutCost,
+        totalPrice: totalPrice,
+        totalProfit: totalPrice - (hours * loadoutCost),
+        inchAcres: inchAcres,
+        productionRate: productionRate,
+      });
+
+      // Reset form
+      setProjectData({ acres: 0, dbhPackage: 8, profitMargin: 40 });
+      alert(`Quote ${projectName} saved successfully!`);
+    } catch (error) {
+      console.error('Error saving quote:', error);
+      alert('Failed to save quote');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleDuplicateLastQuote = () => {
+    if (projects.length === 0) return;
+
+    const lastProject = projects[0];
+    setProjectData({
+      acres: lastProject.projectSize || 0,
+      dbhPackage: lastProject.dbhPackage || 8,
+      profitMargin: lastProject.profitMargin || 40,
+    });
+    setSelectedLoadout(lastProject.loadoutId || '');
+    setSelectedCustomerId(lastProject.customerId || '');
+  };
+
+  const handleLoadSimilar = () => {
+    if (!projectData.acres || projects.length === 0) return;
+
+    // Find project with closest acreage
+    const similar = projects.reduce((closest, project) => {
+      const currentDiff = Math.abs((project.projectSize || 0) - projectData.acres);
+      const closestDiff = Math.abs((closest.projectSize || 0) - projectData.acres);
+      return currentDiff < closestDiff ? project : closest;
+    });
+
+    handleLoadQuote(similar);
+  };
+
+  const handleLoadQuote = (project: any) => {
+    setLoadingProject(project._id);
+    setProjectData({
+      acres: project.projectSize || 0,
+      dbhPackage: project.dbhPackage || 8,
+      profitMargin: project.profitMargin || 40,
+    });
+    setSelectedLoadout(project.loadoutId || '');
+    setSelectedCustomerId(project.customerId || '');
+    setLoadingProject(null);
+  };
+
+  const handleUpdateStatus = async (projectId: Id<"projects">, status: string) => {
+    try {
+      await updateProject({ id: projectId, status });
+    } catch (error) {
+      console.error('Error updating status:', error);
+      alert('Failed to update status');
+    }
+  };
+
+  const handleDeleteQuote = async (projectId: Id<"projects">) => {
+    if (!confirm('Are you sure you want to delete this quote?')) return;
+
+    try {
+      await removeProject({ id: projectId });
+    } catch (error) {
+      console.error('Error deleting quote:', error);
+      alert('Failed to delete quote');
+    }
   };
 
   return (
@@ -120,6 +292,166 @@ export default function ProjectsPage() {
               </div>
             </div>
           </div>
+
+          {/* Analytics Dashboard */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 255, 65, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.15), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at top left, rgba(0, 255, 65, 0.3), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <Target className="w-5 h-5" style={{ color: '#00FF41' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Win Rate
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {winRate.toFixed(0)}%
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  {wonProjects.length} won / {projects.length} total
+                </div>
+              </div>
+            </div>
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 255, 65, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at top right, rgba(0, 255, 65, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <DollarSign className="w-5 h-5" style={{ color: 'var(--brand-400)' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Revenue
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {formatCurrency(totalRevenue).replace('.00', '')}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  From won projects
+                </div>
+              </div>
+            </div>
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 191, 255, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 191, 255, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at bottom left, rgba(0, 191, 255, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(0, 191, 255, 0.2)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <BarChart3 className="w-5 h-5" style={{ color: '#00BFFF' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Pipeline
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {quotedProjects.length}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Pending quotes
+                </div>
+              </div>
+            </div>
+
+            <div className="group relative overflow-hidden rounded-2xl p-6 transition-all duration-500 hover:scale-105 hardware-accelerated"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 255, 65, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 16px 48px rgba(0, 0, 0, 0.4), 0 0 40px rgba(0, 255, 65, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                   style={{
+                     background: 'radial-gradient(circle at bottom right, rgba(0, 255, 65, 0.25), transparent 70%)',
+                     boxShadow: 'inset 0 0 60px rgba(0, 255, 65, 0.2)'
+                   }} />
+              <div className="relative">
+                <div className="flex items-center justify-between mb-3">
+                  <Activity className="w-5 h-5" style={{ color: '#16A34A' }} />
+                  <span className="text-xs font-semibold uppercase tracking-wider"
+                        style={{ color: 'var(--text-quaternary)' }}>
+                    Avg Size
+                  </span>
+                </div>
+                <div className="text-4xl font-bold mb-1"
+                     style={{ color: 'var(--text-primary)', letterSpacing: '-0.02em' }}>
+                  {avgProjectSize.toFixed(1)}
+                </div>
+                <div className="text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                  Acres per project
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Actions */}
+          {projects.length > 0 && (
+            <div className="flex flex-wrap gap-3 mb-10">
+              <button
+                onClick={handleDuplicateLastQuote}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                style={{
+                  background: 'rgba(0, 255, 65, 0.1)',
+                  border: '1px solid rgba(0, 255, 65, 0.3)',
+                  color: '#00FF41'
+                }}
+              >
+                <Zap className="w-4 h-4" />
+                Duplicate Last Quote
+              </button>
+
+              {projectData.acres > 0 && (
+                <button
+                  onClick={handleLoadSimilar}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105"
+                  style={{
+                    background: 'rgba(0, 191, 255, 0.1)',
+                    border: '1px solid rgba(0, 191, 255, 0.3)',
+                    color: '#00BFFF'
+                  }}
+                >
+                  <Target className="w-4 h-4" />
+                  Load Similar Project
+                </button>
+              )}
+            </div>
+          )}
 
           {/* ULTRA-Premium Stats Cards with BOLD Glassmorphism */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-10">
@@ -312,13 +644,47 @@ export default function ProjectsPage() {
                   </div>
                   <div className="space-y-6">
                     <div className="input-group">
-                      <label className="input-label">Project Name</label>
-                      <input
-                        className="input-field"
-                        value={projectData.projectName}
-                        onChange={(e) => setProjectData({ ...projectData, projectName: e.target.value })}
-                        placeholder="Smith Property - New Smyrna Beach"
-                      />
+                      <label className="input-label">Customer</label>
+                      <div className="flex gap-3">
+                        <select
+                          className="input-field select-field flex-1"
+                          value={selectedCustomerId}
+                          onChange={(e) => setSelectedCustomerId(e.target.value as Id<"customers"> | '')}
+                        >
+                          <option value="">Select customer...</option>
+                          {customers.map((c) => (
+                            <option key={c._id} value={c._id}>
+                              {c.name} {c.company ? `(${c.company})` : ''}
+                            </option>
+                          ))}
+                        </select>
+                        <button
+                          onClick={() => setShowCustomerModal(true)}
+                          className="px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105"
+                          style={{
+                            background: 'rgba(0, 255, 65, 0.1)',
+                            border: '1px solid rgba(0, 255, 65, 0.3)',
+                            color: '#00FF41',
+                            whiteSpace: 'nowrap'
+                          }}
+                        >
+                          <Plus className="w-5 h-5 inline mr-1" />
+                          New
+                        </button>
+                      </div>
+                      {selectedCustomerId && customers.find(c => c._id === selectedCustomerId) && (
+                        <div className="mt-2 text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                          {(() => {
+                            const customer = customers.find(c => c._id === selectedCustomerId);
+                            return customer ? (
+                              <div className="flex flex-col gap-1">
+                                {customer.phone && <span>{customer.phone}</span>}
+                                {customer.address && <span>{customer.address}, {customer.city}, {customer.state} {customer.zipCode}</span>}
+                              </div>
+                            ) : null;
+                          })()}
+                        </div>
+                      )}
                     </div>
 
                     <div className="input-group">
@@ -349,12 +715,32 @@ export default function ProjectsPage() {
                                style={{ color: 'var(--text-secondary)' }}>
                           Project Acreage
                         </label>
+
+                        {/* Acre Presets */}
+                        <div className="grid grid-cols-4 md:grid-cols-6 gap-2 mb-4">
+                          {[2, 5, 10, 15, 20, 30].map((acres) => (
+                            <button
+                              key={acres}
+                              type="button"
+                              onClick={() => setProjectData({ ...projectData, acres })}
+                              className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
+                              style={{
+                                background: projectData.acres === acres ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                                border: projectData.acres === acres ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
+                                color: projectData.acres === acres ? '#00FF41' : 'var(--text-secondary)'
+                              }}
+                            >
+                              {acres}
+                            </button>
+                          ))}
+                        </div>
+
                         <input
-                          className="w-full text-center px-6 py-8 rounded-2xl font-mono text-6xl font-black"
+                          className="w-full text-center px-4 md:px-6 py-6 md:py-8 rounded-2xl font-mono text-4xl md:text-6xl font-black"
                           style={{
-                            background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.15) 0%, rgba(34, 197, 94, 0.08) 100%)',
-                            border: '2px solid rgba(34, 197, 94, 0.4)',
-                            color: '#22C55E',
+                            background: 'linear-gradient(135deg, rgba(0, 255, 65, 0.15) 0%, rgba(0, 255, 65, 0.08) 100%)',
+                            border: '2px solid rgba(0, 255, 65, 0.4)',
+                            color: '#00FF41',
                             backdropFilter: 'blur(20px)',
                             WebkitBackdropFilter: 'blur(20px)'
                           }}
@@ -400,26 +786,46 @@ export default function ProjectsPage() {
                              style={{ color: 'var(--text-secondary)' }}>
                         Profit Margin (%)
                       </label>
+
+                      {/* Margin Presets */}
+                      <div className="grid grid-cols-4 gap-2 mb-4">
+                        {[30, 40, 50, 60].map((margin) => (
+                          <button
+                            key={margin}
+                            type="button"
+                            onClick={() => setProjectData({ ...projectData, profitMargin: margin })}
+                            className="px-3 py-2 rounded-lg font-semibold text-sm transition-all duration-200 hover:scale-105"
+                            style={{
+                              background: projectData.profitMargin === margin ? 'rgba(0, 255, 65, 0.2)' : 'rgba(255, 255, 255, 0.05)',
+                              border: projectData.profitMargin === margin ? '2px solid rgba(0, 255, 65, 0.5)' : '1px solid rgba(255, 255, 255, 0.1)',
+                              color: projectData.profitMargin === margin ? '#00FF41' : 'var(--text-secondary)'
+                            }}
+                          >
+                            {margin}%
+                          </button>
+                        ))}
+                      </div>
+
                       <div className="flex items-center gap-3">
                         <button
                           type="button"
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.max(0, projectData.profitMargin - 5) })}
-                          className="w-16 h-16 rounded-xl transition-all duration-200 active:scale-95"
+                          className="w-12 h-12 md:w-16 md:h-16 rounded-xl transition-all duration-200 active:scale-95"
                           style={{
-                            background: 'rgba(34, 197, 94, 0.1)',
-                            border: '2px solid rgba(34, 197, 94, 0.3)',
-                            color: '#22C55E'
+                            background: 'rgba(0, 255, 65, 0.1)',
+                            border: '2px solid rgba(0, 255, 65, 0.3)',
+                            color: '#00FF41'
                           }}
                         >
-                          <Minus className="w-6 h-6 mx-auto" />
+                          <Minus className="w-5 h-5 md:w-6 md:h-6 mx-auto" />
                         </button>
                         <input
                           type="number"
-                          className="flex-1 text-center px-4 py-6 rounded-xl font-mono text-4xl font-bold"
+                          className="flex-1 text-center px-4 py-4 md:py-6 rounded-xl font-mono text-3xl md:text-4xl font-bold"
                           style={{
                             background: 'rgba(255,255,255,0.03)',
                             border: '2px solid var(--border-default)',
-                            color: '#22C55E'
+                            color: '#00FF41'
                           }}
                           value={projectData.profitMargin}
                           onChange={(e) => setProjectData({ ...projectData, profitMargin: Number(e.target.value) })}
@@ -427,14 +833,14 @@ export default function ProjectsPage() {
                         <button
                           type="button"
                           onClick={() => setProjectData({ ...projectData, profitMargin: Math.min(100, projectData.profitMargin + 5) })}
-                          className="w-16 h-16 rounded-xl transition-all duration-200 active:scale-95"
+                          className="w-12 h-12 md:w-16 md:h-16 rounded-xl transition-all duration-200 active:scale-95"
                           style={{
-                            background: 'rgba(34, 197, 94, 0.1)',
-                            border: '2px solid rgba(34, 197, 94, 0.3)',
-                            color: '#22C55E'
+                            background: 'rgba(0, 255, 65, 0.1)',
+                            border: '2px solid rgba(0, 255, 65, 0.3)',
+                            color: '#00FF41'
                           }}
                         >
-                          <Plus className="w-6 h-6 mx-auto" />
+                          <Plus className="w-5 h-5 md:w-6 md:h-6 mx-auto" />
                         </button>
                       </div>
                     </div>
@@ -516,10 +922,11 @@ export default function ProjectsPage() {
                              }}>
                           Total Project Price
                         </div>
-                        <div className="text-6xl md:text-7xl font-black font-mono mb-3"
+                        <div className="text-8xl md:text-9xl font-black font-mono mb-4"
                              style={{
                                color: 'white',
-                               letterSpacing: '-0.02em'
+                               letterSpacing: '-0.02em',
+                               fontSize: 'clamp(4rem, 12vw, 10rem)'
                              }}>
                           {formatCurrency(totalPrice)}
                         </div>
@@ -536,14 +943,350 @@ export default function ProjectsPage() {
                         </div>
                       </div>
                     </div>
+
+                    {/* Action Buttons */}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      <button
+                        onClick={handleSaveQuote}
+                        disabled={saving || !selectedCustomerId || !selectedLoadout}
+                        className="group inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-300 hover:scale-105"
+                        style={{
+                          background: saving ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
+                          color: 'white',
+                          boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35), inset 0 1px 2px rgba(255, 255, 255, 0.1)',
+                          opacity: (!selectedCustomerId || !selectedLoadout) ? 0.5 : 1,
+                          cursor: (!selectedCustomerId || !selectedLoadout || saving) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        {saving ? (
+                          <>
+                            <div className="spinner" />
+                            <span className="hidden md:inline">Saving...</span>
+                          </>
+                        ) : (
+                          <>
+                            <Plus className="w-5 h-5" />
+                            <span className="hidden md:inline">Save Quote</span>
+                            <span className="md:hidden">Save</span>
+                          </>
+                        )}
+                      </button>
+
+                      <button
+                        onClick={() => window.print()}
+                        disabled={!selectedLoadout || !selectedCustomerId}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105"
+                        style={{
+                          background: 'rgba(0, 191, 255, 0.1)',
+                          border: '1px solid rgba(0, 191, 255, 0.3)',
+                          color: '#00BFFF',
+                          opacity: (!selectedLoadout || !selectedCustomerId) ? 0.5 : 1,
+                          cursor: (!selectedLoadout || !selectedCustomerId) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        <Printer className="w-5 h-5" />
+                        <span className="hidden md:inline">Print</span>
+                      </button>
+
+                      <button
+                        onClick={() => {
+                          const customer = customers.find(c => c._id === selectedCustomerId);
+                          if (customer && customer.email) {
+                            const subject = `Quote for ${customer.name}`;
+                            const body = `Project: ${customer.name}-Q\nAcreage: ${projectData.acres}\nPrice: ${formatCurrency(totalPrice)}`;
+                            window.location.href = `mailto:${customer.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+                          } else {
+                            alert('Customer has no email address');
+                          }
+                        }}
+                        disabled={!selectedLoadout || !selectedCustomerId}
+                        className="inline-flex items-center justify-center gap-2 px-6 py-4 rounded-xl font-semibold text-base md:text-lg transition-all duration-200 hover:scale-105"
+                        style={{
+                          background: 'rgba(255, 229, 0, 0.1)',
+                          border: '1px solid rgba(255, 229, 0, 0.3)',
+                          color: '#FFE500',
+                          opacity: (!selectedLoadout || !selectedCustomerId) ? 0.5 : 1,
+                          cursor: (!selectedLoadout || !selectedCustomerId) ? 'not-allowed' : 'pointer'
+                        }}
+                      >
+                        <Mail className="w-5 h-5" />
+                        <span className="hidden md:inline">Email</span>
+                      </button>
+                    </div>
                   </>
                 )}
               </div>
             </div>
           )}
+
+          {/* Recent Quotes Section */}
+          {projects.length > 0 && (
+            <div className="mt-10 relative rounded-3xl overflow-hidden"
+                 style={{
+                   background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.85) 0%, rgba(10, 10, 10, 0.9) 100%)',
+                   border: '2px solid rgba(0, 255, 65, 0.2)',
+                   backdropFilter: 'blur(60px)',
+                   WebkitBackdropFilter: 'blur(60px)',
+                   boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 255, 65, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.08)'
+                 }}>
+              <div className="p-6 md:p-8">
+                <div className="flex items-center gap-2 mb-6">
+                  <FileText className="w-5 h-5" style={{ color: '#00FF41' }} />
+                  <h3 className="text-lg font-semibold uppercase tracking-wider"
+                      style={{ color: 'var(--text-secondary)', letterSpacing: '0.1em' }}>
+                    Recent Quotes
+                  </h3>
+                  <span className="ml-auto text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                    {projects.length} total
+                  </span>
+                </div>
+
+                <div className="space-y-4">
+                  {projects.slice(0, 10).map((project) => (
+                    <div key={project._id}
+                         className="group rounded-xl p-4 transition-all duration-300"
+                         style={{
+                           background: 'rgba(255, 255, 255, 0.02)',
+                           border: '1px solid rgba(255, 255, 255, 0.08)',
+                         }}>
+                      <div className="flex items-center justify-between gap-4">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-3 mb-2">
+                            <h4 className="font-semibold text-lg truncate" style={{ color: 'var(--text-primary)' }}>
+                              {project.projectName}
+                            </h4>
+                            <span className={`px-2 py-1 rounded-full text-xs font-semibold uppercase tracking-wider`}
+                                  style={{
+                                    background: project.status === 'won' ? 'rgba(0, 255, 65, 0.15)' :
+                                               project.status === 'lost' ? 'rgba(255, 0, 64, 0.15)' :
+                                               'rgba(0, 191, 255, 0.15)',
+                                    color: project.status === 'won' ? '#00FF41' :
+                                           project.status === 'lost' ? '#FF0040' :
+                                           '#00BFFF',
+                                    border: `1px solid ${project.status === 'won' ? 'rgba(0, 255, 65, 0.3)' :
+                                           project.status === 'lost' ? 'rgba(255, 0, 64, 0.3)' :
+                                           'rgba(0, 191, 255, 0.3)'}`
+                                  }}>
+                              {project.status || 'quoted'}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-4 text-sm" style={{ color: 'var(--text-tertiary)' }}>
+                            <span>{project.projectSize} acres</span>
+                            <span>•</span>
+                            <span>{formatCurrency(project.totalPrice || 0)}</span>
+                            <span>•</span>
+                            <span>{new Date(project.createdAt).toLocaleDateString()}</span>
+                          </div>
+                        </div>
+
+                        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2">
+                          <button
+                            onClick={() => handleLoadQuote(project)}
+                            className="px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 hover:scale-105 whitespace-nowrap"
+                            style={{
+                              background: 'rgba(0, 255, 65, 0.1)',
+                              border: '1px solid rgba(0, 255, 65, 0.3)',
+                              color: '#00FF41'
+                            }}
+                          >
+                            Load
+                          </button>
+
+                          <select
+                            value={project.status || 'quoted'}
+                            onChange={(e) => handleUpdateStatus(project._id, e.target.value)}
+                            className="px-3 py-2 rounded-lg font-medium text-sm transition-all"
+                            style={{
+                              background: 'rgba(255, 255, 255, 0.05)',
+                              border: '1px solid rgba(255, 255, 255, 0.1)',
+                              color: 'var(--text-primary)'
+                            }}
+                          >
+                            <option value="quoted">Quoted</option>
+                            <option value="won">Won</option>
+                            <option value="lost">Lost</option>
+                          </select>
+
+                          <button
+                            onClick={() => handleDeleteQuote(project._id)}
+                            className="px-3 py-2 rounded-lg text-sm transition-all duration-200 hover:scale-105"
+                            style={{
+                              background: 'rgba(255, 0, 64, 0.1)',
+                              border: '1px solid rgba(255, 0, 64, 0.3)',
+                              color: '#FF0040'
+                            }}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
+
+      {/* New Customer Modal */}
+      {showCustomerModal && (
+        <div style={{
+               position: 'fixed',
+               inset: '0',
+               zIndex: 9999,
+               display: 'flex',
+               alignItems: 'center',
+               justifyContent: 'center',
+               padding: '16px',
+               background: 'rgba(0, 0, 0, 0.85)',
+               backdropFilter: 'blur(20px)',
+             }}
+             onClick={() => setShowCustomerModal(false)}>
+          <div style={{
+                 position: 'relative',
+                 maxWidth: '672px',
+                 width: '100%',
+                 borderRadius: '24px',
+                 overflow: 'hidden',
+                 background: '#1A1A1A',
+                 border: '2px solid rgba(0, 255, 65, 0.3)',
+                 boxShadow: '0 24px 64px rgba(0, 0, 0, 0.5), 0 0 60px rgba(0, 255, 65, 0.3)',
+               }}
+               onClick={(e) => e.stopPropagation()}>
+            <div className="p-8">
+              <h2 className="text-3xl font-bold mb-6" style={{ color: 'var(--text-primary)' }}>
+                New Customer
+              </h2>
+
+              <div className="space-y-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="input-group">
+                    <label className="input-label">Name *</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.name}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, name: e.target.value })}
+                      placeholder="John Smith"
+                      autoFocus
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label className="input-label">Phone *</label>
+                    <input
+                      className="input-field"
+                      type="tel"
+                      value={newCustomer.phone}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, phone: e.target.value })}
+                      placeholder="(555) 123-4567"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                  <div className="input-group">
+                    <label className="input-label">Email</label>
+                    <input
+                      className="input-field"
+                      type="email"
+                      value={newCustomer.email}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, email: e.target.value })}
+                      placeholder="john@example.com"
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label className="input-label">Company</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.company}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, company: e.target.value })}
+                      placeholder="ABC Properties LLC"
+                    />
+                  </div>
+                </div>
+
+                <div className="input-group">
+                  <label className="input-label">Street Address</label>
+                  <input
+                    className="input-field"
+                    value={newCustomer.address}
+                    onChange={(e) => setNewCustomer({ ...newCustomer, address: e.target.value })}
+                    placeholder="123 Main Street"
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+                  <div className="input-group">
+                    <label className="input-label">City</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.city}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, city: e.target.value })}
+                      placeholder="New Smyrna Beach"
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label className="input-label">State</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.state}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, state: e.target.value })}
+                      placeholder="FL"
+                      maxLength={2}
+                    />
+                  </div>
+
+                  <div className="input-group">
+                    <label className="input-label">Zip Code</label>
+                    <input
+                      className="input-field"
+                      value={newCustomer.zipCode}
+                      onChange={(e) => setNewCustomer({ ...newCustomer, zipCode: e.target.value })}
+                      placeholder="32168"
+                      maxLength={5}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex gap-3 mt-8">
+                <button
+                  onClick={() => {
+                    setShowCustomerModal(false);
+                    setNewCustomer({ name: '', phone: '', email: '', address: '', city: '', state: '', zipCode: '', company: '' });
+                  }}
+                  className="flex-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    color: 'var(--text-primary)'
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleCreateCustomer}
+                  disabled={!newCustomer.name || !newCustomer.phone}
+                  className="flex-1 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105"
+                  style={{
+                    background: (!newCustomer.name || !newCustomer.phone) ? 'rgba(255,255,255,0.1)' : 'var(--gradient-brand)',
+                    color: 'white',
+                    boxShadow: '0 4px 14px 0 rgba(0, 255, 65, 0.35)',
+                    opacity: (!newCustomer.name || !newCustomer.phone) ? 0.5 : 1,
+                    cursor: (!newCustomer.name || !newCustomer.phone) ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  Create Customer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
-    
+
   );
 }

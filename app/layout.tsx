@@ -1,16 +1,18 @@
 import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ConvexClientProvider } from '@/components/providers/ConvexClientProvider';
-import { MobileNav } from '@/components/layout/MobileNav';
-import { DesktopHeader } from '@/components/layout/DesktopHeader';
+import { AppShell } from '@/components/layout/AppShell';
 import '../styles/design-system.css';
 import '../styles/globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'TreeShop Pricing System',
   description: 'Professional cost calculations for tree service operations',
   manifest: '/manifest.json',
-  themeColor: '#22C55E',
+  themeColor: '#00FF41',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
@@ -36,13 +38,11 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
+        <body className={inter.className}>
           <ConvexClientProvider>
-            <DesktopHeader />
-            <div className="pb-20 md:pb-0">
+            <AppShell>
               {children}
-            </div>
-            <MobileNav />
+            </AppShell>
           </ConvexClientProvider>
         </body>
       </html>

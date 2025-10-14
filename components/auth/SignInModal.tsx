@@ -1,7 +1,9 @@
 'use client';
 
 import { useAuthActions } from "@convex-dev/auth/react";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useQuery, useMutation } from 'convex/react';
+import { api } from '@/convex/_generated/api';
 
 export function SignInModal() {
   const { signIn } = useAuthActions();
@@ -10,6 +12,29 @@ export function SignInModal() {
   const [isSignUp, setIsSignUp] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [inviteCode, setInviteCode] = useState<string | null>(null);
+
+  // Check for invite code in URL
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('invite');
+    if (code) {
+      setInviteCode(code);
+      setIsSignUp(true); // Auto-switch to sign-up mode
+    }
+  }, []);
+
+  const invite = useQuery(
+    api.invites.get,
+    inviteCode ? { inviteCode } : 'skip'
+  );
+
+  // Pre-fill email from invite
+  useEffect(() => {
+    if (invite?.email && !email) {
+      setEmail(invite.email);
+    }
+  }, [invite, email]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,9 +107,15 @@ export function SignInModal() {
           <p className="text-lg text-gray-400 mb-2">
             Professional pricing for tree service operations
           </p>
-          <p className="text-sm text-gray-500">
-            {isSignUp ? 'Create your account' : 'Sign in to continue'}
-          </p>
+          {inviteCode && invite ? (
+            <p className="text-sm text-green-500">
+              You've been invited by {invite.companyName || 'TreeShop'}
+            </p>
+          ) : (
+            <p className="text-sm text-gray-500">
+              {isSignUp ? 'Create your account' : 'Sign in to continue'}
+            </p>
+          )}
         </div>
 
         {/* Sign In Form */}
@@ -160,12 +191,19 @@ export function SignInModal() {
             <p className="text-sm text-gray-500 mb-3">
               Protected by enterprise-grade security
             </p>
-            <button
-              onClick={() => setIsSignUp(!isSignUp)}
-              className="text-sm text-green-500 hover:text-green-400 font-semibold"
-            >
-              {isSignUp ? 'Already have an account? Sign in' : 'Need an account? Sign up'}
-            </button>
+            {!inviteCode && (
+              <button
+                onClick={() => setIsSignUp(!isSignUp)}
+                className="text-sm text-green-500 hover:text-green-400 font-semibold"
+              >
+                {isSignUp ? 'Already have an account? Sign in' : 'Need an account? Sign up'}
+              </button>
+            )}
+            {inviteCode && (
+              <p className="text-xs text-gray-600">
+                This is an invite-only platform
+              </p>
+            )}
           </div>
         </div>
       </div>

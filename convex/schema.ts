@@ -508,4 +508,20 @@ export default defineSchema({
     createdAt: v.number(),
   })
     .index("by_organizationId", ["organizationId"]),
+
+  userInvites: defineTable({
+    email: v.string(),
+    firstName: v.optional(v.string()),
+    lastName: v.optional(v.string()),
+    companyName: v.optional(v.string()),
+    inviteCode: v.string(),
+    status: v.string(), // 'pending', 'accepted', 'revoked'
+    createdAt: v.number(),
+    expiresAt: v.number(),
+    acceptedAt: v.optional(v.number()),
+    acceptedByUserId: v.optional(v.string()),
+  })
+    .index("by_email", ["email"])
+    .index("by_inviteCode", ["inviteCode"])
+    .index("by_status", ["status"]),
 });

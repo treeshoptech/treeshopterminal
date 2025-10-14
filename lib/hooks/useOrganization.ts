@@ -1,26 +1,16 @@
-'use client';
-
-import { useOrganization as useClerkOrganization, useUser } from '@clerk/nextjs';
+import { useConvexAuth } from "@convex-dev/auth/react";
 
 /**
- * Custom hook to get the current organization ID
- * Returns the Clerk organization ID for multi-tenant data isolation
+ * Hook to get current user's organization
+ * Now using Convex Auth instead of Clerk
  */
 export function useOrganization() {
-  const { organization, isLoaded: orgLoaded } = useClerkOrganization();
-  const { user, isLoaded: userLoaded } = useUser();
+  const { isAuthenticated, isLoading } = useConvexAuth();
 
-  const isLoaded = orgLoaded && userLoaded;
-
-  // Use organization ID if user belongs to an org
-  // Otherwise use user ID as fallback for personal accounts
-  const organizationId = organization?.id || user?.id || null;
-
+  // For now, each user is their own organization
+  // Later: fetch from userProfiles.currentCompanyId
   return {
-    organizationId,
-    organization,
-    user,
-    isLoaded,
-    hasOrganization: !!organization,
+    organizationId: isAuthenticated ? 'user-org' : null,
+    isLoaded: !isLoading,
   };
 }

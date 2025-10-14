@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SignedIn, SignedOut, UserButton, useUser } from '@clerk/nextjs';
+import { useConvexAuth } from "@convex-dev/auth/react";
+import { useAuthActions } from "@convex-dev/auth/react";
 import {
   LayoutDashboard,
   Truck,
@@ -13,7 +14,6 @@ import {
   X,
   ChevronRight,
   LogOut,
-  User
 } from 'lucide-react';
 
 interface SlideNavProps {
@@ -23,7 +23,8 @@ interface SlideNavProps {
 
 export function SlideNav({ isOpen, onClose }: SlideNavProps) {
   const pathname = usePathname();
-  const { user } = useUser();
+  const { isAuthenticated } = useConvexAuth();
+  const { signOut } = useAuthActions();
 
   const links = [
     { href: '/', icon: LayoutDashboard, label: 'Dashboard', color: '#00FF41' },
@@ -31,8 +32,14 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
     { href: '/employees', icon: Users, label: 'Employees', color: '#00BFFF' },
     { href: '/loadouts', icon: Wrench, label: 'Loadouts', color: '#FFE500' },
     { href: '/projects', icon: FileText, label: 'Projects', color: '#00FF41' },
+    { href: '/admin/invites', icon: Users, label: 'Invites', color: '#9333EA' },
     { href: '/settings', icon: Settings, label: 'Settings', color: '#999' },
   ];
+
+  const handleSignOut = async () => {
+    await signOut();
+    onClose();
+  };
 
   return (
     <>
@@ -65,34 +72,6 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
         }}
       >
         <div className="p-6">
-          {/* User Profile Section */}
-          <SignedIn>
-            <div className="mb-6 pb-6" style={{ borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
-              <div className="flex items-center gap-3">
-                <UserButton
-                  appearance={{
-                    elements: {
-                      avatarBox: "w-12 h-12",
-                      userButtonTrigger: "focus:shadow-none",
-                    },
-                    baseTheme: "dark"
-                  }}
-                  afterSignOutUrl="/sign-in"
-                />
-                {user && (
-                  <div className="flex-1">
-                    <div className="text-lg font-bold" style={{ color: '#FFFFFF' }}>
-                      {user.firstName} {user.lastName}
-                    </div>
-                    <div className="text-sm" style={{ color: '#999999' }}>
-                      {user.primaryEmailAddress?.emailAddress}
-                    </div>
-                  </div>
-                )}
-              </div>
-            </div>
-          </SignedIn>
-
           {/* Header */}
           <div className="flex items-center justify-between mb-8">
             <h2 className="text-2xl font-bold" style={{ color: '#FFFFFF' }}>
@@ -145,6 +124,24 @@ export function SlideNav({ isOpen, onClose }: SlideNavProps) {
                 </Link>
               );
             })}
+
+            {/* Sign Out Button */}
+            {isAuthenticated && (
+              <button
+                onClick={handleSignOut}
+                className="w-full flex items-center gap-3 p-4 rounded-xl transition-all duration-200 active:scale-95"
+                style={{
+                  background: 'rgba(239, 68, 68, 0.1)',
+                  border: '1px solid rgba(239, 68, 68, 0.3)',
+                  marginTop: '2rem',
+                }}
+              >
+                <LogOut className="w-6 h-6" style={{ color: '#EF4444' }} />
+                <span className="text-lg font-semibold" style={{ color: '#EF4444' }}>
+                  Sign Out
+                </span>
+              </button>
+            )}
           </nav>
         </div>
       </div>

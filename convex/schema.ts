@@ -1,19 +1,22 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
 /**
  * TreeShopTerminal Convex Schema
- * Multi-tenant, production-ready
+ * Multi-tenant, production-ready with Convex Auth
  * Fields made optional for migration compatibility
  */
 
 export default defineSchema({
+  ...authTables,
   // ============================================
   // MULTI-TENANT CORE
   // ============================================
 
   companies: defineTable({
-    clerkOrgId: v.string(),
+    userId: v.optional(v.id("users")), // Owner of this company (optional for migration)
+    clerkOrgId: v.optional(v.string()), // Legacy Clerk data
     name: v.string(),
     slug: v.string(),
 
@@ -85,17 +88,19 @@ export default defineSchema({
     createdAt: v.number(),
     updatedAt: v.number(),
   })
-    .index("by_clerkOrgId", ["clerkOrgId"])
+    .index("by_userId", ["userId"])
     .index("by_slug", ["slug"])
     .index("by_stripeCustomerId", ["stripeCustomerId"]),
 
   userProfiles: defineTable({
-    clerkUserId: v.string(),
-    email: v.string(),
-    passwordHash: v.optional(v.string()), // For simple auth
+    userId: v.optional(v.id("users")), // Optional for migration
+    clerkUserId: v.optional(v.string()), // Legacy Clerk data
+    email: v.optional(v.string()), // Legacy email field
+    passwordHash: v.optional(v.string()), // Legacy password
+    currentCompanyId: v.optional(v.id("companies")),
+    currentOrgId: v.optional(v.string()), // Legacy Clerk org ID
     firstName: v.optional(v.string()),
     lastName: v.optional(v.string()),
-    currentOrgId: v.optional(v.string()),
     avatar: v.optional(v.string()),
     phone: v.optional(v.string()),
     title: v.optional(v.string()),
@@ -112,9 +117,8 @@ export default defineSchema({
     updatedAt: v.number(),
     lastLoginAt: v.optional(v.number()),
   })
-    .index("by_clerkUserId", ["clerkUserId"])
-    .index("by_email", ["email"])
-    .index("by_currentOrgId", ["currentOrgId"]),
+    .index("by_userId", ["userId"])
+    .index("by_currentCompanyId", ["currentCompanyId"]),
 
   equipment: defineTable({
     organizationId: v.string(),

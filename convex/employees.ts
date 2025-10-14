@@ -1,6 +1,6 @@
 import { query, mutation } from './_generated/server';
 import { v } from 'convex/values';
-import { getCurrentOrganizationId, verifyOrganizationAccess } from './auth';
+import { getCurrentOrganizationId, verifyOrganizationAccess } from './helpers/auth';
 
 export const list = query({
   args: {

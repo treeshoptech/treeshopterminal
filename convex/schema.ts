@@ -524,4 +524,35 @@ export default defineSchema({
     .index("by_email", ["email"])
     .index("by_inviteCode", ["inviteCode"])
     .index("by_status", ["status"]),
+
+  applications: defineTable({
+    // Contact Info
+    name: v.string(),
+    email: v.string(),
+    phone: v.string(),
+
+    // Business Info
+    companyName: v.string(),
+    businessType: v.string(), // 'tree_service', 'landscaping', 'arborist', 'other'
+    businessTypeOther: v.optional(v.string()),
+
+    // Application Details
+    referralSource: v.optional(v.string()), // how they heard about us
+    message: v.optional(v.string()), // why they want to join
+
+    // Status & Processing
+    status: v.string(), // 'pending', 'approved', 'denied'
+    reviewedAt: v.optional(v.number()),
+    reviewedBy: v.optional(v.string()),
+    reviewNotes: v.optional(v.string()),
+
+    // If approved, link to invite
+    inviteId: v.optional(v.id("userInvites")),
+
+    createdAt: v.number(),
+    updatedAt: v.number(),
+  })
+    .index("by_email", ["email"])
+    .index("by_status", ["status"])
+    .index("by_createdAt", ["createdAt"]),
 });

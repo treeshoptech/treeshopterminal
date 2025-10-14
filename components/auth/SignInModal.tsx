@@ -9,7 +9,7 @@ export function SignInModal() {
   const { signIn } = useAuthActions();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isSignUp, setIsSignUp] = useState(false);
+  const [isSignUp, setIsSignUp] = useState(false); // Only used for invite flow
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [inviteCode, setInviteCode] = useState<string | null>(null);
@@ -192,16 +192,16 @@ export function SignInModal() {
               Protected by enterprise-grade security
             </p>
             {!inviteCode && (
-              <button
-                onClick={() => setIsSignUp(!isSignUp)}
-                className="text-sm text-green-500 hover:text-green-400 font-semibold"
+              <a
+                href="/apply"
+                className="text-sm text-green-500 hover:text-green-400 font-semibold inline-block transition-colors"
               >
-                {isSignUp ? 'Already have an account? Sign in' : 'Need an account? Sign up'}
-              </button>
+                Apply for Founding Membership →
+              </a>
             )}
             {inviteCode && (
               <p className="text-xs text-gray-600">
-                This is an invite-only platform
+                Welcome! Complete your account setup below
               </p>
             )}
           </div>

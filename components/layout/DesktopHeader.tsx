@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useConvexAuth } from "@convex-dev/auth/react";
+import { useConvexAuth } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { LogOut } from 'lucide-react';
 

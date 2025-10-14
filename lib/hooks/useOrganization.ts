@@ -1,4 +1,4 @@
-import { useConvexAuth } from "@convex-dev/auth/react";
+import { useConvexAuth } from "convex/react";
 
 /**
  * Hook to get current user's organization

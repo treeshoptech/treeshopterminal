@@ -4,7 +4,7 @@ import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, Circle } from 'lucide-react';
-import { useConvexAuth } from "@convex-dev/auth/react";
+import { useConvexAuth } from "convex/react";
 import { SignInModal } from '@/components/auth/SignInModal';
 import '@/styles/design-system.css';
 

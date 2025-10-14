@@ -3,7 +3,7 @@
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useState } from 'react';
-import { useConvexAuth } from "@convex-dev/auth/react";
+import { useConvexAuth } from "convex/react";
 import { Copy, Check, X } from 'lucide-react';
 
 export default function AdminInvitesPage() {

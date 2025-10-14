@@ -30,12 +30,13 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 import '@/styles/design-system.css';
+import { RequireAuth } from '@/components/auth/RequireAuth';
 
 
 export default function EmployeesPage() {
   const { organizationId: orgId } = useOrganization();
 
-  const employees = useQuery(api.employees.list, { organizationId: orgId }) || [];
+  const employees = useQuery(api.employees.list, orgId ? { organizationId: orgId } : 'skip') || [];
   const createEmployee = useMutation(api.employees.create);
   const deleteEmployee = useMutation(api.employees.remove);
 
@@ -117,8 +118,7 @@ export default function EmployeesPage() {
   };
 
   return (
-    
-    
+    <RequireAuth>
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
@@ -766,7 +766,6 @@ export default function EmployeesPage() {
           )}
         </div>
       </div>
-    
-    
+    </RequireAuth>
   );
 }

@@ -29,11 +29,12 @@ import {
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import '@/styles/design-system.css';
+import { RequireAuth } from '@/components/auth/RequireAuth';
 
 export default function EquipmentLibraryPage() {
   const router = useRouter();
   const { organizationId: orgId } = useOrganization();
-  const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
+  const equipment = useQuery(api.equipment.list, orgId ? { organizationId: orgId } : 'skip') || [];
   const createEquipment = useMutation(api.equipment.create);
   const deleteEquipment = useMutation(api.equipment.remove);
 
@@ -135,6 +136,7 @@ export default function EquipmentLibraryPage() {
   };
 
   return (
+    <RequireAuth>
     <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
@@ -827,5 +829,6 @@ export default function EquipmentLibraryPage() {
           )}
         </div>
     </div>
+    </RequireAuth>
   );
 }

@@ -4,26 +4,14 @@ import { useQuery } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import Link from 'next/link';
 import { ArrowRight, CheckCircle2, Circle } from 'lucide-react';
-import { useConvexAuth } from "convex/react";
-import { SignInModal } from '@/components/auth/SignInModal';
 import '@/styles/design-system.css';
 
 export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
-  const { isAuthenticated } = useConvexAuth();
-  const equipment = useQuery(
-    api.equipment.list,
-    isAuthenticated ? {} : 'skip'
-  ) || [];
-  const employees = useQuery(
-    api.employees.list,
-    isAuthenticated ? {} : 'skip'
-  ) || [];
-  const loadouts = useQuery(
-    api.loadouts.list,
-    isAuthenticated ? {} : 'skip'
-  ) || [];
+  const equipment = useQuery(api.equipment.list, { organizationId: 'demo-org' }) || [];
+  const employees = useQuery(api.employees.list, { organizationId: 'demo-org' }) || [];
+  const loadouts = useQuery(api.loadouts.list, { organizationId: 'demo-org' }) || [];
 
   const totalEquipmentValue = equipment.reduce((sum, e) => sum + (e.purchasePrice || 0), 0);
   const totalEquipmentCost = equipment.reduce((sum, e) => sum + (e.totalCostPerHour || 0), 0);
@@ -105,7 +93,7 @@ export default function HomePage() {
                 WebkitTextFillColor: 'transparent',
                 letterSpacing: '-0.02em'
               }}>
-            TreeShop Terminal
+            Pricing System
           </h1>
           <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
             Build your pricing system in 4 steps
@@ -252,9 +240,6 @@ export default function HomePage() {
         </div>
 
       </div>
-
-      {/* Sign-In Modal Overlay */}
-      {!isAuthenticated && <SignInModal />}
     </div>
   );
 }

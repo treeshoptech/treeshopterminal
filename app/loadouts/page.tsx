@@ -3,8 +3,6 @@
 import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import { useOrganization } from '@/lib/hooks/useOrganization';
-import { RequireAuth } from '@/components/auth/RequireAuth';
 import {
   Plus,
   Trash2,
@@ -30,11 +28,10 @@ import '@/styles/design-system.css';
 
 
 export default function LoadoutsPage() {
-  const { organizationId: orgId } = useOrganization();
 
-  const equipment = useQuery(api.equipment.list, orgId ? { organizationId: orgId } : 'skip') || [];
-  const employees = useQuery(api.employees.list, orgId ? { organizationId: orgId } : 'skip') || [];
-  const loadouts = useQuery(api.loadouts.list, orgId ? { organizationId: orgId } : 'skip') || [];
+  const equipment = useQuery(api.equipment.list, { organizationId: 'demo-org' }) || [];
+  const employees = useQuery(api.employees.list, { organizationId: 'demo-org' }) || [];
+  const loadouts = useQuery(api.loadouts.list, { organizationId: 'demo-org' }) || [];
   const createLoadout = useMutation(api.loadouts.create);
   const deleteLoadout = useMutation(api.loadouts.remove);
 
@@ -134,7 +131,7 @@ export default function LoadoutsPage() {
   };
 
   return (
-    <RequireAuth>
+    
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
         <div className="absolute inset-0 pointer-events-none">
@@ -867,6 +864,6 @@ export default function LoadoutsPage() {
           )}
         </div>
       </div>
-    </RequireAuth>
+    
   );
 }

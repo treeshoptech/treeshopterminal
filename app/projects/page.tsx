@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { useOrganization } from '@/lib/hooks/useOrganization';
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import type { Id } from '@/convex/_generated/dataModel';
@@ -29,15 +28,13 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
 import '@/styles/design-system.css';
-import { RequireAuth } from '@/components/auth/RequireAuth';
 
 
 export default function ProjectsPage() {
-  const { organizationId: orgId } = useOrganization();
 
-  const loadouts = useQuery(api.loadouts.list, orgId ? { organizationId: orgId } : 'skip') || [];
-  const projects = useQuery(api.projects.list, orgId ? { organizationId: orgId } : 'skip') || [];
-  const customers = useQuery(api.customers.list, orgId ? { organizationId: orgId } : 'skip') || [];
+  const loadouts = useQuery(api.loadouts.list, { organizationId: 'demo-org' }) || [];
+  const projects = useQuery(api.projects.list, { organizationId: 'demo-org' }) || [];
+  const customers = useQuery(api.customers.list, { organizationId: 'demo-org' }) || [];
 
   const createProject = useMutation(api.projects.create);
   const updateProject = useMutation(api.projects.update);
@@ -229,7 +226,7 @@ export default function ProjectsPage() {
   };
 
   return (
-    <RequireAuth>
+    
     <>
       <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
         {/* Premium Background Pattern */}
@@ -1288,6 +1285,6 @@ export default function ProjectsPage() {
         </div>
       )}
     </>
-    </RequireAuth>
+    
   );
 }

@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import { useQuery, useMutation } from 'convex/react';
-import { useOrganization } from '@/lib/hooks/useOrganization';
 import { api } from '@/convex/_generated/api';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
@@ -12,9 +11,9 @@ import Link from 'next/link';
 type WizardStep = 'equipment' | 'employees' | 'loadouts' | 'pricing';
 
 export default function CompletePricingSystem() {
-  const { organizationId: orgId } = useOrganization();
-  const equipment = useQuery(api.equipment.list, { organizationId: orgId }) || [];
-  const loadouts = useQuery(api.loadouts.list, { organizationId: orgId }) || [];
+  const orgId = 'demo-org';
+  const equipment = useQuery(api.equipment.list, { organizationId: 'demo-org' }) || [];
+  const loadouts = useQuery(api.loadouts.list, { organizationId: 'demo-org' }) || [];
   const createEquipment = useMutation(api.equipment.create);
   const createLoadout = useMutation(api.loadouts.create);
 

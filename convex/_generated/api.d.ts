@@ -16,6 +16,7 @@ import type {
 import type * as applications from "../applications.js";
 import type * as auth from "../auth.js";
 import type * as companies from "../companies.js";
+import type * as createAdminInvite from "../createAdminInvite.js";
 import type * as customers from "../customers.js";
 import type * as employees from "../employees.js";
 import type * as equipment from "../equipment.js";
@@ -43,6 +44,7 @@ declare const fullApi: ApiFromModules<{
   applications: typeof applications;
   auth: typeof auth;
   companies: typeof companies;
+  createAdminInvite: typeof createAdminInvite;
   customers: typeof customers;
   employees: typeof employees;
   equipment: typeof equipment;

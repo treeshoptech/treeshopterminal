@@ -32,7 +32,6 @@ export default function HomePage() {
   const [dbh, setDbh] = useState(6);
 
   // UI State
-  const [menuOpen, setMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('mulching');
   const [calculated, setCalculated] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -158,15 +157,18 @@ export default function HomePage() {
   ];
 
   const tabs = [
-    { id: 'mulching', label: 'Mulching', active: true },
-    { id: 'stumps', label: 'Stumps', active: false },
-    { id: 'clearing', label: 'Clearing', active: false },
+    { id: 'mulching', label: 'Mulching' },
+    { id: 'stumps', label: 'Stumps' },
+    { id: 'clearing', label: 'Clearing' },
+    { id: 'business', label: 'Business' },
+    { id: 'quotes', label: 'Quotes' },
+    { id: 'profile', label: 'Profile' },
   ];
 
   return (
     <>
       <div className="min-h-screen" style={{ background: '#000000' }}>
-        {/* Header with Logo and Hamburger */}
+        {/* Header with Logo and Tab Navigation */}
         <header
           className="sticky top-0 z-40"
           style={{
@@ -176,8 +178,8 @@ export default function HomePage() {
           }}
         >
           <div className="mx-auto px-8 py-4">
-            <div className="flex items-center justify-between">
-              {/* Logo */}
+            {/* Logo */}
+            <div className="mb-4">
               <div className="relative" style={{ width: '140px', height: '46px' }}>
                 <Image
                   src="/treeshop-logo.png"
@@ -187,29 +189,15 @@ export default function HomePage() {
                   priority
                 />
               </div>
-
-              {/* Hamburger Menu Button */}
-              <button
-                onClick={() => setMenuOpen(!menuOpen)}
-                className="p-3 rounded-lg transition-all active:scale-95"
-                style={{
-                  background: 'rgba(33, 150, 243, 0.15)',
-                  border: '1px solid rgba(33, 150, 243, 0.3)',
-                }}
-              >
-                <Menu style={{ width: '24px', height: '24px', color: '#2196F3' }} />
-              </button>
             </div>
-          </div>
 
-          {/* Tab Navigation */}
-          <div className="mx-auto px-8">
+            {/* Tab Navigation */}
             <div className="flex gap-2 pb-2 overflow-x-auto">
               {tabs.map((tab) => (
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className="px-6 py-2.5 rounded-t-lg font-semibold text-sm whitespace-nowrap transition-all"
+                  className="px-5 py-2.5 rounded-t-lg font-semibold text-sm whitespace-nowrap transition-all"
                   style={{
                     background: activeTab === tab.id ? '#2196F3' : 'transparent',
                     color: activeTab === tab.id ? 'white' : 'rgba(255,255,255,0.6)',
@@ -223,101 +211,10 @@ export default function HomePage() {
           </div>
         </header>
 
-        {/* Hamburger Menu Sidebar */}
-        <aside
-          className="fixed top-0 right-0 h-full transition-transform duration-300 z-[100]"
-          style={{
-            width: menuOpen ? '100%' : '0',
-            maxWidth: '90vw',
-            background: 'rgba(10, 10, 10, 0.98)',
-            transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
-            overflowY: 'auto',
-            borderLeft: '2px solid #2196F3',
-            boxShadow: menuOpen ? '-8px 0 32px rgba(0, 0, 0, 0.8)' : 'none',
-          }}
-        >
-          {menuOpen && (
-            <>
-              <div
-                className="sticky top-0 flex items-center justify-between p-6"
-                style={{
-                  background: '#0a0a0a',
-                  borderBottom: '1px solid rgba(255,255,255,0.1)',
-                  zIndex: 10,
-                }}
-              >
-                <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
-                  Menu
-                </div>
-                <button
-                  onClick={() => setMenuOpen(false)}
-                  style={{
-                    background: 'transparent',
-                    border: 'none',
-                    color: 'white',
-                    fontSize: '28px',
-                    cursor: 'pointer',
-                    padding: '0 8px',
-                  }}
-                >
-                  ✕
-                </button>
-              </div>
-
-              <div className="p-6 space-y-4">
-                {/* Menu Items */}
-                <button
-                  className="w-full p-5 rounded-xl text-left transition-all active:scale-98"
-                  style={{
-                    background: 'rgba(33, 150, 243, 0.1)',
-                    border: '1px solid rgba(33, 150, 243, 0.3)',
-                  }}
-                >
-                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', marginBottom: '4px' }}>
-                    Business Details
-                  </div>
-                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
-                    Hourly cost, margin, production rate
-                  </div>
-                </button>
-
-                <button
-                  className="w-full p-5 rounded-xl text-left transition-all active:scale-98"
-                  style={{
-                    background: 'rgba(33, 150, 243, 0.1)',
-                    border: '1px solid rgba(33, 150, 243, 0.3)',
-                  }}
-                >
-                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', marginBottom: '4px' }}>
-                    Saved Quotes
-                  </div>
-                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
-                    View all project records
-                  </div>
-                </button>
-
-                <button
-                  className="w-full p-5 rounded-xl text-left transition-all active:scale-98"
-                  style={{
-                    background: 'rgba(33, 150, 243, 0.1)',
-                    border: '1px solid rgba(33, 150, 243, 0.3)',
-                  }}
-                >
-                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', marginBottom: '4px' }}>
-                    Profile
-                  </div>
-                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
-                    Account settings and preferences
-                  </div>
-                </button>
-              </div>
-            </>
-          )}
-        </aside>
-
         {/* Main Content with MORE PADDING */}
         <div className="max-w-4xl mx-auto px-8 py-8 pb-40">
-          {!calculated ? (
+          {/* Mulching Calculator */}
+          {activeTab === 'mulching' && !calculated ? (
             <div>
               {/* Project Details Section */}
               <div
@@ -511,8 +408,10 @@ export default function HomePage() {
                 CALCULATE PRICE
               </button>
             </div>
-          ) : (
-            // Results View with Customer Details
+          )}
+
+          {/* Mulching Results */}
+          {activeTab === 'mulching' && calculated && (
             <div>
               <div className="flex items-center justify-between mb-8">
                 <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'white' }}>
@@ -809,6 +708,180 @@ export default function HomePage() {
                   Sign in to save quotes to your account
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Stumps Tab */}
+          {activeTab === 'stumps' && (
+            <div
+              className="p-8 rounded-xl text-center"
+              style={{
+                background: 'rgba(10, 10, 10, 0.6)',
+                border: '2px solid #2196F3',
+              }}
+            >
+              <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#2196F3', marginBottom: '12px' }}>
+                Stump Grinding Calculator
+              </h2>
+              <p style={{ color: 'rgba(255,255,255,0.7)' }}>Coming soon...</p>
+            </div>
+          )}
+
+          {/* Clearing Tab */}
+          {activeTab === 'clearing' && (
+            <div
+              className="p-8 rounded-xl text-center"
+              style={{
+                background: 'rgba(10, 10, 10, 0.6)',
+                border: '2px solid #2196F3',
+              }}
+            >
+              <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#2196F3', marginBottom: '12px' }}>
+                Land Clearing Calculator
+              </h2>
+              <p style={{ color: 'rgba(255,255,255,0.7)' }}>Coming soon...</p>
+            </div>
+          )}
+
+          {/* Business Tab */}
+          {activeTab === 'business' && (
+            <div>
+              <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'white', marginBottom: '24px' }}>
+                Business Settings
+              </h2>
+
+              <div
+                className="p-8 rounded-xl mb-6"
+                style={{
+                  background: 'rgba(10, 10, 10, 0.6)',
+                  border: '2px solid #2196F3',
+                }}
+              >
+                <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#2196F3', marginBottom: '24px' }}>
+                  Pricing Configuration
+                </h3>
+
+                <div className="space-y-6">
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: 'rgba(255,255,255,0.9)', marginBottom: '10px' }}>
+                      Hourly Cost ($)
+                    </label>
+                    <input
+                      type="number"
+                      value={hourlyCost}
+                      onChange={(e) => setHourlyCost(Number(e.target.value))}
+                      style={{
+                        width: '100%',
+                        padding: '16px',
+                        fontSize: '16px',
+                        background: '#000000',
+                        color: 'white',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: 'rgba(255,255,255,0.9)', marginBottom: '10px' }}>
+                      Profit Margin (%)
+                    </label>
+                    <input
+                      type="number"
+                      value={margin}
+                      onChange={(e) => setMargin(Number(e.target.value))}
+                      style={{
+                        width: '100%',
+                        padding: '16px',
+                        fontSize: '16px',
+                        background: '#000000',
+                        color: 'white',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+
+                  <div>
+                    <label style={{ display: 'block', fontSize: '14px', fontWeight: '600', color: 'rgba(255,255,255,0.9)', marginBottom: '10px' }}>
+                      Production Rate (Points per Hour)
+                    </label>
+                    <input
+                      type="number"
+                      step="0.1"
+                      value={productionRate}
+                      onChange={(e) => setProductionRate(Number(e.target.value))}
+                      style={{
+                        width: '100%',
+                        padding: '16px',
+                        fontSize: '16px',
+                        background: '#000000',
+                        color: 'white',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: '12px',
+                      }}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Quotes Tab */}
+          {activeTab === 'quotes' && (
+            <div>
+              <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'white', marginBottom: '24px' }}>
+                Saved Quotes
+              </h2>
+
+              <div
+                className="p-8 rounded-xl text-center"
+                style={{
+                  background: 'rgba(10, 10, 10, 0.6)',
+                  border: '2px solid #2196F3',
+                }}
+              >
+                <p style={{ color: 'rgba(255,255,255,0.7)' }}>
+                  Your saved project quotes will appear here
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Profile Tab */}
+          {activeTab === 'profile' && (
+            <div>
+              <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'white', marginBottom: '24px' }}>
+                Profile
+              </h2>
+
+              <div
+                className="p-8 rounded-xl"
+                style={{
+                  background: 'rgba(10, 10, 10, 0.6)',
+                  border: '2px solid #2196F3',
+                }}
+              >
+                <p style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '16px' }}>
+                  Account settings and preferences
+                </p>
+                {isSignedIn && (
+                  <button
+                    onClick={() => {
+                      // Sign out logic will be added
+                      alert('Sign out functionality coming soon');
+                    }}
+                    className="px-6 py-3 rounded-lg font-semibold transition-all"
+                    style={{
+                      background: 'rgba(239, 68, 68, 0.2)',
+                      color: '#ef4444',
+                      border: '1px solid rgba(239, 68, 68, 0.3)',
+                    }}
+                  >
+                    Sign Out
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </div>

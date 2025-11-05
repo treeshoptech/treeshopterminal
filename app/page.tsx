@@ -435,29 +435,29 @@ export default function HomePage() {
               >
                 Project Breakdown
               </summary>
-              <div className="px-6 pb-6 pt-2 space-y-4" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
-                <div className="flex justify-between py-2">
+              <div className="px-8 pb-8 pt-4 space-y-6" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
+                <div className="flex justify-between py-3">
                   <span>TreeShop Score</span>
                   <span>{results.score.toFixed(2)} points</span>
                 </div>
-                <div className="flex justify-between py-2">
+                <div className="flex justify-between py-3">
                   <span>Production Time</span>
                   <span>{results.productionTime.toFixed(2)} hours</span>
                 </div>
-                <div className="flex justify-between py-2">
+                <div className="flex justify-between py-3">
                   <span>Round Trip Drive Time</span>
                   <span>{results.totalDriveTime.toFixed(2)} hours</span>
                 </div>
-                <div className="flex justify-between py-2">
+                <div className="flex justify-between py-3">
                   <span>Transport Billable (50% of drive)</span>
                   <span>{results.transportBillable.toFixed(2)} hours</span>
                 </div>
-                <div className="flex justify-between py-2">
+                <div className="flex justify-between py-3">
                   <span>Buffer (10%)</span>
                   <span>{results.buffer.toFixed(2)} hours</span>
                 </div>
                 <div
-                  className="flex justify-between pt-4 mt-4 py-2"
+                  className="flex justify-between pt-4 mt-4 py-3"
                   style={{ borderTop: '1px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}
                 >
                   <span>Total Project Hours</span>
@@ -479,22 +479,22 @@ export default function HomePage() {
               >
                 Profit Analysis
               </summary>
-              <div className="px-6 pb-6 pt-2 space-y-4" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
-                <div className="flex justify-between py-2">
+              <div className="px-8 pb-8 pt-4 space-y-6" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
+                <div className="flex justify-between py-3">
                   <span>Revenue</span>
                   <span>{formatCurrency(results.projectPrice)}</span>
                 </div>
-                <div className="flex justify-between py-2">
+                <div className="flex justify-between py-3">
                   <span>Your Costs</span>
                   <span>{formatCurrency(results.totalCost)}</span>
                 </div>
-                <div className="flex justify-between py-2">
+                <div className="flex justify-between py-3">
                   <span>Your Profit</span>
                   <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
                     {formatCurrency(results.profit)}
                   </span>
                 </div>
-                <div className="flex justify-between py-2">
+                <div className="flex justify-between py-3">
                   <span>Profit Margin</span>
                   <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
                     {results.profitMargin.toFixed(1)}%

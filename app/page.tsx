@@ -6,7 +6,7 @@ import '@/styles/design-system.css';
 
 export default function HomePage() {
   // Company Settings
-  const [hourlyCost, setHourlyCost] = useState(267);
+  const [hourlyCost, setHourlyCost] = useState(250);
   const [margin, setMargin] = useState(40);
   const [productionRate, setProductionRate] = useState(1.5);
 

@@ -1,17 +1,12 @@
-// TreeShop Service Worker - PWA Support
-
 const CACHE_NAME = 'treeshop-v1';
 const urlsToCache = [
   '/',
-  '/equipment',
-  '/employees',
-  '/loadouts',
-  '/projects',
-  '/settings',
-  '/manifest.json',
+  '/treeshop-logo.png',
+  '/icon-192.png',
+  '/icon-512.png',
 ];
 
-// Install event - cache resources
+// Install event - cache assets
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
@@ -21,7 +16,7 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
-// Activate event - clean old caches
+// Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -41,7 +36,23 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
+      if (response) {
+        return response;
+      }
+
+      return fetch(event.request).then((response) => {
+        if (!response || response.status !== 200 || response.type !== 'basic') {
+          return response;
+        }
+
+        const responseToCache = response.clone();
+
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+
+        return response;
+      });
     })
   );
 });

@@ -9,10 +9,10 @@ import '../styles/globals.css';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'TreeShop Pricing System',
-  description: 'Professional cost calculations for tree service operations',
+  title: 'TreeShop Pricing Calculator',
+  description: 'Professional pricing for forestry mulching, stump grinding, and land clearing services',
   manifest: '/manifest.json',
-  themeColor: '#00FF41',
+  themeColor: '#2196F3',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',

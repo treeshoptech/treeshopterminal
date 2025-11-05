@@ -26,13 +26,13 @@ export function SignInForm() {
 
   return (
     <div
-      className="fixed inset-0 z-[100] flex items-center justify-center"
+      className="fixed inset-0 z-[100] overflow-y-auto"
       style={{
         background: 'rgba(0, 0, 0, 0.95)',
         backdropFilter: 'blur(20px)',
       }}
     >
-      <div className="relative w-full max-w-md px-6">
+      <div className="relative w-full max-w-md px-6 mx-auto pt-12">
         <div className="text-center mb-12">
           <div className="mb-4 flex justify-center">
             <div className="relative" style={{ width: '240px', height: '80px' }}>

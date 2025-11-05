@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useOrganization } from '@/lib/hooks/useOrganization';
 import { SignedOut, SignIn, useUser } from '@clerk/nextjs';
 import Image from 'next/image';
+import { Menu } from 'lucide-react';
 import '@/styles/design-system.css';
 
 export const dynamic = 'force-dynamic';
@@ -15,12 +16,12 @@ export default function HomePage() {
   const { isSignedIn } = useUser();
   const createQuote = useMutation(api.quotes.create);
 
-  // Company Settings (from sidebar)
+  // Company Settings
   const [hourlyCost, setHourlyCost] = useState(267);
   const [margin, setMargin] = useState(40);
   const [productionRate, setProductionRate] = useState(1.5);
 
-  // Customer Fields (optional, in sidebar)
+  // Customer Fields (now on results page)
   const [customerName, setCustomerName] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
   const [customerNotes, setCustomerNotes] = useState('');
@@ -32,54 +33,30 @@ export default function HomePage() {
   const [dbh, setDbh] = useState(6);
 
   // UI State
-  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('mulching');
   const [calculated, setCalculated] = useState(false);
   const [saving, setSaving] = useState(false);
 
   // Calculation Results
   const [results, setResults] = useState<any>(null);
 
-  // Settings Sidebar Toggle
-  const toggleSettings = () => {
-    setSettingsOpen(!settingsOpen);
-  };
-
   // Calculate Price
   const calculatePrice = () => {
-    if (
-      driveHours === '' ||
-      driveMinutes === '' ||
-      acreage === '' ||
-      !dbh
-    ) {
+    if (driveHours === '' || driveMinutes === '' || acreage === '' || !dbh) {
       alert('Please fill in all project details');
       return;
     }
 
-    // Step 1: Calculate Billing Rate
     const billingRate = hourlyCost / (1 - margin / 100);
-
-    // Step 2: TreeShop Score
     const score = dbh * acreage;
-
-    // Step 3: Production Time
     const productionTime = score / productionRate;
-
-    // Step 4: Transport Time
     const driveTimeHours = Number(driveHours) + Number(driveMinutes) / 60;
     const totalDriveTime = driveTimeHours * 2;
     const transportBillable = totalDriveTime * 0.5;
-
-    // Step 5: Buffer
     const buffer = (productionTime + transportBillable) * 0.1;
-
-    // Step 6: Total Hours
     const totalHours = productionTime + transportBillable + buffer;
-
-    // Step 7: Project Price
     const projectPrice = totalHours * billingRate;
-
-    // Profit Calculations
     const totalCost = totalHours * hourlyCost;
     const profit = projectPrice - totalCost;
     const profitMargin = (profit / projectPrice) * 100;
@@ -102,7 +79,7 @@ export default function HomePage() {
     setCalculated(true);
   };
 
-  // Save Quote to Convex
+  // Save Quote
   const saveQuote = async () => {
     if (!organizationId) {
       alert('Please sign in to save quotes');
@@ -116,9 +93,9 @@ export default function HomePage() {
       await createQuote({
         organizationId,
         serviceType: 'forestry-mulching',
-        workAreaIds: [], // Empty for now, can add later
-        lowPrice: results.projectPrice * 0.9, // 10% lower for range
-        highPrice: results.projectPrice * 1.1, // 10% higher for range
+        workAreaIds: [],
+        lowPrice: results.projectPrice * 0.9,
+        highPrice: results.projectPrice * 1.1,
         estimatedHours: results.totalHours,
         scopeOfWork: [
           `${acreage} acres forestry mulching`,
@@ -146,8 +123,6 @@ export default function HomePage() {
       });
 
       alert('Quote saved successfully!');
-
-      // Reset form
       setCustomerName('');
       setCustomerAddress('');
       setCustomerNotes('');
@@ -165,7 +140,6 @@ export default function HomePage() {
     }
   };
 
-  // Format currency
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -175,7 +149,6 @@ export default function HomePage() {
     }).format(value);
   };
 
-  // DBH Package Data
   const dbhPackages = [
     { value: 2, label: 'X Small', description: '2" DBH' },
     { value: 4, label: 'Small', description: '4" DBH' },
@@ -185,22 +158,28 @@ export default function HomePage() {
     { value: 12, label: 'MAX', description: '12" DBH' },
   ];
 
+  const tabs = [
+    { id: 'mulching', label: 'Mulching', active: true },
+    { id: 'stumps', label: 'Stumps', active: false },
+    { id: 'clearing', label: 'Clearing', active: false },
+  ];
+
   return (
     <>
       <div className="min-h-screen" style={{ background: '#000000' }}>
-        {/* App Header Bar */}
+        {/* Header with Logo and Hamburger */}
         <header
           className="sticky top-0 z-40"
           style={{
-            background: 'rgba(10, 10, 10, 0.95)',
+            background: 'rgba(10, 10, 10, 0.98)',
             backdropFilter: 'blur(20px)',
             borderBottom: '1px solid rgba(33, 150, 243, 0.2)',
           }}
         >
-          <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4">
+          <div className="mx-auto px-8 py-4">
             <div className="flex items-center justify-between">
               {/* Logo */}
-              <div className="relative" style={{ width: '160px', height: '50px' }}>
+              <div className="relative" style={{ width: '140px', height: '46px' }}>
                 <Image
                   src="/treeshop-logo.png"
                   alt="TreeShop"
@@ -210,297 +189,140 @@ export default function HomePage() {
                 />
               </div>
 
-              {/* Desktop Navigation */}
-              <nav className="hidden md:flex items-center gap-6">
-                <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontWeight: '600' }}>
-                  Forestry Mulching Calculator
-                </div>
-              </nav>
-
-              {/* Settings Button */}
+              {/* Hamburger Menu Button */}
               <button
-                onClick={toggleSettings}
-                className="px-5 py-2.5 rounded-lg font-bold text-sm transition-all active:scale-95"
+                onClick={() => setMenuOpen(!menuOpen)}
+                className="p-3 rounded-lg transition-all active:scale-95"
                 style={{
-                  background: '#2196F3',
-                  color: 'white',
-                  border: 'none',
-                  boxShadow: '0 2px 8px rgba(33, 150, 243, 0.3)',
+                  background: 'rgba(33, 150, 243, 0.15)',
+                  border: '1px solid rgba(33, 150, 243, 0.3)',
                 }}
               >
-                SETTINGS
+                <Menu style={{ width: '24px', height: '24px', color: '#2196F3' }} />
               </button>
+            </div>
+          </div>
+
+          {/* Tab Navigation */}
+          <div className="mx-auto px-8">
+            <div className="flex gap-2 pb-2 overflow-x-auto">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className="px-6 py-2.5 rounded-t-lg font-semibold text-sm whitespace-nowrap transition-all"
+                  style={{
+                    background: activeTab === tab.id ? '#2196F3' : 'transparent',
+                    color: activeTab === tab.id ? 'white' : 'rgba(255,255,255,0.6)',
+                    borderBottom: activeTab === tab.id ? '3px solid #2196F3' : '3px solid transparent',
+                  }}
+                >
+                  {tab.label}
+                </button>
+              ))}
             </div>
           </div>
         </header>
 
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 py-8 pb-32">
-          {/* Settings Sidebar */}
-          <aside
-            className="fixed top-0 right-0 h-full transition-transform duration-300 z-[100]"
-            style={{
-              width: settingsOpen ? '100%' : '0',
-              maxWidth: '420px',
-              background: 'rgba(10, 10, 10, 0.98)',
-              transform: settingsOpen ? 'translateX(0)' : 'translateX(100%)',
-              overflowY: 'auto',
-              borderLeft: '2px solid #2196F3',
-              boxShadow: settingsOpen ? '-8px 0 32px rgba(0, 0, 0, 0.8)' : 'none',
-            }}
-          >
-            {settingsOpen && (
-              <>
-                <div
-                  className="sticky top-0 flex items-center justify-between p-4"
-                  style={{
-                    background: '#0a0a0a',
-                    borderBottom: '1px solid rgba(255,255,255,0.1)',
-                    zIndex: 10,
-                  }}
-                >
-                  <div style={{ fontSize: '18px', fontWeight: 'bold', color: 'white' }}>
-                    Settings
-                  </div>
-                  <button
-                    onClick={toggleSettings}
-                    style={{
-                      background: 'transparent',
-                      border: 'none',
-                      color: 'white',
-                      fontSize: '24px',
-                      cursor: 'pointer',
-                      padding: '0 8px',
-                    }}
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <div className="p-6 space-y-6">
-                  {/* Company Settings Section */}
-                  <div>
-                    <h3 style={{ color: '#2196F3', fontSize: '16px', fontWeight: 'bold', marginBottom: '16px' }}>
-                      Company Settings
-                    </h3>
-
-                    <div className="space-y-4">
-                      <div>
-                        <label
-                          htmlFor="hourlyCost"
-                          style={{
-                            display: 'block',
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            color: 'rgba(255,255,255,0.9)',
-                            marginBottom: '8px',
-                          }}
-                        >
-                          Hourly Cost ($)
-                        </label>
-                        <input
-                          type="number"
-                          id="hourlyCost"
-                          value={hourlyCost}
-                          onChange={(e) => setHourlyCost(Number(e.target.value))}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            fontSize: '16px',
-                            background: '#000000',
-                            color: 'white',
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            borderRadius: '8px',
-                          }}
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="margin"
-                          style={{
-                            display: 'block',
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            color: 'rgba(255,255,255,0.9)',
-                            marginBottom: '8px',
-                          }}
-                        >
-                          Profit Margin (%)
-                        </label>
-                        <input
-                          type="number"
-                          id="margin"
-                          value={margin}
-                          onChange={(e) => setMargin(Number(e.target.value))}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            fontSize: '16px',
-                            background: '#000000',
-                            color: 'white',
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            borderRadius: '8px',
-                          }}
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="productionRate"
-                          style={{
-                            display: 'block',
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            color: 'rgba(255,255,255,0.9)',
-                            marginBottom: '8px',
-                          }}
-                        >
-                          Production Rate (PpH)
-                        </label>
-                        <input
-                          type="number"
-                          id="productionRate"
-                          value={productionRate}
-                          onChange={(e) => setProductionRate(Number(e.target.value))}
-                          step="0.1"
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            fontSize: '16px',
-                            background: '#000000',
-                            color: 'white',
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            borderRadius: '8px',
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Customer Information Section */}
-                  <div>
-                    <h3 style={{ color: '#2196F3', fontSize: '16px', fontWeight: 'bold', marginBottom: '16px' }}>
-                      Customer Information (Optional)
-                    </h3>
-
-                    <div className="space-y-4">
-                      <div>
-                        <label
-                          htmlFor="customerName"
-                          style={{
-                            display: 'block',
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            color: 'rgba(255,255,255,0.9)',
-                            marginBottom: '8px',
-                          }}
-                        >
-                          Customer Name
-                        </label>
-                        <input
-                          type="text"
-                          id="customerName"
-                          value={customerName}
-                          onChange={(e) => setCustomerName(e.target.value)}
-                          placeholder="John Doe"
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            fontSize: '16px',
-                            background: '#000000',
-                            color: 'white',
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            borderRadius: '8px',
-                          }}
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="customerAddress"
-                          style={{
-                            display: 'block',
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            color: 'rgba(255,255,255,0.9)',
-                            marginBottom: '8px',
-                          }}
-                        >
-                          Property Address
-                        </label>
-                        <input
-                          type="text"
-                          id="customerAddress"
-                          value={customerAddress}
-                          onChange={(e) => setCustomerAddress(e.target.value)}
-                          placeholder="123 Main St, City, State"
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            fontSize: '16px',
-                            background: '#000000',
-                            color: 'white',
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            borderRadius: '8px',
-                          }}
-                        />
-                      </div>
-
-                      <div>
-                        <label
-                          htmlFor="customerNotes"
-                          style={{
-                            display: 'block',
-                            fontSize: '14px',
-                            fontWeight: '600',
-                            color: 'rgba(255,255,255,0.9)',
-                            marginBottom: '8px',
-                          }}
-                        >
-                          Notes
-                        </label>
-                        <textarea
-                          id="customerNotes"
-                          value={customerNotes}
-                          onChange={(e) => setCustomerNotes(e.target.value)}
-                          placeholder="Additional notes or special requirements..."
-                          rows={4}
-                          style={{
-                            width: '100%',
-                            padding: '12px',
-                            fontSize: '16px',
-                            background: '#000000',
-                            color: 'white',
-                            border: '1px solid rgba(255,255,255,0.2)',
-                            borderRadius: '8px',
-                            resize: 'vertical',
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-          </aside>
-
-          {/* Main Calculator */}
-          {!calculated ? (
-            <div>
-              <h2
+        {/* Hamburger Menu Sidebar */}
+        <aside
+          className="fixed top-0 right-0 h-full transition-transform duration-300 z-[100]"
+          style={{
+            width: menuOpen ? '100%' : '0',
+            maxWidth: '90vw',
+            background: 'rgba(10, 10, 10, 0.98)',
+            transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
+            overflowY: 'auto',
+            borderLeft: '2px solid #2196F3',
+            boxShadow: menuOpen ? '-8px 0 32px rgba(0, 0, 0, 0.8)' : 'none',
+          }}
+        >
+          {menuOpen && (
+            <>
+              <div
+                className="sticky top-0 flex items-center justify-between p-6"
                 style={{
-                  fontSize: '28px',
-                  fontWeight: 'bold',
-                  color: 'white',
-                  marginBottom: '24px',
+                  background: '#0a0a0a',
+                  borderBottom: '1px solid rgba(255,255,255,0.1)',
+                  zIndex: 10,
                 }}
               >
-                Forestry Mulching Calculator
-              </h2>
+                <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
+                  Menu
+                </div>
+                <button
+                  onClick={() => setMenuOpen(false)}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: 'white',
+                    fontSize: '28px',
+                    cursor: 'pointer',
+                    padding: '0 8px',
+                  }}
+                >
+                  ✕
+                </button>
+              </div>
 
+              <div className="p-6 space-y-4">
+                {/* Menu Items */}
+                <button
+                  className="w-full p-5 rounded-xl text-left transition-all active:scale-98"
+                  style={{
+                    background: 'rgba(33, 150, 243, 0.1)',
+                    border: '1px solid rgba(33, 150, 243, 0.3)',
+                  }}
+                >
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', marginBottom: '4px' }}>
+                    Business Details
+                  </div>
+                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
+                    Hourly cost, margin, production rate
+                  </div>
+                </button>
+
+                <button
+                  className="w-full p-5 rounded-xl text-left transition-all active:scale-98"
+                  style={{
+                    background: 'rgba(33, 150, 243, 0.1)',
+                    border: '1px solid rgba(33, 150, 243, 0.3)',
+                  }}
+                >
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', marginBottom: '4px' }}>
+                    Saved Quotes
+                  </div>
+                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
+                    View all project records
+                  </div>
+                </button>
+
+                <button
+                  className="w-full p-5 rounded-xl text-left transition-all active:scale-98"
+                  style={{
+                    background: 'rgba(33, 150, 243, 0.1)',
+                    border: '1px solid rgba(33, 150, 243, 0.3)',
+                  }}
+                >
+                  <div style={{ fontSize: '16px', fontWeight: 'bold', color: 'white', marginBottom: '4px' }}>
+                    Profile
+                  </div>
+                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)' }}>
+                    Account settings and preferences
+                  </div>
+                </button>
+              </div>
+            </>
+          )}
+        </aside>
+
+        {/* Main Content with MORE PADDING */}
+        <div className="max-w-4xl mx-auto px-8 py-8 pb-40">
+          {!calculated ? (
+            <div>
               {/* Project Details Section */}
               <div
-                className="p-6 sm:p-8 rounded-xl mb-6"
+                className="p-8 rounded-xl mb-6"
                 style={{
                   background: 'rgba(10, 10, 10, 0.6)',
                   border: '2px solid #2196F3',
@@ -509,25 +331,25 @@ export default function HomePage() {
               >
                 <h3
                   style={{
-                    fontSize: '18px',
+                    fontSize: '20px',
                     fontWeight: 'bold',
                     color: '#2196F3',
-                    marginBottom: '20px',
+                    marginBottom: '24px',
                   }}
                 >
                   Project Details
                 </h3>
 
-                <div className="space-y-6">
+                <div className="space-y-8">
                   {/* Drive Time */}
                   <div>
                     <label
                       style={{
                         display: 'block',
-                        fontSize: '14px',
+                        fontSize: '15px',
                         fontWeight: '600',
                         color: 'rgba(255,255,255,0.9)',
-                        marginBottom: '12px',
+                        marginBottom: '14px',
                       }}
                     >
                       Drive Time (One-Way)
@@ -544,19 +366,19 @@ export default function HomePage() {
                           min="0"
                           style={{
                             width: '100%',
-                            padding: '14px',
+                            padding: '18px',
                             fontSize: '16px',
                             background: '#000000',
                             color: 'white',
                             border: '1px solid rgba(255,255,255,0.3)',
-                            borderRadius: '8px',
+                            borderRadius: '12px',
                           }}
                         />
                         <div
                           style={{
-                            fontSize: '12px',
+                            fontSize: '13px',
                             color: 'rgba(255,255,255,0.5)',
-                            marginTop: '4px',
+                            marginTop: '8px',
                             textAlign: 'center',
                           }}
                         >
@@ -575,19 +397,19 @@ export default function HomePage() {
                           max="59"
                           style={{
                             width: '100%',
-                            padding: '14px',
+                            padding: '18px',
                             fontSize: '16px',
                             background: '#000000',
                             color: 'white',
                             border: '1px solid rgba(255,255,255,0.3)',
-                            borderRadius: '8px',
+                            borderRadius: '12px',
                           }}
                         />
                         <div
                           style={{
-                            fontSize: '12px',
+                            fontSize: '13px',
                             color: 'rgba(255,255,255,0.5)',
-                            marginTop: '4px',
+                            marginTop: '8px',
                             textAlign: 'center',
                           }}
                         >
@@ -603,10 +425,10 @@ export default function HomePage() {
                       htmlFor="acreage"
                       style={{
                         display: 'block',
-                        fontSize: '14px',
+                        fontSize: '15px',
                         fontWeight: '600',
                         color: 'rgba(255,255,255,0.9)',
-                        marginBottom: '12px',
+                        marginBottom: '14px',
                       }}
                     >
                       Project Acreage
@@ -622,12 +444,12 @@ export default function HomePage() {
                       step="0.01"
                       style={{
                         width: '100%',
-                        padding: '14px',
+                        padding: '18px',
                         fontSize: '16px',
                         background: '#000000',
                         color: 'white',
                         border: '1px solid rgba(255,255,255,0.3)',
-                        borderRadius: '8px',
+                        borderRadius: '12px',
                       }}
                     />
                   </div>
@@ -637,23 +459,23 @@ export default function HomePage() {
                     <label
                       style={{
                         display: 'block',
-                        fontSize: '14px',
+                        fontSize: '15px',
                         fontWeight: '600',
                         color: 'rgba(255,255,255,0.9)',
-                        marginBottom: '12px',
+                        marginBottom: '14px',
                       }}
                     >
                       Package Size
                     </label>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-2 gap-4">
                       {dbhPackages.map((pkg) => (
                         <button
                           key={pkg.value}
                           onClick={() => setDbh(pkg.value)}
                           className="transition-all"
                           style={{
-                            padding: '16px 12px',
-                            borderRadius: '8px',
+                            padding: '20px 16px',
+                            borderRadius: '12px',
                             background: dbh === pkg.value ? '#2196F3' : '#000000',
                             border:
                               dbh === pkg.value
@@ -664,10 +486,10 @@ export default function HomePage() {
                             textAlign: 'center',
                           }}
                         >
-                          <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '4px' }}>
+                          <div style={{ fontSize: '17px', fontWeight: 'bold', marginBottom: '6px' }}>
                             {pkg.label}
                           </div>
-                          <div style={{ fontSize: '12px', opacity: 0.8 }}>{pkg.description}</div>
+                          <div style={{ fontSize: '13px', opacity: 0.8 }}>{pkg.description}</div>
                         </button>
                       ))}
                     </div>
@@ -678,7 +500,7 @@ export default function HomePage() {
               {/* Calculate Button */}
               <button
                 onClick={calculatePrice}
-                className="w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-98"
+                className="w-full py-5 rounded-xl font-bold text-lg transition-all active:scale-98"
                 style={{
                   background: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)',
                   color: 'white',
@@ -691,9 +513,9 @@ export default function HomePage() {
               </button>
             </div>
           ) : (
-            // Results View
+            // Results View with Customer Details
             <div>
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center justify-between mb-8">
                 <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'white' }}>
                   Project Investment
                 </h2>
@@ -703,11 +525,11 @@ export default function HomePage() {
                     setResults(null);
                   }}
                   style={{
-                    padding: '8px 16px',
+                    padding: '10px 18px',
                     background: 'rgba(255,255,255,0.1)',
                     color: 'white',
                     border: '1px solid rgba(255,255,255,0.3)',
-                    borderRadius: '8px',
+                    borderRadius: '10px',
                     cursor: 'pointer',
                     fontSize: '14px',
                   }}
@@ -718,60 +540,178 @@ export default function HomePage() {
 
               {/* Main Quote Box */}
               <div
-                className="p-8 sm:p-10 rounded-xl mb-6 text-center"
+                className="p-10 rounded-xl mb-8 text-center"
                 style={{
                   background: 'rgba(10, 10, 10, 0.8)',
                   border: '3px solid #2196F3',
                   boxShadow: '0 8px 32px rgba(33, 150, 243, 0.3)',
                 }}
               >
-                <div style={{ fontSize: '48px', fontWeight: 'bold', color: '#2196F3', marginBottom: '24px' }}>
+                <div style={{ fontSize: '52px', fontWeight: 'bold', color: '#2196F3', marginBottom: '28px' }}>
                   {formatCurrency(results.projectPrice)}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 gap-6">
                   <div>
-                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>
+                    <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '6px' }}>
                       On-Site Time
                     </div>
-                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
+                    <div style={{ fontSize: '22px', fontWeight: 'bold', color: 'white' }}>
                       {results.productionTime.toFixed(1)} hrs
                     </div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>
+                    <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '6px' }}>
                       Total Billable
                     </div>
-                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
+                    <div style={{ fontSize: '22px', fontWeight: 'bold', color: 'white' }}>
                       {results.totalHours.toFixed(1)} hrs
                     </div>
                   </div>
                   <div>
-                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>
+                    <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '6px' }}>
                       Your Profit
                     </div>
-                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#4ade80' }}>
+                    <div style={{ fontSize: '22px', fontWeight: 'bold', color: '#4ade80' }}>
                       {formatCurrency(results.profit)}
                     </div>
                   </div>
                 </div>
               </div>
 
+              {/* Customer Details Section (NEW LOCATION) */}
+              {isSignedIn && (
+                <div
+                  className="p-8 rounded-xl mb-6"
+                  style={{
+                    background: 'rgba(10, 10, 10, 0.6)',
+                    border: '2px solid rgba(255,255,255,0.2)',
+                  }}
+                >
+                  <h3
+                    style={{
+                      fontSize: '18px',
+                      fontWeight: 'bold',
+                      color: 'white',
+                      marginBottom: '20px',
+                    }}
+                  >
+                    Customer Information (Optional)
+                  </h3>
+
+                  <div className="space-y-6">
+                    <div>
+                      <label
+                        htmlFor="customerName"
+                        style={{
+                          display: 'block',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: 'rgba(255,255,255,0.9)',
+                          marginBottom: '10px',
+                        }}
+                      >
+                        Customer Name
+                      </label>
+                      <input
+                        type="text"
+                        id="customerName"
+                        value={customerName}
+                        onChange={(e) => setCustomerName(e.target.value)}
+                        placeholder="John Doe"
+                        style={{
+                          width: '100%',
+                          padding: '16px',
+                          fontSize: '16px',
+                          background: '#000000',
+                          color: 'white',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          borderRadius: '10px',
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="customerAddress"
+                        style={{
+                          display: 'block',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: 'rgba(255,255,255,0.9)',
+                          marginBottom: '10px',
+                        }}
+                      >
+                        Property Address
+                      </label>
+                      <input
+                        type="text"
+                        id="customerAddress"
+                        value={customerAddress}
+                        onChange={(e) => setCustomerAddress(e.target.value)}
+                        placeholder="123 Main St, City, State"
+                        style={{
+                          width: '100%',
+                          padding: '16px',
+                          fontSize: '16px',
+                          background: '#000000',
+                          color: 'white',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          borderRadius: '10px',
+                        }}
+                      />
+                    </div>
+
+                    <div>
+                      <label
+                        htmlFor="customerNotes"
+                        style={{
+                          display: 'block',
+                          fontSize: '14px',
+                          fontWeight: '600',
+                          color: 'rgba(255,255,255,0.9)',
+                          marginBottom: '10px',
+                        }}
+                      >
+                        Notes
+                      </label>
+                      <textarea
+                        id="customerNotes"
+                        value={customerNotes}
+                        onChange={(e) => setCustomerNotes(e.target.value)}
+                        placeholder="Additional notes or special requirements..."
+                        rows={4}
+                        style={{
+                          width: '100%',
+                          padding: '16px',
+                          fontSize: '16px',
+                          background: '#000000',
+                          color: 'white',
+                          border: '1px solid rgba(255,255,255,0.2)',
+                          borderRadius: '10px',
+                          resize: 'vertical',
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
               {/* Collapsible Sections */}
               <details
-                className="mb-4 rounded-lg"
+                className="mb-5 rounded-xl"
                 style={{
                   background: '#0a0a0a',
                   border: '1px solid rgba(255,255,255,0.2)',
                 }}
               >
                 <summary
-                  className="p-4 cursor-pointer font-semibold"
-                  style={{ color: 'white' }}
+                  className="p-5 cursor-pointer font-semibold"
+                  style={{ color: 'white', fontSize: '15px' }}
                 >
                   Project Breakdown
                 </summary>
-                <div className="p-4 pt-0 space-y-2" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                <div className="p-5 pt-0 space-y-3" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
                   <div className="flex justify-between">
                     <span>TreeShop Score</span>
                     <span>{results.score.toFixed(2)} points</span>
@@ -793,7 +733,7 @@ export default function HomePage() {
                     <span>{results.buffer.toFixed(2)} hours</span>
                   </div>
                   <div
-                    className="flex justify-between pt-2"
+                    className="flex justify-between pt-3 mt-3"
                     style={{ borderTop: '1px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}
                   >
                     <span>Total Project Hours</span>
@@ -803,19 +743,19 @@ export default function HomePage() {
               </details>
 
               <details
-                className="mb-4 rounded-lg"
+                className="mb-5 rounded-xl"
                 style={{
                   background: '#0a0a0a',
                   border: '1px solid rgba(255,255,255,0.2)',
                 }}
               >
                 <summary
-                  className="p-4 cursor-pointer font-semibold"
-                  style={{ color: 'white' }}
+                  className="p-5 cursor-pointer font-semibold"
+                  style={{ color: 'white', fontSize: '15px' }}
                 >
                   Profit Analysis
                 </summary>
-                <div className="p-4 pt-0 space-y-2" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                <div className="p-5 pt-0 space-y-3" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
                   <div className="flex justify-between">
                     <span>Revenue</span>
                     <span>{formatCurrency(results.projectPrice)}</span>
@@ -839,56 +779,19 @@ export default function HomePage() {
                 </div>
               </details>
 
-              <details
-                className="mb-6 rounded-lg"
-                style={{
-                  background: '#0a0a0a',
-                  border: '1px solid rgba(255,255,255,0.2)',
-                }}
-              >
-                <summary
-                  className="p-4 cursor-pointer font-semibold"
-                  style={{ color: 'white' }}
-                >
-                  Calculation Details
-                </summary>
-                <div className="p-4 pt-0 space-y-2 text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
-                  <div>
-                    <strong>Step 1:</strong> Billing Rate = ${hourlyCost} ÷ (1 - {margin}%) = {formatCurrency(results.billingRate)}/hr
-                  </div>
-                  <div>
-                    <strong>Step 2:</strong> TreeShop Score = {dbh}" × {acreage} acres = {results.score.toFixed(2)} points
-                  </div>
-                  <div>
-                    <strong>Step 3:</strong> Production = {results.score.toFixed(2)} ÷ {productionRate} PpH = {results.productionTime.toFixed(2)} hrs
-                  </div>
-                  <div>
-                    <strong>Step 4:</strong> Transport = {results.driveTimeHours.toFixed(2)}h × 2 × 0.50 = {results.transportBillable.toFixed(2)} hrs
-                  </div>
-                  <div>
-                    <strong>Step 5:</strong> Buffer = ({results.productionTime.toFixed(2)} + {results.transportBillable.toFixed(2)}) × 0.10 = {results.buffer.toFixed(2)} hrs
-                  </div>
-                  <div>
-                    <strong>Step 6:</strong> Total = {results.productionTime.toFixed(2)} + {results.transportBillable.toFixed(2)} + {results.buffer.toFixed(2)} = {results.totalHours.toFixed(2)} hrs
-                  </div>
-                  <div>
-                    <strong>Step 7:</strong> Price = {results.totalHours.toFixed(2)} × {formatCurrency(results.billingRate)} = {formatCurrency(results.projectPrice)}
-                  </div>
-                </div>
-              </details>
-
               {/* Save Quote Button */}
               {isSignedIn && (
                 <button
                   onClick={saveQuote}
                   disabled={saving}
-                  className="w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-98"
+                  className="w-full py-5 rounded-xl font-bold text-lg transition-all active:scale-98"
                   style={{
                     background: saving ? 'rgba(33, 150, 243, 0.5)' : 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)',
                     color: 'white',
                     border: 'none',
                     cursor: saving ? 'not-allowed' : 'pointer',
                     boxShadow: saving ? 'none' : '0 4px 16px rgba(33, 150, 243, 0.4)',
+                    marginTop: '12px',
                   }}
                 >
                   {saving ? 'SAVING...' : 'SAVE QUOTE'}
@@ -897,7 +800,7 @@ export default function HomePage() {
 
               {!isSignedIn && (
                 <div
-                  className="p-4 rounded-lg text-center"
+                  className="p-6 rounded-xl text-center mt-6"
                   style={{
                     background: 'rgba(255, 255, 255, 0.05)',
                     border: '1px solid rgba(255,255,255,0.2)',

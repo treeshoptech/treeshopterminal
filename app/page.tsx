@@ -339,7 +339,7 @@ export default function HomePage() {
         {/* Calculator Results */}
         {activeTab === 'calculator' && calculated && (
           <div>
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex items-center justify-between mb-10">
               <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'white' }}>
                 Project Investment
               </h2>
@@ -349,7 +349,7 @@ export default function HomePage() {
                   setResults(null);
                 }}
                 style={{
-                  padding: '10px 18px',
+                  padding: '12px 20px',
                   background: 'rgba(255,255,255,0.1)',
                   color: 'white',
                   border: '1px solid rgba(255,255,255,0.3)',
@@ -364,39 +364,57 @@ export default function HomePage() {
 
             {/* Main Quote Box */}
             <div
-              className="p-10 rounded-xl mb-8 text-center"
+              className="p-12 rounded-xl mb-10 text-center"
               style={{
                 background: 'rgba(10, 10, 10, 0.8)',
                 border: '3px solid #2196F3',
                 boxShadow: '0 8px 32px rgba(33, 150, 243, 0.3)',
               }}
             >
-              <div style={{ fontSize: '52px', fontWeight: 'bold', color: '#2196F3', marginBottom: '28px' }}>
+              <div style={{ fontSize: '52px', fontWeight: 'bold', color: '#2196F3', marginBottom: '40px' }}>
                 {formatCurrency(results.projectPrice)}
               </div>
 
-              <div className="grid grid-cols-1 gap-6">
-                <div>
-                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '6px' }}>
+              <div className="grid grid-cols-1 gap-8">
+                <div
+                  className="p-6 rounded-lg"
+                  style={{
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                  }}
+                >
+                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginBottom: '8px' }}>
                     On-Site Time
                   </div>
-                  <div style={{ fontSize: '22px', fontWeight: 'bold', color: 'white' }}>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>
                     {results.productionTime.toFixed(1)} hrs
                   </div>
                 </div>
-                <div>
-                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '6px' }}>
+                <div
+                  className="p-6 rounded-lg"
+                  style={{
+                    background: 'rgba(255,255,255,0.03)',
+                    border: '1px solid rgba(255,255,255,0.1)',
+                  }}
+                >
+                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginBottom: '8px' }}>
                     Total Billable
                   </div>
-                  <div style={{ fontSize: '22px', fontWeight: 'bold', color: 'white' }}>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: 'white' }}>
                     {results.totalHours.toFixed(1)} hrs
                   </div>
                 </div>
-                <div>
-                  <div style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', marginBottom: '6px' }}>
+                <div
+                  className="p-6 rounded-lg"
+                  style={{
+                    background: 'rgba(74, 222, 128, 0.1)',
+                    border: '1px solid rgba(74, 222, 128, 0.3)',
+                  }}
+                >
+                  <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', marginBottom: '8px' }}>
                     Your Profit
                   </div>
-                  <div style={{ fontSize: '22px', fontWeight: 'bold', color: '#4ade80' }}>
+                  <div style={{ fontSize: '24px', fontWeight: 'bold', color: '#4ade80' }}>
                     {formatCurrency(results.profit)}
                   </div>
                 </div>
@@ -405,41 +423,41 @@ export default function HomePage() {
 
             {/* Collapsible Sections */}
             <details
-              className="mb-5 rounded-xl"
+              className="mb-8 rounded-xl"
               style={{
                 background: '#0a0a0a',
                 border: '1px solid rgba(255,255,255,0.2)',
               }}
             >
               <summary
-                className="p-5 cursor-pointer font-semibold"
-                style={{ color: 'white', fontSize: '15px' }}
+                className="p-6 cursor-pointer font-semibold"
+                style={{ color: 'white', fontSize: '16px' }}
               >
                 Project Breakdown
               </summary>
-              <div className="p-5 pt-0 space-y-3" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
-                <div className="flex justify-between">
+              <div className="px-6 pb-6 pt-2 space-y-4" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
+                <div className="flex justify-between py-2">
                   <span>TreeShop Score</span>
                   <span>{results.score.toFixed(2)} points</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between py-2">
                   <span>Production Time</span>
                   <span>{results.productionTime.toFixed(2)} hours</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between py-2">
                   <span>Round Trip Drive Time</span>
                   <span>{results.totalDriveTime.toFixed(2)} hours</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between py-2">
                   <span>Transport Billable (50% of drive)</span>
                   <span>{results.transportBillable.toFixed(2)} hours</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between py-2">
                   <span>Buffer (10%)</span>
                   <span>{results.buffer.toFixed(2)} hours</span>
                 </div>
                 <div
-                  className="flex justify-between pt-3 mt-3"
+                  className="flex justify-between pt-4 mt-4 py-2"
                   style={{ borderTop: '1px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}
                 >
                   <span>Total Project Hours</span>
@@ -449,34 +467,34 @@ export default function HomePage() {
             </details>
 
             <details
-              className="mb-5 rounded-xl"
+              className="mb-8 rounded-xl"
               style={{
                 background: '#0a0a0a',
                 border: '1px solid rgba(255,255,255,0.2)',
               }}
             >
               <summary
-                className="p-5 cursor-pointer font-semibold"
-                style={{ color: 'white', fontSize: '15px' }}
+                className="p-6 cursor-pointer font-semibold"
+                style={{ color: 'white', fontSize: '16px' }}
               >
                 Profit Analysis
               </summary>
-              <div className="p-5 pt-0 space-y-3" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
-                <div className="flex justify-between">
+              <div className="px-6 pb-6 pt-2 space-y-4" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
+                <div className="flex justify-between py-2">
                   <span>Revenue</span>
                   <span>{formatCurrency(results.projectPrice)}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between py-2">
                   <span>Your Costs</span>
                   <span>{formatCurrency(results.totalCost)}</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between py-2">
                   <span>Your Profit</span>
                   <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
                     {formatCurrency(results.profit)}
                   </span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between py-2">
                   <span>Profit Margin</span>
                   <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
                     {results.profitMargin.toFixed(1)}%

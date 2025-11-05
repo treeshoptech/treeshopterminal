@@ -1,7 +1,5 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ConvexAuthProvider } from '@/components/providers/ConvexAuthProvider';
-import { AppShell } from '@/components/layout/AppShell';
 import '../styles/design-system.css';
 import '../styles/globals.css';
 
@@ -38,11 +36,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ConvexAuthProvider>
-          <AppShell>
-            {children}
-          </AppShell>
-        </ConvexAuthProvider>
+        {children}
       </body>
     </html>
   );

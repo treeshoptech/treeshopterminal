@@ -422,86 +422,90 @@ export default function HomePage() {
             </div>
 
             {/* Collapsible Sections */}
-            <details
-              className="mb-8 rounded-xl"
-              style={{
-                background: '#0a0a0a',
-                border: '1px solid rgba(255,255,255,0.2)',
-              }}
-            >
-              <summary
-                className="p-6 cursor-pointer font-semibold"
-                style={{ color: 'white', fontSize: '16px' }}
+            <div className="max-w-3xl mx-auto">
+              <details
+                className="mb-8 rounded-xl"
+                style={{
+                  background: 'rgba(10, 10, 10, 0.8)',
+                  border: '2px solid rgba(33, 150, 243, 0.3)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
+                }}
               >
-                Project Breakdown
-              </summary>
-              <div className="px-8 pb-8 pt-4 space-y-6" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
-                <div className="flex justify-between py-3">
-                  <span>TreeShop Score</span>
-                  <span>{results.score.toFixed(2)} points</span>
-                </div>
-                <div className="flex justify-between py-3">
-                  <span>Production Time</span>
-                  <span>{results.productionTime.toFixed(2)} hours</span>
-                </div>
-                <div className="flex justify-between py-3">
-                  <span>Round Trip Drive Time</span>
-                  <span>{results.totalDriveTime.toFixed(2)} hours</span>
-                </div>
-                <div className="flex justify-between py-3">
-                  <span>Transport Billable (50% of drive)</span>
-                  <span>{results.transportBillable.toFixed(2)} hours</span>
-                </div>
-                <div className="flex justify-between py-3">
-                  <span>Buffer (10%)</span>
-                  <span>{results.buffer.toFixed(2)} hours</span>
-                </div>
-                <div
-                  className="flex justify-between pt-4 mt-4 py-3"
-                  style={{ borderTop: '1px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}
+                <summary
+                  className="p-8 cursor-pointer font-semibold"
+                  style={{ color: 'white', fontSize: '17px' }}
                 >
-                  <span>Total Project Hours</span>
-                  <span>{results.totalHours.toFixed(2)} hours</span>
+                  Project Breakdown
+                </summary>
+                <div className="px-12 pb-10 pt-2 space-y-6" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
+                  <div className="flex justify-between py-3">
+                    <span>TreeShop Score</span>
+                    <span>{results.score.toFixed(2)} points</span>
+                  </div>
+                  <div className="flex justify-between py-3">
+                    <span>Production Time</span>
+                    <span>{results.productionTime.toFixed(2)} hours</span>
+                  </div>
+                  <div className="flex justify-between py-3">
+                    <span>Round Trip Drive Time</span>
+                    <span>{results.totalDriveTime.toFixed(2)} hours</span>
+                  </div>
+                  <div className="flex justify-between py-3">
+                    <span>Transport Billable (50% of drive)</span>
+                    <span>{results.transportBillable.toFixed(2)} hours</span>
+                  </div>
+                  <div className="flex justify-between py-3">
+                    <span>Buffer (10%)</span>
+                    <span>{results.buffer.toFixed(2)} hours</span>
+                  </div>
+                  <div
+                    className="flex justify-between pt-4 mt-4 py-3"
+                    style={{ borderTop: '1px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}
+                  >
+                    <span>Total Project Hours</span>
+                    <span>{results.totalHours.toFixed(2)} hours</span>
+                  </div>
                 </div>
-              </div>
-            </details>
+              </details>
 
-            <details
-              className="mb-8 rounded-xl"
-              style={{
-                background: '#0a0a0a',
-                border: '1px solid rgba(255,255,255,0.2)',
-              }}
-            >
-              <summary
-                className="p-6 cursor-pointer font-semibold"
-                style={{ color: 'white', fontSize: '16px' }}
+              <details
+                className="mb-8 rounded-xl"
+                style={{
+                  background: 'rgba(10, 10, 10, 0.8)',
+                  border: '2px solid rgba(33, 150, 243, 0.3)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.3)',
+                }}
               >
-                Profit Analysis
-              </summary>
-              <div className="px-8 pb-8 pt-4 space-y-6" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
-                <div className="flex justify-between py-3">
-                  <span>Revenue</span>
-                  <span>{formatCurrency(results.projectPrice)}</span>
+                <summary
+                  className="p-8 cursor-pointer font-semibold"
+                  style={{ color: 'white', fontSize: '17px' }}
+                >
+                  Profit Analysis
+                </summary>
+                <div className="px-12 pb-10 pt-2 space-y-6" style={{ color: 'rgba(255,255,255,0.8)', fontSize: '15px' }}>
+                  <div className="flex justify-between py-3">
+                    <span>Revenue</span>
+                    <span>{formatCurrency(results.projectPrice)}</span>
+                  </div>
+                  <div className="flex justify-between py-3">
+                    <span>Your Costs</span>
+                    <span>{formatCurrency(results.totalCost)}</span>
+                  </div>
+                  <div className="flex justify-between py-3">
+                    <span>Your Profit</span>
+                    <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
+                      {formatCurrency(results.profit)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-3">
+                    <span>Profit Margin</span>
+                    <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
+                      {results.profitMargin.toFixed(1)}%
+                    </span>
+                  </div>
                 </div>
-                <div className="flex justify-between py-3">
-                  <span>Your Costs</span>
-                  <span>{formatCurrency(results.totalCost)}</span>
-                </div>
-                <div className="flex justify-between py-3">
-                  <span>Your Profit</span>
-                  <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
-                    {formatCurrency(results.profit)}
-                  </span>
-                </div>
-                <div className="flex justify-between py-3">
-                  <span>Profit Margin</span>
-                  <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
-                    {results.profitMargin.toFixed(1)}%
-                  </span>
-                </div>
-              </div>
-            </details>
+              </details>
+            </div>
           </div>
         )}
 

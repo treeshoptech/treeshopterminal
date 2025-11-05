@@ -317,19 +317,22 @@ export default function HomePage() {
             </div>
 
             {/* Calculate Button */}
-            <button
-              onClick={calculatePrice}
-              className="w-full py-5 rounded-xl font-bold text-lg transition-all active:scale-98"
-              style={{
-                background: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)',
-                color: 'white',
-                border: 'none',
-                cursor: 'pointer',
-                boxShadow: '0 4px 16px rgba(33, 150, 243, 0.4)',
-              }}
-            >
-              CALCULATE PRICE
-            </button>
+            <div className="flex justify-center">
+              <button
+                onClick={calculatePrice}
+                className="py-6 px-12 rounded-xl font-bold text-xl transition-all active:scale-95"
+                style={{
+                  background: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)',
+                  color: 'white',
+                  border: 'none',
+                  cursor: 'pointer',
+                  boxShadow: '0 8px 24px rgba(33, 150, 243, 0.6)',
+                  minWidth: '280px',
+                }}
+              >
+                CALCULATE PRICE
+              </button>
+            </div>
           </div>
         )}
 

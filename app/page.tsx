@@ -173,15 +173,15 @@ export default function HomePage() {
                   >
                     Drive Time (One-Way)
                   </label>
-                  <div className="flex gap-4">
-                    <div className="flex-1">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
                       <input
                         type="number"
                         value={driveHours}
                         onChange={(e) =>
                           setDriveHours(e.target.value === '' ? '' : Number(e.target.value))
                         }
-                        placeholder="Hours"
+                        placeholder="0"
                         min="0"
                         style={{
                           width: '100%',
@@ -204,14 +204,14 @@ export default function HomePage() {
                         Hours
                       </div>
                     </div>
-                    <div className="flex-1">
+                    <div>
                       <input
                         type="number"
                         value={driveMinutes}
                         onChange={(e) =>
                           setDriveMinutes(e.target.value === '' ? '' : Number(e.target.value))
                         }
-                        placeholder="Min"
+                        placeholder="0"
                         min="0"
                         max="59"
                         style={{

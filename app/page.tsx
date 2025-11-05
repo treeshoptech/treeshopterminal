@@ -1,35 +1,171 @@
 'use client';
 
-import { useQuery } from 'convex/react';
+import { useState, useEffect } from 'react';
+import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
-import Link from 'next/link';
-import { ArrowRight, Plus, CheckCircle2, Circle } from 'lucide-react';
 import { useOrganization } from '@/lib/hooks/useOrganization';
 import { SignedOut, SignIn, useUser } from '@clerk/nextjs';
+import Image from 'next/image';
 import '@/styles/design-system.css';
 
 export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
-  const { organizationId, isLoaded } = useOrganization();
+  const { organizationId } = useOrganization();
   const { isSignedIn } = useUser();
-  const equipment = useQuery(
-    api.equipment.list,
-    organizationId ? {} : 'skip'
-  ) || [];
-  const employees = useQuery(
-    api.employees.list,
-    organizationId ? {} : 'skip'
-  ) || [];
-  const loadouts = useQuery(
-    api.loadouts.list,
-    organizationId ? {} : 'skip'
-  ) || [];
+  const createQuote = useMutation(api.quotes.create);
 
-  const totalEquipmentValue = equipment.reduce((sum, e) => sum + (e.purchasePrice || 0), 0);
-  const totalEquipmentCost = equipment.reduce((sum, e) => sum + (e.totalCostPerHour || 0), 0);
-  const totalLaborCost = employees.reduce((sum, e) => sum + (e.trueCostPerHour || 0), 0);
+  // Company Settings (from sidebar)
+  const [hourlyCost, setHourlyCost] = useState(267);
+  const [margin, setMargin] = useState(40);
+  const [productionRate, setProductionRate] = useState(1.5);
 
+  // Customer Fields (optional, in sidebar)
+  const [customerName, setCustomerName] = useState('');
+  const [customerAddress, setCustomerAddress] = useState('');
+  const [customerNotes, setCustomerNotes] = useState('');
+
+  // Project Inputs
+  const [driveHours, setDriveHours] = useState<number | ''>('');
+  const [driveMinutes, setDriveMinutes] = useState<number | ''>('');
+  const [acreage, setAcreage] = useState<number | ''>('');
+  const [dbh, setDbh] = useState(6);
+
+  // UI State
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [calculated, setCalculated] = useState(false);
+  const [saving, setSaving] = useState(false);
+
+  // Calculation Results
+  const [results, setResults] = useState<any>(null);
+
+  // Settings Sidebar Toggle
+  const toggleSettings = () => {
+    setSettingsOpen(!settingsOpen);
+  };
+
+  // Calculate Price
+  const calculatePrice = () => {
+    if (
+      driveHours === '' ||
+      driveMinutes === '' ||
+      acreage === '' ||
+      !dbh
+    ) {
+      alert('Please fill in all project details');
+      return;
+    }
+
+    // Step 1: Calculate Billing Rate
+    const billingRate = hourlyCost / (1 - margin / 100);
+
+    // Step 2: TreeShop Score
+    const score = dbh * acreage;
+
+    // Step 3: Production Time
+    const productionTime = score / productionRate;
+
+    // Step 4: Transport Time
+    const driveTimeHours = Number(driveHours) + Number(driveMinutes) / 60;
+    const totalDriveTime = driveTimeHours * 2;
+    const transportBillable = totalDriveTime * 0.5;
+
+    // Step 5: Buffer
+    const buffer = (productionTime + transportBillable) * 0.1;
+
+    // Step 6: Total Hours
+    const totalHours = productionTime + transportBillable + buffer;
+
+    // Step 7: Project Price
+    const projectPrice = totalHours * billingRate;
+
+    // Profit Calculations
+    const totalCost = totalHours * hourlyCost;
+    const profit = projectPrice - totalCost;
+    const profitMargin = (profit / projectPrice) * 100;
+
+    setResults({
+      billingRate,
+      score,
+      productionTime,
+      driveTimeHours,
+      totalDriveTime,
+      transportBillable,
+      buffer,
+      totalHours,
+      projectPrice,
+      totalCost,
+      profit,
+      profitMargin,
+    });
+
+    setCalculated(true);
+  };
+
+  // Save Quote to Convex
+  const saveQuote = async () => {
+    if (!organizationId) {
+      alert('Please sign in to save quotes');
+      return;
+    }
+
+    if (!results) return;
+
+    setSaving(true);
+    try {
+      await createQuote({
+        organizationId,
+        serviceType: 'forestry-mulching',
+        workAreaIds: [], // Empty for now, can add later
+        lowPrice: results.projectPrice * 0.9, // 10% lower for range
+        highPrice: results.projectPrice * 1.1, // 10% higher for range
+        estimatedHours: results.totalHours,
+        scopeOfWork: [
+          `${acreage} acres forestry mulching`,
+          `All vegetation up to ${dbh}" diameter`,
+          'Equipment, labor, and transport included',
+          'Professional site cleanup',
+        ],
+        whatsIncluded: [
+          'Round-trip transport and logistics',
+          'Professional cleanup and site restoration',
+          `${results.productionTime.toFixed(1)} hours on-site work`,
+        ],
+        calculationDetails: {
+          customerName: customerName || 'Not provided',
+          customerAddress: customerAddress || 'Not provided',
+          customerNotes: customerNotes || 'None',
+          driveTime: `${driveHours}h ${driveMinutes}m`,
+          acreage,
+          dbh,
+          hourlyCost,
+          margin,
+          productionRate,
+          ...results,
+        },
+      });
+
+      alert('Quote saved successfully!');
+
+      // Reset form
+      setCustomerName('');
+      setCustomerAddress('');
+      setCustomerNotes('');
+      setDriveHours('');
+      setDriveMinutes('');
+      setAcreage('');
+      setDbh(6);
+      setCalculated(false);
+      setResults(null);
+    } catch (error) {
+      console.error('Error saving quote:', error);
+      alert('Failed to save quote. Please try again.');
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Format currency
   const formatCurrency = (value: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -39,281 +175,744 @@ export default function HomePage() {
     }).format(value);
   };
 
-  const steps = [
-    {
-      number: 1,
-      title: 'Equipment',
-      href: '/equipment',
-      emoji: '🚜',
-      count: equipment.length,
-      stat: totalEquipmentValue > 0 ? formatCurrency(totalEquipmentValue) : null,
-      statLabel: 'Fleet Value',
-      description: 'Add your trucks, mulchers, and equipment to calculate hourly costs',
-      complete: equipment.length > 0,
-      color: '#22C55E',
-    },
-    {
-      number: 2,
-      title: 'Employees',
-      href: '/employees',
-      emoji: '👥',
-      count: employees.length,
-      stat: employees.length > 0 ? `${employees.length} crew` : null,
-      statLabel: 'Team Size',
-      description: 'Add crew members and calculate true labor costs with burden multiplier',
-      complete: employees.length > 0,
-      color: '#3B82F6',
-    },
-    {
-      number: 3,
-      title: 'Loadouts',
-      href: '/loadouts',
-      emoji: '🔧',
-      count: loadouts.length,
-      stat: loadouts.length > 0 ? `${loadouts.length} configs` : null,
-      statLabel: 'Ready',
-      description: 'Combine equipment and crew into complete job configurations',
-      complete: loadouts.length > 0,
-      color: '#F59E0B',
-    },
-    {
-      number: 4,
-      title: 'Price Projects',
-      href: '/projects',
-      emoji: '💰',
-      count: null,
-      stat: null,
-      statLabel: null,
-      description: 'Calculate project quotes using inch-acres, loadouts, and profit margins',
-      complete: loadouts.length > 0,
-      color: '#22C55E',
-    },
+  // DBH Package Data
+  const dbhPackages = [
+    { value: 2, label: 'X Small', description: '2" DBH' },
+    { value: 4, label: 'Small', description: '4" DBH' },
+    { value: 6, label: 'Medium', description: '6" DBH' },
+    { value: 8, label: 'Large', description: '8" DBH' },
+    { value: 10, label: 'X Large', description: '10" DBH' },
+    { value: 12, label: 'MAX', description: '12" DBH' },
   ];
 
-  const completedSteps = steps.filter(s => s.complete).length;
-  const nextStep = steps.find(s => !s.complete);
-
   return (
-    <div className="min-h-screen" style={{ background: 'var(--bg-canvas)' }}>
-      <div className="max-w-5xl mx-auto px-6 sm:px-8 py-12 pb-32 md:pb-12">
-
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-5xl md:text-6xl font-black mb-3"
+    <>
+      <div className="min-h-screen" style={{ background: '#000000', paddingBottom: '100px' }}>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
+          {/* Header with Logo */}
+          <div className="flex items-center justify-between mb-8">
+            <div className="relative" style={{ width: '180px', height: '60px' }}>
+              <Image
+                src="/treeshop-logo.png"
+                alt="TreeShop"
+                fill
+                style={{ objectFit: 'contain' }}
+                priority
+              />
+            </div>
+            <button
+              onClick={toggleSettings}
+              className="px-4 py-2 rounded-lg font-semibold text-sm transition-all"
               style={{
-                background: 'linear-gradient(135deg, #22C55E 0%, #4ADE80 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                letterSpacing: '-0.02em'
-              }}>
-            TreeShop Terminal
-          </h1>
-          <p className="text-lg" style={{ color: 'var(--text-tertiary)' }}>
-            Build your pricing system in 4 steps
-          </p>
-        </div>
-
-        {/* Progress Bar */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-semibold" style={{ color: 'var(--text-secondary)' }}>
-              Setup Progress
-            </span>
-            <span className="text-sm font-semibold" style={{ color: 'var(--brand-400)' }}>
-              {completedSteps}/4 Complete
-            </span>
-          </div>
-          <div className="h-3 rounded-full overflow-hidden" style={{ background: 'rgba(255,255,255,0.05)' }}>
-            <div
-              className="h-full transition-all duration-500"
-              style={{
-                width: `${(completedSteps / 4) * 100}%`,
-                background: 'linear-gradient(90deg, #22C55E 0%, #4ADE80 100%)',
-                boxShadow: '0 0 20px rgba(34, 197, 94, 0.5)'
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Steps */}
-        <div className="space-y-6">
-          {steps.map((step) => (
-            <Link key={step.number} href={step.href}>
-              <div
-                className="group relative rounded-2xl p-8 transition-all duration-300 hover:scale-[1.01]"
-                style={{
-                  background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                  border: step.complete
-                    ? `2px solid ${step.color}40`
-                    : '2px solid rgba(255,255,255,0.08)',
-                  backdropFilter: 'blur(60px)',
-                  boxShadow: step.complete
-                    ? `0 8px 32px ${step.color}20`
-                    : '0 8px 32px rgba(0,0,0,0.3)'
-                }}
-              >
-                <div className="flex items-start gap-6">
-                  {/* Step Number & Status */}
-                  <div className="flex-shrink-0">
-                    <div
-                      className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-black"
-                      style={{
-                        background: step.complete
-                          ? `linear-gradient(135deg, ${step.color} 0%, ${step.color}CC 100%)`
-                          : 'rgba(255,255,255,0.05)',
-                        color: step.complete ? 'white' : 'rgba(255,255,255,0.3)',
-                        border: step.complete ? 'none' : '2px solid rgba(255,255,255,0.1)'
-                      }}
-                    >
-                      {step.number}
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-3xl">{step.emoji}</span>
-                      <h3 className="text-2xl font-bold" style={{ color: 'var(--text-primary)' }}>
-                        {step.title}
-                      </h3>
-                      {step.complete ? (
-                        <CheckCircle2 className="w-6 h-6" style={{ color: step.color }} />
-                      ) : (
-                        <Circle className="w-6 h-6" style={{ color: 'rgba(255,255,255,0.2)' }} />
-                      )}
-                    </div>
-                    <p className="text-base mb-4" style={{ color: 'var(--text-tertiary)' }}>
-                      {step.description}
-                    </p>
-
-                    {/* Stats */}
-                    {step.stat && (
-                      <div className="flex items-center gap-6">
-                        <div>
-                          <div className="text-2xl font-bold" style={{ color: step.color }}>
-                            {step.stat}
-                          </div>
-                          <div className="text-xs uppercase tracking-wider" style={{ color: 'var(--text-quaternary)' }}>
-                            {step.statLabel}
-                          </div>
-                        </div>
-                      </div>
-                    )}
-
-                    {!step.complete && step === nextStep && (
-                      <div className="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-lg"
-                           style={{
-                             background: `${step.color}15`,
-                             border: `1px solid ${step.color}40`,
-                             color: step.color
-                           }}>
-                        <span className="text-sm font-semibold">Start Here</span>
-                        <ArrowRight className="w-4 h-4" />
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Arrow */}
-                  <div className="flex-shrink-0">
-                    <ArrowRight
-                      className="w-6 h-6 transition-transform group-hover:translate-x-1"
-                      style={{ color: 'var(--text-quaternary)' }}
-                    />
-                  </div>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-
-        {/* Settings at Bottom */}
-        <div className="mt-12">
-          <Link href="/settings">
-            <div
-              className="group rounded-2xl p-6 transition-all duration-300 hover:scale-[1.01]"
-              style={{
-                background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%)',
-                border: '2px solid rgba(255,255,255,0.08)',
-                backdropFilter: 'blur(60px)',
-                boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
+                background: '#2196F3',
+                color: 'white',
+                border: 'none',
               }}
             >
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4">
-                  <span className="text-3xl">⚙️</span>
+              SETTINGS
+            </button>
+          </div>
+
+          {/* Settings Sidebar */}
+          <aside
+            className="fixed top-0 right-0 h-full transition-transform duration-300 z-50"
+            style={{
+              width: settingsOpen ? '100%' : '0',
+              maxWidth: '400px',
+              background: '#0a0a0a',
+              transform: settingsOpen ? 'translateX(0)' : 'translateX(100%)',
+              overflowY: 'auto',
+              borderLeft: '2px solid #2196F3',
+            }}
+          >
+            {settingsOpen && (
+              <>
+                <div
+                  className="sticky top-0 flex items-center justify-between p-4"
+                  style={{
+                    background: '#0a0a0a',
+                    borderBottom: '1px solid rgba(255,255,255,0.1)',
+                    zIndex: 10,
+                  }}
+                >
+                  <div style={{ fontSize: '18px', fontWeight: 'bold', color: 'white' }}>
+                    Settings
+                  </div>
+                  <button
+                    onClick={toggleSettings}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      color: 'white',
+                      fontSize: '24px',
+                      cursor: 'pointer',
+                      padding: '0 8px',
+                    }}
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="p-6 space-y-6">
+                  {/* Company Settings Section */}
                   <div>
-                    <h3 className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>Settings</h3>
-                    <p className="text-sm" style={{ color: 'var(--text-tertiary)' }}>App preferences</p>
+                    <h3 style={{ color: '#2196F3', fontSize: '16px', fontWeight: 'bold', marginBottom: '16px' }}>
+                      Company Settings
+                    </h3>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label
+                          htmlFor="hourlyCost"
+                          style={{
+                            display: 'block',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: 'rgba(255,255,255,0.9)',
+                            marginBottom: '8px',
+                          }}
+                        >
+                          Hourly Cost ($)
+                        </label>
+                        <input
+                          type="number"
+                          id="hourlyCost"
+                          value={hourlyCost}
+                          onChange={(e) => setHourlyCost(Number(e.target.value))}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            fontSize: '16px',
+                            background: '#000000',
+                            color: 'white',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '8px',
+                          }}
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="margin"
+                          style={{
+                            display: 'block',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: 'rgba(255,255,255,0.9)',
+                            marginBottom: '8px',
+                          }}
+                        >
+                          Profit Margin (%)
+                        </label>
+                        <input
+                          type="number"
+                          id="margin"
+                          value={margin}
+                          onChange={(e) => setMargin(Number(e.target.value))}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            fontSize: '16px',
+                            background: '#000000',
+                            color: 'white',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '8px',
+                          }}
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="productionRate"
+                          style={{
+                            display: 'block',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: 'rgba(255,255,255,0.9)',
+                            marginBottom: '8px',
+                          }}
+                        >
+                          Production Rate (PpH)
+                        </label>
+                        <input
+                          type="number"
+                          id="productionRate"
+                          value={productionRate}
+                          onChange={(e) => setProductionRate(Number(e.target.value))}
+                          step="0.1"
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            fontSize: '16px',
+                            background: '#000000',
+                            color: 'white',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '8px',
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Customer Information Section */}
+                  <div>
+                    <h3 style={{ color: '#2196F3', fontSize: '16px', fontWeight: 'bold', marginBottom: '16px' }}>
+                      Customer Information (Optional)
+                    </h3>
+
+                    <div className="space-y-4">
+                      <div>
+                        <label
+                          htmlFor="customerName"
+                          style={{
+                            display: 'block',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: 'rgba(255,255,255,0.9)',
+                            marginBottom: '8px',
+                          }}
+                        >
+                          Customer Name
+                        </label>
+                        <input
+                          type="text"
+                          id="customerName"
+                          value={customerName}
+                          onChange={(e) => setCustomerName(e.target.value)}
+                          placeholder="John Doe"
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            fontSize: '16px',
+                            background: '#000000',
+                            color: 'white',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '8px',
+                          }}
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="customerAddress"
+                          style={{
+                            display: 'block',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: 'rgba(255,255,255,0.9)',
+                            marginBottom: '8px',
+                          }}
+                        >
+                          Property Address
+                        </label>
+                        <input
+                          type="text"
+                          id="customerAddress"
+                          value={customerAddress}
+                          onChange={(e) => setCustomerAddress(e.target.value)}
+                          placeholder="123 Main St, City, State"
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            fontSize: '16px',
+                            background: '#000000',
+                            color: 'white',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '8px',
+                          }}
+                        />
+                      </div>
+
+                      <div>
+                        <label
+                          htmlFor="customerNotes"
+                          style={{
+                            display: 'block',
+                            fontSize: '14px',
+                            fontWeight: '600',
+                            color: 'rgba(255,255,255,0.9)',
+                            marginBottom: '8px',
+                          }}
+                        >
+                          Notes
+                        </label>
+                        <textarea
+                          id="customerNotes"
+                          value={customerNotes}
+                          onChange={(e) => setCustomerNotes(e.target.value)}
+                          placeholder="Additional notes or special requirements..."
+                          rows={4}
+                          style={{
+                            width: '100%',
+                            padding: '12px',
+                            fontSize: '16px',
+                            background: '#000000',
+                            color: 'white',
+                            border: '1px solid rgba(255,255,255,0.2)',
+                            borderRadius: '8px',
+                            resize: 'vertical',
+                          }}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" style={{ color: 'var(--text-quaternary)' }} />
-              </div>
-            </div>
-          </Link>
-        </div>
+              </>
+            )}
+          </aside>
 
-      </div>
-
-      {/* Sign-In Modal Overlay */}
-      <SignedOut>
-        <div className="fixed inset-0 z-[100] flex items-center justify-center"
-             style={{
-               background: 'rgba(0, 0, 0, 0.95)',
-               backdropFilter: 'blur(20px)'
-             }}>
-          <div className="relative w-full max-w-md px-6">
-            {/* Animated Background */}
-            <div className="absolute inset-0 pointer-events-none">
-              <div className="absolute top-1/4 -left-32 w-[500px] h-[500px] rounded-full animate-pulse"
-                   style={{
-                     background: 'radial-gradient(circle, rgba(34, 197, 94, 0.4) 0%, rgba(34, 197, 94, 0.2) 40%, transparent 70%)',
-                     filter: 'blur(80px)',
-                     animationDuration: '4s'
-                   }} />
-              <div className="absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full animate-pulse"
-                   style={{
-                     background: 'radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, rgba(34, 197, 94, 0.15) 40%, transparent 70%)',
-                     filter: 'blur(80px)',
-                     animationDuration: '6s',
-                     animationDelay: '2s'
-                   }} />
-            </div>
-
-            {/* Header */}
-            <div className="relative text-center mb-12">
-              <div className="mb-4 flex justify-center">
-                <div className="w-20 h-20 rounded-2xl flex items-center justify-center"
-                     style={{
-                       background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
-                       boxShadow: '0 20px 60px rgba(34, 197, 94, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2)'
-                     }}>
-                  <svg className="w-12 h-12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                    <path d="M12 2L2 7l10 5 10-5-10-5z"/>
-                    <path d="M2 17l10 5 10-5"/>
-                    <path d="M2 12l10 5 10-5"/>
-                  </svg>
-                </div>
-              </div>
-              <h1
-                className="text-5xl font-black mb-3"
+          {/* Main Calculator */}
+          {!calculated ? (
+            <div>
+              <h2
                 style={{
-                  background: 'linear-gradient(135deg, #22C55E 0%, #4ADE80 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  letterSpacing: '-0.02em'
+                  fontSize: '28px',
+                  fontWeight: 'bold',
+                  color: 'white',
+                  marginBottom: '24px',
                 }}
               >
-                TreeShop Terminal
-              </h1>
+                Forestry Mulching Calculator
+              </h2>
+
+              {/* Project Details Section */}
+              <div
+                className="p-6 rounded-lg mb-6"
+                style={{
+                  background: '#0a0a0a',
+                  border: '2px solid #2196F3',
+                }}
+              >
+                <h3
+                  style={{
+                    fontSize: '18px',
+                    fontWeight: 'bold',
+                    color: '#2196F3',
+                    marginBottom: '20px',
+                  }}
+                >
+                  Project Details
+                </h3>
+
+                <div className="space-y-6">
+                  {/* Drive Time */}
+                  <div>
+                    <label
+                      style={{
+                        display: 'block',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        color: 'rgba(255,255,255,0.9)',
+                        marginBottom: '12px',
+                      }}
+                    >
+                      Drive Time (One-Way)
+                    </label>
+                    <div className="flex gap-4">
+                      <div className="flex-1">
+                        <input
+                          type="number"
+                          value={driveHours}
+                          onChange={(e) =>
+                            setDriveHours(e.target.value === '' ? '' : Number(e.target.value))
+                          }
+                          placeholder="Hours"
+                          min="0"
+                          style={{
+                            width: '100%',
+                            padding: '14px',
+                            fontSize: '16px',
+                            background: '#000000',
+                            color: 'white',
+                            border: '1px solid rgba(255,255,255,0.3)',
+                            borderRadius: '8px',
+                          }}
+                        />
+                        <div
+                          style={{
+                            fontSize: '12px',
+                            color: 'rgba(255,255,255,0.5)',
+                            marginTop: '4px',
+                            textAlign: 'center',
+                          }}
+                        >
+                          Hours
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <input
+                          type="number"
+                          value={driveMinutes}
+                          onChange={(e) =>
+                            setDriveMinutes(e.target.value === '' ? '' : Number(e.target.value))
+                          }
+                          placeholder="Minutes"
+                          min="0"
+                          max="59"
+                          style={{
+                            width: '100%',
+                            padding: '14px',
+                            fontSize: '16px',
+                            background: '#000000',
+                            color: 'white',
+                            border: '1px solid rgba(255,255,255,0.3)',
+                            borderRadius: '8px',
+                          }}
+                        />
+                        <div
+                          style={{
+                            fontSize: '12px',
+                            color: 'rgba(255,255,255,0.5)',
+                            marginTop: '4px',
+                            textAlign: 'center',
+                          }}
+                        >
+                          Minutes
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Project Acreage */}
+                  <div>
+                    <label
+                      htmlFor="acreage"
+                      style={{
+                        display: 'block',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        color: 'rgba(255,255,255,0.9)',
+                        marginBottom: '12px',
+                      }}
+                    >
+                      Project Acreage
+                    </label>
+                    <input
+                      type="number"
+                      id="acreage"
+                      value={acreage}
+                      onChange={(e) =>
+                        setAcreage(e.target.value === '' ? '' : Number(e.target.value))
+                      }
+                      placeholder="Enter acres"
+                      step="0.01"
+                      style={{
+                        width: '100%',
+                        padding: '14px',
+                        fontSize: '16px',
+                        background: '#000000',
+                        color: 'white',
+                        border: '1px solid rgba(255,255,255,0.3)',
+                        borderRadius: '8px',
+                      }}
+                    />
+                  </div>
+
+                  {/* DBH Package Selection */}
+                  <div>
+                    <label
+                      style={{
+                        display: 'block',
+                        fontSize: '14px',
+                        fontWeight: '600',
+                        color: 'rgba(255,255,255,0.9)',
+                        marginBottom: '12px',
+                      }}
+                    >
+                      Package Size
+                    </label>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                      {dbhPackages.map((pkg) => (
+                        <button
+                          key={pkg.value}
+                          onClick={() => setDbh(pkg.value)}
+                          className="transition-all"
+                          style={{
+                            padding: '16px 12px',
+                            borderRadius: '8px',
+                            background: dbh === pkg.value ? '#2196F3' : '#000000',
+                            border:
+                              dbh === pkg.value
+                                ? '2px solid #2196F3'
+                                : '1px solid rgba(255,255,255,0.3)',
+                            color: 'white',
+                            cursor: 'pointer',
+                            textAlign: 'center',
+                          }}
+                        >
+                          <div style={{ fontSize: '16px', fontWeight: 'bold', marginBottom: '4px' }}>
+                            {pkg.label}
+                          </div>
+                          <div style={{ fontSize: '12px', opacity: 0.8 }}>{pkg.description}</div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Calculate Button */}
+              <button
+                onClick={calculatePrice}
+                className="w-full py-4 rounded-lg font-bold text-lg transition-all"
+                style={{
+                  background: '#2196F3',
+                  color: 'white',
+                  border: 'none',
+                  cursor: 'pointer',
+                }}
+              >
+                CALCULATE PRICE
+              </button>
+            </div>
+          ) : (
+            // Results View
+            <div>
+              <div className="flex items-center justify-between mb-6">
+                <h2 style={{ fontSize: '28px', fontWeight: 'bold', color: 'white' }}>
+                  Project Investment
+                </h2>
+                <button
+                  onClick={() => {
+                    setCalculated(false);
+                    setResults(null);
+                  }}
+                  style={{
+                    padding: '8px 16px',
+                    background: 'rgba(255,255,255,0.1)',
+                    color: 'white',
+                    border: '1px solid rgba(255,255,255,0.3)',
+                    borderRadius: '8px',
+                    cursor: 'pointer',
+                    fontSize: '14px',
+                  }}
+                >
+                  ← Back
+                </button>
+              </div>
+
+              {/* Main Quote Box */}
+              <div
+                className="p-8 rounded-lg mb-6 text-center"
+                style={{
+                  background: '#0a0a0a',
+                  border: '3px solid #2196F3',
+                }}
+              >
+                <div style={{ fontSize: '48px', fontWeight: 'bold', color: '#2196F3', marginBottom: '24px' }}>
+                  {formatCurrency(results.projectPrice)}
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                  <div>
+                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>
+                      On-Site Time
+                    </div>
+                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
+                      {results.productionTime.toFixed(1)} hrs
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>
+                      Total Billable
+                    </div>
+                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: 'white' }}>
+                      {results.totalHours.toFixed(1)} hrs
+                    </div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '12px', color: 'rgba(255,255,255,0.6)', marginBottom: '4px' }}>
+                      Your Profit
+                    </div>
+                    <div style={{ fontSize: '20px', fontWeight: 'bold', color: '#4ade80' }}>
+                      {formatCurrency(results.profit)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Collapsible Sections */}
+              <details
+                className="mb-4 rounded-lg"
+                style={{
+                  background: '#0a0a0a',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                }}
+              >
+                <summary
+                  className="p-4 cursor-pointer font-semibold"
+                  style={{ color: 'white' }}
+                >
+                  Project Breakdown
+                </summary>
+                <div className="p-4 pt-0 space-y-2" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                  <div className="flex justify-between">
+                    <span>TreeShop Score</span>
+                    <span>{results.score.toFixed(2)} points</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Production Time</span>
+                    <span>{results.productionTime.toFixed(2)} hours</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Round Trip Drive Time</span>
+                    <span>{results.totalDriveTime.toFixed(2)} hours</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Transport Billable (50% of drive)</span>
+                    <span>{results.transportBillable.toFixed(2)} hours</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Buffer (10%)</span>
+                    <span>{results.buffer.toFixed(2)} hours</span>
+                  </div>
+                  <div
+                    className="flex justify-between pt-2"
+                    style={{ borderTop: '1px solid rgba(255,255,255,0.2)', fontWeight: 'bold' }}
+                  >
+                    <span>Total Project Hours</span>
+                    <span>{results.totalHours.toFixed(2)} hours</span>
+                  </div>
+                </div>
+              </details>
+
+              <details
+                className="mb-4 rounded-lg"
+                style={{
+                  background: '#0a0a0a',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                }}
+              >
+                <summary
+                  className="p-4 cursor-pointer font-semibold"
+                  style={{ color: 'white' }}
+                >
+                  Profit Analysis
+                </summary>
+                <div className="p-4 pt-0 space-y-2" style={{ color: 'rgba(255,255,255,0.8)' }}>
+                  <div className="flex justify-between">
+                    <span>Revenue</span>
+                    <span>{formatCurrency(results.projectPrice)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Your Costs</span>
+                    <span>{formatCurrency(results.totalCost)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Your Profit</span>
+                    <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
+                      {formatCurrency(results.profit)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Profit Margin</span>
+                    <span style={{ color: '#4ade80', fontWeight: 'bold' }}>
+                      {results.profitMargin.toFixed(1)}%
+                    </span>
+                  </div>
+                </div>
+              </details>
+
+              <details
+                className="mb-6 rounded-lg"
+                style={{
+                  background: '#0a0a0a',
+                  border: '1px solid rgba(255,255,255,0.2)',
+                }}
+              >
+                <summary
+                  className="p-4 cursor-pointer font-semibold"
+                  style={{ color: 'white' }}
+                >
+                  Calculation Details
+                </summary>
+                <div className="p-4 pt-0 space-y-2 text-sm" style={{ color: 'rgba(255,255,255,0.7)' }}>
+                  <div>
+                    <strong>Step 1:</strong> Billing Rate = ${hourlyCost} ÷ (1 - {margin}%) = {formatCurrency(results.billingRate)}/hr
+                  </div>
+                  <div>
+                    <strong>Step 2:</strong> TreeShop Score = {dbh}" × {acreage} acres = {results.score.toFixed(2)} points
+                  </div>
+                  <div>
+                    <strong>Step 3:</strong> Production = {results.score.toFixed(2)} ÷ {productionRate} PpH = {results.productionTime.toFixed(2)} hrs
+                  </div>
+                  <div>
+                    <strong>Step 4:</strong> Transport = {results.driveTimeHours.toFixed(2)}h × 2 × 0.50 = {results.transportBillable.toFixed(2)} hrs
+                  </div>
+                  <div>
+                    <strong>Step 5:</strong> Buffer = ({results.productionTime.toFixed(2)} + {results.transportBillable.toFixed(2)}) × 0.10 = {results.buffer.toFixed(2)} hrs
+                  </div>
+                  <div>
+                    <strong>Step 6:</strong> Total = {results.productionTime.toFixed(2)} + {results.transportBillable.toFixed(2)} + {results.buffer.toFixed(2)} = {results.totalHours.toFixed(2)} hrs
+                  </div>
+                  <div>
+                    <strong>Step 7:</strong> Price = {results.totalHours.toFixed(2)} × {formatCurrency(results.billingRate)} = {formatCurrency(results.projectPrice)}
+                  </div>
+                </div>
+              </details>
+
+              {/* Save Quote Button */}
+              {isSignedIn && (
+                <button
+                  onClick={saveQuote}
+                  disabled={saving}
+                  className="w-full py-4 rounded-lg font-bold text-lg transition-all"
+                  style={{
+                    background: saving ? 'rgba(33, 150, 243, 0.5)' : '#2196F3',
+                    color: 'white',
+                    border: 'none',
+                    cursor: saving ? 'not-allowed' : 'pointer',
+                  }}
+                >
+                  {saving ? 'SAVING...' : 'SAVE QUOTE'}
+                </button>
+              )}
+
+              {!isSignedIn && (
+                <div
+                  className="p-4 rounded-lg text-center"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255,255,255,0.2)',
+                    color: 'rgba(255,255,255,0.7)',
+                  }}
+                >
+                  Sign in to save quotes to your account
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Sign-In Modal */}
+      <SignedOut>
+        <div
+          className="fixed inset-0 z-[100] flex items-center justify-center"
+          style={{
+            background: 'rgba(0, 0, 0, 0.95)',
+            backdropFilter: 'blur(20px)',
+          }}
+        >
+          <div className="relative w-full max-w-md px-6">
+            <div className="text-center mb-12">
+              <div className="mb-4 flex justify-center">
+                <div className="relative" style={{ width: '240px', height: '80px' }}>
+                  <Image
+                    src="/treeshop-logo.png"
+                    alt="TreeShop"
+                    fill
+                    style={{ objectFit: 'contain' }}
+                    priority
+                  />
+                </div>
+              </div>
               <p className="text-lg text-gray-400 mb-2">
                 Professional pricing for tree service operations
               </p>
-              <p className="text-sm text-gray-500">
-                Sign in to continue
-              </p>
+              <p className="text-sm text-gray-500">Sign in to continue</p>
             </div>
 
-            {/* Sign In Component */}
             <div className="relative">
               <SignIn
                 appearance={{
@@ -322,86 +921,35 @@ export default function HomePage() {
                     card: {
                       background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%)',
                       backdropFilter: 'blur(40px)',
-                      border: '2px solid rgba(34, 197, 94, 0.2)',
-                      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5), 0 0 80px rgba(34, 197, 94, 0.15)',
+                      border: '2px solid rgba(33, 150, 243, 0.3)',
+                      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
                       borderRadius: '24px',
-                      padding: '48px 40px'
+                      padding: '48px 40px',
                     },
-                    headerTitle: {
-                      display: 'none'
-                    },
-                    headerSubtitle: {
-                      display: 'none'
-                    },
-                    socialButtonsBlockButton: {
-                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)',
-                      border: '2px solid rgba(255, 255, 255, 0.1)',
-                      color: '#ffffff',
-                      fontSize: '15px',
-                      fontWeight: '600',
-                      padding: '14px',
-                      borderRadius: '12px'
-                    },
-                    formFieldLabel: {
-                      color: '#e5e7eb',
-                      fontSize: '14px',
-                      fontWeight: '600',
-                      marginBottom: '8px'
-                    },
-                    formFieldInput: {
-                      background: 'rgba(0, 0, 0, 0.4)',
-                      border: '2px solid rgba(255, 255, 255, 0.1)',
-                      color: '#ffffff',
-                      fontSize: '15px',
-                      padding: '14px 16px',
-                      borderRadius: '12px'
-                    },
+                    headerTitle: { display: 'none' },
+                    headerSubtitle: { display: 'none' },
                     formButtonPrimary: {
-                      background: 'linear-gradient(135deg, #22C55E 0%, #16A34A 100%)',
+                      background: '#2196F3',
                       color: '#ffffff',
                       fontSize: '16px',
                       fontWeight: '700',
                       padding: '16px',
                       borderRadius: '12px',
                       border: 'none',
-                      boxShadow: '0 8px 24px rgba(34, 197, 94, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.2)'
                     },
-                    footerActionLink: {
-                      display: 'none'
-                    },
-                    footer: {
-                      display: 'none'
-                    }
                   },
                   variables: {
-                    colorPrimary: '#22C55E',
+                    colorPrimary: '#2196F3',
                     colorBackground: 'transparent',
-                    colorInputBackground: 'rgba(0, 0, 0, 0.4)',
-                    colorInputText: '#ffffff',
-                    colorText: '#ffffff',
-                    colorTextSecondary: '#9ca3af',
-                    borderRadius: '12px'
+                    borderRadius: '12px',
                   },
                 }}
                 redirectUrl="/"
               />
-
-              <div className="text-center mt-8">
-                <p className="text-sm text-gray-500 mb-3">
-                  Protected by enterprise-grade security
-                </p>
-                <p className="text-xs text-gray-600">
-                  Need access? Apply at{' '}
-                  <a href="https://treeshop.app/tech" target="_blank" rel="noopener noreferrer"
-                     className="text-green-500 hover:text-green-400 font-semibold">
-                    treeshop.app/tech
-                  </a>
-                </p>
-              </div>
             </div>
           </div>
         </div>
       </SignedOut>
-    </div>
+    </>
   );
 }

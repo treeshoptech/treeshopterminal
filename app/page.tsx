@@ -570,7 +570,7 @@ export default function HomePage() {
                           onChange={(e) =>
                             setDriveMinutes(e.target.value === '' ? '' : Number(e.target.value))
                           }
-                          placeholder="Minutes"
+                          placeholder="Min"
                           min="0"
                           max="59"
                           style={{

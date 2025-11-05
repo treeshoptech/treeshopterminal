@@ -1,12 +1,20 @@
 'use client';
 
 import { Menu } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 
 interface NavButtonProps {
   onClick: () => void;
 }
 
 export function NavButton({ onClick }: NavButtonProps) {
+  const pathname = usePathname();
+
+  // Double-check: Don't render on homepage
+  if (pathname === '/') {
+    return null;
+  }
+
   return (
     <button
       onClick={onClick}

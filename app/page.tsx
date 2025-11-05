@@ -6,7 +6,6 @@ import { api } from '@/convex/_generated/api';
 import { useOrganization } from '@/lib/hooks/useOrganization';
 import { SignInForm } from '@/components/auth/SignInForm';
 import Image from 'next/image';
-import { Menu } from 'lucide-react';
 import '@/styles/design-system.css';
 
 export const dynamic = 'force-dynamic';

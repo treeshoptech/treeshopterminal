@@ -187,42 +187,65 @@ export default function HomePage() {
 
   return (
     <>
-      <div className="min-h-screen" style={{ background: '#000000', paddingBottom: '100px' }}>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8">
-          {/* Header with Logo */}
-          <div className="flex items-center justify-between mb-8">
-            <div className="relative" style={{ width: '180px', height: '60px' }}>
-              <Image
-                src="/treeshop-logo.png"
-                alt="TreeShop"
-                fill
-                style={{ objectFit: 'contain' }}
-                priority
-              />
-            </div>
-            <button
-              onClick={toggleSettings}
-              className="px-4 py-2 rounded-lg font-semibold text-sm transition-all"
-              style={{
-                background: '#2196F3',
-                color: 'white',
-                border: 'none',
-              }}
-            >
-              SETTINGS
-            </button>
-          </div>
+      <div className="min-h-screen" style={{ background: '#000000' }}>
+        {/* App Header Bar */}
+        <header
+          className="sticky top-0 z-40"
+          style={{
+            background: 'rgba(10, 10, 10, 0.95)',
+            backdropFilter: 'blur(20px)',
+            borderBottom: '1px solid rgba(33, 150, 243, 0.2)',
+          }}
+        >
+          <div className="max-w-7xl mx-auto px-6 sm:px-8 py-4">
+            <div className="flex items-center justify-between">
+              {/* Logo */}
+              <div className="relative" style={{ width: '160px', height: '50px' }}>
+                <Image
+                  src="/treeshop-logo.png"
+                  alt="TreeShop"
+                  fill
+                  style={{ objectFit: 'contain', objectPosition: 'left' }}
+                  priority
+                />
+              </div>
 
+              {/* Desktop Navigation */}
+              <nav className="hidden md:flex items-center gap-6">
+                <div style={{ fontSize: '14px', color: 'rgba(255,255,255,0.6)', fontWeight: '600' }}>
+                  Forestry Mulching Calculator
+                </div>
+              </nav>
+
+              {/* Settings Button */}
+              <button
+                onClick={toggleSettings}
+                className="px-5 py-2.5 rounded-lg font-bold text-sm transition-all active:scale-95"
+                style={{
+                  background: '#2196F3',
+                  color: 'white',
+                  border: 'none',
+                  boxShadow: '0 2px 8px rgba(33, 150, 243, 0.3)',
+                }}
+              >
+                SETTINGS
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 py-8 pb-32">
           {/* Settings Sidebar */}
           <aside
-            className="fixed top-0 right-0 h-full transition-transform duration-300 z-50"
+            className="fixed top-0 right-0 h-full transition-transform duration-300 z-[100]"
             style={{
               width: settingsOpen ? '100%' : '0',
-              maxWidth: '400px',
-              background: '#0a0a0a',
+              maxWidth: '420px',
+              background: 'rgba(10, 10, 10, 0.98)',
               transform: settingsOpen ? 'translateX(0)' : 'translateX(100%)',
               overflowY: 'auto',
               borderLeft: '2px solid #2196F3',
+              boxShadow: settingsOpen ? '-8px 0 32px rgba(0, 0, 0, 0.8)' : 'none',
             }}
           >
             {settingsOpen && (
@@ -477,10 +500,11 @@ export default function HomePage() {
 
               {/* Project Details Section */}
               <div
-                className="p-6 rounded-lg mb-6"
+                className="p-6 sm:p-8 rounded-xl mb-6"
                 style={{
-                  background: '#0a0a0a',
+                  background: 'rgba(10, 10, 10, 0.6)',
                   border: '2px solid #2196F3',
+                  boxShadow: '0 4px 24px rgba(33, 150, 243, 0.15)',
                 }}
               >
                 <h3
@@ -654,12 +678,13 @@ export default function HomePage() {
               {/* Calculate Button */}
               <button
                 onClick={calculatePrice}
-                className="w-full py-4 rounded-lg font-bold text-lg transition-all"
+                className="w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-98"
                 style={{
-                  background: '#2196F3',
+                  background: 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)',
                   color: 'white',
                   border: 'none',
                   cursor: 'pointer',
+                  boxShadow: '0 4px 16px rgba(33, 150, 243, 0.4)',
                 }}
               >
                 CALCULATE PRICE
@@ -693,10 +718,11 @@ export default function HomePage() {
 
               {/* Main Quote Box */}
               <div
-                className="p-8 rounded-lg mb-6 text-center"
+                className="p-8 sm:p-10 rounded-xl mb-6 text-center"
                 style={{
-                  background: '#0a0a0a',
+                  background: 'rgba(10, 10, 10, 0.8)',
                   border: '3px solid #2196F3',
+                  boxShadow: '0 8px 32px rgba(33, 150, 243, 0.3)',
                 }}
               >
                 <div style={{ fontSize: '48px', fontWeight: 'bold', color: '#2196F3', marginBottom: '24px' }}>
@@ -856,12 +882,13 @@ export default function HomePage() {
                 <button
                   onClick={saveQuote}
                   disabled={saving}
-                  className="w-full py-4 rounded-lg font-bold text-lg transition-all"
+                  className="w-full py-4 rounded-xl font-bold text-lg transition-all active:scale-98"
                   style={{
-                    background: saving ? 'rgba(33, 150, 243, 0.5)' : '#2196F3',
+                    background: saving ? 'rgba(33, 150, 243, 0.5)' : 'linear-gradient(135deg, #2196F3 0%, #1976D2 100%)',
                     color: 'white',
                     border: 'none',
                     cursor: saving ? 'not-allowed' : 'pointer',
+                    boxShadow: saving ? 'none' : '0 4px 16px rgba(33, 150, 243, 0.4)',
                   }}
                 >
                   {saving ? 'SAVING...' : 'SAVE QUOTE'}

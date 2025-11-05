@@ -11,22 +11,23 @@ export const metadata: Metadata = {
   title: 'TreeShop Pricing Calculator',
   description: 'Professional pricing for forestry mulching, stump grinding, and land clearing services',
   manifest: '/manifest.json',
-  themeColor: '#2196F3',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
     title: 'TreeShop',
   },
-  viewport: {
-    width: 'device-width',
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
   icons: {
     icon: '/favicon.ico',
     apple: '/icon-192.png',
   },
+};
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: '#2196F3',
 };
 
 export default function RootLayout({

@@ -1,5 +1,6 @@
 import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
+import { authTables } from "@convex-dev/auth/server";
 
 /**
  * TreeShopTerminal Convex Schema
@@ -8,6 +9,7 @@ import { v } from "convex/values";
  */
 
 export default defineSchema({
+  ...authTables,
   // ============================================
   // MULTI-TENANT CORE
   // ============================================

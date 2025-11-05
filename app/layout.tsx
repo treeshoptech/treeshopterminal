@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ClerkProvider } from '@clerk/nextjs';
-import { ConvexClientProvider } from '@/components/providers/ConvexClientProvider';
+import { ConvexAuthProvider } from '@/components/providers/ConvexAuthProvider';
 import { AppShell } from '@/components/layout/AppShell';
 import '../styles/design-system.css';
 import '../styles/globals.css';
@@ -36,16 +35,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <ConvexClientProvider>
-            <AppShell>
-              {children}
-            </AppShell>
-          </ConvexClientProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={inter.className}>
+        <ConvexAuthProvider>
+          <AppShell>
+            {children}
+          </AppShell>
+        </ConvexAuthProvider>
+      </body>
+    </html>
   );
 }

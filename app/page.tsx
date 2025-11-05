@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
 import { useOrganization } from '@/lib/hooks/useOrganization';
-import { SignedOut, SignIn, useUser } from '@clerk/nextjs';
+import { SignInForm } from '@/components/auth/SignInForm';
 import Image from 'next/image';
 import { Menu } from 'lucide-react';
 import '@/styles/design-system.css';
@@ -12,8 +12,7 @@ import '@/styles/design-system.css';
 export const dynamic = 'force-dynamic';
 
 export default function HomePage() {
-  const { organizationId } = useOrganization();
-  const { isSignedIn } = useUser();
+  const { organizationId, isSignedIn } = useOrganization();
   const createQuote = useMutation(api.quotes.create);
 
   // Company Settings
@@ -816,70 +815,7 @@ export default function HomePage() {
       </div>
 
       {/* Sign-In Modal */}
-      <SignedOut>
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center"
-          style={{
-            background: 'rgba(0, 0, 0, 0.95)',
-            backdropFilter: 'blur(20px)',
-          }}
-        >
-          <div className="relative w-full max-w-md px-6">
-            <div className="text-center mb-12">
-              <div className="mb-4 flex justify-center">
-                <div className="relative" style={{ width: '240px', height: '80px' }}>
-                  <Image
-                    src="/treeshop-logo.png"
-                    alt="TreeShop"
-                    fill
-                    style={{ objectFit: 'contain' }}
-                    priority
-                  />
-                </div>
-              </div>
-              <p className="text-lg text-gray-400 mb-2">
-                Professional pricing for tree service operations
-              </p>
-              <p className="text-sm text-gray-500">Sign in to continue</p>
-            </div>
-
-            <div className="relative">
-              <SignIn
-                appearance={{
-                  elements: {
-                    rootBox: 'mx-auto',
-                    card: {
-                      background: 'linear-gradient(135deg, rgba(15, 15, 15, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%)',
-                      backdropFilter: 'blur(40px)',
-                      border: '2px solid rgba(33, 150, 243, 0.3)',
-                      boxShadow: '0 20px 60px rgba(0, 0, 0, 0.5)',
-                      borderRadius: '24px',
-                      padding: '48px 40px',
-                    },
-                    headerTitle: { display: 'none' },
-                    headerSubtitle: { display: 'none' },
-                    formButtonPrimary: {
-                      background: '#2196F3',
-                      color: '#ffffff',
-                      fontSize: '16px',
-                      fontWeight: '700',
-                      padding: '16px',
-                      borderRadius: '12px',
-                      border: 'none',
-                    },
-                  },
-                  variables: {
-                    colorPrimary: '#2196F3',
-                    colorBackground: 'transparent',
-                    borderRadius: '12px',
-                  },
-                }}
-                redirectUrl="/"
-              />
-            </div>
-          </div>
-        </div>
-      </SignedOut>
+      {!isSignedIn && <SignInForm />}
     </>
   );
 }
